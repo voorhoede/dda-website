@@ -50,17 +50,19 @@ const getPathParams = ({
   return params;
 };
 
-const redirectRules = redirectConfiguration.map((rule) => {
-  const { keys, pattern } = parse(rule.from);
-  const statusCode = redirectStatusCode(Number(rule.statusCode));
-  return {
-    from: rule.from,
-    to: rule.to,
-    statusCode,
-    keys,
-    pattern,
-  };
-});
+const redirectRules = redirectConfiguration.map(
+  (rule: { from: string; to: string; statusCode: number }) => {
+    const { keys, pattern } = parse(rule.from);
+    const statusCode = redirectStatusCode(Number(rule.statusCode));
+    return {
+      from: rule.from,
+      to: rule.to,
+      statusCode,
+      keys,
+      pattern,
+    };
+  },
+);
 
 /**
  * Returns matching redirect rule for a given pathname.
