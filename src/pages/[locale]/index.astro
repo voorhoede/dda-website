@@ -6,6 +6,7 @@ import { locales } from '@lib/i18n';
 import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
 import type { AnyBlock } from '@blocks/Blocks';
+import { Grid, Column } from '@components/Grid';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
 
@@ -29,4 +30,23 @@ const pageUrls = locales.map((locale) => ({
   <PreviewModeSubscription query={query} variables={variables} />
   <h1>{page.title}</h1>
   <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
+
+  <Grid border={true}>
+    <Column span={{ mobile: 12, tablet: 6 }}>
+      <h2>Hello 1</h2>
+    </Column>
+    <Column span={{ mobile: 12, tablet: 6 }}>
+      <Grid border={true}>
+        <Column span={12}>
+          <h2>Hello 2</h2>
+        </Column>
+        <Column span={12}>
+          <h2>Hello 2</h2>
+        </Column>
+        <Column span={12}>
+          <h2>Hello 2</h2>
+        </Column>
+      </Grid>
+    </Column>
+  </Grid>
 </Layout>
