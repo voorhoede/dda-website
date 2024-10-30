@@ -1,0 +1,7 @@
+---
+import { DataList as DataListComponent, loader } from './DataList.tsx';
+
+const data = await loader();
+---
+
+<DataListComponent client:load initialData={data} />
