@@ -1,2 +1,2 @@
-export { default as Grid } from './Grid.astro';
-export { default as Column } from './Column.astro';
+export { Grid } from './Grid';
+export { Column } from './Column';
