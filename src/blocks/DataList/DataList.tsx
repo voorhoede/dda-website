@@ -10,13 +10,13 @@ export const DataList = withQueryClientProvider<DataListProps>(
   ({ initialData, initialOffset }) => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
       useInfiniteQuery({
-        queryKey: ['pokemon'],
+        queryKey: ['pokemon', initialOffset],
         queryFn: ({ pageParam = initialOffset }) => {
           const windowUrl = new URL(window.location.href);
           windowUrl.searchParams.set('offset', String(pageParam));
           window.history.pushState({}, '', windowUrl);
 
-          return loader(pageParam)
+          return loader(pageParam);
         },
         initialData: {
           pages: [initialData],
