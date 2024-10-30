@@ -35,7 +35,7 @@
       }
     ],
     "jsx": "react-jsx",
-    "jsxImportSource": "preact"
+    "jsxImportSource": "react"
   },
   "include": [
     ".astro/types.d.ts",

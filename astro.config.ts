@@ -57,6 +57,9 @@ export default defineConfig({
   site: siteUrl,
   trailingSlash: 'always',
   vite: {
-    plugins: [graphql() as PluginOption]
+    plugins: [graphql() as PluginOption],
+    ssr: {
+      noExternal: ['@tanstack/react-query'],
+    },
   },
 });

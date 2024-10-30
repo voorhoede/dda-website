@@ -5,7 +5,7 @@ const referer = Astro.request.headers.get('Referer');
 const url = new URL(referer);
 const offset = url.searchParams.get('offset');
 
-const data =  await loader(offset);
+const data = await loader(offset);
 ---
 
-<DataListComponent client:only initialData={data} initialOffset={offset} />
+<DataListComponent client:load initialData={data} initialOffset={offset} />
