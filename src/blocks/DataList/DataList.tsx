@@ -3,19 +3,26 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 type DataListProps = {
   initialData: Awaited<ReturnType<typeof loader>>;
+  initialOffset: number;
 };
 
 export const DataList = withQueryClientProvider<DataListProps>(
-  ({ initialData }) => {
+  ({ initialData, initialOffset }) => {
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
       useInfiniteQuery({
         queryKey: ['pokemon'],
-        queryFn: ({ pageParam = 0 }) => loader(pageParam),
+        queryFn: ({ pageParam = initialOffset }) => {
+          const windowUrl = new URL(window.location.href);
+          windowUrl.searchParams.set('offset', String(pageParam));
+          window.history.pushState({}, '', windowUrl);
+
+          return loader(pageParam)
+        },
         initialData: {
           pages: [initialData],
-          pageParams: [0],
+          pageParams: [initialOffset],
         },
-        initialPageParam: 0,
+        initialPageParam: initialOffset,
         getNextPageParam: (lastPage) => {
           if (!lastPage?.next) return undefined;
 
