@@ -35,7 +35,7 @@
       }
     ],
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "preact"
   },
   "include": [
     ".astro/types.d.ts",
@@ -44,5 +44,9 @@
   "exclude": [
     "dist",
     "node_modules"
-  ]
+  ],
+  "overrides": {
+    "react": "npm:@preact/compat@latest",
+    "react-dom": "npm:@preact/compat@latest"
+  }
 }

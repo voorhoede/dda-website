@@ -8,4 +8,4 @@ const offset = url.searchParams.get('offset');
 const data =  await loader(offset);
 ---
 
-<DataListComponent client:load initialData={data} initialOffset={offset} />
+<DataListComponent client:only initialData={data} initialOffset={offset} />
