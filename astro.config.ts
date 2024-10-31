@@ -1,8 +1,8 @@
 import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
+import { visualizer } from 'rollup-plugin-visualizer';
 import sitemap from '@astrojs/sitemap';
-import type { PluginOption } from 'vite';
 import { isPreview } from './config/preview';
 import pkg from './package.json';
 import preact from '@astrojs/preact';
@@ -57,7 +57,15 @@ export default defineConfig({
   site: siteUrl,
   trailingSlash: 'always',
   vite: {
-    plugins: [graphql() as PluginOption],
+    plugins: [
+      graphql(),
+      visualizer({
+        filename: './dist/stats.html',
+        open: true,
+        gzipSize: true,
+        brotliSize: true
+      })
+    ],
     ssr: {
       noExternal: ['@tanstack/react-query'],
     },
