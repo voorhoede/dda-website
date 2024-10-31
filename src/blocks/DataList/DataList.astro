@@ -3,9 +3,9 @@ import { DataList as DataListComponent, loader } from './DataList.tsx';
 
 const referer = Astro.request.headers.get('Referer');
 const url = new URL(referer);
-const offset = url.searchParams.get('offset');
+const filter = Object.fromEntries(url.searchParams.entries());
 
-const data = await loader(offset);
+const data = await loader(filter, Astro.site!);
 ---
 
-<DataListComponent client:load initialData={data} initialOffset={offset} />
+<DataListComponent client:load initialData={data} initialFilter={filter} />

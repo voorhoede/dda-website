@@ -3,43 +3,35 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 type DataListProps = {
   initialData: Awaited<ReturnType<typeof loader>>;
-  initialOffset: number;
+  initialFilter: any;
 };
 
 export const DataList = withQueryClientProvider<DataListProps>(
-  ({ initialData, initialOffset }) => {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-      useInfiniteQuery({
-        queryKey: ['pokemon', initialOffset],
-        queryFn: ({ pageParam = initialOffset }) => {
-          const windowUrl = new URL(window.location.href);
-          windowUrl.searchParams.set('offset', String(pageParam));
-          window.history.pushState({}, '', windowUrl);
-
-          return loader(pageParam);
-        },
-        initialData: {
-          pages: [initialData],
-          pageParams: [initialOffset],
-        },
-        initialPageParam: initialOffset,
-        getNextPageParam: (lastPage) => {
-          if (!lastPage?.next) return undefined;
-
-          const url = new URL(lastPage.next);
-          const offset = url.searchParams.get('offset');
-
-          return offset ? parseInt(offset) : undefined;
-        },
-      });
+  ({ initialData, initialFilter }) => {
+    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+      queryKey: ['news', initialFilter],
+      queryFn: ({ pageParam }) => {
+        const windowUrl = new URL(window.location.href);
+        windowUrl.searchParams.set('skip', String(pageParam));
+        window.history.pushState({}, '', windowUrl);
+        
+        return loader({ skip: pageParam }, window.location.origin)
+      },
+      initialData: {
+        pages: [initialData],
+        pageParams: [initialFilter],
+      },
+      intialPageParam: initialFilter.skip || 0,
+      getNextPageParam: (lastPage) => lastPage._allNewsMeta.next
+    });
 
     return (
       <>
         <ul>
           {data.pages
-            .flatMap((page) => page.results)
-            .map((pokemon) => (
-              <li key={pokemon.name}>{pokemon.name}</li>
+            .flatMap((page) => page.allNews)
+            .map((item) => (
+              <li key={item.id}>{ item.title }</li>
             ))}
         </ul>
 
@@ -51,14 +43,19 @@ export const DataList = withQueryClientProvider<DataListProps>(
             ? 'Loading more...'
             : hasNextPage
               ? 'Load more'
-              : 'No more pokemon'}
+              : 'No more items'}
         </button>
       </>
     );
   },
 );
 
-export const loader = async (offset: number = 0) => {
-  const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=20`;
-  return await fetch(url).then((res) => res.json());
+export const loader = async (filter: any, origin: string | URL) => {
+  const apiUrl = new URL('/api/news/', origin);
+  Object.entries(filter).forEach(([key, value]) => {
+    apiUrl.searchParams.append(key, value);
+  });
+  
+  return await fetch(apiUrl)
+    .then((response) => response.json());
 };

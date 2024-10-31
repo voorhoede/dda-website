@@ -1,0 +1,23 @@
+query AllNewsQuery(
+    $filter: NewsModelFilter = {},
+    $first: IntType = 1,
+    $locale: SiteLocale = nl,
+    $skip: IntType = 0
+) {
+  _allNewsMeta(
+    filter: $filter,
+    locale: $locale,
+  ) {
+    count
+  }
+  allNews(
+      filter: $filter,
+      first: $first,
+      locale: $locale,
+      skip: $skip
+  ) {
+    id
+    slug
+    title
+  }
+}
