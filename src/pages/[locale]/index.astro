@@ -1,6 +1,6 @@
 ---
 import { datocmsRequest } from '@lib/datocms';
-import type { HomePageQuery, HomePageRecord } from '@lib/types/datocms';
+import type { HomePageQuery, HomePageQueryVariables, HomePageRecord, SiteLocale } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import { locales } from '@lib/i18n';
 import Layout from '@layouts/Default.astro';
@@ -14,9 +14,9 @@ export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
 }
 
-const { locale } = Astro.params;
+const { locale } = Astro.params as { locale: SiteLocale };
 const variables = { locale };
-const { page } = (await datocmsRequest<HomePageQuery>({
+const { page } = (await datocmsRequest<HomePageQuery, HomePageQueryVariables>({
   query,
   variables,
 })) as { page: HomePageRecord };

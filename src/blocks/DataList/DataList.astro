@@ -1,7 +1,7 @@
 ---
 import { DataList as DataListComponent, loader } from './DataList.tsx';
 
-const referer = Astro.request.headers.get('Referer');
+const referer = Astro.request.headers.get('Referer')!;
 const url = new URL(referer);
 const filter = Object.fromEntries(url.searchParams.entries());
 

@@ -1,8 +1,9 @@
 ---
-import type { SiteLocale } from '@lib/i18n.types';
 import type {
   NotFoundPageQuery,
+  NotFoundPageQueryVariables,
   NotFoundPageRecord,
+  SiteLocale,
 } from '@lib/types/datocms.d.ts';
 import { datocmsRequest } from '@lib/datocms';
 import { noIndexTag, titleTag } from '@lib/seo';
@@ -16,7 +17,7 @@ export const prerender = false;
 Astro.response.status = 404;
 
 const { locale } = Astro.params as { locale: SiteLocale };
-const { page } = (await datocmsRequest<NotFoundPageQuery>({
+const { page } = (await datocmsRequest<NotFoundPageQuery, NotFoundPageQueryVariables>({
   query,
   variables: { locale },
 })) as { page: NotFoundPageRecord };

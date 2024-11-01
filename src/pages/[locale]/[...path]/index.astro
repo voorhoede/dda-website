@@ -2,6 +2,7 @@
 import { datocmsCollection, datocmsRequest } from '@lib/datocms';
 import type {
   PageQuery,
+  PageQueryVariables,
   PageRecord,
   ParentPageFragment,
   SiteLocale,
@@ -63,7 +64,7 @@ type Params = {
 
 const { locale, path } = Astro.params as Params;
 const variables = { locale, slug: getPageSlugFromPath(path) };
-const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
+const { page } = (await datocmsRequest<PageQuery, PageQueryVariables>({ query, variables })) as {
   page: PageRecord;
 };
 const breadcrumbs = [...getParentPages(page), page].map((page) =>

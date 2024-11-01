@@ -1,6 +1,7 @@
 ---
 import type {
   DefaultLayoutQuery,
+  DefaultLayoutQueryVariables,
   Site,
   SiteLocale,
   Tag,
@@ -26,8 +27,8 @@ interface Props {
   seoMetaTags: Tag[];
 }
 
-const { locale = defaultLocale } = Astro.params as { locale?: SiteLocale };
-const data = (await datocmsRequest<DefaultLayoutQuery>({
+const { locale = defaultLocale as SiteLocale } = Astro.params as { locale?: SiteLocale };
+const data = (await datocmsRequest<DefaultLayoutQuery, DefaultLayoutQueryVariables>({
   query,
   variables: { locale },
 })) as { site: Site };

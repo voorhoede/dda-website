@@ -1,13 +1,15 @@
 import { withQueryClientProvider } from '@lib/react/react-query';
+import type { AllNewsQueryVariables } from '@lib/types/datocms';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 type DataListProps = {
   initialData: Awaited<ReturnType<typeof loader>>;
-  initialFilter: any;
+  initialFilter: AllNewsQueryVariables;
 };
 
 export const DataList = withQueryClientProvider<DataListProps>(
   ({ initialData, initialFilter }) => {
+    const initialPageParam = initialFilter.skip || 0;
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
       queryKey: ['news', initialFilter],
       queryFn: ({ pageParam }) => {
@@ -19,9 +21,9 @@ export const DataList = withQueryClientProvider<DataListProps>(
       },
       initialData: {
         pages: [initialData],
-        pageParams: [initialFilter],
+        pageParams: [initialPageParam],
       },
-      intialPageParam: initialFilter.skip || 0,
+      initialPageParam,
       getNextPageParam: (lastPage) => lastPage._allNewsMeta.next
     });
 
@@ -50,10 +52,10 @@ export const DataList = withQueryClientProvider<DataListProps>(
   },
 );
 
-export const loader = async (filter: any, origin: string | URL) => {
+export const loader = async (filter: AllNewsQueryVariables, origin: string | URL) => {
   const apiUrl = new URL('/api/news/', origin);
   Object.entries(filter).forEach(([key, value]) => {
-    apiUrl.searchParams.append(key, value);
+    apiUrl.searchParams.append(key, `${value}`);
   });
   
   return await fetch(apiUrl)
