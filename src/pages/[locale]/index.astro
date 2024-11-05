@@ -30,10 +30,9 @@ const pageUrls = locales.map((locale) => ({
 
 <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
   <PreviewModeSubscription query={query} variables={variables} />
-  <h1>{page.title}</h1>
+  <Heading level={1}>{page.title}</Heading>
   <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
 
-  <Heading level={1}>Heading 1</Heading>
   <Heading level={2}>Heading 2</Heading>
   <Heading level={3}>Heading 3</Heading>
   <Heading level={4}>Heading 4</Heading>
