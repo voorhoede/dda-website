@@ -10,21 +10,21 @@ interface HeadingProps {
   [key: string]: any;
 }
 
-const Heading = ({
+export const Heading = ({
   children,
   className,
   displayLevel,
   level,
   ...rest
 }: HeadingProps) => {
-  const Tag: ElementType = `h${level}`;
-  const classes = clsx(className, `heading heading--${displayLevel || level}`);
+  const Element: ElementType = `h${level}`;
 
   return (
-    <Tag className={classes} {...rest}>
+    <Element
+      className={clsx(className, `heading heading--${displayLevel || level}`)}
+      {...rest}
+    >
       {children}
-    </Tag>
+    </Element>
   );
 };
-
-export default Heading;
