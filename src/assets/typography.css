@@ -1,10 +1,10 @@
 @font-face {
-  src: url('/fonts/Archivo-Regular.ttf') format('ttf');
+  src: url('/fonts/Archivo-Regular.ttf') format('truetype');
   font-family: 'Archivo';
 }
 
 @font-face {
-  src: url('/fonts/Archivo-SemiBold.ttf') format('ttf');
+  src: url('/fonts/Archivo-SemiBold.ttf') format('truetype');
   font-family: 'Archivo';
   font-weight: 600;
 }
