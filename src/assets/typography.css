@@ -1,0 +1,15 @@
+@font-face {
+  src: url('/fonts/Archivo-Regular.ttf') format('ttf');
+  font-family: 'Archivo';
+}
+
+@font-face {
+  src: url('/fonts/Archivo-SemiBold.ttf') format('ttf');
+  font-family: 'Archivo';
+  font-weight: 600;
+}
+
+@font-face {
+  src: url('/fonts/MartianMono-Regular.ttf') format('ttf');
+  font-family: 'MartianMono';
+}
