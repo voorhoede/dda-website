@@ -10,6 +10,6 @@
 }
 
 @font-face {
-  src: url('/fonts/MartianMono-Regular.ttf') format('ttf');
+  src: url('/fonts/MartianMono-Regular.ttf') format('truetype');
   font-family: 'MartianMono';
 }
