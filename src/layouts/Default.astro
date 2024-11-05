@@ -54,8 +54,8 @@ const mainContentId = 'content';
   </head>
   <body>
     <PreviewModeProvider>
-      <SkipLink targetId={mainContentId} />
       <div class="main-container">
+        <SkipLink targetId={mainContentId} />
         <Header locale={locale} />
         <LocaleSelector pageUrls={pageUrls} />
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
