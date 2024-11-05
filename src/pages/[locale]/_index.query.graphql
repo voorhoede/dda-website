@@ -4,6 +4,17 @@
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 
+fragment MemberLogo on MemberRecord {
+  logo {
+    id
+    url(imgixParams: { w: 200 })
+    alt
+  }
+  brandColor {
+    hex
+  }
+}
+
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
     title
@@ -30,5 +41,13 @@ query HomePage($locale: SiteLocale!) {
         ...VideoEmbedBlock
       }
     }
+  }
+  # TODO: make this more random
+  membersLeft: allMembers(first: 8) {
+    ...MemberLogo
+  }
+  # TODO: make this more random
+  membersRight: allMembers(first: 8) {
+    ...MemberLogo
   }
 }

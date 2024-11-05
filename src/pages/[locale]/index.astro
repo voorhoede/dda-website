@@ -1,6 +1,10 @@
 ---
 import { datocmsRequest } from '@lib/datocms';
-import type { HomePageQuery, HomePageRecord } from '@lib/types/datocms';
+import type {
+  HomePageQuery,
+  HomePageRecord,
+  MemberRecord,
+} from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import { locales } from '@lib/i18n';
 import Layout from '@layouts/Default.astro';
@@ -9,6 +13,7 @@ import type { AnyBlock } from '@blocks/Blocks';
 import { Grid, Column } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { Text } from '@components/Text';
+import { ImageParade, ImageParadeItem } from '@components/ImageParade';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
 
@@ -17,11 +22,20 @@ export async function getStaticPaths() {
 }
 
 const { locale } = Astro.params;
-const variables = { locale };
-const { page } = (await datocmsRequest<HomePageQuery>({
-  query,
-  variables,
-})) as { page: HomePageRecord };
+
+const variables = {
+  locale,
+};
+
+const { page, membersLeft, membersRight } =
+  (await datocmsRequest<HomePageQuery>({
+    query,
+    variables,
+  })) as {
+    page: HomePageRecord;
+    membersLeft: MemberRecord[];
+    membersRight: MemberRecord[];
+  };
 const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
@@ -44,6 +58,41 @@ const pageUrls = locales.map((locale) => ({
   <Text variant="subtext">This is a subtext.</Text>
   <Text as="span">This is a span.</Text>
   <Text as="span" variant="subtext">This is a subtext span.</Text>
+
+  <Grid border={true}>
+    <Column span={12}>
+      <ImageParade direction="left">
+        {
+          membersLeft.map((member) => (
+            <>
+              <ImageParadeItem
+                key={member.logo?.id}
+                backgroundColor={member.brandColor?.hex}
+              >
+                <img src={member.logo?.url} alt={member.logo?.alt} />
+              </ImageParadeItem>
+            </>
+          ))
+        }
+      </ImageParade>
+    </Column>
+    <Column span={12}>
+      <ImageParade direction="right">
+        {
+          membersRight.map((member) => (
+            <>
+              <ImageParadeItem
+                key={member.logo?.id}
+                backgroundColor={member.brandColor?.hex}
+              >
+                <img src={member.logo?.url} alt={member.logo?.alt} />
+              </ImageParadeItem>
+            </>
+          ))
+        }
+      </ImageParade>
+    </Column>
+  </Grid>
 
   <Grid border={true}>
     <Column span={{ mobile: 12, tablet: 6 }}>
