@@ -1,14 +1,11 @@
 ---
 import { datocmsRequest } from '@lib/datocms';
-import type {
-  HomePageQuery,
-  HomePageRecord,
-  MemberRecord,
-} from '@lib/types/datocms';
+import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import { locales } from '@lib/i18n';
 import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
+import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import type { AnyBlock } from '@blocks/Blocks';
 import { Grid, Column } from '@components/Grid';
 import { Heading } from '@components/Heading';
@@ -27,89 +24,104 @@ const variables = {
   locale,
 };
 
-const { page, membersLeft, membersRight } =
-  (await datocmsRequest<HomePageQuery>({
-    query,
-    variables,
-  })) as {
-    page: HomePageRecord;
-    membersLeft: MemberRecord[];
-    membersRight: MemberRecord[];
-  };
+const { page, members } = await datocmsRequest<NonNullable<HomePageQuery>>({
+  query,
+  variables,
+});
+
 const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
 })) as PageUrl[];
 ---
 
-<Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
-  <PreviewModeSubscription query={query} variables={variables} />
-  <Heading level={1}>{page.title}</Heading>
-  <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
+{
+  page ? (
+    <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
+      <PreviewModeSubscription query={query} variables={variables} />
+      <Heading level={1}>{page.title}</Heading>
+      <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
 
-  <Heading level={2}>Heading 2</Heading>
-  <Heading level={3}>Heading 3</Heading>
-  <Heading level={4}>Heading 4</Heading>
-  <Heading level={5}>Heading 5</Heading>
-  <Heading level={6}>Heading 6</Heading>
-  <Heading level={3} displayLevel={2}>Heading 3 with display level 2</Heading>
+      <Heading level={2}>Heading 2</Heading>
+      <Heading level={3}>Heading 3</Heading>
+      <Heading level={4}>Heading 4</Heading>
+      <Heading level={5}>Heading 5</Heading>
+      <Heading level={6}>Heading 6</Heading>
+      <Heading level={3} displayLevel={2}>
+        Heading 3 with display level 2
+      </Heading>
 
-  <Text>This is a paragraph.</Text>
-  <Text variant="subtext">This is a subtext.</Text>
-  <Text as="span">This is a span.</Text>
-  <Text as="span" variant="subtext">This is a subtext span.</Text>
+      <Text>This is a paragraph.</Text>
+      <Text variant="subtext">This is a subtext.</Text>
+      <Text as="span">This is a span.</Text>
+      <Text as="span" variant="subtext">
+        This is a subtext span.
+      </Text>
 
-  <Grid border={true}>
-    <Column span={12}>
-      <ImageParade direction="left">
-        {
-          membersLeft.map((member) => (
-            <>
-              <ImageParadeItem
-                key={member.logo?.id}
-                backgroundColor={member.brandColor?.hex}
-              >
-                <img src={member.logo?.url} alt={member.logo?.alt} />
-              </ImageParadeItem>
-            </>
-          ))
-        }
-      </ImageParade>
-    </Column>
-    <Column span={12}>
-      <ImageParade direction="right">
-        {
-          membersRight.map((member) => (
-            <>
-              <ImageParadeItem
-                key={member.logo?.id}
-                backgroundColor={member.brandColor?.hex}
-              >
-                <img src={member.logo?.url} alt={member.logo?.alt} />
-              </ImageParadeItem>
-            </>
-          ))
-        }
-      </ImageParade>
-    </Column>
-  </Grid>
-
-  <Grid border={true}>
-    <Column span={{ mobile: 12, tablet: 6 }}>
-      <h2>Hello 1</h2>
-    </Column>
-    <Column span={{ mobile: 12, tablet: 6 }}>
       <Grid border={true}>
         <Column span={12}>
-          <h2>Hello 2</h2>
+          <ImageParade direction="left">
+            {membersLeft.map((member) => (
+              <>
+                <ImageParadeItem
+                  key={member.logo?.id}
+                  backgroundColor={member.brandColor?.hex}
+                >
+                  <img src={member.logo?.url} alt={member.logo?.alt} />
+                </ImageParadeItem>
+              </>
+            ))}
+          </ImageParade>
         </Column>
         <Column span={12}>
-          <h2>Hello 2</h2>
-        </Column>
-        <Column span={12}>
-          <h2>Hello 2</h2>
+          <ImageParade direction="right">
+            {membersRight.map((member) => (
+              <>
+                <ImageParadeItem
+                  key={member.logo?.id}
+                  backgroundColor={member.brandColor?.hex}
+                >
+                  <img src={member.logo?.url} alt={member.logo?.alt} />
+                </ImageParadeItem>
+              </>
+            ))}
+          </ImageParade>
         </Column>
       </Grid>
-    </Column>
-  </Grid>
-</Layout>
+
+      <Grid border={true}>
+        <Column span={{ mobile: 12, tablet: 6 }}>
+          <h2>Hello 1</h2>
+        </Column>
+        <Column span={{ mobile: 12, tablet: 6 }}>
+          <Grid border={true}>
+            <Column span={12}>
+              <MemberParade members={members} />
+            </Column>
+          </Grid>
+
+          <Grid border={true}>
+            <Column span={{ mobile: 12, tablet: 6 }}>
+              <h2>Hello 1</h2>
+            </Column>
+            <Column span={{ mobile: 12, tablet: 6 }}>
+              <Grid border={true}>
+                <Column span={12}>
+                  <h2>Hello 2</h2>
+                </Column>
+                <Column span={12}>
+                  <h2>Hello 2</h2>
+                </Column>
+                <Column span={12}>
+                  <h2>Hello 2</h2>
+                </Column>
+              </Grid>
+            </Column>
+          </Grid>
+        </Column>
+      </Grid>
+    </Layout>
+  ) : (
+    <p>Page not found</p>
+  )
+}

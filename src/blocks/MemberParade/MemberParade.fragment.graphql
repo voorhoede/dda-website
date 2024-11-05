@@ -1,0 +1,10 @@
+fragment MemberLogo on MemberRecord {
+  logo {
+    id
+    url(imgixParams: { w: 200 })
+    alt
+  }
+  brandColor {
+    hex
+  }
+}
