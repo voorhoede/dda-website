@@ -1,6 +1,3 @@
-.column {
-}
-
 .column--span-mobile-1 {
   grid-column-end: span 1;
 }
