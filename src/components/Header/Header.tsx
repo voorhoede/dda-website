@@ -3,12 +3,13 @@ import { siteName } from '@lib/seo';
 import type { SiteLocale } from '@lib/types/datocms';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
+import clsx from 'clsx';
 
 interface HeaderProps {
   locale: SiteLocale;
 }
 
-const Header = ({ locale }: HeaderProps) => {
+export const Header = ({ locale }: HeaderProps) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
@@ -32,7 +33,7 @@ const Header = ({ locale }: HeaderProps) => {
   return (
     <header
       ref={headerRef}
-      className={`header ${isSticky ? 'header--is-sticky' : ''}`}
+      className={clsx('header', isSticky && 'header--sticky')}
     >
       <a
         rel="home"
@@ -44,5 +45,3 @@ const Header = ({ locale }: HeaderProps) => {
     </header>
   );
 };
-
-export default Header;
