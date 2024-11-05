@@ -7,6 +7,8 @@ import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
 import type { AnyBlock } from '@blocks/Blocks';
 import { Grid, Column } from '@components/Grid';
+import { Heading } from '@components/Heading';
+import { Text } from '@components/Text';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
 
@@ -28,8 +30,20 @@ const pageUrls = locales.map((locale) => ({
 
 <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
   <PreviewModeSubscription query={query} variables={variables} />
-  <h1>{page.title}</h1>
+  <Heading level={1}>{page.title}</Heading>
   <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
+
+  <Heading level={2}>Heading 2</Heading>
+  <Heading level={3}>Heading 3</Heading>
+  <Heading level={4}>Heading 4</Heading>
+  <Heading level={5}>Heading 5</Heading>
+  <Heading level={6}>Heading 6</Heading>
+  <Heading level={3} displayLevel={2}>Heading 3 with display level 2</Heading>
+
+  <Text>This is a paragraph.</Text>
+  <Text variant="subtext">This is a subtext.</Text>
+  <Text as="span">This is a span.</Text>
+  <Text as="span" variant="subtext">This is a subtext span.</Text>
 
   <Grid border={true}>
     <Column span={{ mobile: 12, tablet: 6 }}>

@@ -1,0 +1,18 @@
+.text {
+  margin: 0;
+}
+
+.text--subtext {
+  font-family: MartianMono, monospace;
+  font-size: 0.875rem;
+  letter-spacing: -0.04em;
+  line-height: 1.5rem;
+}
+
+@media screen and (min-width: 481px) {
+  .text--subtext {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-transform: uppercase;
+  }
+}

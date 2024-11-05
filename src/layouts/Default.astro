@@ -20,6 +20,7 @@ import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
 import '@assets/a11y.css';
 import '@assets/core.css';
+import '@assets/typography.css';
 
 interface Props {
   breadcrumbs?: Breadcrumb[];
@@ -89,7 +90,6 @@ const mainContentId = 'content';
   body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
   }
   figure {
     margin: 0;
@@ -121,8 +121,6 @@ const mainContentId = 'content';
     padding: 1rem;
     width: 800px;
     max-width: calc(100% - 2rem);
-    font-size: 20px;
-    line-height: 1.6;
   }
   footer {
     padding: 1rem;

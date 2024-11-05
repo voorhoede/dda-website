@@ -1,0 +1,29 @@
+@font-face {
+  src: url('/fonts/Archivo-Regular.ttf') format('truetype');
+  font-family: 'Archivo';
+}
+
+@font-face {
+  src: url('/fonts/Archivo-SemiBold.ttf') format('truetype');
+  font-family: 'Archivo';
+  font-weight: 600;
+}
+
+@font-face {
+  src: url('/fonts/MartianMono-Regular.ttf') format('truetype');
+  font-family: 'MartianMono';
+}
+
+body {
+  color: var(--black);
+  font-family: Archivo, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+@media screen and (min-width: 481px) {
+  body {
+    font-size: 1.125rem;
+    line-height: 2rem;
+  }
+}
