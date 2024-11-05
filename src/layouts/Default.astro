@@ -6,21 +6,22 @@ import type {
   Tag,
 } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
-import { defaultLocale, t } from '@lib/i18n';
-import { siteName } from '@lib/seo';
-import type { PageUrl } from '@lib/seo';
-import query from './default.query.graphql';
+import { defaultLocale } from '@lib/i18n';
 import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
-import type { Breadcrumb } from '@components/Breadcrumbs';
+import Header from '@components/Header';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
-import StructuredData from '@components/StructuredData/StructuredData.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
+import StructuredData from '@components/StructuredData/StructuredData.astro';
+import type { Breadcrumb } from '@components/Breadcrumbs';
+import type { PageUrl } from '@lib/seo';
 import '@assets/a11y.css';
 import '@assets/core.css';
+import '@assets/layout.css';
 import '@assets/typography.css';
+import query from './default.query.graphql';
 
 interface Props {
   breadcrumbs?: Breadcrumb[];
@@ -28,7 +29,10 @@ interface Props {
   seoMetaTags: Tag[];
 }
 
-const { locale = defaultLocale } = Astro.params as { locale?: SiteLocale };
+const { locale = defaultLocale as SiteLocale } = Astro.params as {
+  locale?: SiteLocale;
+};
+
 const data = (await datocmsRequest<DefaultLayoutQuery>({
   query,
   variables: { locale },
@@ -51,79 +55,21 @@ const mainContentId = 'content';
   <body>
     <PreviewModeProvider>
       <SkipLink targetId={mainContentId} />
-      <header>
+      <div class="main-container">
+        <Header locale={locale} />
+        <LocaleSelector pageUrls={pageUrls} />
+        {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
         {
-          /* accessible home link, inspired by https://www.gov.uk/; with Microformats rel */
+          /* main element requires tabindex to be focusable, see SkipLink/README.md */
         }
-        <a
-          rel="home"
-          href={`/${locale}/`}
-          aria-label={t('go_to_home_page', { siteName })}>[Logo]</a
-        >
-        <div>
-          <LocaleSelector pageUrls={pageUrls} />
-        </div>
-      </header>
-      {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
-      {
-        /* main element requires tabindex to be focusable, see SkipLink/README.md */
-      }
-      <main id={mainContentId} tabindex="-1">
-        <slot />
-      </main>
-      <footer>
-        <p>Footer</p>
-      </footer>
+        <main id={mainContentId} tabindex="-1">
+          <slot />
+        </main>
+        <footer>
+          <p>Footer</p>
+        </footer>
+      </div>
+      <IconSprite />
     </PreviewModeProvider>
-    <IconSprite />
   </body>
 </html>
-
-<style is:global>
-  /* very basic reset */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  figure {
-    margin: 0;
-  }
-</style>
-<style>
-  /* Sticky footer. @see https://css-tricks.com/a-clever-sticky-footer-technique/ */
-  html,
-  body {
-    height: 100%;
-  }
-  footer {
-    position: sticky;
-    top: 100vh;
-  }
-
-  /* Basic layout: header, main, footer */
-  header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 2px solid black;
-  }
-  header div {
-    display: flex;
-  }
-  main {
-    margin: auto;
-    padding: 1rem;
-    width: 800px;
-    max-width: calc(100% - 2rem);
-  }
-  footer {
-    padding: 1rem;
-    border-top: 2px solid black;
-  }
-</style>
