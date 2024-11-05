@@ -1,6 +1,7 @@
 import { t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import type { SiteLocale } from '@lib/types/datocms';
+import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 
 interface HeaderProps {
@@ -8,8 +9,31 @@ interface HeaderProps {
 }
 
 const Header = ({ locale }: HeaderProps) => {
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSticky(!entry.isIntersecting),
+      { threshold: 1.0, rootMargin: '31px' },
+    );
+
+    if (headerRef.current) {
+      observer.observe(headerRef.current);
+    }
+
+    return () => {
+      if (headerRef.current) {
+        observer.unobserve(headerRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <header className="header">
+    <header
+      ref={headerRef}
+      className={`header ${isSticky ? 'header--is-sticky' : ''}`}
+    >
       <a
         rel="home"
         href={`/${locale}/`}
