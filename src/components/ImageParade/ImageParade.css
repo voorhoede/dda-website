@@ -17,7 +17,7 @@
 }
 
 .image-parade--right .image-parade__list {
-    animation: slideRight var(--animation-duration) linear infinite;
+    animation: slideRight calc(100s / var(--visible-item-count)) linear infinite;
 }
 
 @media (min-width: 512px) {

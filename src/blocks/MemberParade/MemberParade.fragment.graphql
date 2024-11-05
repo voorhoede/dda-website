@@ -1,8 +1,17 @@
 fragment MemberLogo on MemberRecord {
   logo {
     id
-    url(imgixParams: { w: 200 })
-    alt
+    responsiveImage(imgixParams: { fit: crop, w: 200, h: 200, auto: format }) {
+      src
+      srcSet
+      width
+      height
+      alt
+      title
+      base64
+      bgColor
+      sizes
+    }
   }
   brandColor {
     hex
