@@ -24,18 +24,19 @@ export const Grid = ({
 }: GridProps) => {
   const { desktop, tablet, mobile } = formatGap({ gap, rowGap, columnGap });
 
-  const classes = clsx(className, 'grid', {
-    [`grid--row-gap-mobile-${mobile.rowGap}`]: mobile.rowGap,
-    [`grid--row-gap-tablet-${tablet.rowGap}`]: tablet.rowGap,
-    [`grid--row-gap-desktop-${desktop.rowGap}`]: desktop.rowGap,
-    [`grid--column-gap-mobile-${mobile.columnGap}`]: mobile.columnGap,
-    [`grid--column-gap-tablet-${tablet.columnGap}`]: tablet.columnGap,
-    [`grid--column-gap-desktop-${desktop.columnGap}`]: desktop.columnGap,
-    'grid--border': border,
-  });
-
   return (
-    <div className={classes} {...rest}>
+    <div
+      className={clsx(className, 'grid', {
+        [`grid--row-gap-mobile-${mobile.rowGap}`]: mobile.rowGap,
+        [`grid--row-gap-tablet-${tablet.rowGap}`]: tablet.rowGap,
+        [`grid--row-gap-desktop-${desktop.rowGap}`]: desktop.rowGap,
+        [`grid--column-gap-mobile-${mobile.columnGap}`]: mobile.columnGap,
+        [`grid--column-gap-tablet-${tablet.columnGap}`]: tablet.columnGap,
+        [`grid--column-gap-desktop-${desktop.columnGap}`]: desktop.columnGap,
+        'grid--border': border,
+      })}
+      {...rest}
+    >
       {children}
     </div>
   );

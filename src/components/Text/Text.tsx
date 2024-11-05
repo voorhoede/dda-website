@@ -10,20 +10,16 @@ interface TextProps {
   [key: string]: any;
 }
 
-const Text = ({
+export const Text = ({
   as: Element = 'p',
   children,
   className,
   variant = 'paragraph',
   ...rest
 }: TextProps) => {
-  const classes = clsx(className, `text text--${variant}`);
-
   return (
-    <Element className={classes} {...rest}>
+    <Element className={clsx(className, `text text--${variant}`)} {...rest}>
       {children}
     </Element>
   );
 };
-
-export default Text;
