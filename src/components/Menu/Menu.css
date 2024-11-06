@@ -10,7 +10,6 @@
     visibility 0s 0.25s;
   visibility: hidden;
   width: 100%;
-  z-index: var(--z-index-menu);
 }
 
 .menu__overlay--open {
@@ -33,7 +32,6 @@
   right: 0;
   top: 0;
   width: 100%;
-  z-index: var(--z-index-menu-overlay);
 }
 
 .menu__header {
@@ -106,12 +104,6 @@
   background-color: var(--color-blue);
   color: var(--color-white);
   padding: 0 4px;
-}
-
-@media screen and (min-width: 481px) {
-  .menu__header {
-    height: 81px; /* 40px (logo) + 16px (margin) + 24px (padding) + 1px (border) */
-  }
 }
 
 @media screen and (min-width: 890px) {
