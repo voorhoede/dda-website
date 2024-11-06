@@ -1,0 +1,13 @@
+.image-parade__item {
+    flex-shrink: 0;
+    width: calc(100% / var(--visible-item-count));
+    height: auto;
+    border-left: 1px solid var(--black);
+    box-sizing: border-box;
+}
+
+.image-parade__item img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
