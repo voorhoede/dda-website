@@ -1,9 +1,10 @@
+import { Menu } from '@components/Menu';
 import { t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import type { SiteLocale } from '@lib/types/datocms';
+import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
-import clsx from 'clsx';
 
 interface HeaderProps {
   locale: SiteLocale;
@@ -42,6 +43,7 @@ export const Header = ({ locale }: HeaderProps) => {
       >
         <img className="header__logo" src="/logo.svg" />
       </a>
+      <Menu />
     </header>
   );
 };

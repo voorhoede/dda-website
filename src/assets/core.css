@@ -16,4 +16,9 @@
   --color-grey: #666666;
   --color-white: #ffffff;
   --color-blue: #364bf7;
+  --color-yellow: #f7e19f;
+
+  /* z-index */
+  --z-index-menu: 1;
+  --z-index-menu-overlay: -1;
 }
