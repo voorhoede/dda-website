@@ -3,6 +3,7 @@
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
+#import '@blocks/MemberParade/MemberParade.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -30,5 +31,8 @@ query HomePage($locale: SiteLocale!) {
         ...VideoEmbedBlock
       }
     }
+  }
+  members: allMembers(first: 16) {
+    ...MemberLogo
   }
 }
