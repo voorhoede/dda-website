@@ -2,7 +2,7 @@
     flex-shrink: 0;
     width: calc(100% / var(--visible-item-count));
     height: auto;
-    border-left: 1px solid #000;
+    border-left: 1px solid var(--black);
     box-sizing: border-box;
 }
 
