@@ -37,6 +37,7 @@ export const Menu = () => {
         aria-label="Open menu"
         className="menu__burger-button"
         onClick={openMenu}
+        type="button"
       >
         ☰
       </button>
@@ -52,6 +53,7 @@ export const Menu = () => {
               aria-label="Close menu"
               className="menu__close-button"
               onClick={closeMenu}
+              type="button"
             >
               &times;
             </button>

@@ -41,7 +41,7 @@ export const Header = ({ locale }: HeaderProps) => {
         href={`/${locale}/`}
         aria-label={t('go_to_home_page', { siteName })}
       >
-        <img className="header__logo" src="/logo.svg" />
+        <img className="header__logo" src="/logo.svg" alt="" />
       </a>
       <Menu />
     </header>
