@@ -166,7 +166,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 890px) {
   .grid--row-gap-desktop-8 {
     row-gap: var(--spacing-8);
   }
@@ -252,6 +252,7 @@
 .grid--border {
   /* reserve space for border added in the selector below */
   gap: 1px;
+  /* margin-top: 1px; */
 }
 
 .grid--border .column {

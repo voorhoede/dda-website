@@ -86,20 +86,6 @@
   text-transform: uppercase;
 }
 
-.menu__link:hover,
-.menu__link:active {
-  color: var(--color-blue);
-}
-
-.menu__link:active {
-  font-weight: 700;
-}
-
-.menu__link:focus {
-  background-color: var(--color-yellow);
-  outline-style: dashed;
-}
-
 .menu__counter {
   background-color: var(--color-blue);
   color: var(--color-white);
