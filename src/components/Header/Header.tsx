@@ -1,18 +1,14 @@
 import { Menu } from '@components/Menu';
-import { t } from '@lib/i18n';
+import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
-import type { SiteLocale } from '@lib/types/datocms';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 
-interface HeaderProps {
-  locale: SiteLocale;
-}
-
-export const Header = ({ locale }: HeaderProps) => {
+export const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
+  const locale = getLocale();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
