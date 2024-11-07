@@ -1,3 +1,4 @@
+import logo from '@assets/logo.svg';
 import { Menu } from '@components/Menu';
 import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
@@ -40,9 +41,9 @@ export const Header = () => {
         <img
           alt=""
           className="header__logo"
-          height={80}
-          src="/logo.svg"
-          width={106}
+          height={logo.height}
+          src={logo.src}
+          width={logo.width}
         />
       </a>
       <Menu />

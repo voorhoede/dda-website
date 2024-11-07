@@ -1,8 +1,9 @@
+import logo from '@assets/logo.svg';
 import { Column, Grid } from '@components/Grid';
+import { Text } from '@components/Text';
 import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import './Footer.css';
-import { Text } from '@components/Text';
 
 export const Footer = () => {
   const locale = getLocale();
@@ -20,9 +21,9 @@ export const Footer = () => {
             <img
               alt=""
               className="footer__logo"
-              height={80}
-              src="/logo.svg"
-              width={106}
+              height={logo.height}
+              src={logo.src}
+              width={logo.width}
             />
           </a>
         </Column>
