@@ -252,7 +252,6 @@
 .grid--border {
   /* reserve space for border added in the selector below */
   gap: 1px;
-  /* margin-top: 1px; */
 }
 
 .grid--border .column {
