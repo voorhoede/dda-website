@@ -43,6 +43,14 @@
   font-weight: 700;
 }
 
+.footer__contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  overflow-wrap: break-word;
+  text-wrap: wrap;
+}
+
 .footer__socials {
   display: flex;
   gap: var(--spacing-16);
