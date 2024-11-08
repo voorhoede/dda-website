@@ -1,8 +1,8 @@
-import { forwardRef, type ElementType, type ForwardedRef } from 'react';
 import type { IconName } from '@assets/icon-sprite';
 import { Icon } from '@components/Icon';
-import clsx from 'clsx';
 import type { PolymorphicComponentPropsWithRef } from '@lib/polymorphic-component';
+import clsx from 'clsx';
+import { forwardRef, type ElementType, type ForwardedRef } from 'react';
 import './Button.css';
 
 const defaultComponent = 'button';
