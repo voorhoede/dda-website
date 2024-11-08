@@ -1,0 +1,55 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+footer {
+  position: sticky;
+  top: 100vh;
+}
+
+.main-container {
+  min-height: 100%;
+  /* this is a hack to prevent margin collapse from child elements */
+  padding-top: 0.05px;
+}
+
+@media screen and (min-width: 481px) {
+  body {
+    height: calc(100% - var(--spacing-32));
+    margin: var(--spacing-16);
+  }
+  
+  .main-container {
+    box-shadow: 0 0 0 1px var(--color-black);
+    margin: 0 auto;
+    max-width: 1440px;
+    position: relative;
+  }
+  
+  .main-container::before {
+    content: '';
+    position: sticky;
+    top: 16px;
+    transform: translate(-1px, -16px);
+    display: block;
+    width: calc(100% + 2px);
+    height: var(--spacing-16);
+    background-color: var(--color-white);
+    border-bottom: 1px solid var(--color-black);
+    margin-bottom: -16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    margin: var(--spacing-16) var(--spacing-64);
+  }
+}
