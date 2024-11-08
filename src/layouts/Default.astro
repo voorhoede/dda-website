@@ -56,8 +56,11 @@ const mainContentId = 'content';
     <PreviewModeProvider>
       <div class="main-container">
         <SkipLink targetId={mainContentId} />
+
         <Header locale={locale} client:load />
+
         <LocaleSelector pageUrls={pageUrls} />
+
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
         {
           /* main element requires tabindex to be focusable, see SkipLink/README.md */
