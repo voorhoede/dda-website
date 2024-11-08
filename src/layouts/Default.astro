@@ -3,7 +3,7 @@ import type {
   DefaultLayoutQuery,
   Site,
   SiteLocale,
-  Tag,
+  Tag as MetaTag,
 } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale } from '@lib/i18n';
@@ -22,11 +22,15 @@ import '@assets/core.css';
 import '@assets/layout.css';
 import '@assets/typography.css';
 import query from './default.query.graphql';
+import { Button } from '@components/Button';
+import { Icon } from '@components/Icon';
+import { Link } from '@components/Link';
+import { Tag } from '@components/Tag';
 
 interface Props {
   breadcrumbs?: Breadcrumb[];
   pageUrls: PageUrl[];
-  seoMetaTags: Tag[];
+  seoMetaTags: MetaTag[];
 }
 
 const { locale = defaultLocale as SiteLocale } = Astro.params as {
@@ -65,6 +69,49 @@ const mainContentId = 'content';
         {
           /* main element requires tabindex to be focusable, see SkipLink/README.md */
         }
+        <Link href="/about">About</Link>
+        <Icon name="chevron-right" />
+        <Button icon="chevron-right">Click me!</Button>
+        <Button icon="chevron-right" level="secondary" variant="large">
+          Click me!
+        </Button>
+        <Button icon="chevron-right" level="tertiary">Click me!</Button>
+        <Button icon="chevron-right" height="narrow">Click me!</Button>
+        <Button icon="chevron-right" level="secondary" height="narrow">
+          Click me!
+        </Button>
+        <Button as="a" href="#" icon="chevron-right" variant="large">
+          Go to Next Page
+        </Button>
+        <Button as="a" href="#" icon="chevron-right" level="secondary">
+          Go to Next Page
+        </Button>
+        <Button icon="chevron-right" iconOnly aria-label="Next" />
+        <Button
+          icon="chevron-right"
+          iconOnly
+          aria-label="Next"
+          level="secondary"
+        />
+        <Button
+          as="a"
+          href="#"
+          icon="chevron-right"
+          iconOnly
+          aria-label="Go to Next Page"
+          variant="large"
+        />
+        <Button
+          as="a"
+          href="#"
+          icon="chevron-right"
+          iconOnly
+          aria-label="Go to Next Page"
+          level="secondary"
+          variant="large"
+        />
+        <Tag>Default</Tag>
+        <Tag variant="blue">Secondary</Tag>
         <main id={mainContentId} tabindex="-1">
           <slot />
         </main>
