@@ -14,7 +14,7 @@ export const Header = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsSticky(!entry.isIntersecting),
-      { threshold: 1.0, rootMargin: '31px' },
+      { threshold: 1.0, rootMargin: '-31px' },
     );
 
     if (headerRef.current) {
