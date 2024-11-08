@@ -13,6 +13,11 @@
   src: url('/fonts/MartianMono-Regular.ttf') format('truetype');
   font-family: 'MartianMono';
 }
+@font-face {
+  src: url('/fonts/MartianMono-Light.ttf') format('truetype');
+  font-family: 'MartianMono';
+  font-weight: 300;
+}
 
 body {
   color: var(--black);
