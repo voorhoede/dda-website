@@ -9,7 +9,6 @@ import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import type { AnyBlock } from '@blocks/Blocks';
 import { Grid, Column } from '@components/Grid';
 import { Heading } from '@components/Heading';
-import { Text } from '@components/Text';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
 
@@ -40,52 +39,9 @@ const pageUrls = locales.map((locale) => ({
       <PreviewModeSubscription query={query} variables={variables} />
       <Heading level={1}>{page.title}</Heading>
       <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
-
-      <Heading level={2}>Heading 2</Heading>
-      <Heading level={3}>Heading 3</Heading>
-      <Heading level={4}>Heading 4</Heading>
-      <Heading level={5}>Heading 5</Heading>
-      <Heading level={6}>Heading 6</Heading>
-      <Heading level={3} displayLevel={2}>
-        Heading 3 with display level 2
-      </Heading>
-
-      <Text>This is a paragraph.</Text>
-      <Text variant="subtext">This is a subtext.</Text>
-      <Text as="span">This is a span.</Text>
-      <Text as="span" variant="subtext">
-        This is a subtext span.
-      </Text>
-
       <Grid border={true}>
         <Column span={12}>
           <MemberParade members={members} />
-        </Column>
-      </Grid>
-
-      <Grid border={true}>
-        <Column span={{ mobile: 12, tablet: 6 }}>
-          <h2>Hello 1</h2>
-        </Column>
-        <Column span={{ mobile: 12, tablet: 6 }}>
-          <Grid border={true}>
-            <Column span={{ mobile: 12, tablet: 6 }}>
-              <h2>Hello 1</h2>
-            </Column>
-            <Column span={{ mobile: 12, tablet: 6 }}>
-              <Grid border={true}>
-                <Column span={12}>
-                  <h2>Hello 2</h2>
-                </Column>
-                <Column span={12}>
-                  <h2>Hello 2</h2>
-                </Column>
-                <Column span={12}>
-                  <h2>Hello 2</h2>
-                </Column>
-              </Grid>
-            </Column>
-          </Grid>
         </Column>
       </Grid>
     </Layout>

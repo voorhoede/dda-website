@@ -1,19 +1,16 @@
+import logo from '@assets/logo.svg';
 import { Link } from '@components/Link';
 import { Menu } from '@components/Menu';
-import { t } from '@lib/i18n';
+import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
-import type { SiteLocale } from '@lib/types/datocms';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 
-interface HeaderProps {
-  locale: SiteLocale;
-}
-
-export const Header = ({ locale }: HeaderProps) => {
+export const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
+  const locale = getLocale();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,9 +42,9 @@ export const Header = ({ locale }: HeaderProps) => {
         <img
           alt=""
           className="header__logo"
-          height={80}
-          src="/logo.svg"
-          width={106}
+          height={logo.height}
+          src={logo.src}
+          width={logo.width}
         />
       </Link>
       <Menu />
