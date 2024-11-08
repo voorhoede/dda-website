@@ -12,8 +12,9 @@
   --spacing-128: 128px;
 
   /* colors */
-  --black: #222226;
-  --grey: #666666;
-  --white: #ffffff;
-  --blue: #364BF7;
+  --color-black: #222226;
+  --color-grey: #666666;
+  --color-white: #ffffff;
+  --color-blue: #364bf7;
+  --color-yellow: #f7e19f;
 }

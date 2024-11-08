@@ -1,0 +1,12 @@
+.link {
+  color: var(--color-black);
+}
+
+.link:hover {
+  color: var(--color-blue);
+}
+
+.link:focus-visible {
+  background-color: var(--color-yellow);
+  outline-style: dashed;
+}

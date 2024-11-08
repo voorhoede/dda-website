@@ -13,11 +13,11 @@ export const Icon = ({ className, name, ...rest }: IconProps) => {
 
   return (
     <svg
-      {...rest}
       aria-label={ariaLabel}
       className={clsx('icon', className)}
       role={rest.role ? rest.role : ariaLabel ? 'img' : 'presentation'}
       data-icon={name}
+      {...rest}
     >
       <use href={`#${name}`} xlinkHref={`#${name}`} />
     </svg>
