@@ -1,3 +1,4 @@
+import { Button } from '@components/Button';
 import { Link } from '@components/Link';
 import { t } from '@lib/i18n';
 import clsx from 'clsx';
@@ -31,17 +32,16 @@ export const Menu = () => {
 
   return (
     <div className={clsx('menu', isResizing && 'menu--resizing')}>
-      <button
+      <Button
         aria-controls="menu"
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-label="Open menu"
         className="menu__burger-button"
+        icon="plus"
+        iconOnly
         onClick={openMenu}
-        type="button"
-      >
-        ☰
-      </button>
+      />
       <FocusOn
         className={clsx('menu__overlay', isOpen && 'menu__overlay--open')}
         enabled={isOpen}
@@ -50,14 +50,13 @@ export const Menu = () => {
       >
         <div className="menu__content">
           <div className="menu__header">
-            <button
+            <Button
               aria-label="Close menu"
               className="menu__close-button"
+              icon="minus"
+              iconOnly
               onClick={closeMenu}
-              type="button"
-            >
-              &times;
-            </button>
+            />
           </div>
           <nav id="menu">
             <ul className="menu__list">
