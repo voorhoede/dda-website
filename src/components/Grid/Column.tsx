@@ -1,5 +1,11 @@
-import { type ReactNode } from 'react';
+import {
+  forwardRef,
+  type ReactNode,
+  type ElementType,
+  type ForwardedRef,
+} from 'react';
 import clsx from 'clsx';
+import type { PolymorphicComponentPropsWithRef } from '@lib/polymorphic-component';
 import './Column.css';
 
 type SpanOptions = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -10,13 +16,20 @@ type ResponsiveSpan = {
   desktop?: SpanOptions;
 };
 
-interface ColumnProps {
+const defaultComponent = 'div';
+
+type ColumnBaseProps = {
   span?: SpanOptions | ResponsiveSpan;
   start?: SpanOptions | ResponsiveSpan;
-  className?: string;
   children?: ReactNode;
-  [key: string]: any;
-}
+};
+
+export type ColumnProps<C extends ElementType = typeof defaultComponent> =
+  PolymorphicComponentPropsWithRef<C, ColumnBaseProps>;
+
+type ColumnComponent = <C extends ElementType = typeof defaultComponent>(
+  props: ColumnProps<C>,
+) => React.ReactElement | null;
 
 function formatSpan(span: SpanOptions | ResponsiveSpan): ResponsiveSpan {
   if (typeof span === 'number') {
@@ -32,33 +45,34 @@ function formatSpan(span: SpanOptions | ResponsiveSpan): ResponsiveSpan {
   };
 }
 
-export const Column = ({
-  className,
-  span = 1,
-  start,
-  children,
-  ...rest
-}: ColumnProps) => {
-  const formattedSpan = formatSpan(span);
-  const formattedStart = start ? formatSpan(start) : null;
+export const Column = forwardRef(
+  <C extends ElementType = typeof defaultComponent>(
+    { as, className, span = 1, start, children, ...rest }: ColumnProps<C>,
+    ref: ForwardedRef<C>,
+  ) => {
+    const Component = as || defaultComponent;
+    const formattedSpan = formatSpan(span);
+    const formattedStart = start ? formatSpan(start) : null;
 
-  return (
-    <div
-      className={clsx(className, 'column', {
-        [`column--span-mobile-${formattedSpan.mobile}`]: formattedSpan.mobile,
-        [`column--span-tablet-${formattedSpan.tablet}`]: formattedSpan.tablet,
-        [`column--span-desktop-${formattedSpan.desktop}`]:
-          formattedSpan.desktop,
-        [`column--start-mobile-${formattedStart?.mobile}`]:
-          formattedStart?.mobile,
-        [`column--start-tablet-${formattedStart?.tablet}`]:
-          formattedStart?.tablet,
-        [`column--start-desktop-${formattedStart?.desktop}`]:
-          formattedStart?.desktop,
-      })}
-      {...rest}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <Component
+        ref={ref}
+        className={clsx(className, 'column', {
+          [`column--span-mobile-${formattedSpan.mobile}`]: formattedSpan.mobile,
+          [`column--span-tablet-${formattedSpan.tablet}`]: formattedSpan.tablet,
+          [`column--span-desktop-${formattedSpan.desktop}`]:
+            formattedSpan.desktop,
+          [`column--start-mobile-${formattedStart?.mobile}`]:
+            formattedStart?.mobile,
+          [`column--start-tablet-${formattedStart?.tablet}`]:
+            formattedStart?.tablet,
+          [`column--start-desktop-${formattedStart?.desktop}`]:
+            formattedStart?.desktop,
+        })}
+        {...rest}
+      >
+        {children}
+      </Component>
+    );
+  },
+) as ColumnComponent;
