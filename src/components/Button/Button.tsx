@@ -1,90 +1,73 @@
+import { forwardRef, type ElementType, type ForwardedRef } from 'react';
 import type { IconName } from '@assets/icon-sprite';
 import { Icon } from '@components/Icon';
-import { Link } from '@components/Link';
 import clsx from 'clsx';
-import type { ReactNode } from 'react';
+import type { PolymorphicComponentPropsWithRef } from '@lib/polymorphic-component';
 import './Button.css';
 
-type ButtonProps = {
+const defaultComponent = 'button';
+
+type ButtonBaseProps = {
   className?: string;
   height?: 'default' | 'narrow';
   icon?: IconName;
   level?: 'primary' | 'secondary' | 'tertiary';
   variant?: 'default' | 'large';
-  [key: string]: any;
+  iconOnly?: boolean;
 } & (
-  | {
-      // Button with text
-      'aria-label'?: never;
-      as?: 'button';
-      children: ReactNode;
-      href?: never;
-      iconOnly?: false;
-    }
-  | {
-      // Link with text
-      'aria-label'?: never;
-      as: 'a';
-      children: ReactNode;
-      href: string;
-      iconOnly?: false;
-    }
   | {
       // Button with icon only
       'aria-label': string;
-      as?: 'button';
       children?: never;
-      href?: never;
       icon: IconName;
       iconOnly: true;
     }
   | {
-      // Link with icon only
-      'aria-label': string;
-      as: 'a';
-      children?: never;
-      href: string;
-      icon: IconName;
-      iconOnly: true;
+      // Regular button
+      iconOnly?: false;
     }
 );
 
-export const Button = ({
-  as = 'button',
-  children,
-  className,
-  height = 'default',
-  href,
-  icon,
-  iconOnly = false,
-  level = 'primary',
-  variant = 'default',
-  ...rest
-}: ButtonProps) => {
-  const commonClasses = clsx(
-    className,
-    'button',
-    level !== 'primary' && `button--${level}`,
-    variant !== 'default' && `button--${variant}`,
-    height !== 'default' && `button--${height}`,
-    {
-      'button--icon-only': iconOnly,
-    },
-  );
+export type ButtonProps<C extends ElementType = typeof defaultComponent> =
+  PolymorphicComponentPropsWithRef<C, ButtonBaseProps>;
 
-  if (as === 'a' && href) {
+type ButtonComponent = <C extends ElementType = typeof defaultComponent>(
+  props: ButtonProps<C>,
+) => React.ReactElement | null;
+
+export const Button = forwardRef(
+  <C extends ElementType = typeof defaultComponent>(
+    {
+      as,
+      children,
+      className,
+      height = 'default',
+      icon,
+      iconOnly = false,
+      level = 'primary',
+      variant = 'default',
+      ...rest
+    }: ButtonProps<C>,
+    ref: ForwardedRef<C>,
+  ) => {
+    const Component = as || defaultComponent;
+    const commonClasses = clsx(className, 'button', {
+      'button--icon-only': iconOnly,
+      [`button--${level}`]: level !== 'primary',
+      [`button--${variant}`]: variant !== 'default',
+      [`button--${height}`]: height !== 'default',
+    });
+
     return (
-      <Link className={commonClasses} href={href} {...rest}>
+      <Component
+        ref={ref}
+        className={commonClasses}
+        type={Component === 'button' ? rest.type || 'button' : undefined}
+        {...rest}
+      >
         {!iconOnly && <span className="button__content">{children}</span>}
         {icon && <Icon className="button__icon" name={icon} />}
-      </Link>
+      </Component>
     );
-  }
-
-  return (
-    <button className={commonClasses} type={rest.type || 'button'} {...rest}>
-      {!iconOnly && <span className="button__content">{children}</span>}
-      {icon && <Icon className="button__icon" name={icon} />}
-    </button>
-  );
-};
+  },
+) as ButtonComponent;
