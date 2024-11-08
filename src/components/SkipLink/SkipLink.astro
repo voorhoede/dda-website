@@ -1,5 +1,6 @@
 ---
 import { t } from '@lib/i18n';
+import { Link } from '@components/Link';
 import '@assets/a11y.css';
 
 interface Props {
@@ -8,16 +9,14 @@ interface Props {
 const { targetId } = Astro.props;
 ---
 
-<a href={`#${targetId}`} class="a11y-kb-only" datocms-no-index="">
+<Link href={`#${targetId}`} className="a11y-kb-only" datocms-no-index="">
   <slot>{t('skip_to_content')}</slot>
-</a>
+</Link>
 
 <style>
   /* basic styling, can be removed */
   a:focus {
     position: absolute;
-    background: white;
-    padding: 0.5em;
-    z-index: 1;
+    z-index: var(--z-index-skip-link);
   }
 </style>
