@@ -27,3 +27,21 @@ body {
     line-height: 2rem;
   }
 }
+
+a {
+  color: var(--color-black);
+}
+
+a:hover,
+a:active {
+  color: var(--color-blue);
+}
+
+a:active {
+  font-weight: 700;
+}
+
+a:focus-visible {
+  background-color: var(--color-yellow);
+  outline-style: dashed;
+}

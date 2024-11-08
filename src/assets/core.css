@@ -20,4 +20,5 @@
 
   /* z-index */
   --z-index-header: 1;
+  --z-index-skip-link: 2;
 }

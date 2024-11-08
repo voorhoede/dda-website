@@ -7,8 +7,9 @@ import type {
 } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale } from '@lib/i18n';
-import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
+import { Footer } from '@components/Footer';
 import { Header } from '@components/Header';
+import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
@@ -56,9 +57,7 @@ const mainContentId = 'content';
     <PreviewModeProvider>
       <div class="main-container">
         <SkipLink targetId={mainContentId} />
-
-        <Header locale={locale} client:load />
-
+        <Header client:load />
         <LocaleSelector pageUrls={pageUrls} />
 
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
@@ -68,9 +67,7 @@ const mainContentId = 'content';
         <main id={mainContentId} tabindex="-1">
           <slot />
         </main>
-        <footer>
-          <p>Footer</p>
-        </footer>
+        <Footer />
       </div>
       <IconSprite />
     </PreviewModeProvider>
