@@ -2,7 +2,8 @@
   color: var(--color-black);
 }
 
-.link:hover {
+.link:hover,
+.link:active {
   color: var(--color-blue);
 }
 

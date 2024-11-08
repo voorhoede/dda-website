@@ -1,3 +1,4 @@
+import { Link } from '@components/Link';
 import { t } from '@lib/i18n';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
@@ -61,29 +62,29 @@ export const Menu = () => {
           <nav id="menu">
             <ul className="menu__list">
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('about_us')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('events')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('publications')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('members')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('vacancies')} <span className="menu__counter">54</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
