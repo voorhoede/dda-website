@@ -13,6 +13,11 @@
   src: url('/fonts/MartianMono-Regular.ttf') format('truetype');
   font-family: 'MartianMono';
 }
+@font-face {
+  src: url('/fonts/MartianMono-Light.ttf') format('truetype');
+  font-family: 'MartianMono';
+  font-weight: 300;
+}
 
 body {
   color: var(--color-black);
@@ -26,22 +31,4 @@ body {
     font-size: 1.125rem;
     line-height: 2rem;
   }
-}
-
-a {
-  color: var(--color-black);
-}
-
-a:hover,
-a:active {
-  color: var(--color-blue);
-}
-
-a:active {
-  font-weight: 700;
-}
-
-a:focus-visible {
-  background-color: var(--color-yellow);
-  outline-style: dashed;
 }

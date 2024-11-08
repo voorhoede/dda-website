@@ -1,3 +1,5 @@
+import { Button } from '@components/Button';
+import { Link } from '@components/Link';
 import { t } from '@lib/i18n';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
@@ -30,17 +32,16 @@ export const Menu = () => {
 
   return (
     <div className={clsx('menu', isResizing && 'menu--resizing')}>
-      <button
+      <Button
         aria-controls="menu"
         aria-expanded={isOpen}
         aria-haspopup="menu"
         aria-label="Open menu"
         className="menu__burger-button"
+        icon="plus"
+        iconOnly
         onClick={openMenu}
-        type="button"
-      >
-        ☰
-      </button>
+      />
       <FocusOn
         className={clsx('menu__overlay', isOpen && 'menu__overlay--open')}
         enabled={isOpen}
@@ -49,41 +50,40 @@ export const Menu = () => {
       >
         <div className="menu__content">
           <div className="menu__header">
-            <button
+            <Button
               aria-label="Close menu"
               className="menu__close-button"
+              icon="minus"
+              iconOnly
               onClick={closeMenu}
-              type="button"
-            >
-              &times;
-            </button>
+            />
           </div>
           <nav id="menu">
             <ul className="menu__list">
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('about_us')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('events')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('publications')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('members')}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" onClick={closeMenu} className="menu__link">
+                <Link href="#" onClick={closeMenu} className="menu__link">
                   {t('vacancies')} <span className="menu__counter">54</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

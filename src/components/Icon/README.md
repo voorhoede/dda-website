@@ -9,7 +9,7 @@
 
 ```astro
 ---
-import Icon from 'path/to/components/Icon/';
+import { Icon } from 'path/to/components/Icon/';
 ---
 <Icon name="share">
 

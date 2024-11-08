@@ -1,4 +1,5 @@
 import logo from '@assets/logo.svg';
+import { Link } from '@components/Link';
 import { Menu } from '@components/Menu';
 import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
@@ -14,7 +15,7 @@ export const Header = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsSticky(!entry.isIntersecting),
-      { threshold: 1.0, rootMargin: '-31px' },
+      { threshold: 1.0, rootMargin: '-17px' },
     );
 
     if (headerRef.current) {
@@ -33,7 +34,7 @@ export const Header = () => {
       ref={headerRef}
       className={clsx('header', isSticky && 'header--sticky')}
     >
-      <a
+      <Link
         rel="home"
         href={`/${locale}/`}
         aria-label={t('go_to_home_page', { siteName })}
@@ -45,7 +46,7 @@ export const Header = () => {
           src={logo.src}
           width={logo.width}
         />
-      </a>
+      </Link>
       <Menu />
     </header>
   );

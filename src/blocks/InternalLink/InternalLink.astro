@@ -5,6 +5,7 @@ import type {
   SiteLocale,
 } from '@lib/types/datocms';
 import { getPagePath } from './index';
+import { Link } from '@components/Link';
 
 export interface Props {
   link: InternalLinkFragment;
@@ -46,4 +47,4 @@ if (Astro.slots.has('default')) {
 }
 ---
 
-<a {href} {target}>{html ? <Fragment set:html={html} /> : title}</a>
+<Link {href} {target}>{html ? <Fragment set:html={html} /> : title}</Link>

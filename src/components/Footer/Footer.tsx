@@ -1,5 +1,6 @@
 import logo from '@assets/logo.svg';
 import { Column, Grid } from '@components/Grid';
+import { Link } from '@components/Link';
 import { Text } from '@components/Text';
 import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
@@ -11,7 +12,7 @@ export const Footer = () => {
   return (
     <Grid as="footer" className="footer" border={true}>
       <Column span={{ mobile: 12, desktop: 6 }}>
-        <a
+        <Link
           rel="home"
           href={`/${locale}/`}
           aria-label={t('go_to_home_page', { siteName })}
@@ -24,30 +25,30 @@ export const Footer = () => {
             src={logo.src}
             width={logo.width}
           />
-        </a>
+        </Link>
       </Column>
       <Column as="nav" span={{ mobile: 12, tablet: 6, desktop: 3 }}>
         <ul className="footer__links">
           <li>
-            <a href="#">{t('about_us')}</a>
+            <Link href="#">{t('about_us')}</Link>
           </li>
           <li>
-            <a href="#">{t('events')}</a>
+            <Link href="#">{t('events')}</Link>
           </li>
           <li>
-            <a href="#">{t('publications')}</a>
+            <Link href="#">{t('publications')}</Link>
           </li>
           <li>
-            <a href="#">{t('members')}</a>
+            <Link href="#">{t('members')}</Link>
           </li>
           <li>
-            <a href="#">{t('vacancies')}</a>
+            <Link href="#">{t('vacancies')}</Link>
           </li>
           <li>
-            <a href="#">{t('terms_and_conditions')}</a>
+            <Link href="#">{t('terms_and_conditions')}</Link>
           </li>
           <li>
-            <a href="#">{t('privacy_policy')}</a>
+            <Link href="#">{t('privacy_policy')}</Link>
           </li>
         </ul>
       </Column>
@@ -62,25 +63,25 @@ export const Footer = () => {
         </address>
         <div className="footer__contact-info">
           <Text>
-            <a href="tel:+31854010391">(0)85 4010391</a>
+            <Link href="tel:+31854010391">(0)85 4010391</Link>
           </Text>
           <Text>
-            <a href="mailto:info@dutchdigitalagencies.com">
+            <Link href="mailto:info@dutchdigitalagencies.com">
               info@dutchdigitalagencies.com
-            </a>
+            </Link>
           </Text>
         </div>
       </Column>
       <Column span={12} className="footer__bottom">
         <ul className="footer__socials">
           <li>
-            <a href="#">Instagram</a>
+            <Link href="#">Instagram</Link>
           </li>
           <li>
-            <a href="#">Facebook</a>
+            <Link href="#">Facebook</Link>
           </li>
           <li>
-            <a href="#">Linkedin</a>
+            <Link href="#">Linkedin</Link>
           </li>
         </ul>
         <Text className="footer__copyright">
