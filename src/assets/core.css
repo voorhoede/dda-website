@@ -17,4 +17,7 @@
   --color-white: #ffffff;
   --color-blue: #364bf7;
   --color-yellow: #f7e19f;
+
+  /* z-index */
+  --z-index-header: 1;
 }

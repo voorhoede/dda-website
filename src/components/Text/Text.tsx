@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import type { ElementType, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import './Text.css';
 
 interface TextProps {
