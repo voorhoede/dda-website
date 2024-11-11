@@ -13,6 +13,9 @@ query HomePage($locale: SiteLocale!) {
       content
       tag
     }
+    subtitle
+    becomeMemberCtaLabel
+    findAgencyCtaLabel
     bodyBlocks {
       __typename
       ... on EmbedBlockRecord {
@@ -31,6 +34,15 @@ query HomePage($locale: SiteLocale!) {
         ...VideoEmbedBlock
       }
     }
+    eventsSectionLabel
+    eventsSectionTitle
+    eventsSectionCtaLabel
+    vacanciesSectionLabel
+    vacanciesSectionTitle
+    vacanciesSectionCtaLabel
+    publicationsSectionLabel
+    publicationsSectionTitle
+    publicationsSectionCtaLabel
   }
   members: allMembers(first: 16) {
     ...MemberLogo
