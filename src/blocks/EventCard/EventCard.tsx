@@ -25,7 +25,8 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
           ))}
         </TagList>
         <Text variant="subtext">
-          {formatDate(event.date)} / {event.location}
+          <time dateTime={event.date}>{formatDate(event.date)}</time> /{' '}
+          {event.location}
         </Text>
         <Heading level={3}>{event.title}</Heading>
       </CardContent>
