@@ -26,7 +26,7 @@ export const t: T = (key: TranslationKey, params?: any[] | Record<string, any>, 
 };
 
 export function getLocale() {
-  return i18n.locale();
+  return i18n.locale() || defaultLocale;
 }
 
 export function setLocale(locale?: SiteLocale) {

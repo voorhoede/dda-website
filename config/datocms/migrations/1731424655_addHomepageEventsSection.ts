@@ -37,7 +37,7 @@ export default async function (client: Client) {
       parameters: { heading: true, placeholder: null },
       type: 'title',
     },
-    default_value: { en: '', nl: '' },
+    default_value: { nl: '' },
   });
 
   console.log(
@@ -108,7 +108,7 @@ export default async function (client: Client) {
       editor: 'single_line',
       parameters: { heading: false, placeholder: null },
     },
-    default_value: { en: '', nl: '' },
+    default_value: { nl: '' },
   });
 
   console.log('Finalize models/block models');
