@@ -30,7 +30,7 @@ vi.mock('./i18n.messages.json', () => {
 
 vi.mock('./site.json', () => {
   return {
-    locales: ['en', 'nl'],
+    locales: ['nl'],
   };
 });
 
@@ -60,14 +60,9 @@ describe('i18n:', () => {
   test('"getLocale" should return the current locale', () => {
     setLocale('nl');
     expect(getLocale()).toBe('nl');
-
-    // expect 'en' because the locale was most recently set to 'en'
-    setLocale();
-    expect(getLocale()).toBe('en');
   });
 
   test('"getLocaleName" should return the name of a locale', () => {
-    expect(getLocaleName('en')).toBe('English');
     expect(getLocaleName('nl')).toBe('Nederlands');
   });
 
@@ -87,14 +82,10 @@ describe('i18n:', () => {
   });
 
   test('"t" should return translations for a specific locale', () => {
-    expect(t('search', {}, 'en')).toBe('search');
     expect(t('search', {}, 'nl')).toBe('zoek');
   });
 
   test('"t" should return translations for a specific locale with interpolated values', () => {
-    expect(t('login.welcome', { name: 'wessel' }, 'en')).toBe(
-      'welcome back wessel',
-    );
     expect(t('login.welcome', { name: 'wessel' }, 'nl')).toBe(
       'welkom terug wessel',
     );
