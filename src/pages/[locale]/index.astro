@@ -75,6 +75,177 @@ const pageUrls = locales.map((locale) => ({
         </PageTitleFooter>
       </PageTitle>
       <Grid border={true}>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <TagList>
+                <TagListItem>Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+              </TagList>
+              <Text variant="subtext">01 Jan 2024 / Amsterdam</Text>
+              <Heading level={3}>Event</Heading>
+              <Text variant="subtext">Subtitle / Subtext</Text>
+            </CardContent>
+            <CardFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="chevron-right"
+                level="secondary"
+                variant="large"
+              >
+                Details
+              </Button>
+            </CardFooter>
+          </Card>
+        </Column>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <TagList>
+                <TagListItem>Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+              </TagList>
+              <Text variant="subtext">01 Jan 2024 / Amsterdam</Text>
+              <Heading displayLevel={4} level={3}>
+                Nieuws
+              </Heading>
+              <Text variant="subtext">Subtitle / Subtext</Text>
+            </CardContent>
+            <CardFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="chevron-right"
+                level="secondary"
+                variant="large"
+              >
+                Lees Meer
+              </Button>
+            </CardFooter>
+          </Card>
+        </Column>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <Heading displayLevel={4} level={3}>
+                Team
+              </Heading>
+              <Text variant="subtext">
+                CEO WeAreBrain, portefeuille PR & Communicatie
+              </Text>
+            </CardContent>
+            <CardFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="external"
+                level="secondary"
+                variant="large"
+              >
+                LinnkedIn
+              </Button>
+              <Button
+                as="a"
+                height="narrow"
+                icon="external"
+                level="secondary"
+                variant="large"
+              >
+                E-Mail
+              </Button>
+            </CardFooter>
+          </Card>
+        </Column>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <TagList showEllipses>
+                <TagListItem>Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+              </TagList>
+              <Heading level={3}>Leden</Heading>
+              <Text variant="subtext">Amsterdam</Text>
+              <Text variant="subtext">
+                25-49 Werknemers <Tag variant="blue">Hiring</Tag>
+              </Text>
+            </CardContent>
+            <CardFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="chevron-right"
+                level="secondary"
+                variant="large"
+              >
+                Details
+              </Button>
+            </CardFooter>
+          </Card>
+        </Column>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <TagList showEllipses>
+                <TagListItem variant="blue">Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+                <TagListItem>Label</TagListItem>
+              </TagList>
+              <Heading displayLevel={4} level={3}>
+                Cases
+              </Heading>
+              <Text variant="subtext">Klant</Text>
+            </CardContent>
+            <CardFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="external"
+                level="secondary"
+                variant="large"
+              >
+                Lees meer op onze site
+              </Button>
+            </CardFooter>
+          </Card>
+        </Column>
+        <Column
+          span={{ mobile: 12, tablet: 6, desktop: 4 }}
+          style={{ padding: 48 }}
+        >
+          <Card>
+            <CardImage>Image</CardImage>
+            <CardContent>
+              <TagList />
+              <Heading displayLevel={4} level={3}>
+                Cases
+              </Heading>
+            </CardContent>
+          </Card>
+        </Column>
+      </Grid>
+      <Grid border={true}>
         <Column span={12}>
           <MemberParade members={members} />
         </Column>
