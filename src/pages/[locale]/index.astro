@@ -1,6 +1,4 @@
 ---
-import type { AnyBlock } from '@blocks/Blocks';
-import Blocks from '@blocks/Blocks.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
@@ -76,7 +74,6 @@ const pageUrls = locales.map((locale) => ({
           </Button>
         </PageTitleFooter>
       </PageTitle>
-      <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
       <Grid border={true}>
         <Column span={12}>
           <MemberParade members={members} />
