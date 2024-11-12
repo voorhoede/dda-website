@@ -1,17 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Tag } from './types/datocms';
 import { getLocale } from './i18n';
-import { globalSeo } from './site.json';
+import { globalSeo, locales } from './site.json';
 import type { SiteLocale } from './i18n.types';
 
-export type PageUrl = { 
-  locale: SiteLocale, 
-  pathname: string,
+export type PageUrl = {
+  locale: SiteLocale;
+  pathname: string;
 };
 
 const locale = getLocale();
 
-export const siteName = globalSeo[locale as keyof typeof globalSeo].siteName;
-export const titleSuffix = globalSeo[locale as keyof typeof globalSeo].titleSuffix;
+// The structure of globalSeo changes based on if there are multiple locales available
+// We cast it to 'any' to be able to handle both structures
+export const siteName =
+  locales.length > 1
+    ? (globalSeo as any)[locale].siteName
+    : (globalSeo as any).siteName;
+export const titleSuffix =
+  locales.length > 1
+    ? (globalSeo as any)[locale].titleSuffix
+    : (globalSeo as any).titleSuffix;
 
 export const noIndexTag: Tag = {
   attributes: { name: 'robots' },
@@ -19,7 +28,7 @@ export const noIndexTag: Tag = {
   tag: 'meta',
 };
 
-export const titleTag = (title:string): Tag => ({
+export const titleTag = (title: string): Tag => ({
   tag: 'title',
   content: `${title} ${titleSuffix}`,
 });

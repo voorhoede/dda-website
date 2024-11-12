@@ -14,7 +14,6 @@ import IconSprite from '@components/Icon/IconSprite.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
-import StructuredData from '@components/StructuredData/StructuredData.astro';
 import type { Breadcrumb } from '@components/Breadcrumbs';
 import type { PageUrl } from '@lib/seo';
 import '@assets/a11y.css';
@@ -46,7 +45,6 @@ const mainContentId = 'content';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <StructuredData />
     <SeoHead
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
