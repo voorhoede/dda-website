@@ -1,3 +1,4 @@
+#import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
@@ -24,5 +25,9 @@ query HomePage($locale: SiteLocale!) {
 
   members: allMembers(first: 16) {
     ...MemberLogo
+  }
+
+  events: allEvents(first: 6, orderBy: date_DESC) {
+    ...EventCard
   }
 }

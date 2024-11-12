@@ -1,16 +1,10 @@
-import { EventCard } from '@components/Card';
+import { EventCard } from '@blocks/EventCard';
 import { Column, Grid, type SpanOptions } from '@components/Grid';
+import type { EventCardFragment } from '@lib/types/datocms';
 import './EventsSection.css';
 
-type Event = {
-  date: string;
-  labels: string[];
-  location: string;
-  title: string;
-};
-
 type EventsSectionProps = {
-  events: Event[];
+  events: EventCardFragment[];
 };
 
 export const EventsSection = ({ events }: EventsSectionProps) => {

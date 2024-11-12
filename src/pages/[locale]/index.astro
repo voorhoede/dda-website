@@ -36,7 +36,9 @@ const variables = {
   locale,
 };
 
-const { page, members } = await datocmsRequest<NonNullable<HomePageQuery>>({
+const { page, members, events } = await datocmsRequest<
+  NonNullable<HomePageQuery>
+>({
   query,
   variables,
 });
@@ -80,27 +82,31 @@ const pageUrls = locales.map((locale) => ({
           <MemberParade members={members} />
         </Column>
       </Grid>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.eventsSectionLabel}</Tag>
-          <Heading level={2}>{page.eventsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.eventsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <EventsSection events={[1]} />
-      <EventsSection events={[1, 2]} />
-      <EventsSection events={[1, 2, 3]} />
-      <EventsSection events={[1, 2, 3, 4]} />
+      {events.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.eventsSectionLabel}</Tag>
+              <Heading level={2}>{page.eventsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="arrow-right"
+                level="secondary"
+                variant="large"
+              >
+                {page.eventsSectionCtaLabel}
+              </Button>
+            </TitleSectionFooter>
+          </TitleSection>
+          <EventsSection events={events.slice(0, 1)} />
+          <EventsSection events={events.slice(0, 2)} />
+          <EventsSection events={events.slice(0, 3)} />
+          <EventsSection events={events} />
+        </>
+      )}
       <TitleSection>
         <TitleSectionContent>
           <Tag>{page.vacanciesSectionLabel}</Tag>
