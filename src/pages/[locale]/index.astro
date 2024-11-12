@@ -1,9 +1,8 @@
 ---
-import type { AnyBlock } from '@blocks/Blocks';
-import Blocks from '@blocks/Blocks.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import {
@@ -76,7 +75,6 @@ const pageUrls = locales.map((locale) => ({
           </Button>
         </PageTitleFooter>
       </PageTitle>
-      <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
       <Grid border={true}>
         <Column span={12}>
           <MemberParade members={members} />
@@ -96,6 +94,27 @@ const pageUrls = locales.map((locale) => ({
             variant="large"
           >
             {page.eventsSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
+      <EventsSection events={[1]} />
+      <EventsSection events={[1, 2]} />
+      <EventsSection events={[1, 2, 3]} />
+      <EventsSection events={[1, 2, 3, 4]} />
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.vacanciesSectionLabel}</Tag>
+          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="arrow-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.vacanciesSectionCtaLabel}
           </Button>
         </TitleSectionFooter>
       </TitleSection>
@@ -270,23 +289,6 @@ const pageUrls = locales.map((locale) => ({
           </Card>
         </Column>
       </Grid>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.vacanciesSectionLabel}</Tag>
-          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.vacanciesSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
       <TitleSection>
         <TitleSectionContent>
           <Tag>{page.publicationsSectionLabel}</Tag>
