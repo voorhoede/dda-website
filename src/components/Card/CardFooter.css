@@ -1,0 +1,8 @@
+.card-footer {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-16) var(--spacing-24);
+  min-height: var(--spacing-64);
+  margin-top: var(--spacing-16);
+}
