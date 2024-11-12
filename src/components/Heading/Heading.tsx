@@ -6,7 +6,7 @@ interface HeadingProps {
   children: ReactNode;
   className?: string;
   displayLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-  level: 1 | 2 | 3 | 4 | 5 | 6;
+  level: 1 | 2 | 3 | 4 | 5 | 6 | 'p';
   [key: string]: any;
 }
 
@@ -17,7 +17,7 @@ export const Heading = ({
   level,
   ...rest
 }: HeadingProps) => {
-  const Element: ElementType = `h${level}`;
+  const Element: ElementType = typeof level === 'string' ? level : `h${level}`;
 
   return (
     <Element

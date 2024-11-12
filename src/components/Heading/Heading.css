@@ -1,5 +1,6 @@
 .heading {
   margin: 0;
+  overflow-wrap: break-word;
 }
 
 .heading--1 {
@@ -7,6 +8,7 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .heading--2 {
@@ -14,6 +16,7 @@
   font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1;
+  text-transform: uppercase;
 }
 
 .heading--3 {
@@ -41,7 +44,7 @@
   line-height: 2rem;
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 890px) {
   .heading--1 {
     font-size: 6rem;
   }

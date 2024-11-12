@@ -1,0 +1,8 @@
+.page-title-footer {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-32);
+  justify-content: center;
+  margin-top: var(--spacing-40);
+}

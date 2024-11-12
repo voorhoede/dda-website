@@ -1,13 +1,4 @@
-export type GapOptions =
-  | 'xss'
-  | 'xs'
-  | 's'
-  | 'm'
-  | 'l'
-  | 'xl'
-  | 'xxl'
-  | '3-xl'
-  | '4-xl';
+export type GapOptions = 8 | 12 | 16 | 24 | 32 | 40 | 48 | 64 | 72 | 96 | 128;
 
 export interface ResponsiveGapOptions {
   desktop?: GapOptions;
@@ -32,7 +23,7 @@ export function formatGap({
   mobile: { rowGap: GapOptions | undefined; columnGap: GapOptions | undefined };
 } {
   if (gap) {
-    if (typeof gap === 'string') {
+    if (typeof gap === 'number') {
       return formatGap({ gap: { mobile: gap } });
     }
 

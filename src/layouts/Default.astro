@@ -11,7 +11,6 @@ import { Footer } from '@components/Footer';
 import { Header } from '@components/Header';
 import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import IconSprite from '@components/Icon/IconSprite.astro';
-import LocaleSelector from '@components/LocaleSelector/LocaleSelector.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
@@ -58,7 +57,6 @@ const mainContentId = 'content';
       <div class="main-container">
         <SkipLink targetId={mainContentId} />
         <Header client:load />
-        <LocaleSelector pageUrls={pageUrls} />
 
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
         {

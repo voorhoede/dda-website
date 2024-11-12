@@ -21,14 +21,14 @@ body {
     height: calc(100% - var(--spacing-32));
     margin: var(--spacing-16);
   }
-  
+
   .main-container {
     box-shadow: 0 0 0 1px var(--color-black);
     margin: 0 auto var(--spacing-16);
     max-width: 1440px;
     position: relative;
   }
-  
+
   .main-container::before {
     content: '';
     position: sticky;
@@ -40,6 +40,7 @@ body {
     background-color: var(--color-white);
     border-bottom: 1px solid var(--color-black);
     margin-bottom: -16px;
+    z-index: var(--z-index-header);
   }
 }
 

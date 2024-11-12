@@ -1,8 +1,3 @@
-#import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
-#import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
-#import '@blocks/TableBlock/TableBlock.fragment.graphql'
-#import '@blocks/TextBlock/TextBlock.fragment.graphql'
-#import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
@@ -13,24 +8,18 @@ query HomePage($locale: SiteLocale!) {
       content
       tag
     }
-    bodyBlocks {
-      __typename
-      ... on EmbedBlockRecord {
-        ...EmbedBlock
-      }
-      ... on ImageBlockRecord {
-        ...ImageBlock
-      }
-      ... on TableBlockRecord {
-        ...TableBlock
-      }
-      ... on TextBlockRecord {
-        ...TextBlock
-      }
-      ... on VideoEmbedBlockRecord {
-        ...VideoEmbedBlock
-      }
-    }
+    subtitle
+    becomeMemberCtaLabel
+    findAgencyCtaLabel
+    eventsSectionLabel
+    eventsSectionTitle
+    eventsSectionCtaLabel
+    vacanciesSectionLabel
+    vacanciesSectionTitle
+    vacanciesSectionCtaLabel
+    publicationsSectionLabel
+    publicationsSectionTitle
+    publicationsSectionCtaLabel
   }
   members: allMembers(first: 16) {
     ...MemberLogo

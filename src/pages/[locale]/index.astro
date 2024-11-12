@@ -1,14 +1,23 @@
 ---
-import type { AnyBlock } from '@blocks/Blocks';
-import Blocks from '@blocks/Blocks.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
+import {
+  PageTitle,
+  PageTitleContent,
+  PageTitleFooter,
+  PageTitleHeader,
+} from '@components/PageTitle';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import { Tag, TagList, TagListItem } from '@components/Tag';
 import { Text } from '@components/Text';
+import {
+  TitleSection,
+  TitleSectionContent,
+  TitleSectionFooter,
+} from '@components/TitleSection';
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
 import { locales } from '@lib/i18n';
@@ -41,8 +50,52 @@ const pageUrls = locales.map((locale) => ({
   page ? (
     <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
       <PreviewModeSubscription query={query} variables={variables} />
-      <Heading level={1}>{page.title}</Heading>
-      <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
+      <PageTitle spacious>
+        <PageTitleHeader>
+          <Heading level={1}>{page.title}</Heading>
+        </PageTitleHeader>
+        <PageTitleContent>
+          <Heading displayLevel={6} level="p">
+            {page.subtitle.replace('{{number}}', '123')}
+          </Heading>
+        </PageTitleContent>
+        <PageTitleFooter>
+          <Button as="a" icon="chevron-right" variant="large">
+            {page.becomeMemberCtaLabel}
+          </Button>
+          <Button
+            as="a"
+            height="narrow"
+            icon="chevron-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.findAgencyCtaLabel}
+          </Button>
+        </PageTitleFooter>
+      </PageTitle>
+      <Grid border={true}>
+        <Column span={12}>
+          <MemberParade members={members} />
+        </Column>
+      </Grid>
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.eventsSectionLabel}</Tag>
+          <Heading level={2}>{page.eventsSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="chevron-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.eventsSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
       <Grid border={true}>
         <Column
           span={{ mobile: 12, tablet: 6, desktop: 4 }}
@@ -214,11 +267,40 @@ const pageUrls = locales.map((locale) => ({
           </Card>
         </Column>
       </Grid>
-      <Grid border={true}>
-        <Column span={12}>
-          <MemberParade members={members} />
-        </Column>
-      </Grid>
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.vacanciesSectionLabel}</Tag>
+          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="chevron-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.vacanciesSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.publicationsSectionLabel}</Tag>
+          <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="chevron-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.publicationsSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
     </Layout>
   ) : (
     <p>Page not found</p>

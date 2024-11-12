@@ -1,0 +1,21 @@
+.page-title {
+  padding: var(--spacing-64) var(--spacing-16);
+  text-align: center;
+}
+
+@media screen and (min-width: 481px) {
+  .page-title {
+    padding: var(--spacing-48) var(--spacing-24);
+  }
+}
+
+@media screen and (min-width: 890px) {
+  .page-title {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .page-title--spacious {
+    padding: 132px 0 180px;
+  }
+}
