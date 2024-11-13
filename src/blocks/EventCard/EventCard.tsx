@@ -24,10 +24,15 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
             <Tag key={label}>{label}</Tag>
           ))}
         </TagList>
-        <Text variant="subtext">
-          <time dateTime={event.date}>{formatDate(event.date)}</time> /{' '}
-          {event.location}
-        </Text>
+        {(event.date || event.location) && (
+          <Text variant="subtext">
+            {event.date && (
+              <time dateTime={event.date}>{formatDate(event.date)}</time>
+            )}
+            {event.date && event.location && <>&nbsp;/&nbsp;</>}
+            {event.location && event.location}
+          </Text>
+        )}
         <Heading level={3}>{event.title}</Heading>
       </CardContent>
       <CardFooter>
