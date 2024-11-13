@@ -1,0 +1,9 @@
+.news-section__column {
+  padding: var(--spacing-24);
+}
+
+@media screen and (min-width: 481px) {
+  .news-section__column {
+    padding: var(--spacing-48);
+  }
+}

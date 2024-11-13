@@ -1,4 +1,5 @@
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
+#import '@blocks/NewsCard/NewsCard.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -21,6 +22,11 @@ query HomePage($locale: SiteLocale!) {
     publicationsSectionTitle
     publicationsSectionCtaLabel
   }
+
+  news: allNews(first: 3, orderBy: _publishedAt_DESC) {
+    ...NewsCard
+  }
+
   members: allMembers(first: 16) {
     ...MemberLogo
   }

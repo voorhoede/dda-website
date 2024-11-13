@@ -1,0 +1,20 @@
+fragment NewsCard on NewsRecord {
+  id
+  _publishedAt
+  title
+  image {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      alt
+      base64
+      bgColor
+      height
+      sizes
+      src
+      srcSet
+      title
+      width
+    }
+  }
+  location
+  labels
+}

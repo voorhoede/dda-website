@@ -4,6 +4,7 @@ import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
+import { NewsSection } from '@components/NewsSection';
 import {
   PageTitle,
   PageTitleContent,
@@ -35,7 +36,9 @@ const variables = {
   locale,
 };
 
-const { page, members } = await datocmsRequest<NonNullable<HomePageQuery>>({
+const { page, members, news } = await datocmsRequest<
+  NonNullable<HomePageQuery>
+>({
   query,
   variables,
 });
@@ -284,23 +287,28 @@ const pageUrls = locales.map((locale) => ({
           </Button>
         </TitleSectionFooter>
       </TitleSection>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.publicationsSectionLabel}</Tag>
-          <Heading level={2}>{page.publicationsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="chevron-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.publicationsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
+      {news.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.publicationsSectionLabel}</Tag>
+              <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="chevron-right"
+                level="secondary"
+                variant="large"
+              >
+                {page.publicationsSectionCtaLabel}
+              </Button>
+            </TitleSectionFooter>
+          </TitleSection>
+          <NewsSection news={news} />
+        </>
+      )}
     </Layout>
   ) : (
     <p>Page not found</p>
