@@ -41,7 +41,7 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
           >
             <DataList>
               {events.slice(1).map((event) => (
-                <DataListItem>
+                <DataListItem key={event.id}>
                   <TagList>
                     {event.labels.map(({ label }) => (
                       <TagListItem key={label}>{label}</TagListItem>

@@ -1,5 +1,6 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
+#import '@blocks/NewsCard/NewsCard.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
@@ -22,6 +23,10 @@ query HomePage($locale: SiteLocale!) {
     publicationsSectionLabel
     publicationsSectionTitle
     publicationsSectionCtaLabel
+  }
+
+  news: allNews(first: 3, orderBy: _publishedAt_DESC) {
+    ...NewsCard
   }
 
   vacancies: allVacancies(first: 6) {

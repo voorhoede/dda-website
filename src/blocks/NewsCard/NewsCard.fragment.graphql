@@ -1,5 +1,6 @@
-fragment EventCard on EventRecord {
+fragment NewsCard on NewsRecord {
   id
+  _publishedAt
   title
   image {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
@@ -14,7 +15,6 @@ fragment EventCard on EventRecord {
       width
     }
   }
-  date
   location
   labels {
     label
