@@ -106,24 +106,28 @@ const pageUrls = locales.map((locale) => ({
           <EventsSection events={events} />
         </>
       )}
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.vacanciesSectionLabel}</Tag>
-          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.vacanciesSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <VacancyList vacancies={vacancies} />
+      {vacancies.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.vacanciesSectionLabel}</Tag>
+              <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="arrow-right"
+                level="secondary"
+                variant="large"
+              >
+                {page.vacanciesSectionCtaLabel}
+              </Button>
+            </TitleSectionFooter>
+          </TitleSection>
+          <VacancyList vacancies={vacancies} />
+        </>
+      )}
       <TitleSection>
         <TitleSectionContent>
           <Tag>{page.publicationsSectionLabel}</Tag>
