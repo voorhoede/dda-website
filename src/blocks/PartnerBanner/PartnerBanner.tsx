@@ -4,6 +4,7 @@ import { ImageParade, ImageParadeItem } from '@components/ImageParade';
 import type { PartnerLogoFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 import './PartnerBanner.css';
+import { t } from '@lib/i18n';
 
 export const PartnerBanner = ({
   partners,
@@ -14,9 +15,9 @@ export const PartnerBanner = ({
     <section>
       <div className="partner-banner__content">
         <Heading displayLevel={4} level={2}>
-          Wij bedanken onze trouwe partners
+          {t('become_a_partner_cta_body')}
         </Heading>
-        <Button icon="arrow-right">Word partner</Button>
+        <Button icon="arrow-right">{t('become_a_partner_cta_label')}</Button>
       </div>
       {partners.length >= 8 && (
         <ImageParade direction="right">
