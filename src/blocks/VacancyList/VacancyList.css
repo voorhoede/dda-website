@@ -64,3 +64,11 @@
     transform: translateY(var(--spacing-32));
   }
 }
+
+.vacancy-list__meta {
+  display: contents;
+}
+
+.vacancy-list__meta > * {
+  margin: 0;
+}

@@ -17,29 +17,47 @@ export const VacancyList = ({
           <Heading displayLevel={4} level="span">
             {vacancy.title}
           </Heading>
-          <Text as="span" variant="subtext">
-            {vacancy.language}
-          </Text>
-          <Text as="span" variant="subtext">
-            {vacancy.company.name}
-          </Text>
-          <Text as="span" variant="subtext">
-            {vacancy.weeklyHours}
-          </Text>
-          <Text as="span" variant="subtext">
-            {vacancy.company.location}
-          </Text>
-          <Button
-            as="a"
-            height="narrow"
-            href={vacancy.url}
-            icon="external"
-            level="secondary"
-            target="_blank"
-            variant="large"
-          >
-            {t('see')}
-          </Button>
+
+          <dl className="vacancy-list__meta">
+            <dt className="a11y-sr-only">{t('work_language')}</dt>
+            <dd>
+              <Text as="span" variant="subtext">
+                {vacancy.language}
+              </Text>
+            </dd>
+            <dt className="a11y-sr-only">{t('company')}</dt>
+            <dd>
+              <Text as="span" variant="subtext">
+                {vacancy.company.name}
+              </Text>
+            </dd>
+            <dt className="a11y-sr-only">{t('contract_hours')}</dt>
+            <dd>
+              <Text as="span" variant="subtext">
+                {vacancy.weeklyHours}
+              </Text>
+            </dd>
+            <dt className="a11y-sr-only">{t('location')}</dt>
+            <dd>
+              <Text as="span" variant="subtext">
+                {vacancy.company.location}
+              </Text>
+            </dd>
+          </dl>
+
+          <div>
+            <Button
+              as="a"
+              height="narrow"
+              href={vacancy.url}
+              icon="external"
+              level="secondary"
+              target="_blank"
+              variant="large"
+            >
+              {t('see')}
+            </Button>
+          </div>
         </li>
       ))}
     </ul>
