@@ -6,7 +6,7 @@ interface HeadingProps {
   children: ReactNode;
   className?: string;
   displayLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-  level: 1 | 2 | 3 | 4 | 5 | 6 | 'p';
+  level: 1 | 2 | 3 | 4 | 5 | 6 | 'p' | 'span';
   [key: string]: any;
 }
 

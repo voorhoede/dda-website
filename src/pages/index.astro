@@ -1,4 +1,5 @@
 ---
+import { VacancyList } from '@blocks/VacancyList';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
@@ -36,7 +37,9 @@ const variables = {
   locale,
 };
 
-const { page, members } = await datocmsRequest<NonNullable<HomePageQuery>>({
+const { page, members, vacancies } = await datocmsRequest<
+  NonNullable<HomePageQuery>
+>({
   query,
   variables,
 });
@@ -285,6 +288,7 @@ const pageUrls = locales.map((locale) => ({
           </Button>
         </TitleSectionFooter>
       </TitleSection>
+      <VacancyList vacancies={vacancies} />
       <TitleSection>
         <TitleSectionContent>
           <Tag>{page.publicationsSectionLabel}</Tag>
