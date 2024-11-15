@@ -28,10 +28,11 @@ query HomePage($locale: SiteLocale!) {
     ...VacancyListItem
   }
 
-  members: allMembers(first: 16) {
-    ...MemberLogo
-  }
   events: allEvents(first: 6, orderBy: date_DESC) {
     ...EventCard
+  }
+
+  members: allMembers(first: 16) {
+    ...MemberLogo
   }
 }

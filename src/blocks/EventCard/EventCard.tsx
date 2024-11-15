@@ -9,8 +9,6 @@ import type { EventCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 
 export const EventCard = ({ event }: { event: EventCardFragment }) => {
-  const labels = event.labels?.split(',').map((label) => label.trim()) ?? [];
-
   return (
     <Card>
       {event.image.responsiveImage && (
@@ -20,7 +18,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
       )}
       <CardContent>
         <TagList>
-          {labels.map((label) => (
+          {event.labels.map(({ label }) => (
             <Tag key={label}>{label}</Tag>
           ))}
         </TagList>

@@ -42,13 +42,11 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
             <DataList>
               {events.slice(1).map((event) => (
                 <DataListItem>
-                  {event.labels && (
-                    <TagList>
-                      {getLabels(event.labels).map((label) => (
-                        <TagListItem key={label}>{label}</TagListItem>
-                      ))}
-                    </TagList>
-                  )}
+                  <TagList>
+                    {event.labels.map(({ label }) => (
+                      <TagListItem key={label}>{label}</TagListItem>
+                    ))}
+                  </TagList>
                   <Heading displayLevel={4} level={3}>
                     {event.title}
                   </Heading>
