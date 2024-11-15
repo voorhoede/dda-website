@@ -2,7 +2,6 @@
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
 #import '@blocks/NewsCard/NewsCard.fragment.graphql'
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
-#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -30,8 +29,8 @@ query HomePage($locale: SiteLocale!) {
     ...NewsCard
   }
 
-  vacancies: allVacancies(first: 6) {
-    ...VacancyListItem
+  allVacanciesMeta: _allVacanciesMeta {
+    count
   }
 
   events: allEvents(first: 6, orderBy: date_DESC) {

@@ -1,0 +1,47 @@
+---
+import { VacancyList } from '@blocks/VacancyList';
+import { datocmsRequest } from '@lib/datocms';
+import { defaultLocale } from '@lib/i18n';
+import type {
+  VacancySectionQuery,
+  VacancyCountQuery,
+  VacancyListItemFragment,
+} from '@lib/types/datocms';
+import vacancySectionQuery from './VacancySection.query.graphql';
+import vacancyCountQuery from './VacancyCount.query.graphql';
+
+const { locale = defaultLocale } = Astro.params;
+
+const { allVacanciesMeta } = await datocmsRequest<VacancyCountQuery>({
+  query: vacancyCountQuery,
+});
+
+const randomVacancyIndexes: number[] = Array.from({
+  length: allVacanciesMeta.count,
+}).reduce<number[]>((acc) => {
+  if (acc.length < 6) {
+    const randomIndex = Math.floor(Math.random() * allVacanciesMeta.count);
+    if (!acc.includes(randomIndex)) {
+      acc.push(randomIndex);
+    }
+  }
+  return acc;
+}, []);
+
+const vacanciesData = await datocmsRequest<VacancySectionQuery>({
+  query: vacancySectionQuery,
+  variables: {
+    locale,
+    ...randomVacancyIndexes.reduce(
+      (acc, val, idx) => ({ ...acc, [`index${idx + 1}`]: val.toString() }),
+      {}
+    ),
+  },
+});
+
+const vacancies = Object.values(vacanciesData).map(
+  (v) => v[0]
+) as VacancyListItemFragment[];
+---
+
+<VacancyList vacancies={vacancies} />

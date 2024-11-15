@@ -1,0 +1,29 @@
+#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
+
+query VacancySection(
+  $index1: IntType
+  $index2: IntType
+  $index3: IntType
+  $index4: IntType
+  $index5: IntType
+  $index6: IntType
+) {
+  vacancy1: allVacancies(first: 1, skip: $index1) {
+    ...VacancyListItem
+  }
+  vacancy2: allVacancies(first: 1, skip: $index2) {
+    ...VacancyListItem
+  }
+  vacancy3: allVacancies(first: 1, skip: $index3) {
+    ...VacancyListItem
+  }
+  vacancy4: allVacancies(first: 1, skip: $index4) {
+    ...VacancyListItem
+  }
+  vacancy5: allVacancies(first: 1, skip: $index5) {
+    ...VacancyListItem
+  }
+  vacancy6: allVacancies(first: 1, skip: $index6) {
+    ...VacancyListItem
+  }
+}

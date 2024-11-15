@@ -1,0 +1,5 @@
+query VacancyCount {
+  allVacanciesMeta: _allVacanciesMeta {
+    count
+  }
+}

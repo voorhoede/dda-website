@@ -1,5 +1,5 @@
 ---
-import { VacancyList } from '@blocks/VacancyList';
+import VacancySection from '@blocks/VacancySection/VacancySection.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
@@ -22,7 +22,7 @@ import {
 } from '@components/TitleSection';
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
-import { locales } from '@lib/i18n';
+import { locales, defaultLocale } from '@lib/i18n';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
@@ -31,13 +31,13 @@ export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
 }
 
-const { locale } = Astro.params;
+const { locale = defaultLocale } = Astro.params;
 
 const variables = {
   locale,
 };
 
-const { page, members, events, vacancies, news, partners } =
+const { page, members, events, allVacanciesMeta, news, partners } =
   await datocmsRequest<NonNullable<HomePageQuery>>({
     query,
     variables,
@@ -104,7 +104,7 @@ const pageUrls = locales.map((locale) => ({
           <EventsSection events={events} />
         </>
       )}
-      {vacancies.length > 0 && (
+      {allVacanciesMeta.count > 0 && (
         <>
           <TitleSection>
             <TitleSectionContent>
@@ -123,7 +123,7 @@ const pageUrls = locales.map((locale) => ({
               </Button>
             </TitleSectionFooter>
           </TitleSection>
-          <VacancyList vacancies={vacancies} />
+          <VacancySection server:defer />
         </>
       )}
       {news.length > 0 && (
