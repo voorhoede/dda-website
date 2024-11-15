@@ -1,0 +1,11 @@
+fragment VacancyListItem on VacancyRecord {
+  id
+  title
+  company {
+    name
+    location
+  }
+  language
+  weeklyHours
+  url
+}
