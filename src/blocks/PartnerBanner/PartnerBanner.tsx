@@ -16,7 +16,7 @@ export const PartnerBanner = ({
         <Heading displayLevel={4} level={2}>
           Wij bedanken onze trouwe partners
         </Heading>
-        <Button icon="chevron-right">Word partner</Button>
+        <Button icon="arrow-right">Word partner</Button>
       </div>
       <ImageParade direction="right">
         {partners.map(

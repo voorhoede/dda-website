@@ -3,9 +3,10 @@ import { VacancyList } from '@blocks/VacancyList';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
-import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
+import { NewsSection } from '@components/NewsSection';
 import {
   PageTitle,
   PageTitleContent,
@@ -13,8 +14,7 @@ import {
   PageTitleHeader,
 } from '@components/PageTitle';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
-import { Tag, TagList, TagListItem } from '@components/Tag';
-import { Text } from '@components/Text';
+import { Tag } from '@components/Tag';
 import {
   TitleSection,
   TitleSectionContent,
@@ -37,7 +37,7 @@ const variables = {
   locale,
 };
 
-const { page, members, vacancies } = await datocmsRequest<
+const { page, members, events, vacancies, news } = await datocmsRequest<
   NonNullable<HomePageQuery>
 >({
   query,
@@ -64,13 +64,13 @@ const pageUrls = locales.map((locale) => ({
           </Heading>
         </PageTitleContent>
         <PageTitleFooter>
-          <Button as="a" icon="chevron-right" variant="large">
+          <Button as="a" icon="arrow-right" variant="large">
             {page.becomeMemberCtaLabel}
           </Button>
           <Button
             as="a"
             height="narrow"
-            icon="chevron-right"
+            icon="arrow-right"
             level="secondary"
             variant="large"
           >
@@ -83,229 +83,72 @@ const pageUrls = locales.map((locale) => ({
           <MemberParade members={members} />
         </Column>
       </Grid>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.eventsSectionLabel}</Tag>
-          <Heading level={2}>{page.eventsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="chevron-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.eventsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <Grid border={true}>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <TagList>
-                <TagListItem>Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-              </TagList>
-              <Text variant="subtext">01 Jan 2024 / Amsterdam</Text>
-              <Heading level={3}>Event</Heading>
-              <Text variant="subtext">Subtitle / Subtext</Text>
-            </CardContent>
-            <CardFooter>
+      {events.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.eventsSectionLabel}</Tag>
+              <Heading level={2}>{page.eventsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
               <Button
                 as="a"
                 height="narrow"
-                icon="chevron-right"
+                icon="arrow-right"
                 level="secondary"
                 variant="large"
               >
-                Details
+                {page.eventsSectionCtaLabel}
               </Button>
-            </CardFooter>
-          </Card>
-        </Column>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <TagList>
-                <TagListItem>Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-              </TagList>
-              <Text variant="subtext">01 Jan 2024 / Amsterdam</Text>
-              <Heading displayLevel={4} level={3}>
-                Nieuws
-              </Heading>
-              <Text variant="subtext">Subtitle / Subtext</Text>
-            </CardContent>
-            <CardFooter>
+            </TitleSectionFooter>
+          </TitleSection>
+          <EventsSection events={events} />
+        </>
+      )}
+      {vacancies.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.vacanciesSectionLabel}</Tag>
+              <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
               <Button
                 as="a"
                 height="narrow"
-                icon="chevron-right"
+                icon="arrow-right"
                 level="secondary"
                 variant="large"
               >
-                Lees Meer
+                {page.vacanciesSectionCtaLabel}
               </Button>
-            </CardFooter>
-          </Card>
-        </Column>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <Heading displayLevel={4} level={3}>
-                Team
-              </Heading>
-              <Text variant="subtext">
-                CEO WeAreBrain, portefeuille PR & Communicatie
-              </Text>
-            </CardContent>
-            <CardFooter>
+            </TitleSectionFooter>
+          </TitleSection>
+          <VacancyList vacancies={vacancies} />
+        </>
+      )}
+      {news.length > 0 && (
+        <>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.publicationsSectionLabel}</Tag>
+              <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
               <Button
                 as="a"
                 height="narrow"
-                icon="external"
+                icon="arrow-right"
                 level="secondary"
                 variant="large"
               >
-                LinnkedIn
+                {page.publicationsSectionCtaLabel}
               </Button>
-              <Button
-                as="a"
-                height="narrow"
-                icon="external"
-                level="secondary"
-                variant="large"
-              >
-                E-Mail
-              </Button>
-            </CardFooter>
-          </Card>
-        </Column>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <TagList showEllipses>
-                <TagListItem>Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-              </TagList>
-              <Heading level={3}>Leden</Heading>
-              <Text variant="subtext">Amsterdam</Text>
-              <Text variant="subtext">
-                25-49 Werknemers <Tag variant="blue">Hiring</Tag>
-              </Text>
-            </CardContent>
-            <CardFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="chevron-right"
-                level="secondary"
-                variant="large"
-              >
-                Details
-              </Button>
-            </CardFooter>
-          </Card>
-        </Column>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <TagList showEllipses>
-                <TagListItem variant="blue">Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-                <TagListItem>Label</TagListItem>
-              </TagList>
-              <Heading displayLevel={4} level={3}>
-                Cases
-              </Heading>
-              <Text variant="subtext">Klant</Text>
-            </CardContent>
-            <CardFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="external"
-                level="secondary"
-                variant="large"
-              >
-                Lees meer op onze site
-              </Button>
-            </CardFooter>
-          </Card>
-        </Column>
-        <Column
-          span={{ mobile: 12, tablet: 6, desktop: 4 }}
-          style={{ padding: 48 }}
-        >
-          <Card>
-            <CardImage>Image</CardImage>
-            <CardContent>
-              <TagList />
-              <Heading displayLevel={4} level={3}>
-                Cases
-              </Heading>
-            </CardContent>
-          </Card>
-        </Column>
-      </Grid>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.vacanciesSectionLabel}</Tag>
-          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="chevron-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.vacanciesSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <VacancyList vacancies={vacancies} />
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.publicationsSectionLabel}</Tag>
-          <Heading level={2}>{page.publicationsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="chevron-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.publicationsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
+            </TitleSectionFooter>
+          </TitleSection>
+          <NewsSection news={news} />
+        </>
+      )}
       <PartnerBanner partners={members} />
     </Layout>
   ) : (
