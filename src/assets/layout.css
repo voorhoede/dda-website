@@ -16,6 +16,12 @@ body {
   padding-top: 0.05px;
 }
 
+.main-container main {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
 @media screen and (min-width: 481px) {
   body {
     height: calc(100% - var(--spacing-32));
