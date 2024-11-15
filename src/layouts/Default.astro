@@ -59,6 +59,11 @@ const mainContentId = 'content';
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
     <link rel="icon" href={favicon.src} type="image/png" />
+    <script
+      is:inline
+      defer
+      data-domain="dda-website.pages.dev"
+      src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
     <PreviewModeProvider>
