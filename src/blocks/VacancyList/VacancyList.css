@@ -1,0 +1,74 @@
+.vacancy-list {
+  box-shadow:
+    0 1px 0 0 var(--color-black),
+    0 -1px 0 0 var(--color-black);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-40);
+  list-style-type: none;
+  margin: 0;
+  padding: var(--spacing-40) var(--spacing-16);
+}
+
+@media screen and (min-width: 481px) {
+  .vacancy-list {
+    padding: var(--spacing-40) var(--spacing-48);
+  }
+}
+
+@media screen and (min-width: 1225px) {
+  .vacancy-list {
+    align-items: center;
+    display: grid;
+    gap: var(--spacing-72) var(--spacing-32);
+    grid-template-columns: 1fr repeat(5, auto);
+  }
+}
+
+.vacancy-list__item {
+  border-bottom: 1px solid var(--color-black);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+  padding-bottom: var(--spacing-32);
+}
+
+.vacancy-list__item:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.vacancy-list__item > :first-child,
+.vacancy-list__item > :last-child {
+  width: 100%;
+}
+
+@media screen and (min-width: 1225px) {
+  .vacancy-list__item {
+    display: contents;
+  }
+
+  .vacancy-list__item:not(:last-of-type) > :first-child::after {
+    /* 
+      Creates a separator line between vacancy items in the list.
+      This approach is used because `display: contents;` removes the
+      element's box, making it impossible to apply traditional borders
+      or positioning.
+    */
+    border-bottom: 1px solid var(--color-black);
+    content: '';
+    display: block;
+    left: var(--spacing-48);
+    position: absolute;
+    right: var(--spacing-48);
+    transform: translateY(var(--spacing-32));
+  }
+}
+
+.vacancy-list__meta {
+  display: contents;
+}
+
+.vacancy-list__meta > * {
+  margin: 0;
+}

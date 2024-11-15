@@ -1,5 +1,6 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
+#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -22,6 +23,11 @@ query HomePage($locale: SiteLocale!) {
     publicationsSectionTitle
     publicationsSectionCtaLabel
   }
+
+  vacancies: allVacancies(first: 6) {
+    ...VacancyListItem
+  }
+
   members: allMembers(first: 16) {
     ...MemberLogo
   }
