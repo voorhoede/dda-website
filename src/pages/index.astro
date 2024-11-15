@@ -37,12 +37,11 @@ const variables = {
   locale,
 };
 
-const { page, members, events, vacancies, news } = await datocmsRequest<
-  NonNullable<HomePageQuery>
->({
-  query,
-  variables,
-});
+const { page, members, events, vacancies, news, partners } =
+  await datocmsRequest<NonNullable<HomePageQuery>>({
+    query,
+    variables,
+  });
 
 const pageUrls = locales.map((locale) => ({
   locale,
@@ -149,7 +148,7 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
-      <PartnerBanner partners={members} />
+      <PartnerBanner partners={partners} />
     </Layout>
   ) : (
     <p>Page not found</p>
