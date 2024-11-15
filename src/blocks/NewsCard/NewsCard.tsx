@@ -43,7 +43,7 @@ export const NewsCard = ({ news }: { news: NewsCardFragment }) => {
         <Button
           as="a"
           height="narrow"
-          icon="chevron-right"
+          icon="arrow-right"
           level="secondary"
           variant="large"
         >
