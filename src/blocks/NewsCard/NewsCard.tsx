@@ -9,8 +9,6 @@ import type { NewsCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 
 export const NewsCard = ({ news }: { news: NewsCardFragment }) => {
-  const labels = news.labels?.split(',').map((label) => label.trim()) ?? [];
-
   return (
     <Card>
       {news.image.responsiveImage && (
@@ -20,7 +18,7 @@ export const NewsCard = ({ news }: { news: NewsCardFragment }) => {
       )}
       <CardContent>
         <TagList>
-          {labels.map((label) => (
+          {news.labels.map(({ label }) => (
             <Tag key={label}>{label}</Tag>
           ))}
         </TagList>

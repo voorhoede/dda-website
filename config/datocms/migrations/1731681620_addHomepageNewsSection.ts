@@ -74,27 +74,22 @@ export default async function (client: Client) {
   });
 
   console.log(
-    'Create Single-line string field "Labels" (`labels`) in model "\uD83D\uDCF0 News" (`news`)',
+    'Create Multiple links field "Labels" (`labels`) in model "\uD83D\uDCF0 News" (`news`)',
   );
   await client.fields.create('Wo2OFS4fSQaxAIeWkOI_-g', {
-    id: 'JYcPdMbOQNOMcwXX0xdaZA',
+    id: 'X5erZVHCRZKXkZsw3xISZg',
     label: 'Labels',
-    field_type: 'string',
+    field_type: 'links',
     api_key: 'labels',
-    localized: true,
     validators: {
-      format: {
-        custom_pattern: '^([^,]+)\\s*(?:,\\s*([^,]+)\\s*)*$',
-        description:
-          'A comma-separated list of labels (e.g., label1, label2, label3).',
+      items_item_type: {
+        on_publish_with_unpublished_references_strategy: 'fail',
+        on_reference_unpublish_strategy: 'delete_references',
+        on_reference_delete_strategy: 'delete_references',
+        item_types: ['UxqkfkpETnWtRgn2iP6Vhg'],
       },
     },
-    appearance: {
-      addons: [],
-      editor: 'single_line',
-      parameters: { heading: false, placeholder: null },
-    },
-    default_value: { nl: '' },
+    appearance: { addons: [], editor: 'links_select', parameters: {} },
   });
 
   console.log('Update existing fields/fieldsets');

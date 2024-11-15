@@ -16,5 +16,7 @@ fragment NewsCard on NewsRecord {
     }
   }
   location
-  labels
+  labels {
+    label
+  }
 }
