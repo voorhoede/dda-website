@@ -1,4 +1,5 @@
 fragment EventCard on EventRecord {
+  id
   title
   image {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
