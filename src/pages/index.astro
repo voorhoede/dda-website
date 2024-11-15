@@ -1,6 +1,7 @@
 ---
 import { VacancyList } from '@blocks/VacancyList';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
@@ -36,12 +37,11 @@ const variables = {
   locale,
 };
 
-const { page, members, events, vacancies, news } = await datocmsRequest<
-  NonNullable<HomePageQuery>
->({
-  query,
-  variables,
-});
+const { page, members, events, vacancies, news, partners } =
+  await datocmsRequest<NonNullable<HomePageQuery>>({
+    query,
+    variables,
+  });
 
 const pageUrls = locales.map((locale) => ({
   locale,
@@ -148,6 +148,7 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
+      <PartnerBanner partners={partners} />
     </Layout>
   ) : (
     <p>Page not found</p>

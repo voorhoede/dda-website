@@ -1,6 +1,7 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
 #import '@blocks/NewsCard/NewsCard.fragment.graphql'
+#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
@@ -39,5 +40,9 @@ query HomePage($locale: SiteLocale!) {
 
   members: allMembers(first: 16) {
     ...MemberLogo
+  }
+
+  partners: allPartners(first: 8) {
+    ...PartnerLogo
   }
 }
