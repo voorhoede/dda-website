@@ -38,7 +38,7 @@ export const Menu = () => {
         aria-haspopup="menu"
         aria-label="Open menu"
         className="menu__burger-button"
-        icon="plus"
+        icon="burger"
         iconOnly
         onClick={openMenu}
       />
@@ -53,7 +53,7 @@ export const Menu = () => {
             <Button
               aria-label="Close menu"
               className="menu__close-button"
-              icon="minus"
+              icon="close"
               iconOnly
               onClick={closeMenu}
             />

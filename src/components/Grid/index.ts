@@ -1,2 +1,2 @@
 export { Grid } from './Grid';
-export { Column } from './Column';
+export { Column, type SpanOptions } from './Column';

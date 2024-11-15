@@ -1,5 +1,7 @@
+#import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/MemberParade/MemberParade.fragment.graphql'
 #import '@blocks/NewsCard/NewsCard.fragment.graphql'
+#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -25,6 +27,14 @@ query HomePage($locale: SiteLocale!) {
 
   news: allNews(first: 3, orderBy: _publishedAt_DESC) {
     ...NewsCard
+  }
+
+  vacancies: allVacancies(first: 6) {
+    ...VacancyListItem
+  }
+
+  events: allEvents(first: 6, orderBy: date_DESC) {
+    ...EventCard
   }
 
   members: allMembers(first: 16) {

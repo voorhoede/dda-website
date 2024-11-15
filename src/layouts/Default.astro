@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import type {
   DefaultLayoutQuery,
   Site,
@@ -20,6 +21,7 @@ import '@assets/a11y.css';
 import '@assets/core.css';
 import '@assets/layout.css';
 import '@assets/typography.css';
+import faviconSrc from '@assets/favicon.png';
 import query from './default.query.graphql';
 
 interface Props {
@@ -27,6 +29,13 @@ interface Props {
   pageUrls: PageUrl[];
   seoMetaTags: MetaTag[];
 }
+
+const favicon = await getImage({
+  src: faviconSrc,
+  width: 32,
+  height: 32,
+  format: 'png',
+});
 
 const { locale = defaultLocale as SiteLocale } = Astro.params as {
   locale?: SiteLocale;
@@ -49,6 +58,7 @@ const mainContentId = 'content';
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
+    <link rel="icon" href={favicon.src} type="image/png" />
   </head>
   <body>
     <PreviewModeProvider>
