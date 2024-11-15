@@ -1,5 +1,6 @@
 ---
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Column, Grid } from '@components/Grid';
@@ -301,6 +302,7 @@ const pageUrls = locales.map((locale) => ({
           </Button>
         </TitleSectionFooter>
       </TitleSection>
+      <PartnerBanner partners={members} />
     </Layout>
   ) : (
     <p>Page not found</p>

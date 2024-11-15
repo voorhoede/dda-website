@@ -1,0 +1,23 @@
+.partner-banner__content {
+  align-items: center;
+  border-bottom: 1px solid var(--color-black);
+  box-shadow: 0 -1px 0 0 var(--color-black);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: var(--spacing-40);
+  padding: var(--spacing-48) var(--spacing-16);
+}
+
+@media screen and (min-width: 481px) {
+  .partner-banner__content {
+    padding: var(--spacing-48);
+  }
+}
+
+@media screen and (min-width: 890px) {
+  .partner-banner__content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
