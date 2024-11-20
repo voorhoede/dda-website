@@ -1,12 +1,13 @@
 ---
 import { VacancyList } from '@blocks/VacancyList';
-import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import { MemberParade } from '@components/MemberParade';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { NewsSection } from '@components/NewsSection';
+import { CtaBanner } from '@components/CtaBanner';
 import {
   PageTitle,
   PageTitleContent,
@@ -37,7 +38,7 @@ const variables = {
   locale,
 };
 
-const { page, members, events, vacancies, news, partners } =
+const { page, membersParade, membersCta, events, vacancies, news, partners } =
   await datocmsRequest<NonNullable<HomePageQuery>>({
     query,
     variables,
@@ -79,7 +80,7 @@ const pageUrls = locales.map((locale) => ({
       </PageTitle>
       <Grid border={true}>
         <Column span={12}>
-          <MemberParade members={members} />
+          <MemberParade members={membersParade} />
         </Column>
       </Grid>
       {events.length > 0 && (
@@ -148,6 +149,14 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
+      <CtaBanner members={membersCta} message="Jouw agency kan hier staan">
+        <Heading level={2}>
+          kom bij De beste digitale bureaus van nederland
+        </Heading>
+        <Button as="a" href="#" icon="arrow-right">
+          Word lid
+        </Button>
+      </CtaBanner>
       <PartnerBanner partners={partners} />
     </Layout>
   ) : (
