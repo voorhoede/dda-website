@@ -49,6 +49,11 @@ const mainContentId = 'content';
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
+    <script
+      is:inline
+      defer
+      data-domain={Astro.site?.host}
+      src="https://plausible.io/js/script.js"></script>
   </head>
   <body>
     <PreviewModeProvider>
