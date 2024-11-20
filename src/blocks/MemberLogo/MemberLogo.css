@@ -1,0 +1,12 @@
+.member-logo {
+  block-size: 100%;
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-logo img {
+  max-inline-size: 100%;
+  max-block-size: 100%;
+}
