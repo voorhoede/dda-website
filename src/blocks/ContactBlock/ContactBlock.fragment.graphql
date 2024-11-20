@@ -1,0 +1,10 @@
+fragment ContactBlock on ContactBlockRecord {
+  title
+  website
+  streetName
+  houseNumber
+  postalCode
+  city
+  phone
+  email
+}

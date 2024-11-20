@@ -1,12 +1,15 @@
-import { Column } from '@components/Grid';
-import type { ReactNode } from 'react';
+import { Column } from "@components/Grid";
+import type { ReactNode } from "react";
 
-export const PageTitleHeader = ({ children }: { children: ReactNode }) => {
+export const PageTitleHeader = ({
+  children,
+  spacious = false,
+}: {
+  children: ReactNode;
+  spacious?: boolean;
+}) => {
   return (
-    <Column
-      span={{ mobile: 12, desktop: 10 }}
-      start={{ mobile: 1, desktop: 2 }}
-    >
+    <Column span={{ mobile: 12, desktop: spacious ? 10 : 12 }} start={{ mobile: 1, desktop: spacious ? 2 : 1 }}>
       {children}
     </Column>
   );

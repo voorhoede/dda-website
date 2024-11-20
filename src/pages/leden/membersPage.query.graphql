@@ -1,0 +1,14 @@
+query MembersPage {
+  page: homePage {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+  }
+  members: allMembers {
+    id
+    name
+    slug
+  }
+}

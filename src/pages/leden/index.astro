@@ -1,0 +1,23 @@
+---
+import { datocmsRequest } from '@lib/datocms';
+import type { MembersPageQuery } from '@lib/types/datocms';
+import membersPageQuery from './membersPage.query.graphql';
+
+import Layout from '@layouts/Default.astro';
+
+const { page, members } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery });
+---
+
+{ page && (
+  <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+    { members && (
+      <ul>
+        {members.map((member) => (
+          <li>
+            <a href={`./${member.slug}/`}>{member.name}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </Layout>
+)}

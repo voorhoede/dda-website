@@ -1,0 +1,205 @@
+---
+import { t } from '@lib/i18n';
+import { datocmsRequest } from '@lib/datocms';
+import type { MemberPageQuery } from '@lib/types/datocms';
+
+import memberPageQuery from './memberPage.query.graphql';
+
+import Layout from '@layouts/Default.astro';
+
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import { CaseBlock } from '@blocks/CaseBlock/CaseBlock';
+
+import { SRCImage } from 'react-datocms';
+import { PageTitle, PageTitleContent, PageTitleHeader } from '@components/PageTitle';
+import { Heading } from '@components/Heading';
+import { TagList, TagListItem } from '@components/Tag';
+import { Column, Grid } from '@components/Grid';
+import { Button } from '@components/Button';
+import { PartnerBanner } from '@blocks/PartnerBanner';
+import { VacancyList } from '@blocks/VacancyList';
+import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+const { homePage, page, partners } = await datocmsRequest<MemberPageQuery>({ query: memberPageQuery, variables: { slug } });
+---
+{ homePage && page && (
+  <Layout pageUrls={[]} seoMetaTags={homePage._seoMetaTags}>
+    <PageTitle>
+      <PageTitleHeader>
+        <Heading level={1}>{page.name}</Heading>
+      </PageTitleHeader>
+      <PageTitleContent>
+        <TagList>
+          { page.tags.map((tag) => <TagListItem>{tag.label}</TagListItem>) }
+        </TagList>
+      </PageTitleContent>
+    </PageTitle>
+    
+    { page.banner?.responsiveImage && (
+      <div class="banner container-padding-y-end">
+        <SRCImage pictureClassName="banner__picture" imgClassName="banner__image" imgStyle={{ maxWidth: '100%', maxHeight: '776px' }} data={page.banner.responsiveImage} priority={true} />
+      </div>
+    )}
+    
+    <Grid className='container-padding-y-end'>
+      <Column as="section" className="agency-info container-padding-x" span={{ mobile: 12, desktop: 5 }}>
+        <h2 class="a11y-sr-only">{t('agency_info')}</h2>
+        
+        <SRCImage pictureClassName="agency-info__logo" data={page.logo.responsiveImage!} priority={true} />
+        
+        <div class="agency-info__data">
+          <p class="text-semibold">{page.name}</p>
+          <p>{page.location}</p>
+          <p>{t('count_employees', { count: page.employees })}</p>
+        </div>
+        <div>
+          <Button as="a" href={page.website as string} icon="arrow-right">{t('go_to_website')}</Button>
+        </div>
+      </Column>
+      <Column as="section" className="container-padding-x" span={{ mobile: 12, desktop: 7 }}>
+        <h2 class="a11y-sr-only">{t('about_us')}</h2>
+        <TextBlock block={page.aboutUs} />
+      </Column>
+    </Grid>
+    
+    
+    <section>
+      <header class="vacancies__header">
+        <Heading level={2}>
+          {t('vacancies')}
+        </Heading>
+        <div>
+          <Button as="a" href="/vacatures/" icon="arrow-right">{t('view_all')}</Button>
+        </div>
+      </header>
+      {page.vacancies.length > 0 ? (
+        <VacancyList vacancies={page.vacancies} />
+      ) : (
+        <div class="vacancies__fallback">
+          <p>{t('at_this_moment_this_agency_has_no_vacancies')}</p>
+        </div>
+      )}
+    </section>
+    
+    {page.cases.length > 0 && (
+      <section>
+        <header class="cases__header">
+          <Heading level={2}>
+            {t('cases')}
+          </Heading>
+        </header>
+        <Grid border={true}>
+          { page.cases.map((block) => (
+            <Column span={{ mobile: 12, tablet: 6, desktop: 4 }} style={{ padding: 48 }}>
+              <CaseBlock block={block} />
+            </Column>
+          )) }
+        </Grid>
+      </section>
+    )}
+    
+    <section class="contact">
+      <header class="contact__header">
+        <Heading level={2}>
+          {t('contact')}
+        </Heading>
+      </header>
+      <Grid columnGap={24} rowGap={48}>
+        { page.contact.map((block) => (
+          <Column span={{ mobile: 12, tablet: 6, desktop: 3 }}>
+            <ContactBlock block={block} />
+          </Column>
+        )) }
+      </Grid>
+    </section>
+    
+    { partners.length && <PartnerBanner {partners} /> }
+  </Layout>
+)}
+
+<style>
+
+  .banner :global(.banner__picture) {
+    width: 100%;
+    display: block;
+  }
+  
+  .banner :global(.banner__image) {
+    border: 1px solid var(--color-black);
+    max-height: 776px;
+  }
+  
+  .agency-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+  
+  .agency-info :global(.agency-info__logo) {
+    width: 192px;
+    height: 192px;
+  }
+  
+  .agency-info__data p {
+    margin: 0px;
+  }
+  
+  .vacancies__header,
+  .cases__header{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: var(--spacing-24);
+    padding: var(--spacing-48) var(--spacing-24);
+  }
+  
+  .vacancies__header,
+  .cases__header {
+    border-bottom: 1px solid var(--color-black);
+    box-shadow: 0 -1px 0 0 var(--color-black);
+  }
+  
+  .vacancies__fallback {
+    padding: var(--spacing-104) var(--spacing-48);
+  }
+  
+  .vacancies__fallback p {
+    margin: 0px;
+    text-align: center;
+    
+  }
+  
+  .contact {
+    padding: var(--spacing-96) var(--spacing-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
+  
+  @media screen and (min-width: 481px) {
+    .vacancies__header,
+    .cases__header{
+      padding: var(--spacing-48);
+    }
+  }
+  
+  @media screen and (min-width: 890px) {
+    .banner {
+      padding-inline: var(--spacing-48);
+    }
+      
+    .vacancies__header,
+    .cases__header {
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .contact {
+      padding: var(--spacing-96) var(--spacing-48);
+    }
+  }
+</style>

@@ -15,16 +15,39 @@ interface Props {
 const { data = null, components = [] } = Astro.props;
 ---
 
-<StructuredText 
-  data={data as StructuredTextData }
-  components={[
-    // override default components:
-    [isHeading, Heading],
-    // add custom node components for records that can be embedded in structured text:
-    [isBlock, Block],
-    [isInlineItem, InlineItem],
-    [isItemLink, ItemLink],
-    // allow extension by other Astro templates using this template:
-    ...components,
-  ]}
-/>
+<div class="styled-text">
+  <StructuredText 
+    data={data as StructuredTextData }
+    components={[
+      // override default components:
+      [isHeading, Heading],
+      // add custom node components for records that can be embedded in structured text:
+      [isBlock, Block],
+      [isInlineItem, InlineItem],
+      [isItemLink, ItemLink],
+      // allow extension by other Astro templates using this template:
+      ...components,
+    ]}
+  />
+</div>
+
+<style>
+  .styled-text :global(h3:first-child) {
+    margin-block: 0 var(--spacing-64);
+  }
+  
+  .styled-text :global(h3),
+  .styled-text :global(h4),
+  .styled-text :global(h5),
+  .styled-text :global(h6) {
+    margin-block: 1em;
+  }
+  
+  .styled-text :global(ul) {
+    padding-inline-start: 1em;
+  }
+  
+  .styled-text :global(li p) {
+    margin-block: 0rem;
+  }
+</style>

@@ -54,7 +54,7 @@ const pageUrls = locales.map((locale) => ({
     <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
       <PreviewModeSubscription query={query} variables={variables} />
       <PageTitle spacious>
-        <PageTitleHeader>
+        <PageTitleHeader spacious>
           <Heading level={1}>{page.title}</Heading>
         </PageTitleHeader>
         <PageTitleContent>

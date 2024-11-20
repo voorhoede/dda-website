@@ -31,17 +31,20 @@
   font-size: 1.5rem;
   font-weight: 400;
   line-height: 2rem;
+  letter-spacing: 0rem;
 }
 
 .heading--5 {
   font-size: 1.125rem;
   line-height: 2rem;
+  letter-spacing: 0rem;
 }
 
 .heading--6 {
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 2rem;
+  letter-spacing: 0rem;
 }
 
 @media screen and (min-width: 890px) {
