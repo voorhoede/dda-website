@@ -1,12 +1,11 @@
 import type { PropsWithChildren } from 'react';
-import { Column, Grid, type SpanOptions } from '@components/Grid';
+import clsx from 'clsx';
+import { Column, Grid } from '@components/Grid';
 import { Text } from '@components/Text';
 import type { MemberLogoFragment } from '@lib/types/datocms';
-import { SRCImage } from 'react-datocms';
-import clsx from 'clsx';
-import './CtaBanner.css';
 import type { ResponsiveSpan } from '@components/Grid/Column';
 import { MemberLogo } from '@blocks/MemberLogo';
+import './CtaBanner.css';
 
 interface CtaBannerProps {
   members: MemberLogoFragment[];
