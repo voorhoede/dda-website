@@ -10,7 +10,6 @@ import './Header.css';
 export const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
-  const locale = getLocale();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,11 +33,7 @@ export const Header = () => {
       ref={headerRef}
       className={clsx('header', isSticky && 'header--sticky')}
     >
-      <Link
-        rel="home"
-        href={`/${locale}/`}
-        aria-label={t('go_to_home_page', { siteName })}
-      >
+      <Link rel="home" href="/" aria-label={t('go_to_home_page', { siteName })}>
         <img
           alt=""
           className="header__logo"
