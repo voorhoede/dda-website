@@ -22,7 +22,7 @@ import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 
 export const prerender = false;
 
-const { slug } = Astro.params;
+const { slug } = Astro.params as { slug: string };
 const { homePage, page, partners } = await datocmsRequest<MemberPageQuery>({ query: memberPageQuery, variables: { slug } });
 ---
 { homePage && page && (

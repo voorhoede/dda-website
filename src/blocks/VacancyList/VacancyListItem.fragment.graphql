@@ -1,5 +1,5 @@
 fragment VacancyListItem on VacancyRecord {
-  company: _allReferencingMembers {
+  company: _allReferencingMembers(first: 1) {
     location
     name
   }
