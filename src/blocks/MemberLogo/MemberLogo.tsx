@@ -11,7 +11,7 @@ export const MemberLogo = (props: MemberLogoFragment) => {
       }}
     >
       {props.logo?.responsiveImage && (
-        <SRCImage data={props.logo.responsiveImage} />
+        <SRCImage data={props.logo.responsiveImage} usePlaceholder={false} />
       )}
     </div>
   );
