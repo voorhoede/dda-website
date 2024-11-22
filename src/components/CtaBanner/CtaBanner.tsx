@@ -34,7 +34,7 @@ export const CtaBanner = ({
           desktop: 6,
         }}
       >
-        <Grid border className="cta-banner__logos">
+        <Grid border className="cta-banner__logos" aria-hidden="true">
           {start.map(
             (member, index) =>
               member.logo?.responsiveImage && (
