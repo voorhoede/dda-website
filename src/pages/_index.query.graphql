@@ -24,6 +24,9 @@ query HomePage($locale: SiteLocale!) {
     publicationsSectionLabel
     publicationsSectionTitle
     publicationsSectionCtaLabel
+    ctaSectionMessage
+    ctaSectionTitle
+    ctaSectionCtaLabel
   }
 
   news: allNews(first: 3, orderBy: _publishedAt_DESC) {

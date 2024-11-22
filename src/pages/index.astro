@@ -150,11 +150,9 @@ const pageUrls = locales.map((locale) => ({
         </>
       )}
       <CtaBanner members={membersCta} message="Jouw agency kan hier staan">
-        <Heading level={2}>
-          kom bij De beste digitale bureaus van nederland
-        </Heading>
-        <Button as="a" href="#" icon="arrow-right">
-          Word lid
+        <Heading level={2}>{page.ctaSectionTitle}</Heading>
+        <Button as="a" href="/word-lid" icon="arrow-right">
+          {page.ctaSectionCtaLabel}
         </Button>
       </CtaBanner>
       <PartnerBanner partners={partners} />
