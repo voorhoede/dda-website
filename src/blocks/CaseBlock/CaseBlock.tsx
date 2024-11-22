@@ -5,8 +5,8 @@ import type { CaseBlockFragment } from "@lib/types/datocms";
 import { Button } from "@components/Button";
 import { Card, CardContent, CardFooter, CardImage } from "@components/Card";
 import { Heading } from "@components/Heading";
-import { SubHeading } from "@components/SubHeading";
 import { Tag, TagList } from "@components/Tag";
+import { Text } from "@components/Text";
 
 export interface Props {
   block: CaseBlockFragment;
@@ -27,7 +27,7 @@ export const CaseBlock = ({ block }: Props) => {
           ))}
         </TagList>
         <Heading level={3} displayLevel={4}>{block.title}</Heading>
-        <SubHeading>{block.customer}</SubHeading>
+        <Text variant="subtext">{block.customer}</Text>
       </CardContent>
       {block.link && (
         <CardFooter>
