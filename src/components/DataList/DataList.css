@@ -3,6 +3,5 @@
   flex-direction: column;
   gap: var(--spacing-32);
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: initial;
 }

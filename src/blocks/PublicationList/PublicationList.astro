@@ -1,0 +1,18 @@
+---
+import {
+  PublicationList as PublicationListComponent,
+  loader,
+} from './PublicationList.tsx';
+
+const searchParams = Astro.url.searchParams;
+const initialParams = {
+  page: searchParams.get('page') ?? '1',
+};
+const initialData = await loader(initialParams);
+---
+
+<PublicationListComponent
+  client:load
+  initialParams={initialParams}
+  initialData={initialData}
+/>

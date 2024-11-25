@@ -1,0 +1,61 @@
+query PublicationsPage {
+  page: publicationsPage {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    title
+    subtitle
+  }
+  highlightedPublications: allPublications(first: 3) {
+    id
+    title
+    _createdAt
+    tags {
+      label
+    }
+    banner {
+      alt
+      responsiveImage {
+        src
+        srcSet
+        width
+        height
+        alt
+        title
+        base64
+        bgColor
+        sizes
+      }
+    }
+    content {
+      value
+    }
+  }
+  publications: allPublications(first: 10) {
+    id
+    title
+    _createdAt
+    tags {
+      label
+    }
+    banner {
+      alt
+      responsiveImage {
+        src
+        srcSet
+        width
+        height
+        alt
+        title
+        base64
+        bgColor
+        sizes
+      }
+    }
+    content {
+      value
+    }
+  }
+}
