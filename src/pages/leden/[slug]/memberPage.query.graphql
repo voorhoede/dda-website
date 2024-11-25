@@ -4,15 +4,13 @@
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
-query MemberPage($slug: String!) {
-  homePage {
+query MemberPage($locale: SiteLocale = nl, $slug: String!) {
+  page: member(locale: $locale, filter: { slug: { eq: $slug } }) {
     _seoMetaTags {
       attributes
       content
       tag
     }
-  }
-  page: member(filter: { slug: { eq: $slug } }) {
     aboutUs {
       ...TextBlock
     }

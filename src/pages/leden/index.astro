@@ -1,11 +1,13 @@
 ---
 import { datocmsRequest } from '@lib/datocms';
-import type { MembersPageQuery } from '@lib/types/datocms';
+import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
 import membersPageQuery from './membersPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
 
-const { page, members } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery });
+const { locale } = Astro.params as { locale: SiteLocale };
+
+const { page, members } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery, variables: { locale } });
 ---
 
 { page && (

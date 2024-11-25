@@ -1,12 +1,12 @@
-query MembersPage {
-  page: homePage {
+query MembersPage($locale: SiteLocale = nl) {
+  page: homePage(locale: $locale) {
     _seoMetaTags {
       attributes
       content
       tag
     }
   }
-  members: allMembers {
+  members: allMembers(locale: $locale) {
     id
     name
     slug
