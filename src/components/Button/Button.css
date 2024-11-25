@@ -93,6 +93,16 @@
   margin: var(--spacing-16);
 }
 
+.button--icon-left {
+  flex-direction: row-reverse;
+}
+
+.button--icon-left.button--secondary .button__icon,
+.button--icon-left.button--tertiary .button__icon {
+  margin-left: 0;
+  margin-right: var(--spacing-8);
+}
+
 .button:focus-visible {
   background-color: var(--color-yellow);
   border-color: transparent;
