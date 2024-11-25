@@ -1,0 +1,80 @@
+#import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
+#import '@blocks/CaseBlock/CaseBlock.fragment.graphql'
+#import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
+#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
+
+query MemberPage($locale: SiteLocale = nl, $slug: String!) {
+  page: member(locale: $locale, filter: { slug: { eq: $slug } }) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    aboutUs {
+      ...TextBlock
+    }
+    banner {
+      alt
+      title
+      width
+      height
+      url
+      responsiveImage(imgixParams: { fit: crop, h: 776, auto: format }) {
+        alt
+        base64
+        bgColor
+        height
+        sizes
+        src
+        srcSet
+        title
+        width
+      }
+    }
+    brandColor {
+      hex
+    }
+    employees
+    id
+    location
+    logo {
+      alt
+      title
+      width
+      height
+      url
+      responsiveImage(imgixParams: { fit: crop, h: 192, auto: format }) {
+        alt
+        base64
+        bgColor
+        height
+        sizes
+        src
+        srcSet
+        title
+        width
+      }
+    }
+    name
+    slug
+    tags {
+      id
+      label
+    }
+    website
+    vacancies {
+      ...VacancyListItem
+    }
+    cases {
+      ...CaseBlock
+    }
+    contact {
+      ...ContactBlock
+    }
+  }
+  
+  partners: allPartners(first: 8) {
+    ...PartnerLogo
+  }
+}

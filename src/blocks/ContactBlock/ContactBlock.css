@@ -1,0 +1,20 @@
+.contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  font-style: normal;
+}
+
+.contact-block a {
+  color: inherit;
+  width: fit-content;
+  text-underline-position: from-font;
+}
+
+.contact-block a:hover {
+  text-decoration: none;
+}
+
+.contact-block__address {
+  margin: 0px;
+}

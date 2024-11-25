@@ -34,11 +34,11 @@ export function formatGap({
     };
   }
 
-  if (typeof columnGap === 'string') {
+  if (typeof columnGap === 'number') {
     return formatGap({ columnGap: { mobile: columnGap }, rowGap: rowGap });
   }
 
-  if (typeof rowGap === 'string') {
+  if (typeof rowGap === 'number') {
     return formatGap({ columnGap: columnGap, rowGap: { mobile: rowGap } });
   }
 

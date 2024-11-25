@@ -1,10 +1,10 @@
 fragment VacancyListItem on VacancyRecord {
+  company: _allReferencingMembers(first: 1) {
+    location
+    name
+  }
   id
   title
-  company {
-    name
-    location
-  }
   language
   weeklyHours
   url

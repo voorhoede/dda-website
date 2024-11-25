@@ -1,0 +1,25 @@
+---
+import { datocmsRequest } from '@lib/datocms';
+import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
+import membersPageQuery from './membersPage.query.graphql';
+
+import Layout from '@layouts/Default.astro';
+
+const { locale } = Astro.params as { locale: SiteLocale };
+
+const { page, members } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery, variables: { locale } });
+---
+
+{ page && (
+  <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+    { members && (
+      <ul>
+        {members.map((member) => (
+          <li>
+            <a href={`./${member.slug}/`}>{member.name}</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </Layout>
+)}

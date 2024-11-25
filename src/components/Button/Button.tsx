@@ -14,6 +14,7 @@ type ButtonBaseProps = {
   level?: 'primary' | 'secondary' | 'tertiary';
   variant?: 'default' | 'large';
   iconOnly?: boolean;
+  iconPosition?: 'left' | 'right';
 } & (
   | {
       // Button with icon only
@@ -44,6 +45,7 @@ export const Button = forwardRef(
       height = 'default',
       icon,
       iconOnly = false,
+      iconPosition,
       level = 'primary',
       variant = 'default',
       ...rest
@@ -53,6 +55,7 @@ export const Button = forwardRef(
     const Component = as || defaultComponent;
     const commonClasses = clsx(className, 'button', {
       'button--icon-only': iconOnly,
+      'button--icon-left': iconPosition === 'left',
       [`button--${level}`]: level !== 'primary',
       [`button--${variant}`]: variant !== 'default',
       [`button--${height}`]: height !== 'default',

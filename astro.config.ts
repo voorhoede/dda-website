@@ -62,4 +62,7 @@ export default defineConfig({
       graphql() as PluginOption,
     ],
   },
+  devToolbar: {
+    enabled: false
+  }
 });

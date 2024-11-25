@@ -1,0 +1,26 @@
+fragment CaseBlock on CaseBlockRecord {
+  image {
+    alt
+    title
+    width
+    height
+    url
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      alt
+      base64
+      bgColor
+      height
+      sizes
+      src
+      srcSet
+      title
+      width
+    }
+  }
+  title
+  expertiseTags {
+    label
+  }
+  customer
+  link
+}
