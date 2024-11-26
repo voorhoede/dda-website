@@ -1,6 +1,8 @@
 import { parse } from 'graphql';
 import { print } from 'graphql/language/printer';
 import type { DocumentNode } from 'graphql';
+import { datocmsEnvironment } from '@root/datocms-environment';
+import {} from 'astro:env/client';
 
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
@@ -20,9 +22,30 @@ export const datocmsRequest = async <T>({
   variables = {},
   retryCount = 1,
 }: DatocmsRequest): Promise<T> => {
+  let apiUrl;
   const headers = new Headers();
 
-  const response = await fetch('http://localhost:4323/api/dato/', {
+  // during build we cannot access our dato proxy, so we use the dato api endpoint directly
+  if (import.meta.env.SSR) {
+    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = await import(
+      'astro:env/server'
+    );
+
+    apiUrl = 'https://graphql.datocms.com';
+
+    headers.set('Authorization', `Bearer ${DATOCMS_READONLY_API_TOKEN}`);
+    headers.set('Content-Type', 'application/json');
+    headers.set('X-Environment', datocmsEnvironment);
+    headers.set('X-Exclude-Invalid', 'true');
+
+    if (HEAD_START_PREVIEW) {
+      headers.set('X-Include-Drafts', 'true');
+    }
+  } else {
+    apiUrl = '/api/dato/';
+  }
+
+  const response = await fetch(apiUrl, {
     method: 'post',
     headers,
     body: JSON.stringify({ query: print(query), variables }),
