@@ -12,6 +12,7 @@ import {
 import { Column, Grid } from '@components/Grid';
 import { PublicationCard } from '@blocks/PublicationCard';
 import { Heading } from '@components/Heading';
+import StructuredText from '@components/StructuredText/StructuredText.astro';
 import PublicationList from '@blocks/PublicationList/PublicationList.astro';
 
 export const prerender = false;
@@ -34,8 +35,8 @@ const { page, highlightedPublications } =
           <Heading level={1}>{page.title}</Heading>
         </PageTitleHeader>
         <PageTitleContent>
-          <Heading displayLevel={6} level="p">
-            {page.subtitle.replace('{{number}}', '123')}
+          <Heading displayLevel={6} level="span">
+            <StructuredText data={page.subtitle.value} />
           </Heading>
         </PageTitleContent>
       </PageTitle>

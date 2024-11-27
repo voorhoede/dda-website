@@ -6,7 +6,9 @@ query PublicationsPage {
       tag
     }
     title
-    subtitle
+    subtitle {
+      value
+    }
   }
   highlightedPublications: allPublications(first: 3) {
     id
