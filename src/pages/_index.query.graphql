@@ -1,7 +1,6 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/NewsCard/NewsCard.fragment.graphql'
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
-#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
