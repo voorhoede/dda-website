@@ -2,7 +2,6 @@ import { parse } from 'graphql';
 import { print } from 'graphql/language/printer';
 import type { DocumentNode } from 'graphql';
 import { datocmsEnvironment } from '@root/datocms-environment';
-import {} from 'astro:env/client';
 
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
