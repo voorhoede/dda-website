@@ -30,8 +30,8 @@ const { page } = await datocmsRequest<VacanciesPageQuery>({
           <Heading level={1}>{page.title}</Heading>
         </PageTitleHeader>
         <PageTitleContent>
-          <Heading displayLevel={6} level="div">
-            <StructuredText data={page.subtitle.value} />
+          <Heading displayLevel={6} level="span">
+            <StructuredText data={page.subtitle?.value} />
           </Heading>
         </PageTitleContent>
       </PageTitle>
