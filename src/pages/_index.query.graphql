@@ -32,10 +32,6 @@ query HomePage($locale: SiteLocale!) {
     ...NewsCard
   }
 
-  vacancies: allVacancies(first: 6) {
-    ...VacancyListItem
-  }
-
   events: allEvents(first: 6, orderBy: date_DESC) {
     ...EventCard
   }
