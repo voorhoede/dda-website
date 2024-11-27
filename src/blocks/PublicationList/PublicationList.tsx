@@ -10,7 +10,7 @@ import { Text } from '@components/Text';
 import { TagList, TagListItem } from '@components/Tag';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
-import type { PublicationRecord } from '@lib/types/datocms';
+import type { PublicationsListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import publicationListQuery from './PublicationList.query.graphql';
 import { useSearchParams } from '@lib/hooks/use-search-params';
@@ -25,15 +25,14 @@ export const loader = async (searchParams: Record<string, string>) => {
   const first = 5;
   const skip = (page - 1) * first;
 
-  const { publications, publicationsMeta } = await datocmsRequest<{
-    publications: PublicationRecord[];
-  }>({
-    query: publicationListQuery,
-    variables: {
-      first,
-      skip,
-    },
-  });
+  const { publications, publicationsMeta } =
+    await datocmsRequest<PublicationsListQuery>({
+      query: publicationListQuery,
+      variables: {
+        first,
+        skip,
+      },
+    });
 
   return {
     publications,
