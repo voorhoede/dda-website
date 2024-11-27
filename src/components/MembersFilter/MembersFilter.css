@@ -1,0 +1,12 @@
+.members-filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-48);
+  box-shadow: 0 -1px 0 0 var(--color-black);
+}
+
+.member-filter__selects {
+  display: flex;
+  gap: var(--spacing-16);
+}

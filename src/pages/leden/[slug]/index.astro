@@ -99,7 +99,7 @@ if (!page) {
       </header>
       <Grid border={true}>
         { page.cases.map((block) => (
-          <Column span={{ mobile: 12, tablet: 6, desktop: 4 }} style={{ padding: 48 }}>
+          <Column className="cases-item" span={{ mobile: 12, tablet: 6, desktop: 4 }}>
             <CaseBlock block={block} />
           </Column>
         )) }
@@ -178,7 +178,10 @@ if (!page) {
   .vacancies__fallback p {
     margin: 0px;
     text-align: center;
-    
+  }
+  
+  .cases-item {
+    padding: var(--spacing-24);
   }
   
   .contact {
@@ -221,6 +224,10 @@ if (!page) {
       align-items: center;
       flex-direction: row;
       justify-content: space-between;
+    }
+    
+    .cases-item {
+      padding: var(--spacing-48);
     }
     
     .contact {

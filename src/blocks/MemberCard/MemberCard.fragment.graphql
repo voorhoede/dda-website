@@ -1,0 +1,27 @@
+fragment MemberCard on MemberRecord {
+  name
+  logo {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      base64
+      height
+      width
+      aspectRatio
+      sizes
+      src
+      srcSet
+      webpSrcSet
+      bgColor
+      alt
+      title
+    }
+  }
+  location
+  employees
+  slug
+  tags {
+    label
+  }
+  vacancies {
+    id
+  }
+}
