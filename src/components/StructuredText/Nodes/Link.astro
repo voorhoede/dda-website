@@ -23,7 +23,7 @@ if (Astro.slots.has('default')) {
 
 <LinkCompomonent
   href={url}
-  target={targetBlank ? '_blank' : null}
+  target={targetBlank ? '_blank' : undefined}
   rel="noopener noreferrer"
 >
   <Fragment set:html={html} />
