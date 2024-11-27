@@ -27,6 +27,7 @@ import { locales } from '@lib/i18n';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
+import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
@@ -47,6 +48,9 @@ const { page, events, news, partners } = await datocmsRequest<
   variables,
 });
 
+const members = await getCollection('memberLogos');
+const memberCount = members.length;
+
 const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
@@ -63,7 +67,7 @@ const pageUrls = locales.map((locale) => ({
         </PageTitleHeader>
         <PageTitleContent>
           <Heading displayLevel={6} level="p">
-            {page.subtitle.replace('{{number}}', '123')}
+            {page.subtitle.replace('{{number}}', memberCount)}
           </Heading>
         </PageTitleContent>
         <PageTitleFooter>
