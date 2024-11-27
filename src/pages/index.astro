@@ -1,19 +1,19 @@
 ---
-import { VacancyList } from '@blocks/VacancyList';
-import { MemberParade } from '@components/MemberParade';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { NewsSection } from '@components/NewsSection';
-import { CtaBanner } from '@components/CtaBanner';
 import {
   PageTitle,
   PageTitleContent,
   PageTitleFooter,
   PageTitleHeader,
 } from '@components/PageTitle';
+import CtaBanner from '@blocks/CtaBanner/CtaBanner.astro';
+import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import HighlightedVacancies from '@blocks/HighlightedVacancies/HightlightedVacancies.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import { Tag } from '@components/Tag';
 import {
@@ -24,14 +24,9 @@ import {
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
 import { locales } from '@lib/i18n';
-import type {
-  HomePageQuery,
-  VacancyListItemFragment,
-} from '@lib/types/datocms';
+import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
-import { getRandomItems } from '@lib/content-collections';
-import type { MemberLogoFragment } from '@lib/types/datocms';
 
 export const prerender = true;
 
@@ -51,16 +46,6 @@ const { page, events, news, partners } = await datocmsRequest<
   query,
   variables,
 });
-
-const ctaBannerMembers = await getRandomItems<MemberLogoFragment>(
-  'memberLogos',
-  10
-);
-const membersParadeMembers = await getRandomItems<MemberLogoFragment>(
-  'memberLogos',
-  16
-);
-const vacancies = await getRandomItems<VacancyListItemFragment>('vacancies', 6);
 
 const pageUrls = locales.map((locale) => ({
   locale,
@@ -98,7 +83,7 @@ const pageUrls = locales.map((locale) => ({
       </PageTitle>
       <Grid border={true}>
         <Column span={12}>
-          <MemberParade members={membersParadeMembers} />
+          <MemberParade server:defer />
         </Column>
       </Grid>
       {events.length > 0 && (
@@ -123,28 +108,26 @@ const pageUrls = locales.map((locale) => ({
           <EventsSection events={events} />
         </>
       )}
-      {vacancies.length > 0 && (
-        <>
-          <TitleSection>
-            <TitleSectionContent>
-              <Tag>{page.vacanciesSectionLabel}</Tag>
-              <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
-            </TitleSectionContent>
-            <TitleSectionFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="arrow-right"
-                level="secondary"
-                variant="large"
-              >
-                {page.vacanciesSectionCtaLabel}
-              </Button>
-            </TitleSectionFooter>
-          </TitleSection>
-          <VacancyList vacancies={vacancies} />
-        </>
-      )}
+      <>
+        <TitleSection>
+          <TitleSectionContent>
+            <Tag>{page.vacanciesSectionLabel}</Tag>
+            <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+          </TitleSectionContent>
+          <TitleSectionFooter>
+            <Button
+              as="a"
+              height="narrow"
+              icon="arrow-right"
+              level="secondary"
+              variant="large"
+            >
+              {page.vacanciesSectionCtaLabel}
+            </Button>
+          </TitleSectionFooter>
+        </TitleSection>
+        <HighlightedVacancies server:defer />
+      </>
       {news.length > 0 && (
         <>
           <TitleSection>
@@ -167,7 +150,7 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
-      <CtaBanner members={ctaBannerMembers} message={page.ctaSectionMessage}>
+      <CtaBanner server:defer message={page.ctaSectionMessage}>
         <Heading level={2}>{page.ctaSectionTitle}</Heading>
         <Button as="a" href="/word-lid" icon="arrow-right">
           {page.ctaSectionCtaLabel}
