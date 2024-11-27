@@ -1,0 +1,1 @@
+export { MemberParade } from './MemberParade';

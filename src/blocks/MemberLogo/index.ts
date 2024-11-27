@@ -1,0 +1,1 @@
+export { MemberLogo } from './MemberLogo';
