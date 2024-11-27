@@ -1,4 +1,4 @@
-.vacancy-list {
+.vacancies-section {
   box-shadow:
     0 1px 0 0 var(--color-black),
     0 -1px 0 0 var(--color-black);
@@ -11,13 +11,13 @@
 }
 
 @media screen and (min-width: 481px) {
-  .vacancy-list {
+  .vacancies-section {
     padding: var(--spacing-40) var(--spacing-48);
   }
 }
 
 @media screen and (min-width: 1225px) {
-  .vacancy-list {
+  .vacancies-section {
     align-items: center;
     display: grid;
     gap: var(--spacing-72) var(--spacing-32);
@@ -25,7 +25,7 @@
   }
 }
 
-.vacancy-list__item {
+.vacancies-section__item {
   border-bottom: 1px solid var(--color-black);
   display: flex;
   flex-wrap: wrap;
@@ -33,22 +33,22 @@
   padding-bottom: var(--spacing-32);
 }
 
-.vacancy-list__item:last-of-type {
+.vacancies-section__item:last-of-type {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.vacancy-list__item > :first-child,
-.vacancy-list__item > :last-child {
+.vacancies-section__item > :first-child,
+.vacancies-section__item > :last-child {
   width: 100%;
 }
 
 @media screen and (min-width: 1225px) {
-  .vacancy-list__item {
+  .vacancies-section__item {
     display: contents;
   }
 
-  .vacancy-list__item:not(:last-of-type) > :first-child::after {
+  .vacancies-section__item:not(:last-of-type) > :first-child::after {
     /* 
       Creates a separator line between vacancy items in the list.
       This approach is used because `display: contents;` removes the
@@ -65,10 +65,10 @@
   }
 }
 
-.vacancy-list__meta {
+.vacancies-section__meta {
   display: contents;
 }
 
-.vacancy-list__meta > * {
+.vacancies-section__meta > * {
   margin: 0;
 }

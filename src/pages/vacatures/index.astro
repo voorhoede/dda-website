@@ -1,0 +1,42 @@
+---
+import Layout from '@layouts/Default.astro';
+import { defaultLocale } from '@lib/i18n';
+import query from './_index.query.graphql';
+import { datocmsRequest } from '@lib/datocms';
+import type { VacanciesPageQuery } from '@lib/types/datocms';
+import {
+  PageTitle,
+  PageTitleContent,
+  PageTitleHeader,
+} from '@components/PageTitle';
+import { Heading } from '@components/Heading';
+import VacancyList from '@blocks/VacancySection/VacancyList.astro';
+
+export const prerender = false;
+
+const { locale = defaultLocale } = Astro.params;
+
+const { page } = await datocmsRequest<VacanciesPageQuery>({
+  query,
+  variables: { locale },
+});
+---
+
+{
+  page && (
+    <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+      <PageTitle>
+        <PageTitleHeader>
+          <Heading level={1}>{page.title}</Heading>
+        </PageTitleHeader>
+        <PageTitleContent>
+          <Heading displayLevel={6} level="p">
+            hoi
+          </Heading>
+        </PageTitleContent>
+      </PageTitle>
+
+      <VacancyList />
+    </Layout>
+  )
+}
