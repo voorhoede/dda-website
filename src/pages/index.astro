@@ -149,7 +149,7 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
-      <CtaBanner members={membersCta} message="Jouw agency kan hier staan">
+      <CtaBanner members={membersCta} message={page.ctaSectionMessage}>
         <Heading level={2}>{page.ctaSectionTitle}</Heading>
         <Button as="a" href="/word-lid" icon="arrow-right">
           {page.ctaSectionCtaLabel}
