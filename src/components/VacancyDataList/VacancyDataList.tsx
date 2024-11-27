@@ -40,7 +40,7 @@ export const VacancyDataList = forwardRef<
             <dt className="a11y-sr-only">{t('location')}</dt>
             <dd>
               <Text as="span" variant="subtext">
-                {vacancy.company[0]?.location}
+                {vacancy.location}
               </Text>
             </dd>
           </dl>
