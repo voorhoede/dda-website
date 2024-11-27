@@ -22,7 +22,7 @@ import { useRef } from 'react';
 
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
-  const first = 5;
+  const first = 10;
   const skip = (page - 1) * first;
 
   const { publications, publicationsMeta } =
