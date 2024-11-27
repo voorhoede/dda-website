@@ -63,7 +63,9 @@ export const PublicationList = withQueryClientProvider(
       updateSearchParams({ page: page.toString() });
 
       if (dataListRef.current) {
-        dataListRef.current.scrollIntoView({ behavior: 'smooth' });
+        dataListRef.current.scrollIntoView({
+          behavior: 'instant',
+        });
       }
     };
 
