@@ -1,0 +1,61 @@
+---
+import Layout from '@layouts/Default.astro';
+import { defaultLocale } from '@lib/i18n';
+import query from './_index.query.graphql';
+import { datocmsRequest } from '@lib/datocms';
+import type { PublicationsPageQuery } from '@lib/types/datocms';
+import {
+  PageTitle,
+  PageTitleContent,
+  PageTitleHeader,
+} from '@components/PageTitle';
+import { Column, Grid } from '@components/Grid';
+import { PublicationCard } from '@blocks/PublicationCard';
+import { Heading } from '@components/Heading';
+import StructuredText from '@components/StructuredText/StructuredText.astro';
+import PublicationList from '@blocks/PublicationList/PublicationList.astro';
+
+export const prerender = false;
+
+const { locale = defaultLocale } = Astro.params;
+
+const { page, highlightedPublications } =
+  await datocmsRequest<PublicationsPageQuery>({
+    query,
+    variables: { locale },
+  });
+---
+
+{
+  page && (
+    <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+      <PageTitle>
+        <PageTitleHeader>
+          {/* TODO: Add back button */}
+          <Heading level={1}>{page.title}</Heading>
+        </PageTitleHeader>
+        <PageTitleContent>
+          <Heading displayLevel={6} level="span">
+            <StructuredText data={page.subtitle.value} />
+          </Heading>
+        </PageTitleContent>
+      </PageTitle>
+
+      <Grid border>
+        {highlightedPublications.map((publication) => (
+          <Column
+            key={publication.id}
+            span={{
+              mobile: 12,
+              tablet: 6,
+              desktop: 4,
+            }}
+          >
+            <PublicationCard publication={publication} />
+          </Column>
+        ))}
+      </Grid>
+      <PublicationList />
+    </Layout>
+  )
+}

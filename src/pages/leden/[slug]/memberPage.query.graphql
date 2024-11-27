@@ -73,7 +73,7 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
       ...ContactBlock
     }
   }
-  
+
   partners: allPartners(first: 8) {
     ...PartnerLogo
   }

@@ -10,7 +10,7 @@ import Layout from '@layouts/Default.astro';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { CaseBlock } from '@blocks/CaseBlock/CaseBlock';
 import { PartnerBanner } from '@blocks/PartnerBanner';
-import { VacancyList } from '@blocks/VacancyList';
+import { VacancyDataList } from '@components/VacancyDataList';
 import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 
 import { SRCImage } from 'react-datocms';
@@ -90,9 +90,9 @@ if (!page) {
       </div>
 
       <div>
-        <Button as="a" href={page.website as string} icon="arrow-right"
-        >{t('go_to_website')}</Button
-        >
+        <Button as="a" href={page.website as string} icon="arrow-right">
+          {t('go_to_website')}
+        </Button>
       </div>
     </Column>
 
@@ -108,14 +108,14 @@ if (!page) {
         {t('vacancies')}
       </Heading>
       <div>
-        <Button as="a" href="/vacatures/" icon="arrow-right"
-        >{t('view_all')}</Button
-        >
+        <Button as="a" href="/vacatures/" icon="arrow-right">
+          {t('view_all')}
+        </Button>
       </div>
     </header>
     {
       page.vacancies.length > 0 ? (
-        <VacancyList vacancies={page.vacancies} />
+        <VacancyDataList vacancies={page.vacancies} />
       ) : (
         <div class="vacancies__fallback">
           <p>{t('at_this_moment_this_agency_has_no_vacancies')}</p>

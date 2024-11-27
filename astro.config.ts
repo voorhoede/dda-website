@@ -45,6 +45,16 @@ export default defineConfig({
         access: 'public',
         default: process.env.NODE_ENV === 'production',
       }),
+      MAILCHIMP_FORM_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        default: process.env.MAILCHIMP_FORM_URL,
+      }),
+      MAILCHIMP_HONEYPOT_ID: envField.string({
+        context: 'client',
+        access: 'public',
+        default: process.env.MAILCHIMP_HONEYPOT_ID,
+      }),
     },
   },
   image: {

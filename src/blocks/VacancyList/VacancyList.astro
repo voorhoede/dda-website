@@ -1,0 +1,17 @@
+---
+import { VacancyList as VacancyListComponent, loader } from './VacancyList';
+
+const searchParams = Astro.url.searchParams;
+const initialParams = {
+  page: searchParams.get('page') ?? '1',
+};
+const initialUrl = Astro.url.href;
+const initialData = await loader(initialParams);
+---
+
+<VacancyListComponent
+  client:load
+  initialData={initialData}
+  initialParams={initialParams}
+  initialUrl={initialUrl}
+/>

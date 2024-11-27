@@ -5,36 +5,36 @@ import { Tag, TagList } from '@components/Tag';
 import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
-import type { NewsCardFragment } from '@lib/types/datocms';
+import type { PublicationCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 
-export const NewsCard = ({ news }: { news: NewsCardFragment }) => {
+export const PublicationCard = ({
+  publication,
+}: {
+  publication: PublicationCardFragment;
+}) => {
   return (
     <Card>
-      {news.image.responsiveImage && (
+      {publication.banner.responsiveImage && (
         <CardImage>
-          <SRCImage data={news.image.responsiveImage} />
+          <SRCImage data={publication.banner.responsiveImage} />
         </CardImage>
       )}
       <CardContent>
         <TagList>
-          {news.labels.map(({ label }) => (
+          {publication.tags.map(({ label }) => (
             <Tag key={label}>{label}</Tag>
           ))}
         </TagList>
-        {(news._publishedAt || news.location) && (
+        {publication._publishedAt && (
           <Text variant="subtext">
-            {news._publishedAt && (
-              <time dateTime={news._publishedAt}>
-                {formatDate(news._publishedAt)}
-              </time>
-            )}
-            {news._publishedAt && news.location && <>&nbsp;/&nbsp;</>}
-            {news.location && news.location}
+            <time dateTime={publication._publishedAt}>
+              {formatDate(publication._publishedAt)}
+            </time>
           </Text>
         )}
         <Heading displayLevel={4} level={3}>
-          {news.title}
+          {publication.title}
         </Heading>
       </CardContent>
       <CardFooter>

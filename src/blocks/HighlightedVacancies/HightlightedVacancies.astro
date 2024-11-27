@@ -1,9 +1,9 @@
 ---
-import { VacancyList } from '@blocks/VacancyList';
+import { VacancyDataList } from '@components/VacancyDataList';
 import type { VacancyListItemFragment } from '@lib/types/datocms';
 import { getRandomItems } from '@lib/content-collections';
 
 const vacancies = await getRandomItems<VacancyListItemFragment>('vacancies', 6);
 ---
 
-<VacancyList vacancies={vacancies} />
+<VacancyDataList vacancies={vacancies} />

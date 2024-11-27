@@ -1,8 +1,8 @@
-fragment NewsCard on NewsRecord {
+fragment PublicationCard on PublicationRecord {
   id
   _publishedAt
   title
-  image {
+  banner {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
       alt
       base64
@@ -15,8 +15,7 @@ fragment NewsCard on NewsRecord {
       width
     }
   }
-  location
-  labels {
+  tags {
     label
   }
 }

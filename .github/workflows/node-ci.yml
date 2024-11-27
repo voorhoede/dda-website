@@ -13,7 +13,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Use dependencies cache
         id: cache
@@ -36,6 +36,8 @@ jobs:
       DATOCMS_READONLY_API_TOKEN: ${{ secrets.DATOCMS_READONLY_API_TOKEN }}
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
+      MAILCHIMP_FORM_URL: '' # required but unused in this workflow
+      MAILCHIMP_HONEYPOT_ID: '' # required but unused in this workflow
 
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +45,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Use dependencies cache
         uses: actions/cache@v3
@@ -71,6 +73,8 @@ jobs:
       DATOCMS_READONLY_API_TOKEN: ${{ secrets.DATOCMS_READONLY_API_TOKEN }}
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
+      MAILCHIMP_FORM_URL: 'https://example.com' # required, but a fake value is sufficient for functionality
+      MAILCHIMP_HONEYPOT_ID: '123' # required, but a fake value is sufficient for functionality
 
     steps:
       - uses: actions/checkout@v4
@@ -78,7 +82,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Use dependencies cache
         uses: actions/cache@v3
@@ -101,6 +105,8 @@ jobs:
       DATOCMS_READONLY_API_TOKEN: ${{ secrets.DATOCMS_READONLY_API_TOKEN }}
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
+      MAILCHIMP_FORM_URL: '' # required but unused in this workflow
+      MAILCHIMP_HONEYPOT_ID: '' # required but unused in this workflow
 
     steps:
       - uses: actions/checkout@v4
@@ -108,7 +114,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
+          node-version-file: '.nvmrc'
 
       - name: Use dependencies cache
         uses: actions/cache@v3
