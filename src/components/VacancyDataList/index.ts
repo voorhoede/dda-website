@@ -1,0 +1,1 @@
+export { VacancyDataList } from './VacancyDataList';
