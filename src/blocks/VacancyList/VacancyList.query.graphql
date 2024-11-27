@@ -1,7 +1,7 @@
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
 
-query VacancyListList($first: IntType!, $skip: IntType!) {
-  VacanciesMeta: _allVacanciesMeta {
+query VacancyList($first: IntType!, $skip: IntType!) {
+  vacanciesMeta: _allVacanciesMeta {
     count
   }
   vacancies: allVacancies(first: $first, skip: $skip) {

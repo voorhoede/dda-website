@@ -1,4 +1,4 @@
-.vacancies-section {
+.vacancy-data-list {
   box-shadow:
     0 1px 0 0 var(--color-black),
     0 -1px 0 0 var(--color-black);
@@ -11,13 +11,13 @@
 }
 
 @media screen and (min-width: 481px) {
-  .vacancies-section {
+  .vacancy-data-list {
     padding: var(--spacing-40) var(--spacing-48);
   }
 }
 
 @media screen and (min-width: 1225px) {
-  .vacancies-section {
+  .vacancy-data-list {
     align-items: center;
     display: grid;
     gap: var(--spacing-72) var(--spacing-32);
@@ -25,7 +25,7 @@
   }
 }
 
-.vacancies-section__item {
+.vacancy-data-list__item {
   border-bottom: 1px solid var(--color-black);
   display: flex;
   flex-wrap: wrap;
@@ -33,22 +33,22 @@
   padding-bottom: var(--spacing-32);
 }
 
-.vacancies-section__item:last-of-type {
+.vacancy-data-list__item:last-of-type {
   border-bottom: none;
   padding-bottom: 0;
 }
 
-.vacancies-section__item > :first-child,
-.vacancies-section__item > :last-child {
+.vacancy-data-list__item > :first-child,
+.vacancy-data-list__item > :last-child {
   width: 100%;
 }
 
 @media screen and (min-width: 1225px) {
-  .vacancies-section__item {
+  .vacancy-data-list__item {
     display: contents;
   }
 
-  .vacancies-section__item:not(:last-of-type) > :first-child::after {
+  .vacancy-data-list__item:not(:last-of-type) > :first-child::after {
     /* 
       Creates a separator line between vacancy items in the list.
       This approach is used because `display: contents;` removes the
@@ -65,10 +65,10 @@
   }
 }
 
-.vacancies-section__meta {
+.vacancy-data-list__meta {
   display: contents;
 }
 
-.vacancies-section__meta > * {
+.vacancy-data-list__meta > * {
   margin: 0;
 }

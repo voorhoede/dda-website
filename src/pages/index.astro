@@ -1,5 +1,5 @@
 ---
-import { VacancyList } from '@components/VacanciesSection';
+import { VacancyDataList } from '@components/VacancyDataList';
 import { MemberParade } from '@components/MemberParade';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { NewsLetterForm } from '@blocks/NewLetterForm';
@@ -134,7 +134,7 @@ const pageUrls = locales.map((locale) => ({
               </Button>
             </TitleSectionFooter>
           </TitleSection>
-          <VacancyList vacancies={vacancies} />
+          <VacancyDataList vacancies={vacancies} />
         </>
       )}
       {publications.length > 0 && (

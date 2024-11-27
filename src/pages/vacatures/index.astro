@@ -10,8 +10,8 @@ import {
   PageTitleHeader,
 } from '@components/PageTitle';
 import { Heading } from '@components/Heading';
-import VacancyList from '@blocks/VacancySection/VacancyList.astro';
-
+import VacancyList from '@blocks/VacancyList/VacancyList.astro';
+import StructuredText from '@components/StructuredText/StructuredText.astro';
 export const prerender = false;
 
 const { locale = defaultLocale } = Astro.params;
@@ -30,8 +30,8 @@ const { page } = await datocmsRequest<VacanciesPageQuery>({
           <Heading level={1}>{page.title}</Heading>
         </PageTitleHeader>
         <PageTitleContent>
-          <Heading displayLevel={6} level="p">
-            hoi
+          <Heading displayLevel={6} level="div">
+            <StructuredText data={page.subtitle.value} />
           </Heading>
         </PageTitleContent>
       </PageTitle>

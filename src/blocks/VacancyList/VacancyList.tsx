@@ -1,40 +1,28 @@
+import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Button } from '@components/Button';
-import {
-  DataList,
-  DataListItem,
-  DataListItemFooter,
-} from '@components/DataList';
-import { Heading } from '@components/Heading';
-import { Text } from '@components/Text';
-import { TagList, TagListItem } from '@components/Tag';
-import { formatDate } from '@lib/date';
-import { t } from '@lib/i18n';
-import type { VacanciesListQuery } from '@lib/types/datocms';
+import type { VacancyListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import vacancyListQuery from './VacancyList.query.graphql';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { withQueryClientProvider } from '@lib/react-query';
-import { Pagination } from '@components/Pagination/Pagination';
 import { useUrl } from '@lib/hooks/use-url';
 import { Column, Grid } from '@components/Grid';
-import { useRef } from 'react';
+import { VacancyDataList } from '@components/VacancyDataList';
+import { Pagination } from '@components/Pagination';
 
-const DEFAULT_PAGE_SIZE = 10;
+const DEFAULT_PAGE_SIZE = 4;
 
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const skip = (page - 1) * DEFAULT_PAGE_SIZE;
 
-  const { vacancies, vacanciesMeta } = await datocmsRequest<VacanciesListQuery>(
-    {
-      query: vacancyListQuery,
-      variables: {
-        first: DEFAULT_PAGE_SIZE,
-        skip,
-      },
+  const { vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
+    query: vacancyListQuery,
+    variables: {
+      first: DEFAULT_PAGE_SIZE,
+      skip,
     },
-  );
+  });
 
   return {
     vacancies,
@@ -73,7 +61,7 @@ export const VacancyList = withQueryClientProvider(
     return (
       <Grid>
         <Column span={12}>
-          <VacanciesSection vacancies={data.vacancies} />
+          <VacancyDataList vacancies={data.vacancies} ref={dataListRef} />
         </Column>
 
         <Column span={12} className="container-padding-x container-padding-y">
