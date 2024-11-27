@@ -16,13 +16,16 @@ import publicationListQuery from './PublicationList.query.graphql';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { withQueryClientProvider } from '@lib/react-query';
 import { Pagination } from '@components/Pagination/Pagination';
+import { useUrl } from '@lib/hooks/use-url';
+import { Column, Grid } from '@components/Grid';
+import { useRef } from 'react';
 
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
-  const first = 2;
+  const first = 5;
   const skip = (page - 1) * first;
 
-  const { publications } = await datocmsRequest<{
+  const { publications, publicationsMeta } = await datocmsRequest<{
     publications: PublicationRecord[];
   }>({
     query: publicationListQuery,
@@ -34,17 +37,21 @@ export const loader = async (searchParams: Record<string, string>) => {
 
   return {
     publications,
+    publicationsMeta,
   };
 };
 
 type PublicationListProps = {
   initialData: Awaited<ReturnType<typeof loader>>;
   initialParams: Record<string, string>;
+  initialUrl: string;
 };
 
 export const PublicationList = withQueryClientProvider(
-  ({ initialData, initialParams }: PublicationListProps) => {
+  ({ initialData, initialParams, initialUrl }: PublicationListProps) => {
+    const dataListRef = useRef<HTMLUListElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
+    const url = useUrl(initialUrl);
 
     const { data } = useQuery({
       queryKey: ['publications', searchParams.page],
@@ -52,47 +59,61 @@ export const PublicationList = withQueryClientProvider(
       initialData,
     });
 
-    const updatePage = (page: number) =>
+    const updatePage = (page: number) => {
       updateSearchParams({ page: page.toString() });
 
+      if (dataListRef.current) {
+        dataListRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
     return (
-      <>
-        <DataList className="container-padding-x container-padding-y">
-          {data?.publications.map((publication) => (
-            <DataListItem key={publication.id}>
-              <TagList>
-                {publication.tags.map(({ label }) => (
-                  <TagListItem key={label}>{label}</TagListItem>
-                ))}
-              </TagList>
-              <Heading displayLevel={4} level={3}>
-                {publication.title}
-              </Heading>
-              <DataListItemFooter>
-                <Text variant="subtext">
-                  <time dateTime={publication._createdAt}>
-                    {formatDate(publication._createdAt)}
-                  </time>
-                </Text>
-                <Button
-                  as="a"
-                  height="narrow"
-                  icon="arrow-right"
-                  level="secondary"
-                  variant="large"
-                >
-                  {t('read_more')}
-                </Button>
-              </DataListItemFooter>
-            </DataListItem>
-          ))}
-        </DataList>
-        <Pagination
-          currentPage={Number(searchParams.page)}
-          totalPages={2}
-          onPageChange={updatePage}
-        />
-      </>
+      <Grid>
+        <Column span={12}>
+          <DataList
+            className="container-padding-x container-padding-y"
+            ref={dataListRef}
+          >
+            {data?.publications.map((publication) => (
+              <DataListItem key={publication.id}>
+                <TagList>
+                  {publication.tags.map(({ label }) => (
+                    <TagListItem key={label}>{label}</TagListItem>
+                  ))}
+                </TagList>
+                <Heading displayLevel={4} level={3}>
+                  {publication.title}
+                </Heading>
+                <DataListItemFooter>
+                  <Text variant="subtext">
+                    <time dateTime={publication._createdAt}>
+                      {formatDate(publication._createdAt)}
+                    </time>
+                  </Text>
+                  <Button
+                    as="a"
+                    height="narrow"
+                    icon="arrow-right"
+                    level="secondary"
+                    variant="large"
+                  >
+                    {t('read_more')}
+                  </Button>
+                </DataListItemFooter>
+              </DataListItem>
+            ))}
+          </DataList>
+        </Column>
+
+        <Column span={12} className="container-padding-x container-padding-y">
+          <Pagination
+            url={url}
+            currentPage={Number(searchParams.page)}
+            totalPages={Math.ceil(data.publicationsMeta.count / 5)}
+            onPageChange={updatePage}
+          />
+        </Column>
+      </Grid>
     );
   },
 );

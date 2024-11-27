@@ -9,10 +9,12 @@ const initialParams = {
   page: searchParams.get('page') ?? '1',
 };
 const initialData = await loader(initialParams);
+const initialUrl = Astro.url.href;
 ---
 
 <PublicationListComponent
   client:load
   initialParams={initialParams}
   initialData={initialData}
+  initialUrl={initialUrl}
 />

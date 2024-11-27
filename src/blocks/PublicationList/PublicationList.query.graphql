@@ -1,4 +1,7 @@
 query PublicationsList($first: IntType!, $skip: IntType!) {
+  publicationsMeta: _allPublicationsMeta {
+    count
+  }
   publications: allPublications(first: $first, skip: $skip) {
     id
     title
