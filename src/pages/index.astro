@@ -2,6 +2,7 @@
 import { VacancyList } from '@blocks/VacancyList';
 import { MemberParade } from '@components/MemberParade';
 import { PartnerBanner } from '@blocks/PartnerBanner';
+import { NewsLetterForm } from '@blocks/NewLetterForm';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
@@ -151,6 +152,7 @@ const pageUrls = locales.map((locale) => ({
           <NewsSection news={news} />
         </>
       )}
+      <NewsLetterForm client:load />
       <CtaBanner members={membersCta} message={page.ctaSectionMessage}>
         <Heading level={2}>{page.ctaSectionTitle}</Heading>
         <Button as="a" href="/word-lid" icon="arrow-right">
