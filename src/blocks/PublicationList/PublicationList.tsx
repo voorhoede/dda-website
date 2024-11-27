@@ -20,16 +20,17 @@ import { useUrl } from '@lib/hooks/use-url';
 import { Column, Grid } from '@components/Grid';
 import { useRef } from 'react';
 
+const DEFAULT_PAGE_SIZE = 10;
+
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
-  const first = 10;
-  const skip = (page - 1) * first;
+  const skip = (page - 1) * DEFAULT_PAGE_SIZE;
 
   const { publications, publicationsMeta } =
     await datocmsRequest<PublicationsListQuery>({
       query: publicationListQuery,
       variables: {
-        first,
+        first: DEFAULT_PAGE_SIZE,
         skip,
       },
     });
@@ -108,7 +109,9 @@ export const PublicationList = withQueryClientProvider(
           <Pagination
             url={url}
             currentPage={Number(searchParams.page)}
-            totalPages={Math.ceil(data.publicationsMeta.count / 5)}
+            totalPages={Math.ceil(
+              data.publicationsMeta.count / DEFAULT_PAGE_SIZE,
+            )}
             onPageChange={updatePage}
           />
         </Column>
