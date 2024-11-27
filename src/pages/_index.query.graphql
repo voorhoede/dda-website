@@ -1,5 +1,4 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
-#import '@blocks/MemberParade/MemberParade.fragment.graphql'
 #import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'

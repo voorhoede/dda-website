@@ -266,98 +266,6 @@ export default async function (client: Client) {
     },
   });
 
-  console.log(
-    'Create Single link field "Company" (`company`) in model "\uD83D\uDCBC Vacancy" (`vacancy`)',
-  );
-  await client.fields.create('Bc_RFLXqQDG5Eb0SJblw5Q', {
-    id: 'BvYMcWkSS4KPakYtFzxZyQ',
-    label: 'Company',
-    field_type: 'link',
-    api_key: 'company',
-    validators: {
-      item_item_type: {
-        on_publish_with_unpublished_references_strategy: 'fail',
-        on_reference_unpublish_strategy: 'delete_references',
-        on_reference_delete_strategy: 'delete_references',
-        item_types: ['ByoMKdCkSp6T10UjQm26wg'],
-      },
-      required: {},
-    },
-    appearance: { addons: [], editor: 'link_select', parameters: {} },
-  });
-
-  console.log('Destroy fields in existing models/block models');
-
-  console.log(
-    'Delete fieldset "CTA" in model "\uD83C\uDFE0 Home" (`home_page`)',
-  );
-  await client.fieldsets.destroy('XhV0jkHiSeij3m-lKj-XMg');
-
-  console.log(
-    'Delete Single-line string field "Message" (`cta_section_message`) in model "\uD83C\uDFE0 Home" (`home_page`)',
-  );
-  await client.fields.destroy('B6nmbYWnQiarAgYtNUdaEg');
-
-  console.log(
-    'Delete Single-line string field "Title" (`cta_section_title`) in model "\uD83C\uDFE0 Home" (`home_page`)',
-  );
-  await client.fields.destroy('ZtZKZmP1SuOXFlmKNr2yfA');
-
-  console.log(
-    'Delete Single-line string field "CTA Label" (`cta_section_cta_label`) in model "\uD83C\uDFE0 Home" (`home_page`)',
-  );
-  await client.fields.destroy('AwF-59VQT4m-bNbMcw_0wg');
-
-  console.log(
-    'Delete Slug field "Slug" (`slug`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('AI3ZkUYiSAGEu6jDQ3f2Ow');
-
-  console.log(
-    'Delete SEO meta tags field "SEO" (`seo`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('NXwU_JT6R3aVZ5V8OC1V9w');
-
-  console.log(
-    'Delete Single asset field "Banner" (`banner`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('Io2gWgtXRqqcmuBExEUbbg');
-
-  console.log(
-    'Delete Single-line string field "Employees" (`employees`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('YNJuWFCAR6GLV9RTh97CiA');
-
-  console.log(
-    'Delete Single-line string field "Website" (`website`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('eQ8czXJAR0eX8qPDukcqJQ');
-
-  console.log(
-    'Delete Multiple links field "Tags" (`tags`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('d1J3Kf2KS1uiTp_I7_7OFQ');
-
-  console.log(
-    'Delete Modular Content (Single block) field "About us" (`about_us`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('ckrqH__wTzS8ikK8v_PRfw');
-
-  console.log(
-    'Delete Multiple links field "Vacancies" (`vacancies`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('deeBHSWvQ_e6CzE2oVeIuA');
-
-  console.log(
-    'Delete Modular Content (Multiple blocks) field "Cases" (`cases`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('IrP5Hr0BRvCOh2GTVc5jJg');
-
-  console.log(
-    'Delete Modular Content (Multiple blocks) field "Contact" (`contact`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.destroy('EagEZc6jRu-xvc3vmrbaHA');
-
   console.log('Update existing fields/fieldsets');
 
   console.log(
@@ -392,60 +300,9 @@ export default async function (client: Client) {
     },
   });
 
-  console.log(
-    'Update Single asset field "Logo" (`logo`) in model "\uD83D\uDCC1 Member" (`member`)',
-  );
-  await client.fields.update('aGzxIk2HS02Dibb-VW-YqA', {
-    validators: {
-      extension: { extensions: [], predefined_list: 'image' },
-      required_alt_title: { title: false, alt: true },
-    },
-    position: 2,
-  });
-
-  console.log(
-    'Update Single link field "Company" (`company`) in model "\uD83D\uDCBC Vacancy" (`vacancy`)',
-  );
-  await client.fields.update('BvYMcWkSS4KPakYtFzxZyQ', { position: 2 });
-
-  console.log('Destroy models/block models');
-
   console.log('Delete model "\uD83D\uDCF0 News" (`news`)');
   await client.itemTypes.destroy('Wo2OFS4fSQaxAIeWkOI_-g', {
     skip_menu_items_deletion: true,
-  });
-
-  console.log('Delete block model "Case Block" (`case_block`)');
-  await client.itemTypes.destroy('SQB-0a-eRKK4dOSmxN7LIw', {
-    skip_menu_items_deletion: true,
-  });
-
-  console.log('Delete block model "Contact block" (`contact_block`)');
-  await client.itemTypes.destroy('Hwfbdgu_TMqmzK2i0-xmXg', {
-    skip_menu_items_deletion: true,
-  });
-
-  console.log('Delete model "\uD83C\uDFF7\uFE0F Industry" (`industry`)');
-  await client.itemTypes.destroy('Q04RdQnVQw-xei_UK8GzjA', {
-    skip_menu_items_deletion: true,
-  });
-
-  console.log('Delete model "\uD83C\uDFF7\uFE0F Expertise" (`expertise`)');
-  await client.itemTypes.destroy('BdrPCTMrRGWPtEqBP0nSYg', {
-    skip_menu_items_deletion: true,
-  });
-
-  console.log('Finalize models/block models');
-
-  console.log('Update model "\uD83D\uDDDE\uFE0F Publication" (`publication`)');
-  await client.itemTypes.update('UllaGfcETuK2MTg4FIMw3w', {
-    title_field: { id: 'Gcz8scSQTQm0huPpvdnNDg', type: 'field' },
-    image_preview_field: { id: 'FcYn-dnwReqrLmZgGkWyzQ', type: 'field' },
-  });
-
-  console.log('Update model "Publications page" (`publications_page`)');
-  await client.itemTypes.update('AvM1EYonTfqynDlXSGmGjw', {
-    title_field: { id: 'd02ldAr7SdGd0sDkr3ePGw', type: 'field' },
   });
 
   console.log('Manage menu items');
@@ -474,12 +331,6 @@ export default async function (client: Client) {
 
   console.log('Delete menu item "\uD83D\uDCF0 News"');
   await client.menuItems.destroy('ENGigSlBTcG98rKaD9Xl_Q');
-
-  console.log('Delete menu item "\uD83C\uDFF7\uFE0F Industries"');
-  await client.menuItems.destroy('Sc_C56L_QY205daoqUY5Ow');
-
-  console.log('Delete menu item "\uD83C\uDFF7\uFE0F Expertises"');
-  await client.menuItems.destroy('DOhQSbG2SJOpVufFDsP4rg');
 
   console.log('Update menu item "Page"');
   await client.menuItems.update('IDcpwwE0TY6W8eiPCCJ0Qg', { position: 0 });
