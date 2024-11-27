@@ -39,7 +39,7 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
             className="events-section__column events-section__column--list"
             span={{ mobile: 12, desktop: 8 }}
           >
-            <DataList>
+            <DataList className="container-padding-x container-padding-y">
               {events.slice(1).map((event) => (
                 <DataListItem key={event.id}>
                   <TagList>

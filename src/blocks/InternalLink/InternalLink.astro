@@ -36,7 +36,7 @@ const getHref = ({
 };
 
 const href = getHref({ locale, page });
-const target = openInNewTab ? '_blank' : null;
+const target = openInNewTab ? '_blank' : undefined;
 
 // Strip trailing spaces from slot contents so underlined links
 // do not extend further than the text.

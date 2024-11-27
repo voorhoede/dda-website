@@ -7,8 +7,8 @@ import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
-import { NewsSection } from '@components/NewsSection';
 import { CtaBanner } from '@components/CtaBanner';
+import { PublicationsSection } from '@components/PublicationsSection';
 import {
   PageTitle,
   PageTitleContent,
@@ -24,7 +24,7 @@ import {
 } from '@components/TitleSection';
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
-import { locales } from '@lib/i18n';
+import { defaultLocale, locales } from '@lib/i18n';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
@@ -35,17 +35,24 @@ export async function getStaticPaths() {
   return locales.map((locale) => ({ params: { locale } }));
 }
 
-const { locale } = Astro.params;
+const { locale = defaultLocale } = Astro.params;
 
 const variables = {
   locale,
 };
 
-const { page, membersParade, membersCta, events, vacancies, news, partners } =
-  await datocmsRequest<NonNullable<HomePageQuery>>({
-    query,
-    variables,
-  });
+const {
+  page,
+  membersCta,
+  membersParade,
+  events,
+  vacancies,
+  publications,
+  partners,
+} = await datocmsRequest<NonNullable<HomePageQuery>>({
+  query,
+  variables,
+});
 
 const pageUrls = locales.map((locale) => ({
   locale,
@@ -130,7 +137,7 @@ const pageUrls = locales.map((locale) => ({
           <VacancyList vacancies={vacancies} />
         </>
       )}
-      {news.length > 0 && (
+      {publications.length > 0 && (
         <>
           <TitleSection>
             <TitleSectionContent>
@@ -149,7 +156,7 @@ const pageUrls = locales.map((locale) => ({
               </Button>
             </TitleSectionFooter>
           </TitleSection>
-          <NewsSection news={news} />
+          <PublicationsSection publications={publications} />
         </>
       )}
       <NewsLetterForm client:load />
