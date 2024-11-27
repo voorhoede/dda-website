@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@components/Button';
 import {
@@ -18,7 +19,6 @@ import { withQueryClientProvider } from '@lib/react-query';
 import { Pagination } from '@components/Pagination/Pagination';
 import { useUrl } from '@lib/hooks/use-url';
 import { Column, Grid } from '@components/Grid';
-import { useRef } from 'react';
 
 const DEFAULT_PAGE_SIZE = 10;
 

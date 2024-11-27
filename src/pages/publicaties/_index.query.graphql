@@ -33,29 +33,4 @@ query PublicationsPage {
       value
     }
   }
-  publications: allPublications(first: 10) {
-    id
-    title
-    _createdAt
-    tags {
-      label
-    }
-    banner {
-      alt
-      responsiveImage {
-        src
-        srcSet
-        width
-        height
-        alt
-        title
-        base64
-        bgColor
-        sizes
-      }
-    }
-    content {
-      value
-    }
-  }
 }
