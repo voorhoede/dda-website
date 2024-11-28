@@ -2,4 +2,11 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding: 24px;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 48px;
+  }
 }

@@ -4,6 +4,17 @@
   box-sizing: border-box;
 }
 
+/* scroll padding to offset the header, needed for scrolling items into view */
+* {
+  scroll-padding-top: 85px;
+}
+
+@media screen and (min-width: 890px) {
+  * {
+    scroll-padding-top: 129px;
+  }
+}
+
 html,
 body {
   height: 100%;

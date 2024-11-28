@@ -1,0 +1,14 @@
+.pagination {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.pagination__pages {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pagination__page--active {
+  text-decoration: underline;
+}

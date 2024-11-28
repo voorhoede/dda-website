@@ -1,0 +1,13 @@
+query VacanciesPage {
+  page: vacanciesPage {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    title
+    subtitle {
+      value
+    }
+  }
+}

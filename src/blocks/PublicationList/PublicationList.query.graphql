@@ -1,0 +1,30 @@
+query PublicationsList($first: IntType!, $skip: IntType!) {
+  publicationsMeta: _allPublicationsMeta {
+    count
+  }
+  publications: allPublications(first: $first, skip: $skip) {
+    id
+    title
+    _createdAt
+    tags {
+      label
+    }
+    banner {
+      alt
+      responsiveImage {
+        src
+        srcSet
+        width
+        height
+        alt
+        title
+        base64
+        bgColor
+        sizes
+      }
+    }
+    content {
+      value
+    }
+  }
+}

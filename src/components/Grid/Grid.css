@@ -252,9 +252,10 @@
 .grid--border {
   /* reserve space for border added in the selector below */
   gap: 1px;
+  box-shadow: 0 0 0 1px var(--color-black);
 }
 
-.grid--border .column {
+.grid--border > .column {
   /* using box-shadow to avoid double border */
   box-shadow: 0 0 0 1px var(--color-black);
 }

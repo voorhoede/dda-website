@@ -71,17 +71,25 @@ export const Menu = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" onClick={closeMenu} className="menu__link">
+                <Link
+                  href="/publicaties/"
+                  onClick={closeMenu}
+                  className="menu__link"
+                >
                   {t('publications')}
                 </Link>
               </li>
               <li>
-                <Link href="#" onClick={closeMenu} className="menu__link">
+                <Link href="/leden/" onClick={closeMenu} className="menu__link">
                   {t('members')}
                 </Link>
               </li>
               <li>
-                <Link href="#" onClick={closeMenu} className="menu__link">
+                <Link
+                  href="/vacatures/"
+                  onClick={closeMenu}
+                  className="menu__link"
+                >
                   {t('vacancies')} <span className="menu__counter">54</span>
                 </Link>
               </li>

@@ -1,0 +1,41 @@
+.cta-banner__message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-24);
+}
+
+.cta-banner__message-text {
+  font-size: 2rem;
+  max-inline-size: 214px;
+  line-height: 1.25;
+}
+
+.cta-banner__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--spacing-24);
+  padding: var(--spacing-96) var(--spacing-16);
+}
+
+.cta-banner__logo--large-screen-only {
+  display: none;
+}
+
+.cta-banner__logos {
+  block-size: 100%;
+}
+
+@media screen and (min-width: 890px) {
+  .cta-banner__content {
+    padding-inline: var(--spacing-24);
+  }
+
+  .cta-banner__logo--large-screen-only {
+    display: block;
+  }
+}

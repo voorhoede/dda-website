@@ -19,6 +19,8 @@ import { formatBreadcrumb } from '@components/Breadcrumbs';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   interface PagesCollectionItem {
     _allSlugLocales: Array<{ locale: SiteLocale; value: string }>;
