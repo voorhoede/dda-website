@@ -4,6 +4,8 @@
   align-items: center;
   padding: var(--spacing-48);
   box-shadow: 0 -1px 0 0 var(--color-black);
+  flex-wrap: wrap;
+  gap: var(--spacing-24);
 }
 
 .member-filter__selects {

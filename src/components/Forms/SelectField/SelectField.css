@@ -1,0 +1,68 @@
+.select-button {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0px;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-black);
+}
+
+.select-button:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.select-button:focus-visible {
+  border-style: dashed;
+  outline: none;
+  background-color: var(--color-yellow);
+}
+
+.select-button:active {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.select-button__label {
+  padding: var(--spacing-12);
+}
+
+.select-button__icon {
+  padding: var(--spacing-12);
+  border-inline-start: 1px solid var(--color-black);
+  line-height: 0;
+}
+
+.select-button:hover .select-button__icon {
+  border-color: 1px solid var(--color-blue);
+}
+
+.select-button__icon .icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.select-options {
+  border: 1px solid var(--color-black);
+  border-top: none;
+  box-shadow: 0 -1px 0 0 var(--color-black);
+  background-color: var(--color-white);
+}
+
+.select-options__option {
+  padding: var(--spacing-12);
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--font-family-mono);
+}
+
+.select-options__option:hover {
+  color: var(--color-blue);
+}
+
+
+.select-options__option[aria-selected="true"] {
+  color: var(--color-blue);
+  font-weight: bold;
+}

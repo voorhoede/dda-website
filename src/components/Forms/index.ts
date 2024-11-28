@@ -1,2 +1,2 @@
-export { Select } from './Select/Select';
-export { TextInput } from './TextInput/TextInput';
+export { SelectField } from './SelectField/SelectField';
+export { TextField } from './TextField/TextField';

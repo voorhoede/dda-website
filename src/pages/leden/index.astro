@@ -39,7 +39,7 @@ if (!page) {
     </PageTitleContent>
   </PageTitle>
   
-  <MembersFilter />
+  <MembersFilter client:load />
   
   { members.length > 0 && (
     <Grid as="ul" border={true} className="members">
