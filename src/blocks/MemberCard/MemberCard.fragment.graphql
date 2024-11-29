@@ -1,4 +1,5 @@
 fragment MemberCard on MemberRecord {
+  id
   name
   logo {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {

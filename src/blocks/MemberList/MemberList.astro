@@ -1,0 +1,25 @@
+---
+import {
+  MemberList as MemberListComponent,
+  loader,
+} from './MemberList.tsx';
+
+const searchParams = Astro.url.searchParams;
+const initialParams = {
+  page: searchParams.get('page') ?? '1',
+  zoek: searchParams.get('zoek') ?? '',
+  expertise: searchParams.get('expertise') ?? '',
+  branche: searchParams.get('branche') ?? '',
+  omvang: searchParams.get('omvang') ?? '',
+  sorteren: searchParams.get('sorteren') ?? '',
+};
+const initialData = await loader(initialParams);
+const initialUrl = Astro.url.href;
+---
+
+<MemberListComponent
+  client:load
+  initialParams={initialParams}
+  initialData={initialData}
+  initialUrl={initialUrl}
+/>

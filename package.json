@@ -55,6 +55,7 @@
     "clsx": "^2.1.1",
     "datocms-listen": "^0.1.15",
     "datocms-structured-text-utils": "^2.0.4",
+    "debounce": "^2.2.0",
     "get-video-id": "^3.6.5",
     "globby": "^13.2.2",
     "hls.js": "^1.5.2",

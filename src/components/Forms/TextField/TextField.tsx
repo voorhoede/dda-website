@@ -1,5 +1,6 @@
-import { Field, Input, Label } from "@headlessui/react";
+import { useEffect, type ChangeEvent, useState } from "react";
 import clsx from "clsx";
+import { Field, Input, Label } from "@headlessui/react";
 
 import "./TextField.css";
 
@@ -8,6 +9,8 @@ type Props = {
   label: string;
   labelStyle?: "stack" | "float";
   placeholder?: string;
+  value?: string;
+  onChange?: (event: any) => void;
 } & (
   | {
       labelStyle?: "stack";
@@ -24,7 +27,16 @@ export const TextField = ({
   label,
   labelStyle = "stack",
   placeholder = "",
+  value = "",
+  onChange
 }: Props) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      const newValue = event.target.value;
+      onChange(newValue);
+    }
+  };
+  
   return (
     <Field className="text-field">
       <Label
@@ -40,6 +52,8 @@ export const TextField = ({
         name={name}
         className="text-field__input"
         placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
       />
     </Field>
   );

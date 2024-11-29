@@ -32,7 +32,7 @@ export const useSearchParams = <T extends SearchParams = SearchParams>(
 
     // Update or add new params
     Object.entries(newParams).forEach(([key, value]) => {
-      if (value === null || value === undefined) {
+      if (value === null || value === undefined || value === '') {
         params.delete(key); // Remove the param if the value is null/undefined
       } else {
         params.set(key, value); // Set the param

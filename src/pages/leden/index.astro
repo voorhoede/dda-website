@@ -10,16 +10,14 @@ import membersPageQuery from './membersPage.query.graphql';
 import Layout from '@layouts/Default.astro';
 
 import { PageTitle, PageTitleHeader, PageTitleContent } from '@components/PageTitle';
-import { Heading } from '@components/Heading';
 import { Button } from '@components/Button';
-import { Grid, Column } from '@components/Grid';
-import { MembersFilter } from '@components/MembersFilter/MembersFilter';
-import { MemberCard } from '@blocks/MemberCard/MemberCard';
+import { Heading } from '@components/Heading';
+import { MemberList } from '@blocks/MemberList';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 
 const { locale } = Astro.params as { locale: SiteLocale };
 
-const { page, members, partners } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery, variables: { locale } });
+const { page, partners } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery, variables: { locale } });
 
 if (!page) {
   return new Response(null, { status: 500 });
@@ -39,39 +37,13 @@ if (!page) {
     </PageTitleContent>
   </PageTitle>
   
-  <MembersFilter client:load />
-  
-  { members.length > 0 && (
-    <Grid as="ul" border={true} className="members">
-      {members.map((member) => (
-        <Column as="li" span={{ mobile: 12, tablet: 6, desktop: 4 }} className="members__item">
-          <MemberCard member={member} client:load />
-        </Column>
-      ))}
-    </Grid>
-  )}
+  <MemberList />
   
   { partners.length > 0 && <PartnerBanner {partners} /> }
 </Layout>
 
 <style>
-  .back-button {z
+  .back-button {
     margin-block-end: var(--spacing-16);
-  }
-  
-  .members {
-    list-style-type: "";
-    padding: 0px;
-    margin: 0px;
-  }
-  
-  .members__item {
-    padding: var(--spacing-24);
-  }
-  
-  @media screen and (min-width: 890px) {
-    .members__item {
-      padding: var(--spacing-48);
-    }
   }
 </style>

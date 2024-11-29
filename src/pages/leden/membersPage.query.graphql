@@ -1,4 +1,3 @@
-#import '@blocks/MemberCard/MemberCard.fragment.graphql'
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 
 query MembersPage($locale: SiteLocale = nl) {
@@ -14,10 +13,6 @@ query MembersPage($locale: SiteLocale = nl) {
       links
       value
     }
-  }
-  
-  members: allMembers(locale: $locale) {
-    ...MemberCard
   }
   
   partners: allPartners(first: 8) {
