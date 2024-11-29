@@ -12,12 +12,10 @@ query MemberList(
     name
   }
   
-  industries: allIndustries {
-    id
-    name
-  }
-  
-  membersMeta: _allMembersMeta {
+  membersMeta: _allMembersMeta(
+    locale: $locale
+    filter: $filter
+  ) {
     count
   }
 

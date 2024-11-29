@@ -6,7 +6,6 @@ import "./MembersFilter.css";
 type FormData = {
   zoek: string;
   expertise: string;
-  branche: string;
   omvang: string;
   sorteren: string;
 }
@@ -15,7 +14,6 @@ interface Props {
   filter?: FormData;
   options: {
     expertise: { id: string, name: string }[];
-    industry: { id: string, name: string }[];
   };
   onChange?: (formData: FormData) => void;
 }
@@ -24,7 +22,6 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
   const [formData, setFormData] = useState<FormData>({
     zoek: "",
     expertise: "",
-    branche: "",
     omvang: "",
     sorteren: "",
   });
@@ -66,14 +63,6 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           options={options.expertise.map((option) => ({ label: option.name, value: option.id }))}
           value={formData.expertise}
           onChange={(value) => handleChange('expertise', value)}
-        />
-        <SelectField
-          name="branche"
-          label="Branche"
-          labelStyle="contain"
-          options={options.industry.map((option) => ({ label: option.name, value: option.id }))}
-          value={formData.branche}
-          onChange={(value) => handleChange('branche', value)}
         />
         <SelectField
           name="omvang"

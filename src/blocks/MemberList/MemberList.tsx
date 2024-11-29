@@ -37,14 +37,11 @@ export const loader = async (searchParams: Record<string, string>) => {
   if (searchParams.expertise) {
     Object.assign(filter, { expertises: { anyIn: searchParams.expertise } });
   }
-  if (searchParams.branche) {
-    Object.assign(filter, { industry: { eq: searchParams.branche } });
-  }
   if (searchParams.omvang) {
     Object.assign(filter, { employees: { eq: searchParams.omvang } });
   }
 
-  const { expertises, industries, membersMeta, members } = await datocmsRequest<
+  const { expertises, membersMeta, members } = await datocmsRequest<
     MemberListQuery,
     MemberListQueryVariables
   >({
@@ -59,7 +56,6 @@ export const loader = async (searchParams: Record<string, string>) => {
 
   return {
     expertises,
-    industries,
     membersMeta,
     members,
   };
@@ -101,7 +97,7 @@ export const MemberList = withQueryClientProvider(
       <>
         <MembersFilter
           filter={searchParams}
-          options={{ expertise: data.expertises, industry: data.industries }}
+          options={{ expertise: data.expertises }}
           onChange={updateFilter}
         />
         <Grid ref={dataListRef} as="ul" border={true} className="member-list">
