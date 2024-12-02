@@ -3,7 +3,7 @@ import { SelectField, TextField } from "@components/Forms";
 
 import "./MembersFilter.css";
 
-type FormData = {
+export type Filter = {
   zoek: string;
   expertise: string;
   omvang: string;
@@ -11,15 +11,15 @@ type FormData = {
 }
 
 interface Props {
-  filter?: FormData;
+  filter?: Filter;
   options: {
     expertise: { id: string, name: string }[];
   };
-  onChange?: (formData: FormData) => void;
+  onChange?: (formData: Filter) => void;
 }
 
 export const MembersFilter = ({ filter, options, onChange }: Props) => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<Filter>({
     zoek: "",
     expertise: "",
     omvang: "",

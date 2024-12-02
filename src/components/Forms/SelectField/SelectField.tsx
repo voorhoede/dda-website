@@ -59,7 +59,7 @@ export const SelectField = ({
             {labelStyle === "contain"
               ? label
               : selectedOption
-                ? selectedOption.label
+              ? options.find((option)=> option.value === selectedOption)?.label
                 : ""}
           </Text>
 

@@ -1,7 +1,8 @@
-import type {
-  MemberListQuery,
-  MemberListQueryVariables,
-  MemberModelFilter,
+import {
+    MemberModelOrderBy,
+  type MemberListQuery,
+  type MemberListQueryVariables,
+  type MemberModelFilter,
 } from "@lib/types/datocms";
 import query from "./MemberList.query.graphql";
 
@@ -20,6 +21,7 @@ import { MembersFilter } from "@components/MembersFilter";
 import { Pagination } from "@components/Pagination";
 
 import "./MemberList.css";
+import type { Filter } from "@components/MembersFilter/MembersFilter";
 
 const DEFAULT_PAGE_SIZE = 6;
 
@@ -49,7 +51,7 @@ export const loader = async (searchParams: Record<string, string>) => {
     variables: {
       first: DEFAULT_PAGE_SIZE,
       skip,
-      orderBy,
+      orderBy: orderBy as MemberModelOrderBy,
       filter,
     },
   });
@@ -96,7 +98,7 @@ export const MemberList = withQueryClientProvider(
     return (
       <>
         <MembersFilter
-          filter={searchParams}
+          filter={searchParams as Filter}
           options={{ expertise: data.expertises }}
           onChange={updateFilter}
         />
