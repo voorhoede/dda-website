@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  max-width: 304px;
+  width: 100%;
 }
 
 .text-field__label {
@@ -23,7 +25,8 @@
   font-size: 1.125rem;
 }
 
-.text-field:has(.text-field__input:not(:placeholder-shown)) .text-field__label--float,
+.text-field:has(.text-field__input:not(:placeholder-shown))
+  .text-field__label--float,
 .text-field:has(.text-field__input:focus) .text-field__label--float {
   font-size: 12px;
   top: 0;
@@ -37,7 +40,7 @@
   padding-block: var(--spacing-12);
   padding-inline: 0px;
   border-block-end-color: var(--color-black);
-  min-width: 304px;
+  width: 100%;
   font-size: 1.125rem;
   line-height: 1.5rem;
 }

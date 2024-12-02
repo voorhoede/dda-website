@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { SelectField, TextField } from "@components/Forms";
+import { useEffect, useState, type FormEvent } from 'react';
+import { SelectField, TextField } from '@components/Forms';
 
-import "./MembersFilter.css";
+import './MembersFilter.css';
 
 export type Filter = {
   zoek: string;
@@ -20,10 +20,10 @@ interface Props {
 
 export const MembersFilter = ({ filter, options, onChange }: Props) => {
   const [formData, setFormData] = useState<Filter>({
-    zoek: "",
-    expertise: "",
-    omvang: "",
-    sorteren: "",
+    zoek: '',
+    expertise: '',
+    omvang: '',
+    sorteren: '',
   });
 
   useEffect(() => {
@@ -41,9 +41,9 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
     }
   };
   
-  const handleSubmit = (event: any) => { 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => { 
     event.preventDefault();
-  }
+  };
 
   return (
     <form className="members-filter" onSubmit={handleSubmit}>
@@ -69,12 +69,12 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           label="Omvang"
           labelStyle="contain"
           options={[
-            { label: "1-9", value: "1-9" },
-            { label: "10-24", value: "10-24" },
-            { label: "25-49", value: "25-49" },
-            { label: "50-99", value: "50-99" },
-            { label: "100-249", value: "100-249" },
-            { label: "250+", value: "250+" }
+            { label: '1-9', value: '1-9' },
+            { label: '10-24', value: '10-24' },
+            { label: '25-49', value: '25-49' },
+            { label: '50-99', value: '50-99' },
+            { label: '100-249', value: '100-249' },
+            { label: '250+', value: '250+' }
           ]}
           value={formData.omvang}
           onChange={(value) => handleChange('omvang', value)}
@@ -84,8 +84,8 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           label="Sorteren"
           labelStyle="contain"
           options={[
-            { label: "A-Z", value: "name_ASC" },
-            { label: "Aantal werknemers", value: "employees_ASC" },
+            { label: 'A-Z', value: 'name_ASC' },
+            { label: 'Aantal werknemers', value: 'employees_ASC' },
           ]}
           value={formData.sorteren}
           onChange={(value) => handleChange('sorteren', value)}

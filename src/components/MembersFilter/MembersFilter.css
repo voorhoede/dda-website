@@ -11,4 +11,5 @@
 .member-filter__selects {
   display: flex;
   gap: var(--spacing-16);
+  flex-wrap: wrap;
 }
