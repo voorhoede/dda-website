@@ -1,27 +1,27 @@
-import {
+import type {
   MemberModelOrderBy,
   MemberListQuery,
   MemberListQueryVariables,
   MemberModelFilter,
-} from "@lib/types/datocms";
-import query from "./MemberList.query.graphql";
+} from '@lib/types/datocms';
+import query from './MemberList.query.graphql';
 
-import { useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { withQueryClientProvider } from "@lib/react-query";
-import { useSearchParams } from "@lib/hooks/use-search-params";
-import { useUrl } from "@lib/hooks/use-url";
-import debounce from "debounce";
+import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { withQueryClientProvider } from '@lib/react-query';
+import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
+import debounce from 'debounce';
 
-import { datocmsRequest } from "@lib/datocms";
+import { datocmsRequest } from '@lib/datocms';
 
-import { MemberCard } from "@blocks/MemberCard";
-import { Column, Grid } from "@components/Grid";
-import { MembersFilter } from "@components/MembersFilter";
-import { Pagination } from "@components/Pagination";
+import { MemberCard } from '@blocks/MemberCard';
+import { Column, Grid } from '@components/Grid';
+import { MembersFilter } from '@components/MembersFilter';
+import { Pagination } from '@components/Pagination';
 
-import "./MemberList.css";
-import type { Filter } from "@components/MembersFilter/MembersFilter";
+import './MemberList.css';
+import type { Filter } from '@components/MembersFilter/MembersFilter';
 
 const DEFAULT_PAGE_SIZE = 6;
 
@@ -76,7 +76,7 @@ export const MemberList = withQueryClientProvider(
     const url = useUrl(initialUrl);
 
     const { data } = useQuery({
-      queryKey: ["members", searchParams],
+      queryKey: ['members', searchParams],
       queryFn: () => loader(searchParams),
       initialData,
     });
@@ -90,7 +90,7 @@ export const MemberList = withQueryClientProvider(
 
       if (dataListRef.current) {
         dataListRef.current.scrollIntoView({
-          behavior: "instant",
+          behavior: 'instant',
         });
       }
     };
