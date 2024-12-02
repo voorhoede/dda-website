@@ -1,8 +1,8 @@
 import {
-    MemberModelOrderBy,
-  type MemberListQuery,
-  type MemberListQueryVariables,
-  type MemberModelFilter,
+  MemberModelOrderBy,
+  MemberListQuery,
+  MemberListQueryVariables,
+  MemberModelFilter,
 } from "@lib/types/datocms";
 import query from "./MemberList.query.graphql";
 
