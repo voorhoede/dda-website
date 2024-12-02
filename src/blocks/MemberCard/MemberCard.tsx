@@ -1,4 +1,4 @@
-import { Image } from "react-datocms";
+import { Image, type ResponsiveImageType } from "react-datocms";
 import type { MemberCardFragment } from "@lib/types/datocms";
 import { t } from "@lib/i18n";
 import { Heading } from "@components/Heading";
@@ -17,7 +17,7 @@ export const MemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        <Image data={member.logo.responsiveImage} />
+        <Image data={member.logo.responsiveImage as ResponsiveImageType} />
       </CardImage>
 
       <CardContent>

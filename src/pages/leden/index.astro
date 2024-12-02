@@ -1,10 +1,12 @@
 ---
 export const prerender = false;
 
+import type { StructuredText as StructuredTextData } from 'datocms-structured-text-utils';
+import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
+
 import { StructuredText } from 'react-datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
-import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
 import membersPageQuery from './membersPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
@@ -32,7 +34,7 @@ if (!page) {
     </PageTitleHeader>
     <PageTitleContent>
       <div>
-        <StructuredText data={page.description} />
+        <StructuredText data={page.description as unknown as StructuredTextData} />
       </div>
     </PageTitleContent>
   </PageTitle>
