@@ -85,6 +85,7 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           labelStyle="contain"
           options={[
             { label: 'A-Z', value: 'name_ASC' },
+            { label: 'Z-A', value: 'name_DESC' }
             { label: 'Aantal werknemers', value: 'employees_ASC' },
           ]}
           value={formData.sorteren}
