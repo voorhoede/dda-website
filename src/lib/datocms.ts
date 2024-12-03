@@ -26,9 +26,7 @@ export const datocmsRequest = async <T>({
 
   // during build we cannot access our dato proxy, so we use the dato api endpoint directly
   if (import.meta.env.SSR) {
-    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = await import(
-      'astro:env/server'
-    );
+    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = process.env;
 
     apiUrl = 'https://graphql.datocms.com';
 
