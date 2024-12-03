@@ -68,7 +68,7 @@ const pageUrls = locales.map((locale) => ({
         </PageTitleHeader>
         <PageTitleContent>
           <Heading displayLevel={6} level="p">
-            {page.subtitle.replace('{{number}}', memberCount)}
+            {page.subtitle.replace('{{number}}', memberCount.toString())}
           </Heading>
         </PageTitleContent>
         <PageTitleFooter>

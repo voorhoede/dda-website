@@ -28,6 +28,7 @@ export async function getStaticPaths() {
   }
   const pages = await datocmsCollection<PagesCollectionItem>({
     collection: 'Pages',
+    fragmentName: 'Page',
     fragment: `
       _allSlugLocales { locale, value }
       parentPage {
