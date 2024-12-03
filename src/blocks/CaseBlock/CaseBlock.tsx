@@ -22,8 +22,8 @@ export const CaseBlock = ({ block }: Props) => {
       )}
       <CardContent>
         <TagList>
-          {block.expertiseTags.map(({ label }) => (
-            <Tag key={label}>{label}</Tag>
+          {block.expertiseTags.map(({ name }) => (
+            <Tag key={name}>{name}</Tag>
           ))}
         </TagList>
         <Heading level={3} displayLevel={4}>{block.title}</Heading>

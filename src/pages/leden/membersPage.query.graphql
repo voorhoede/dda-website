@@ -1,14 +1,21 @@
+#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
+
 query MembersPage($locale: SiteLocale = nl) {
-  page: homePage(locale: $locale) {
+  page: membersPage(locale: $locale) {
     _seoMetaTags {
       attributes
       content
       tag
     }
+    title
+    description {
+      blocks
+      links
+      value
+    }
   }
-  members: allMembers(locale: $locale) {
-    id
-    name
-    slug
+  
+  partners: allPartners(first: 8) {
+    ...PartnerLogo
   }
 }
