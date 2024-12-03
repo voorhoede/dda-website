@@ -71,7 +71,7 @@ interface Props {
 
 export const MemberList = withQueryClientProvider(
   ({ initialData, initialParams, initialUrl }: Props) => {
-    const dataListRef = useRef<HTMLUListElement>(null);
+    const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -83,13 +83,19 @@ export const MemberList = withQueryClientProvider(
 
     const updateFilter = debounce((filter) => {
       updateSearchParams({ ...filter, page: undefined });
+
+      if (filterRef.current) {
+        filterRef.current.scrollIntoView({
+          behavior: 'instant',
+        });
+      }
     }, 300);
 
     const updatePage = (page: number) => {
       updateSearchParams({ ...searchParams, page: page.toString() });
 
-      if (dataListRef.current) {
-        dataListRef.current.scrollIntoView({
+      if (filterRef.current) {
+        filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
       }
@@ -98,11 +104,12 @@ export const MemberList = withQueryClientProvider(
     return (
       <>
         <MembersFilter
+          ref={filterRef}
           filter={searchParams as Filter}
           options={{ expertise: data.expertises }}
           onChange={updateFilter}
         />
-        <Grid ref={dataListRef} as="ul" border={true} className="member-list">
+        <Grid as="ul" border={true} className="member-list">
           {data.members.map((member) => (
             <Column
               key={member.id}

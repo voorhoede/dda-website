@@ -1,13 +1,13 @@
-import { Image, type ResponsiveImageType } from "react-datocms";
-import type { MemberCardFragment } from "@lib/types/datocms";
-import { t } from "@lib/i18n";
-import { Heading } from "@components/Heading";
-import { Text } from "@components/Text";
-import { Card, CardContent, CardFooter, CardImage } from "@components/Card";
-import { Button } from "@components/Button";
-import { Tag, TagList } from "@components/Tag";
+import { SRCImage, type ResponsiveImageType } from 'react-datocms';
+import type { MemberCardFragment } from '@lib/types/datocms';
+import { t } from '@lib/i18n';
+import { Heading } from '@components/Heading';
+import { Text } from '@components/Text';
+import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { Button } from '@components/Button';
+import { Tag, TagList } from '@components/Tag';
 
-import "./MemberCard.css";
+import './MemberCard.css';
 
 interface Props {
   member: MemberCardFragment;
@@ -17,7 +17,7 @@ export const MemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        <Image data={member.logo.responsiveImage as ResponsiveImageType} />
+        <SRCImage data={member.logo.responsiveImage as ResponsiveImageType} />
       </CardImage>
 
       <CardContent>
@@ -34,10 +34,10 @@ export const MemberCard = ({ member }: Props) => {
         <Text variant="subtext">{member.location}</Text>
         <div className="agency__employees">
           <Text variant="subtext">
-            {t("count_employees", { count: member.employees })}
+            {t('count_employees', { count: member.employees })}
           </Text>
           {member.vacancies.length > 0 && (
-            <Tag variant="blue">{t("hiring")}</Tag>
+            <Tag variant="blue">{t('hiring')}</Tag>
           )}
         </div>
       </CardContent>
@@ -50,7 +50,7 @@ export const MemberCard = ({ member }: Props) => {
           level="secondary"
           variant="large"
         >
-          {t("details")}
+          {t('details')}
         </Button>
       </CardFooter>
     </Card>

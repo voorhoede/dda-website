@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import clsx from "clsx";
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 import {
   Field,
   Label,
@@ -7,26 +7,26 @@ import {
   ListboxButton,
   ListboxOption,
   ListboxOptions,
-} from "@headlessui/react";
+} from '@headlessui/react';
 
-import { Text } from "@components/Text";
-import { Icon } from "@components/Icon";
+import { Text } from '@components/Text';
+import { Icon } from '@components/Icon';
 
-import "./SelectField.css";
+import './SelectField.css';
 
 type Props = {
   name: string;
   label: string;
-  labelStyle?: "stack" | "contain";
+  labelStyle?: 'stack' | 'contain';
   options: { label: string; value: string }[];
   value?: string;
-  onChange?: (value: any) => void;
+  onChange?: (value: string) => void;
 };
 
 export const SelectField = ({
   name,
   label,
-  labelStyle = "stack",
+  labelStyle = 'stack',
   options,
   value,
   onChange,
@@ -40,7 +40,7 @@ export const SelectField = ({
     }
   }, [value]);
 
-  const handleChange = (value: any) => {
+  const handleChange = (value: string) => {
     setSelectedOption(value);
 
     if (onChange) {
@@ -50,17 +50,17 @@ export const SelectField = ({
 
   return (
     <Field>
-      <Label className={clsx({ "a11y-sr-only": labelStyle === "contain" })}>
+      <Label className={clsx({ 'a11y-sr-only': labelStyle === 'contain' })}>
         {label}
       </Label>
       <Listbox name={name} value={selectedOption} onChange={handleChange}>
         <ListboxButton className="select-button">
           <Text as="span" variant="subtext" className="select-button__label">
-            {labelStyle === "contain"
+            {labelStyle === 'contain'
               ? label
               : selectedOption
-              ? options.find((option)=> option.value === selectedOption)?.label
-                : ""}
+                ? options.find((option)=> option.value === selectedOption)?.label
+                : ''}
           </Text>
 
           <div className="select-button__icon ">
