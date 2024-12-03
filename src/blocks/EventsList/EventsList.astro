@@ -1,0 +1,21 @@
+---
+import {
+  EventsList as ClientEventsList,
+  loader,
+} from './EventsList.tsx';
+
+const searchParams = Astro.url.searchParams;
+const initialParams = {
+  page: searchParams.get('page') ?? '1',
+  zoek: searchParams.get('zoek') ?? ''
+};
+const initialData = await loader(initialParams);
+const initialUrl = Astro.url.href;
+---
+
+<ClientEventsList
+  client:load
+  initialParams={initialParams}
+  initialData={initialData}
+  initialUrl={initialUrl}
+/>

@@ -1,0 +1,22 @@
+query EventsList(
+  $locale: SiteLocale = nl
+  $first: IntType!
+  $skip: IntType!
+  $filter: EventModelFilter
+) {
+  eventsMeta: _allEventsMeta(
+    locale: $locale
+    filter: $filter
+  ) {
+    count
+  }
+  
+  events: allEvents(
+    locale: $locale
+    first: $first
+    skip: $skip
+    filter: $filter
+  ) {
+    id
+  }
+}
