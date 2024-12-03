@@ -1,23 +1,23 @@
-import { useEffect, type ChangeEvent, useState } from "react";
-import clsx from "clsx";
-import { Field, Input, Label } from "@headlessui/react";
+import { type ChangeEvent } from 'react';
+import clsx from 'clsx';
+import { Field, Input, Label } from '@headlessui/react';
 
-import "./TextField.css";
+import './TextField.css';
 
 type Props = {
   name: string;
   label: string;
-  labelStyle?: "stack" | "float";
+  labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
-  onChange?: (event: any) => void;
+  onChange?: (event: string) => void;
 } & (
   | {
-      labelStyle?: "stack";
+      labelStyle?: 'stack';
       placeholder?: string;
     }
   | {
-      labelStyle: "float";
+      labelStyle: 'float';
       placeholder?: undefined;
     }
 );
@@ -25,10 +25,10 @@ type Props = {
 export const TextField = ({
   name,
   label,
-  labelStyle = "stack",
-  placeholder = "",
-  value = "",
-  onChange
+  labelStyle = 'stack',
+  placeholder = '',
+  value = '',
+  onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (onChange) {
@@ -36,12 +36,12 @@ export const TextField = ({
       onChange(newValue);
     }
   };
-  
+
   return (
     <Field className="text-field">
       <Label
         className={clsx(
-          "text-field__label",
+          'text-field__label',
           `text-field__label--${labelStyle}`,
         )}
       >

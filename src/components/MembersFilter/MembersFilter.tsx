@@ -1,24 +1,25 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent, forwardRef } from 'react';
 import { SelectField, TextField } from '@components/Forms';
 
 import './MembersFilter.css';
+import { t } from '@lib/i18n';
 
 export type Filter = {
   zoek: string;
   expertise: string;
   omvang: string;
   sorteren: string;
-}
+};
 
 interface Props {
   filter?: Filter;
   options: {
-    expertise: { id: string, name: string }[];
+    expertise: { id: string; name: string }[];
   };
   onChange?: (formData: Filter) => void;
 }
 
-export const MembersFilter = ({ filter, options, onChange }: Props) => {
+export const MembersFilter = forwardRef<HTMLFormElement, Props>(({ filter, options, onChange }, ref) => {
   const [formData, setFormData] = useState<Filter>({
     zoek: '',
     expertise: '',
@@ -31,25 +32,25 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
       setFormData(filter);
     }
   }, [filter]);
-  
+
   const handleChange = (name: string, value: any) => {
     const updatedFormData = { ...formData, [name]: value };
-    
+
     setFormData(updatedFormData);
     if (onChange) {
       onChange(updatedFormData);
     }
   };
-  
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => { 
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
   };
 
   return (
-    <form className="members-filter" onSubmit={handleSubmit}>
+    <form ref={ref} className="members-filter" onSubmit={handleSubmit}>
       <TextField
         name="zoek"
-        label="Zoek een bureau..."
+        label={t('find_an_agency')}
         labelStyle="float"
         value={formData.zoek}
         onChange={(value) => handleChange('zoek', value)}
@@ -60,7 +61,13 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           name="expertise"
           label="Expertise"
           labelStyle="contain"
-          options={options.expertise.map((option) => ({ label: option.name, value: option.id }))}
+          options={[
+            { label: t('all'), value: '' },
+            ...options.expertise.map((option) => ({
+              label: option.name,
+              value: option.id,
+            })),
+          ]}
           value={formData.expertise}
           onChange={(value) => handleChange('expertise', value)}
         />
@@ -69,12 +76,13 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           label="Omvang"
           labelStyle="contain"
           options={[
+            { label: t('all'), value: '' },
             { label: '1-9', value: '1-9' },
             { label: '10-24', value: '10-24' },
             { label: '25-49', value: '25-49' },
             { label: '50-99', value: '50-99' },
             { label: '100-249', value: '100-249' },
-            { label: '250+', value: '250+' }
+            { label: '250+', value: '250+' },
           ]}
           value={formData.omvang}
           onChange={(value) => handleChange('omvang', value)}
@@ -85,6 +93,7 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
           labelStyle="contain"
           options={[
             { label: 'A-Z', value: 'name_ASC' },
+            { label: 'Z-A', value: 'name_DESC' },
             { label: 'Aantal werknemers', value: 'employees_ASC' },
           ]}
           value={formData.sorteren}
@@ -93,4 +102,4 @@ export const MembersFilter = ({ filter, options, onChange }: Props) => {
       </div>
     </form>
   );
-};
+});
