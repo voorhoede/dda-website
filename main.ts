@@ -5,7 +5,7 @@ import {
   buildBlockRecord,
   buildClient,
   LogLevel,
-} from "npm:@datocms/cma-client-browser";
+} from "npm:@datocms/cma-client-node";
 import { parse as parseHtml } from "npm:parse5";
 import { parse5ToStructuredText } from "npm:datocms-html-to-structured-text";
 
