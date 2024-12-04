@@ -1,5 +1,10 @@
+import debounce from 'debounce';
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { Column, Grid } from '@components/Grid';
+import { ListForm } from '@components/ListForm';
+import { Pagination } from '@components/Pagination';
+import { SelectField, TextField } from '@components/Forms';
 import { Button } from '@components/Button';
 import {
   DataList,
@@ -11,14 +16,12 @@ import { Text } from '@components/Text';
 import { TagList, TagListItem } from '@components/Tag';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
-import type { PublicationsListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
-import publicationListQuery from './PublicationList.query.graphql';
-import { useSearchParams } from '@lib/hooks/use-search-params';
 import { withQueryClientProvider } from '@lib/react-query';
-import { Pagination } from '@components/Pagination/Pagination';
+import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
-import { Column, Grid } from '@components/Grid';
+import type { PublicationsListQuery } from '@lib/types/datocms';
+import publicationListQuery from './PublicationList.query.graphql';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -26,16 +29,29 @@ export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const skip = (page - 1) * DEFAULT_PAGE_SIZE;
 
-  const { publications, publicationsMeta } =
+  const filter: Record<string, string> = {};
+
+  if (searchParams.zoek) {
+    Object.assign(filter, {
+      title: { matches: { pattern: searchParams.zoek } },
+    });
+  }
+  if (searchParams.tag) {
+    Object.assign(filter, { tags: { anyIn: searchParams.tag } });
+  }
+
+  const { publications, tags, publicationsMeta } =
     await datocmsRequest<PublicationsListQuery>({
       query: publicationListQuery,
       variables: {
         first: DEFAULT_PAGE_SIZE,
         skip,
+        filter,
       },
     });
 
   return {
+    tags,
     publications,
     publicationsMeta,
   };
@@ -49,33 +65,79 @@ type PublicationListProps = {
 
 export const PublicationList = withQueryClientProvider(
   ({ initialData, initialParams, initialUrl }: PublicationListProps) => {
-    const dataListRef = useRef<HTMLUListElement>(null);
+    const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
     const { data } = useQuery({
-      queryKey: ['publications', searchParams.page],
+      queryKey: ['publications', searchParams],
       queryFn: () => loader(searchParams),
       initialData,
     });
 
+    const updateFilter = (filter: Record<string, string>) => {
+      updateSearchParams({ ...filter, page: undefined });
+
+      if (filterRef.current) {
+        filterRef.current.scrollIntoView({
+          behavior: 'instant',
+        });
+      }
+    };
+
     const updatePage = (page: number) => {
       updateSearchParams({ page: page.toString() });
 
-      if (dataListRef.current) {
-        dataListRef.current.scrollIntoView({
+      if (filterRef.current) {
+        filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
       }
     };
 
     return (
-      <Grid>
+      <Grid border>
         <Column span={12}>
-          <DataList
-            className="container-padding-x container-padding-y"
-            ref={dataListRef}
-          >
+          <ListForm
+            ref={filterRef}
+            initialValues={searchParams}
+            onSearchChange={debounce(updateFilter, 300)}
+            onFilterChange={updateFilter}
+            search={({ onChange, values }) => (
+              <TextField
+                name="zoek"
+                label={t('find_a_publication')}
+                labelStyle="float"
+                value={values.zoek || ''}
+                onChange={(value) => onChange('zoek', value)}
+                type="search"
+              />
+            )}
+            filters={({ onChange, values }) => (
+              <>
+                <SelectField
+                  name="tag"
+                  label={t('subject')}
+                  labelStyle="contain"
+                  options={[
+                    {
+                      label: t('all'),
+                      value: '',
+                    },
+                    ...data.tags.map((tag) => ({
+                      label: tag.label,
+                      value: tag.id,
+                    })),
+                  ]}
+                  value={values.tag || ''}
+                  onChange={(value) => onChange('tag', value)}
+                />
+              </>
+            )}
+          />
+        </Column>
+        <Column span={12}>
+          <DataList className="container-padding-x container-padding-y">
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>
@@ -110,7 +172,7 @@ export const PublicationList = withQueryClientProvider(
         <Column span={12} className="container-padding-x container-padding-y">
           <Pagination
             url={url}
-            currentPage={Number(searchParams.page)}
+            currentPage={Number(searchParams.page) || 1}
             totalPages={Math.ceil(
               data.publicationsMeta.count / DEFAULT_PAGE_SIZE,
             )}
