@@ -1,0 +1,13 @@
+---
+import { CtaBanner as CtaBannerComponent } from './CtaBanner';
+import type { MemberLogoFragment } from '@lib/types/datocms';
+import { getRandomItems } from '@lib/content-collections';
+
+const members = await getRandomItems<MemberLogoFragment>('memberLogos', 10);
+
+const { message } = Astro.props;
+---
+
+<CtaBannerComponent members={members} message={message}>
+  <slot />
+</CtaBannerComponent>

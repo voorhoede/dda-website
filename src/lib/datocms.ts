@@ -26,9 +26,7 @@ export const datocmsRequest = async <T, V = unknown>({
 
   // during build we cannot access our dato proxy, so we use the dato api endpoint directly
   if (import.meta.env.SSR) {
-    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = await import(
-      'astro:env/server'
-    );
+    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = process.env;
 
     apiUrl = 'https://graphql.datocms.com';
 
@@ -88,9 +86,11 @@ type CollectionMeta = {
 export const datocmsCollection = async <CollectionType>({
   collection,
   fragment,
+  fragmentName,
 }: {
   collection: string;
   fragment: string;
+  fragmentName: string;
 }) => {
   const { meta } = (await datocmsRequest({
     query: parse(/* graphql */ `
@@ -107,12 +107,13 @@ export const datocmsCollection = async <CollectionType>({
   for (let page = 0; page < totalPages; page++) {
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
+        ${fragment}
         query All${collection} {
           ${collection}: all${collection} (
              first: ${recordsPerPage},
              skip: ${page * recordsPerPage}
           ) {
-            ${fragment}
+            ...${fragmentName}
           }
         }
       `),
