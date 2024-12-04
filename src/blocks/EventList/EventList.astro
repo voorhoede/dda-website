@@ -1,8 +1,8 @@
 ---
 import {
-  EventsList as ClientEventsList,
+  EventList as ClientEventList,
   loader,
-} from './EventsList.tsx';
+} from './EventList.tsx';
 
 const searchParams = Astro.url.searchParams;
 const initialParams = {
@@ -13,7 +13,7 @@ const initialData = await loader(initialParams);
 const initialUrl = Astro.url.href;
 ---
 
-<ClientEventsList
+<ClientEventList
   client:load
   initialParams={initialParams}
   initialData={initialData}

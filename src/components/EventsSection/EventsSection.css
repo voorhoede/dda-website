@@ -1,13 +1,3 @@
-.events-section__column {
-  padding: var(--spacing-24);
-}
-
 .events-section__column--list {
   padding: var(--spacing-48) var(--spacing-24);
-}
-
-@media screen and (min-width: 481px) {
-  .events-section__column {
-    padding: var(--spacing-48);
-  }
 }

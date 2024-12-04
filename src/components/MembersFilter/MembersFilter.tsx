@@ -59,7 +59,7 @@ export const MembersFilter = forwardRef<HTMLFormElement, Props>(({ filter, optio
       <div className="member-filter__selects">
         <SelectField
           name="expertise"
-          label="Expertise"
+          label={ t('expertise') }
           labelStyle="contain"
           options={[
             { label: t('all'), value: '' },
@@ -73,7 +73,7 @@ export const MembersFilter = forwardRef<HTMLFormElement, Props>(({ filter, optio
         />
         <SelectField
           name="omvang"
-          label="Omvang"
+          label={ t('size') }
           labelStyle="contain"
           options={[
             { label: t('all'), value: '' },
@@ -89,7 +89,7 @@ export const MembersFilter = forwardRef<HTMLFormElement, Props>(({ filter, optio
         />
         <SelectField
           name="sorteren"
-          label="Sorteren"
+          label={ t('sort') }
           labelStyle="contain"
           options={[
             { label: 'A-Z', value: 'name_ASC' },

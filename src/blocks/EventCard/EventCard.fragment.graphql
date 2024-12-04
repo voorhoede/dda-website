@@ -16,7 +16,7 @@ fragment EventCard on EventRecord {
   }
   date
   location
-  labels {
-    label
+  theme {
+    name
   }
 }

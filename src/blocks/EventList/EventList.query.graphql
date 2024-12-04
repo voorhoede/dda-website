@@ -1,9 +1,14 @@
-query EventsList(
+query EventList(
   $locale: SiteLocale = nl
   $first: IntType!
   $skip: IntType!
   $filter: EventModelFilter
 ) {
+  themes: allThemes {
+    id
+    name
+  }
+  
   eventsMeta: _allEventsMeta(
     locale: $locale
     filter: $filter
@@ -18,5 +23,11 @@ query EventsList(
     filter: $filter
   ) {
     id
+    title
+    date
+    location
+    theme {
+      name
+    }
   }
 }

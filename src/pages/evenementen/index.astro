@@ -12,11 +12,13 @@ import { PageTitle, PageTitleHeader, PageTitleContent } from '@components/PageTi
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { PartnerBanner } from '@blocks/PartnerBanner';
-import EventsList from '@blocks/EventsList/EventsList.astro';
-
+import EventList from '@blocks/EventList/EventList.astro';
+import { Grid, Column } from '@components/Grid';
+import { EventCard } from '@blocks/EventCard';
+ 
 const { locale } = Astro.params;
 
-const { page, partners } = await datocmsRequest<EventsPageQuery, EventsPageQueryVariables>({ query, variables: { locale: locale as SiteLocale } });
+const { page, highlightedEvents, partners } = await datocmsRequest<EventsPageQuery, EventsPageQueryVariables>({ query, variables: { locale: locale as SiteLocale } });
 
 if (!page) {
   return new Response(null, { status: 404 });
@@ -36,7 +38,22 @@ if (!page) {
     </PageTitleContent>
   </PageTitle>
   
-  <EventsList />
+  <Grid border>
+    {highlightedEvents.map((event) => (
+      <Column
+        key={event.id}
+        span={{
+          mobile: 12,
+          tablet: 6,
+          desktop: 4,
+        }}
+      >
+        <EventCard event={event} />
+      </Column>
+    ))}
+  </Grid>
+    
+  <EventList />
   
   { partners.length > 0 && <PartnerBanner {partners} /> }
 </Layout>
