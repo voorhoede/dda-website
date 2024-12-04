@@ -1,0 +1,170 @@
+---
+import { t } from '@lib/i18n';
+import { datocmsRequest } from '@lib/datocms';
+import type { PublicationPageQuery, SiteLocale } from '@lib/types/datocms';
+
+import publicationPageQuery from './publicationPage.query.graphql';
+
+import Layout from '@layouts/Default.astro';
+
+import { SRCImage } from 'react-datocms';
+import {
+  PageTitle,
+  PageTitleContent,
+  PageTitleHeader,
+} from '@components/PageTitle';
+import { Heading } from '@components/Heading';
+import { TagList, TagListItem } from '@components/Tag';
+import { Column, Grid } from '@components/Grid';
+import { Button } from '@components/Button';
+import { Text } from '@components/Text';
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import { PublicationCard } from '@blocks/PublicationCard';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+
+const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
+
+const { page, latestPublications } = await datocmsRequest<PublicationPageQuery>(
+  {
+    query: publicationPageQuery,
+    variables: { locale, slug },
+  }
+);
+
+if (!page) {
+  return new Response(null, { status: 404 });
+}
+---
+
+<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PageTitle>
+    <PageTitleHeader>
+      <Button
+        as="a"
+        href="../"
+        className="back-button"
+        level="tertiary"
+        icon="arrow-left"
+        iconPosition="left">{t('back_to_publications')}</Button
+      >
+      <Heading level={1}>{page.title}</Heading>
+    </PageTitleHeader>
+    <PageTitleContent>
+      <TagList>
+        {page.tags.map((tag) => <TagListItem>{tag.label}</TagListItem>)}
+      </TagList>
+    </PageTitleContent>
+  </PageTitle>
+
+  {
+    page.banner?.responsiveImage && (
+      <div class="banner">
+        <SRCImage
+          pictureClassName="banner__picture"
+          imgClassName="banner__image"
+          imgStyle={{ maxWidth: '100%', maxHeight: '776px' }}
+          data={page.banner.responsiveImage}
+          priority={true}
+        />
+      </div>
+    )
+  }
+
+  <Grid className="publication" gap={{ mobile: 16, tablet: 32 }}>
+    <Column span={{ mobile: 12, tablet: 5 }}>
+      {
+        page.banner?.responsiveImage && (
+          // 'aria-hidden' because the image title is already in the image
+          <Text
+            aria-hidden="true"
+            variant="subtext"
+            className="publication__image-title"
+          >
+            {page.banner.responsiveImage.title}
+          </Text>
+        )
+      }
+    </Column>
+    <Column as="section" span={{ mobile: 12, tablet: 7 }}>
+      {page.content && <TextBlock block={page.content} />}
+    </Column>
+  </Grid>
+
+  <Grid border>
+    <Column
+      span={12}
+      className="container-padding-y container-padding-x latest-publications-header"
+    >
+      <Heading level={2}>{t('latest_publications')}</Heading>
+
+      <Button as="a" href="/publicaties/" icon="arrow-right">
+        {t('all_publications')}
+      </Button>
+    </Column>
+
+    {
+      latestPublications.map((publication) => (
+        <Column span={{ mobile: 12, tablet: 6, desktop: 4 }}>
+          <PublicationCard publication={publication} />
+        </Column>
+      ))
+    }
+  </Grid>
+  <PartnerBanner />
+</Layout>
+
+<style>
+  .back-button {
+    margin-block-end: var(--spacing-16);
+  }
+
+  .banner :global(.banner__picture) {
+    width: 100%;
+    display: block;
+    line-height: 0;
+  }
+
+  .banner :global(.banner__image) {
+    border: 1px solid var(--color-black);
+    max-height: 776px;
+  }
+
+  .publication {
+    padding: var(--spacing-40) var(--spacing-16);
+  }
+
+  .publication__image-title {
+    font-size: 13px;
+  }
+
+  @media screen and (min-width: 481px) {
+    .publication {
+      padding: var(--spacing-48);
+      padding-block-end: var(--spacing-96);
+    }
+
+    .publication-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-24);
+    }
+  }
+
+  @media screen and (min-width: 890px) {
+    .banner {
+      padding-inline: var(--spacing-48);
+    }
+  }
+
+  .publication-info {
+    font-family: var(--font-family-body);
+  }
+
+  .latest-publications-header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-16);
+    justify-content: space-between;
+    align-items: center;
+  }
+</style>

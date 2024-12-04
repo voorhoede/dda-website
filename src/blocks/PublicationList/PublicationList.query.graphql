@@ -5,6 +5,7 @@ query PublicationsList($first: IntType!, $skip: IntType!) {
   publications: allPublications(first: $first, skip: $skip) {
     id
     title
+    slug
     _createdAt
     tags {
       label
@@ -22,9 +23,6 @@ query PublicationsList($first: IntType!, $skip: IntType!) {
         bgColor
         sizes
       }
-    }
-    content {
-      value
     }
   }
 }

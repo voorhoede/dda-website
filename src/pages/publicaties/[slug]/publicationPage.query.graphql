@@ -1,0 +1,42 @@
+#import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
+
+query PublicationPage($locale: SiteLocale!, $slug: String!) {
+  page: publication(filter: { slug: { eq: $slug } }, locale: $locale) {
+    id
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    title
+    tags {
+      id
+      label
+    }
+    banner {
+      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+        base64
+        height
+        width
+        aspectRatio
+        sizes
+        src
+        srcSet
+        webpSrcSet
+        bgColor
+        alt
+        title
+      }
+    }
+    content {
+      ...TextBlock
+    }
+  }
+  latestPublications: allPublications(
+    filter: { slug: { neq: $slug } }
+    first: 3
+  ) {
+    ...PublicationCard
+  }
+}
