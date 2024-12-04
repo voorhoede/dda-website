@@ -2,11 +2,15 @@ import { parse } from 'graphql';
 import { print } from 'graphql/language/printer';
 import type { DocumentNode } from 'graphql';
 import { datocmsEnvironment } from '@root/datocms-environment';
+import {
+  DATOCMS_READONLY_API_TOKEN,
+  HEAD_START_PREVIEW,
+} from 'astro:env/client';
 
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
 
-type DatocmsRequest <V> = {
+type DatocmsRequest<V> = {
   query: DocumentNode;
   variables?: V;
   retryCount?: number;
@@ -26,8 +30,6 @@ export const datocmsRequest = async <T, V = unknown>({
 
   // during build we cannot access our dato proxy, so we use the dato api endpoint directly
   if (import.meta.env.SSR) {
-    const { DATOCMS_READONLY_API_TOKEN, HEAD_START_PREVIEW } = process.env;
-
     apiUrl = 'https://graphql.datocms.com';
 
     headers.set('Authorization', `Bearer ${DATOCMS_READONLY_API_TOKEN}`);
