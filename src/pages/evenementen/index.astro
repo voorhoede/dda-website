@@ -61,7 +61,7 @@ const today = `${year}-${month}-${day}`;
   </Grid>
     
   <EventList queryKey="events" defaultPageSize={8} fixedFilters={{
-    date: { gt: today }
+    date: { gte: today }
   }} />
   
   <section class="past-events">
