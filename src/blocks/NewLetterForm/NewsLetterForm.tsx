@@ -21,7 +21,6 @@ export const NewsLetterForm = () => {
         <TextField
           label={t('email_address')}
           name="EMAIL"
-          id="email"
           labelStyle="float"
           defaultValue=""
           required

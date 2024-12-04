@@ -8,7 +8,6 @@ type Props = {
   name: string;
   label: string;
   required?: boolean;
-  id?: string;
   labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
@@ -33,7 +32,6 @@ export const TextField = ({
   value,
   defaultValue,
   required = false,
-  id,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +54,6 @@ export const TextField = ({
       <Input
         type="text"
         name={name}
-        id={id}
         className="text-field__input"
         placeholder={placeholder}
         value={value}
