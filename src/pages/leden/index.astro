@@ -11,15 +11,22 @@ import membersPageQuery from './membersPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
 
-import { PageTitle, PageTitleHeader, PageTitleContent } from '@components/PageTitle';
+import {
+  PageTitle,
+  PageTitleHeader,
+  PageTitleContent,
+} from '@components/PageTitle';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { MemberList } from '@blocks/MemberList';
-import { PartnerBanner } from '@blocks/PartnerBanner';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
 const { locale } = Astro.params as { locale: SiteLocale };
 
-const { page, partners } = await datocmsRequest<MembersPageQuery>({ query: membersPageQuery, variables: { locale } });
+const { page } = await datocmsRequest<MembersPageQuery>({
+  query: membersPageQuery,
+  variables: { locale },
+});
 
 if (!page) {
   return new Response(null, { status: 500 });
@@ -29,19 +36,28 @@ if (!page) {
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
   <PageTitle>
     <PageTitleHeader>
-      <Button as="a" href="../" className="back-button" level="tertiary" icon="arrow-left" iconPosition="left">{t('back_to_home')}</Button>
+      <Button
+        as="a"
+        href="../"
+        className="back-button"
+        level="tertiary"
+        icon="arrow-left"
+        iconPosition="left">{t('back_to_home')}</Button
+      >
       <Heading level={1}>{page.title}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
       <div>
-        <StructuredText data={page.description as unknown as StructuredTextData} />
+        <StructuredText
+          data={page.description as unknown as StructuredTextData}
+        />
       </div>
     </PageTitleContent>
   </PageTitle>
-  
+
   <MemberList />
-  
-  { partners.length > 0 && <PartnerBanner {partners} /> }
+
+  <PartnerBanner />
 </Layout>
 
 <style>

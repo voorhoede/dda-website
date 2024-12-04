@@ -14,8 +14,4 @@ query MembersPage($locale: SiteLocale = nl) {
       value
     }
   }
-  
-  partners: allPartners(first: 8) {
-    ...PartnerLogo
-  }
 }

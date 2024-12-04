@@ -3,9 +3,11 @@ import { datocmsCollection } from '@lib/datocms';
 import type {
   MemberLogoFragment,
   VacancyListItemFragment,
+  PartnerLogoFragment,
 } from '@lib/types/datocms';
 import memberLogoFragment from '@blocks/MemberLogo/MemberLogo.fragment.graphql?raw';
 import vacancyListItemFragment from '@blocks/VacancyList/VacancyListItem.fragment.graphql?raw';
+import partnerFragment from '@blocks/PartnerBanner/PartnerLogo.fragment.graphql?raw';
 
 const memberLogos = defineCollection({
   loader: async () => {
@@ -27,7 +29,18 @@ const vacancies = defineCollection({
   },
 });
 
+const partners = defineCollection({
+  loader: async () => {
+    return datocmsCollection({
+      collection: 'Partners',
+      fragment: partnerFragment,
+      fragmentName: 'PartnerLogo',
+    }) as Promise<PartnerLogoFragment[]>;
+  },
+});
+
 export const collections = {
   memberLogos,
   vacancies,
+  partners,
 };
