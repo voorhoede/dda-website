@@ -24,6 +24,11 @@ const { page, highlightedEvents, partners } = await datocmsRequest<EventsPageQue
 if (!page) {
   return new Response(null, { status: 404 });
 }
+
+const year = (new Date()).getFullYear();
+const month = String((new Date()).getMonth() + 1).padStart(2, '0');
+const day = String((new Date()).getDate()).padStart(2, '0');
+const today = `${year}-${month}-${day}`;
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
@@ -35,6 +40,7 @@ if (!page) {
     <PageTitleContent>
       <div>
         <StructuredText data={page.description as unknown as StructuredTextData} />
+        {today}
       </div>
     </PageTitleContent>
   </PageTitle>
@@ -55,14 +61,14 @@ if (!page) {
   </Grid>
     
   <EventList queryKey="events" defaultPageSize={8} fixedFilters={{
-    date: { gt: '2024-12-04' }
+    date: { gt: today }
   }} />
   
   <section class="past-events">
     <Heading className='past-events__heading' level={2} displayLevel={3}>{page.pastEventsTitle}</Heading>
     
     <EventList queryKey="past_events" defaultPageSize={3} showFilter={false} fixedFilters={{
-      date: { lt: '2024-12-04' }
+      date: { lt: today }
     }} />
   </section>
   
