@@ -19,7 +19,7 @@ fragment CaseBlock on CaseBlockRecord {
   }
   title
   expertiseTags {
-    label
+    name
   }
   customer
   link

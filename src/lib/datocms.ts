@@ -6,9 +6,9 @@ import { datocmsEnvironment } from '@root/datocms-environment';
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
 
-type DatocmsRequest = {
+type DatocmsRequest <V> = {
   query: DocumentNode;
-  variables?: { [key: string]: string | number };
+  variables?: V;
   retryCount?: number;
 };
 /**
@@ -16,11 +16,11 @@ type DatocmsRequest = {
  * It has authorization, environment and drafts (preview) pre-configured.
  * It has a retry mechanism in case of rate-limiting, based on DatoCMS API utils. @see https://github.com/datocms/js-rest-api-clients/blob/f4e820d/packages/rest-client-utils/src/request.ts#L239C13-L255
  */
-export const datocmsRequest = async <T>({
+export const datocmsRequest = async <T, V = unknown>({
   query,
-  variables = {},
+  variables,
   retryCount = 1,
-}: DatocmsRequest): Promise<T> => {
+}: DatocmsRequest<V>): Promise<T> => {
   let apiUrl;
   const headers = new Headers();
 

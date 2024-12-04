@@ -1,0 +1,5 @@
+.agency__employees {
+  display: flex;
+  gap: var(--spacing-12);
+  align-items: center;
+}
