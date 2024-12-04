@@ -30,11 +30,17 @@ import { t } from '@lib/i18n';
 import { EventsFilter } from '@components/EventsFilter';
 import type { Filter } from '@components/EventsFilter/EventsFilter';
 
-const DEFAULT_PAGE_SIZE = 10;
-
-export const loader = async (searchParams: Record<string, string>) => {
+export const loader = async ({
+  searchParams,
+  fixedFilters,
+  defaultPageSize,
+}: {
+  searchParams: Record<string, string>;
+  fixedFilters?: EventModelFilter;
+  defaultPageSize: number;
+}) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
-  const skip = (page - 1) * DEFAULT_PAGE_SIZE;
+  const skip = (page - 1) * defaultPageSize;
 
   const filter: EventModelFilter = {};
   if (searchParams.zoek) {
@@ -52,9 +58,9 @@ export const loader = async (searchParams: Record<string, string>) => {
   >({
     query: query,
     variables: {
-      first: DEFAULT_PAGE_SIZE,
+      first: defaultPageSize,
       skip,
-      filter,
+      filter: { ...filter, ...fixedFilters },
     },
   });
 
@@ -66,26 +72,38 @@ export const loader = async (searchParams: Record<string, string>) => {
 };
 
 interface Props {
+  queryKey: string;
+  defaultPageSize: number;
+  showFilter?: boolean;
+  fixedFilters?: EventModelFilter;
   initialData: Awaited<ReturnType<typeof loader>>;
   initialParams: Record<string, string>;
   initialUrl: string;
 }
 
 export const EventList = withQueryClientProvider(
-  ({ initialData, initialParams, initialUrl }: Props) => {
+  ({
+    queryKey,
+    defaultPageSize,
+    showFilter,
+    fixedFilters,
+    initialData,
+    initialParams,
+    initialUrl,
+  }: Props) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
     const { data } = useQuery({
-      queryKey: ['events', searchParams],
-      queryFn: () => loader(searchParams),
+      queryKey: [queryKey, searchParams],
+      queryFn: () => loader({ searchParams, fixedFilters, defaultPageSize }),
       initialData,
     });
 
     const updateFilter = debounce((filter: Filter) => {
       updateSearchParams({ ...filter, page: undefined });
-      
+
       if (filterRef.current) {
         filterRef.current.scrollIntoView({
           behavior: 'instant',
@@ -105,12 +123,14 @@ export const EventList = withQueryClientProvider(
 
     return (
       <>
-        <EventsFilter
-          ref={filterRef}
-          filter={searchParams as Filter}
-          options={{ themes: data.themes }}
-          onChange={updateFilter}
-        />
+        {showFilter && (
+          <EventsFilter
+            ref={filterRef}
+            filter={searchParams as Filter}
+            options={{ themes: data.themes }}
+            onChange={updateFilter}
+          />
+        )}
 
         <DataList className="container-padding-x container-padding-y">
           {data.events.map((event) => (
@@ -143,7 +163,7 @@ export const EventList = withQueryClientProvider(
         <Pagination
           url={url}
           currentPage={Number(searchParams.page)}
-          totalPages={Math.ceil(data.eventsMeta.count / DEFAULT_PAGE_SIZE)}
+          totalPages={Math.ceil(data.eventsMeta.count / defaultPageSize)}
           onPageChange={updatePage}
         />
       </>

@@ -14,6 +14,7 @@ query EventsPage($locale: SiteLocale = nl) {
       links
       value
     }
+    pastEventsTitle
   }
   
   highlightedEvents: allEvents(
