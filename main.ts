@@ -27,7 +27,7 @@ if (import.meta.main) {
     { skipFirstRow: true },
   );
 
-  // await createMember(membersData[0]);
+  await createMember(membersData[0]);
 }
 function inviteEditor(email: string) {
   const EDITOR_ROLE_ID = "301184";
@@ -60,6 +60,7 @@ async function createMember(member: Record<string, string>) {
             ),
             url: (node as HastElementNode).properties?.src,
             tags: ["content-import"],
+            skipCreationIfAlreadyExists: true,
           });
 
           return createNode("block", {
@@ -76,6 +77,13 @@ async function createMember(member: Record<string, string>) {
     },
   );
 
+  const logo = await client.uploads.createFromUrl({
+    filename: getUrlPathFilename(member.Logo),
+    url: member.Logo,
+    tags: ["content-import"],
+    skipCreationIfAlreadyExists: true,
+  });
+
   return client.items.create({
     item_type: { type: "item_type", id: MEMBER_MODEL_ID },
     // creator: { type: "user", id: "67554" },
@@ -83,7 +91,7 @@ async function createMember(member: Record<string, string>) {
     slug: toKebabCase(member.Title),
     // seo: ...
     // banner: ...
-    logo: { upload_id: "b9cAcs8vS6eqX9bKMiZlPg" },
+    logo: { upload_id: logo.id, alt: member.Title },
     // brand_color
     location: parsePipeSeparatedValue(member.Locaties_city)[0],
     employees: member.Omvang,
