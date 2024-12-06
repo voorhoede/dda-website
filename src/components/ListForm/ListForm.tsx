@@ -1,4 +1,5 @@
-import { useState, type FormEvent, forwardRef } from 'react';
+import { useState, type FormEvent, forwardRef, useCallback } from 'react';
+import debounce from 'debounce';
 import './ListForm.css';
 
 type OnChange = (name: string, value: string) => void;
@@ -6,8 +7,7 @@ type FormData = Record<string, string>;
 
 interface ListFormProps {
   initialValues: FormData;
-  onSearchChange?: (formData: FormData) => void;
-  onFilterChange?: (formData: FormData) => void;
+  onChange: (formData: FormData) => void;
   search: ({
     onChange,
     values,
@@ -25,17 +25,18 @@ interface ListFormProps {
 }
 
 export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
-  ({ initialValues, onSearchChange, onFilterChange, search, filters }, ref) => {
+  ({ initialValues, onChange, search, filters }, ref) => {
     const [values, setValues] = useState<FormData>(initialValues);
+
+    const debouncedOnChange = useCallback(debounce(onChange, 500), [onChange]);
 
     const handleSearchChange: OnChange = (name: string, value: string) => {
       const updatedFormData = { ...values, [name]: value };
 
       setValues(updatedFormData);
 
-      if (onSearchChange) {
-        onSearchChange(updatedFormData);
-      }
+      // debounce the onChange to prevent multiple calls when typing
+      debouncedOnChange(updatedFormData);
     };
 
     const handleFilterChange: OnChange = (name: string, value: string) => {
@@ -43,9 +44,8 @@ export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
 
       setValues(updatedFormData);
 
-      if (onFilterChange) {
-        onFilterChange(updatedFormData);
-      }
+      // don't debounce the filter change, so it's instant
+      onChange(updatedFormData);
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
