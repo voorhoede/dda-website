@@ -1,7 +1,7 @@
 {
   "tasks": {
     "run": "deno run --env-file=.env --allow-env --allow-read --allow-net main.ts",
-    "dev": "deno run --watch --env-file=.env --allow-env --allow-read --allow-net main.ts"
+    "dev": "deno run --watch --env-file=.env --allow-env --allow-read --allow-net --allow-write main.ts"
   },
   "imports": {
     "@datocms/cma-client-node": "npm:@datocms/cma-client-node@^3.3.15",

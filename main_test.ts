@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { parsePipeSeparatedValue } from "./main.ts";
+import { getUrlPathFilename, parsePipeSeparatedValue } from "./main.ts";
 
 Deno.test("parsePipeSeparatedValue behaves as expected", () => {
   assertEquals(
@@ -22,5 +22,17 @@ Deno.test("parsePipeSeparatedValue behaves as expected", () => {
       "One | Two|And Three |",
     ),
     ["One", "Two", "And Three"],
+  );
+
+  assertEquals(parsePipeSeparatedValue("|06123||||034123|"), [
+    "06123",
+    "034123",
+  ]);
+});
+
+Deno.test("getUrlPathFilename", () => {
+  assertEquals(
+    getUrlPathFilename("https://example.com/wp-content/02/pixels.jpg"),
+    "pixels.jpg",
   );
 });

@@ -7,7 +7,11 @@ import {
   LogLevel,
 } from "npm:@datocms/cma-client-node";
 import { parse as parseHtml } from "npm:parse5";
-import { parse5ToStructuredText } from "npm:datocms-html-to-structured-text";
+import {
+  type CreateNodeFunction,
+  type HastElementNode,
+  parse5ToStructuredText,
+} from "npm:datocms-html-to-structured-text";
 
 const client = buildClient({
   apiToken: Deno.env.get("DATOCMS_API_TOKEN")!,
@@ -38,11 +42,38 @@ async function createMember(member: Record<string, string>) {
   const MEMBER_MODEL_ID = "ByoMKdCkSp6T10UjQm26wg";
   const TEXT_BLOCK_ID = "PAk40zGjQJCcDXXPgygUrA";
   const CONTACT_BLOCK_ID = "Hwfbdgu_TMqmzK2i0-xmXg";
+  const IMAGE_BLOCK_ID = "ZdBokLsWRgKKjHrKeJzdpw";
 
   const structuredTextExample = await parse5ToStructuredText(
-    parseHtml("<p>hi</p>", {
+    parseHtml(member.Content, {
       sourceCodeLocationInfo: true,
     }),
+    {
+      handlers: {
+        img: async (
+          createNode: CreateNodeFunction,
+          node,
+        ) => {
+          const asset = await client.uploads.createFromUrl({
+            filename: getUrlPathFilename(
+              (node as HastElementNode).properties?.src,
+            ),
+            url: (node as HastElementNode).properties?.src,
+            tags: ["content-import"],
+          });
+
+          return createNode("block", {
+            item: buildBlockRecord({
+              item_type: { type: "item_type", id: IMAGE_BLOCK_ID },
+              image: {
+                upload_id: asset.id,
+                alt: "Imported asset: need alt text",
+              },
+            }),
+          });
+        },
+      },
+    },
   );
 
   return client.items.create({
@@ -50,15 +81,26 @@ async function createMember(member: Record<string, string>) {
     // creator: { type: "user", id: "67554" },
     name: member.Title,
     slug: toKebabCase(member.Title),
-    location: "hai street",
-    employees: member.Omvang,
+    // seo: ...
+    // banner: ...
     logo: { upload_id: "b9cAcs8vS6eqX9bKMiZlPg" },
+    // brand_color
+    location: parsePipeSeparatedValue(member.Locaties_city)[0],
+    employees: member.Omvang,
+    website: tryGetValidUrl(
+      parsePipeSeparatedValue(member.Locaties_website_url),
+    ),
+    // tags:
+    // industry:
+    // expertises:
     about_us: {
       "nl": buildBlockRecord({
         item_type: { type: "item_type", id: TEXT_BLOCK_ID },
         text: structuredTextExample,
       }),
     },
+    // vacancies:
+    // cases:
     contact: [buildBlockRecord({
       item_type: { type: "item_type", id: CONTACT_BLOCK_ID },
       title: "ha",
@@ -66,6 +108,22 @@ async function createMember(member: Record<string, string>) {
   });
 }
 
+function tryGetValidUrl(maybeUrls: string[]) {
+  return maybeUrls
+    .map((maybeUrl) => {
+      try {
+        return new URL(maybeUrl).href;
+      } catch (_error) {
+        return false;
+      }
+    })
+    .find(Boolean);
+}
+
 export function parsePipeSeparatedValue(value: string) {
   return value.split("|").map((string) => string.trim()).filter(Boolean);
+}
+
+export function getUrlPathFilename(url: string) {
+  return new URL(url).pathname.split("/").at(-1);
 }
