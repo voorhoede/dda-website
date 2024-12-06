@@ -10,7 +10,6 @@ import { Column, Grid } from '@components/Grid';
 import { VacancyDataList } from '@components/VacancyDataList';
 import { Pagination } from '@components/Pagination';
 import { ListForm } from '@components/ListForm';
-import debounce from 'debounce';
 import { TextField, SelectField } from '@components/Forms';
 import type { getCollection } from 'astro:content';
 import { t } from '@lib/i18n';
@@ -113,8 +112,7 @@ export const VacancyList = withQueryClientProvider(
           <ListForm
             ref={filterRef}
             initialValues={searchParams}
-            onSearchChange={debounce(updateFilter, 300)}
-            onFilterChange={updateFilter}
+            onChange={updateFilter}
             search={({ onChange, values }) => (
               <TextField
                 name="zoek"

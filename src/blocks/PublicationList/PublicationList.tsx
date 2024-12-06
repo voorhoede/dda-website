@@ -1,4 +1,3 @@
-import debounce from 'debounce';
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Column, Grid } from '@components/Grid';
@@ -101,8 +100,7 @@ export const PublicationList = withQueryClientProvider(
           <ListForm
             ref={filterRef}
             initialValues={searchParams}
-            onSearchChange={debounce(updateFilter, 300)}
-            onFilterChange={updateFilter}
+            onChange={updateFilter}
             search={({ onChange, values }) => (
               <TextField
                 name="zoek"
