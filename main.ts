@@ -46,7 +46,7 @@ async function createMember(member: Record<string, string>) {
   const IMAGE_BLOCK_ID = "ZdBokLsWRgKKjHrKeJzdpw";
 
   const aboutUsContent = await parse5ToStructuredText(
-    parseHtml(member.Content, {
+    parseHtml(member.Content || "No content found", {
       sourceCodeLocationInfo: true,
     }),
     {
