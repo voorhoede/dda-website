@@ -91,13 +91,20 @@ async function createMember(member: Record<string, string>) {
       skipCreationIfAlreadyExists: true,
     });
 
+  const banner = member.Banner && await client.uploads.createFromUrl({
+    filename: getUrlPathFilename(member.Banner),
+    url: member.Banner,
+    tags: ["content-import"],
+    skipCreationIfAlreadyExists: true,
+  });
+
   return client.items.create({
     item_type: { type: "item_type", id: MEMBER_MODEL_ID },
     // creator: { type: "user", id: "67554" },
     name: member.Title,
     slug: toKebabCase(member.Title),
     // seo: ...
-    // banner: ...
+    banner: banner ? { upload_id: banner.id } : null,
     logo: { upload_id: logo.id, alt: member.Title },
     // brand_color
     location: parsePipeSeparatedValue(member.Locaties_city)[0],
