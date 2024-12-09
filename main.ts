@@ -100,7 +100,6 @@ async function createMember(member: Record<string, string>) {
 
   return client.items.create({
     item_type: { type: "item_type", id: MEMBER_MODEL_ID },
-    // creator: { type: "user", id: "67554" },
     name: member.Title,
     slug: toKebabCase(member.Title),
     // seo: ...
