@@ -1,7 +1,7 @@
 ---
 import type { EventModelFilter } from '@lib/types/datocms';
 import {
-  EventList as ClientEventList,
+  EventList as EventListComponent,
   loader,
 } from './EventList.tsx';
 
@@ -23,7 +23,7 @@ const initialData = await loader({ searchParams: initialParams, defaultPageSize 
 const initialUrl = Astro.url.href;
 ---
 
-<ClientEventList
+<EventListComponent
   client:load
   queryKey={queryKey}
   defaultPageSize={defaultPageSize}
