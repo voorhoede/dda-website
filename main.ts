@@ -77,12 +77,18 @@ async function createMember(member: Record<string, string>) {
     },
   );
 
-  const logo = await client.uploads.createFromUrl({
-    filename: getUrlPathFilename(member.Logo),
-    url: member.Logo,
-    tags: ["content-import"],
-    skipCreationIfAlreadyExists: true,
-  });
+  const logo = member.Logo
+    ? await client.uploads.createFromUrl({
+      filename: getUrlPathFilename(member.Logo),
+      url: member.Logo,
+      tags: ["content-import"],
+      skipCreationIfAlreadyExists: true,
+    })
+    : await client.uploads.createFromLocalFile({
+      localPath: "./dda-logo.png",
+      tags: ["content-import"],
+      skipCreationIfAlreadyExists: true,
+    });
 
   return client.items.create({
     item_type: { type: "item_type", id: MEMBER_MODEL_ID },
