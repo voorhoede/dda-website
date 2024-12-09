@@ -105,7 +105,7 @@ async function createMember(member: Record<string, string>) {
     item_type: { type: "item_type", id: MEMBER_MODEL_ID },
     name: member.Title,
     slug: toKebabCase(member.Title),
-    // seo: ...
+    seo: banner ? { nl: { image: banner.id } } : { nl: null },
     banner: banner ? { upload_id: banner.id } : null,
     logo: { upload_id: logo.id, alt: member.Title },
     location: parsePipeSeparatedValue(member.Locaties_city)[0],
