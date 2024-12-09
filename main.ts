@@ -45,7 +45,7 @@ async function createMember(member: Record<string, string>) {
   const CONTACT_BLOCK_ID = "Hwfbdgu_TMqmzK2i0-xmXg";
   const IMAGE_BLOCK_ID = "ZdBokLsWRgKKjHrKeJzdpw";
 
-  const structuredTextExample = await parse5ToStructuredText(
+  const aboutUsContent = await parse5ToStructuredText(
     parseHtml(member.Content, {
       sourceCodeLocationInfo: true,
     }),
@@ -114,7 +114,7 @@ async function createMember(member: Record<string, string>) {
     about_us: {
       "nl": buildBlockRecord({
         item_type: { type: "item_type", id: TEXT_BLOCK_ID },
-        text: structuredTextExample,
+        text: aboutUsContent,
       }),
     },
     contact: parsePipeSeparatedValue(member.Locaties_location_label).map((
