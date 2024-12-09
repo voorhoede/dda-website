@@ -1,8 +1,6 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
-#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
-#import '@blocks/MemberLogo/MemberLogo.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
@@ -33,20 +31,8 @@ query HomePage($locale: SiteLocale!) {
     ...PublicationCard
   }
 
-  vacancies: allVacancies(first: 6) {
-    ...VacancyListItem
-  }
-
   events: allEvents(first: 6, orderBy: date_DESC) {
     ...EventCard
-  }
-
-  membersParade: allMembers(first: 16) {
-    ...MemberLogo
-  }
-
-  membersCta: allMembers(first: 10) {
-    ...MemberLogo
   }
 
   partners: allPartners(first: 8) {

@@ -1,13 +1,10 @@
 ---
-import { VacancyDataList } from '@components/VacancyDataList';
-import { MemberParade } from '@components/MemberParade';
 import { PartnerBanner } from '@blocks/PartnerBanner';
 import { NewsLetterForm } from '@blocks/NewsLetterForm';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
-import { CtaBanner } from '@components/CtaBanner';
 import { PublicationsSection } from '@components/PublicationsSection';
 import {
   PageTitle,
@@ -15,6 +12,9 @@ import {
   PageTitleFooter,
   PageTitleHeader,
 } from '@components/PageTitle';
+import CtaBanner from '@blocks/CtaBanner/CtaBanner.astro';
+import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import HighlightedVacancies from '@blocks/HighlightedVacancies/HightlightedVacancies.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import { Tag } from '@components/Tag';
 import {
@@ -28,6 +28,7 @@ import { defaultLocale, locales } from '@lib/i18n';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
+import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
@@ -41,18 +42,15 @@ const variables = {
   locale,
 };
 
-const {
-  page,
-  membersCta,
-  membersParade,
-  events,
-  vacancies,
-  publications,
-  partners,
-} = await datocmsRequest<NonNullable<HomePageQuery>>({
+const { page, events, publications, partners } = await datocmsRequest<
+  NonNullable<HomePageQuery>
+>({
   query,
   variables,
 });
+
+const members = await getCollection('memberLogos');
+const memberCount = members.length;
 
 const pageUrls = locales.map((locale) => ({
   locale,
@@ -70,7 +68,7 @@ const pageUrls = locales.map((locale) => ({
         </PageTitleHeader>
         <PageTitleContent>
           <Heading displayLevel={6} level="p">
-            {page.subtitle.replace('{{number}}', '123')}
+            {page.subtitle.replace('{{number}}', memberCount.toString())}
           </Heading>
         </PageTitleContent>
         <PageTitleFooter>
@@ -90,7 +88,7 @@ const pageUrls = locales.map((locale) => ({
       </PageTitle>
       <Grid border={true}>
         <Column span={12}>
-          <MemberParade members={membersParade} />
+          <MemberParade server:defer />
         </Column>
       </Grid>
       {events.length > 0 && (
@@ -115,28 +113,24 @@ const pageUrls = locales.map((locale) => ({
           <EventsSection events={events} />
         </>
       )}
-      {vacancies.length > 0 && (
-        <>
-          <TitleSection>
-            <TitleSectionContent>
-              <Tag>{page.vacanciesSectionLabel}</Tag>
-              <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
-            </TitleSectionContent>
-            <TitleSectionFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="arrow-right"
-                level="secondary"
-                variant="large"
-              >
-                {page.vacanciesSectionCtaLabel}
-              </Button>
-            </TitleSectionFooter>
-          </TitleSection>
-          <VacancyDataList vacancies={vacancies} />
-        </>
-      )}
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.vacanciesSectionLabel}</Tag>
+          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="arrow-right"
+            level="secondary"
+            variant="large"
+          >
+            {page.vacanciesSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
+      <HighlightedVacancies server:defer />
       {publications.length > 0 && (
         <>
           <TitleSection>
@@ -160,7 +154,7 @@ const pageUrls = locales.map((locale) => ({
         </>
       )}
       <NewsLetterForm />
-      <CtaBanner members={membersCta} message={page.ctaSectionMessage}>
+      <CtaBanner server:defer message={page.ctaSectionMessage}>
         <Heading level={2}>{page.ctaSectionTitle}</Heading>
         <Button as="a" href="/word-lid" icon="arrow-right">
           {page.ctaSectionCtaLabel}

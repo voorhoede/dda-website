@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { t } from '@lib/i18n';

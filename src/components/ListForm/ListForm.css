@@ -1,4 +1,4 @@
-.members-filter {
+.list-form {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,7 +8,7 @@
   gap: var(--spacing-24);
 }
 
-.member-filter__selects {
+.list-form__filters {
   display: flex;
   gap: var(--spacing-16);
   flex-wrap: wrap;

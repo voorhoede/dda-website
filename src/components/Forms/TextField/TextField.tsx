@@ -10,7 +10,8 @@ type Props = {
   labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
-  onChange?: (event: string) => void;
+  onChange?: (value: string) => void;
+  type?: 'text' | 'search';
 } & (
   | {
       labelStyle?: 'stack';
@@ -27,7 +28,8 @@ export const TextField = ({
   label,
   labelStyle = 'stack',
   placeholder = '',
-  value = '',
+  type = 'text',
+  value,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +50,7 @@ export const TextField = ({
         {label}
       </Label>
       <Input
-        type="text"
+        type={type}
         name={name}
         className="text-field__input"
         placeholder={placeholder}
