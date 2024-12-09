@@ -125,6 +125,7 @@ export const EventList = withQueryClientProvider(
       <>
         {showFilter && (
           <ListForm
+            className="event-list-filter"
             ref={filterRef}
             onChange={updateFilter}
             initialValues={searchParams}

@@ -1,11 +1,13 @@
 import { useState, type FormEvent, forwardRef, useCallback } from 'react';
 import debounce from 'debounce';
 import './ListForm.css';
+import clsx from 'clsx';
 
 type OnChange = (name: string, value: string) => void;
 type FormData = Record<string, string>;
 
 interface ListFormProps {
+  className?: string;
   initialValues: FormData;
   onChange: (formData: FormData) => void;
   search: ({
@@ -25,7 +27,7 @@ interface ListFormProps {
 }
 
 export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
-  ({ initialValues, onChange, search, filters }, ref) => {
+  ({ className, initialValues, onChange, search, filters }, ref) => {
     const [values, setValues] = useState<FormData>(initialValues);
 
     const debouncedOnChange = useCallback(debounce(onChange, 500), [onChange]);
@@ -53,7 +55,7 @@ export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
     };
 
     return (
-      <form ref={ref} className="list-form" onSubmit={handleSubmit}>
+      <form ref={ref} className={clsx('list-form', className)} onSubmit={handleSubmit}>
         {search({ onChange: handleSearchChange, values })}
 
         <div className="list-form__filters">
