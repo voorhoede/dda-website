@@ -27,8 +27,8 @@ import { formatDate } from '@lib/date';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { t } from '@lib/i18n';
-import { EventsFilter } from '@components/EventsFilter';
-import type { Filter } from '@components/EventsFilter/EventsFilter';
+import { ListForm } from '@components/ListForm';
+import { SelectField, TextField } from '@components/Forms';
 
 export const loader = async ({
   searchParams,
@@ -101,7 +101,7 @@ export const EventList = withQueryClientProvider(
       initialData,
     });
 
-    const updateFilter = debounce((filter: Filter) => {
+    const updateFilter = (filter: Record<string, string>) => {
       updateSearchParams({ ...filter, page: undefined });
 
       if (filterRef.current) {
@@ -109,7 +109,7 @@ export const EventList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
-    }, 300);
+    };
 
     const updatePage = (page: number) => {
       updateSearchParams({ ...searchParams, page: page.toString() });
@@ -124,11 +124,37 @@ export const EventList = withQueryClientProvider(
     return (
       <>
         {showFilter && (
-          <EventsFilter
+          <ListForm
             ref={filterRef}
-            filter={searchParams as Filter}
-            options={{ themes: data.themes }}
             onChange={updateFilter}
+            initialValues={searchParams}
+            search={({ onChange, values }) => (
+              <TextField
+                name="zoek"
+                label={t('find_an_event')}
+                labelStyle="float"
+                value={values.zoek || ''}
+                onChange={(value) => onChange('zoek', value)}
+              />
+            )}
+            filters={({ onChange, values }) => (
+              <>
+                <SelectField
+                  name="thema"
+                  label={t('theme')}
+                  labelStyle="contain"
+                  options={[
+                    { label: t('all'), value: '' },
+                    ...data.themes.map((option) => ({
+                      label: option.name,
+                      value: option.id,
+                    })),
+                  ]}
+                  value={values.omvang}
+                  onChange={(value) => onChange('omvang', value)}
+                />
+              </>
+            )}
           />
         )}
 
