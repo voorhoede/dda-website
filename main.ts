@@ -106,23 +106,17 @@ async function createMember(member: Record<string, string>) {
     // seo: ...
     banner: banner ? { upload_id: banner.id } : null,
     logo: { upload_id: logo.id, alt: member.Title },
-    // brand_color
     location: parsePipeSeparatedValue(member.Locaties_city)[0],
     employees: member.Omvang,
     website: tryGetValidUrl(
       parsePipeSeparatedValue(member.Locaties_website_url),
     ),
-    // tags:
-    // industry:
-    // expertises:
     about_us: {
       "nl": buildBlockRecord({
         item_type: { type: "item_type", id: TEXT_BLOCK_ID },
         text: structuredTextExample,
       }),
     },
-    // vacancies:
-    // cases:
     contact: parsePipeSeparatedValue(member.Locaties_location_label).map((
       label,
       index,
