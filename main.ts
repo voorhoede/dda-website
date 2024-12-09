@@ -22,13 +22,16 @@ const client = buildClient({
 
 if (import.meta.main) {
   const membersCsv = await Deno.readTextFile("./leden.csv", {});
-  // const users = await client.users.list();
   const membersData = parseCsv(
     membersCsv,
     { skipFirstRow: true },
-  );
+  )
+    .filter((member) => member["WPML Language Code"] === "nl");
 
-  await createMember(membersData[0]);
+  for (const member of membersData) {
+    await createMember(member);
+    console.info(`Created member ${member.Title}`);
+  }
 }
 function inviteEditor(email: string) {
   const EDITOR_ROLE_ID = "301184";
