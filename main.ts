@@ -12,6 +12,7 @@ import {
   type HastElementNode,
   parse5ToStructuredText,
 } from "npm:datocms-html-to-structured-text";
+import { withHttps } from "npm:ufo";
 
 const client = buildClient({
   apiToken: Deno.env.get("DATOCMS_API_TOKEN")!,
@@ -115,10 +116,25 @@ async function createMember(member: Record<string, string>) {
     },
     // vacancies:
     // cases:
-    contact: [buildBlockRecord({
-      item_type: { type: "item_type", id: CONTACT_BLOCK_ID },
-      title: "ha",
-    })],
+    contact: parsePipeSeparatedValue(member.Locaties_location_label).map((
+      label,
+      index,
+    ) =>
+      buildBlockRecord({
+        item_type: { type: "item_type", id: CONTACT_BLOCK_ID },
+        title: label,
+        website: parsePipeSeparatedValue(member.Locaties_website_url)[index]
+          ? withHttps(
+            parsePipeSeparatedValue(member.Locaties_website_url)[index],
+          )
+          : null,
+        street: parsePipeSeparatedValue(member.Locaties_address)[index],
+        postal_code: parsePipeSeparatedValue(member.Locaties_postcode)[index],
+        city: parsePipeSeparatedValue(member.Locaties_city)[index],
+        phone: parsePipeSeparatedValue(member.Locaties_phonenumber)[index],
+        email: parsePipeSeparatedValue(member.Locaties_emailaddress)[index],
+      })
+    ),
   });
 }
 

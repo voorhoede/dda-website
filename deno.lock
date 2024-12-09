@@ -11,7 +11,9 @@
     "npm:datocms-html-to-structured-text@*": "4.0.1",
     "npm:datocms-html-to-structured-text@^4.0.1": "4.0.1",
     "npm:parse5@*": "7.2.1",
-    "npm:parse5@^7.2.1": "7.2.1"
+    "npm:parse5@^7.2.1": "7.2.1",
+    "npm:ufo@*": "1.5.4",
+    "npm:ufo@^1.5.4": "1.5.4"
   },
   "jsr": {
     "@std/assert@1.0.8": {
@@ -384,6 +386,9 @@
     "tslib@2.4.1": {
       "integrity": "sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA=="
     },
+    "ufo@1.5.4": {
+      "integrity": "sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ=="
+    },
     "undici-types@6.19.8": {
       "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
     },
@@ -462,7 +467,8 @@
       "jsr:@std/text@^1.0.8",
       "npm:@datocms/cma-client-node@^3.3.15",
       "npm:datocms-html-to-structured-text@^4.0.1",
-      "npm:parse5@^7.2.1"
+      "npm:parse5@^7.2.1",
+      "npm:ufo@^1.5.4"
     ]
   }
 }
