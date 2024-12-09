@@ -27,7 +27,67 @@ const vacancies = defineCollection({
   },
 });
 
+const vacancyLocations = defineCollection({
+  loader: async () => {
+    const vacancies = (await datocmsCollection({
+      collection: 'Vacancies',
+      fragment: vacancyListItemFragment,
+      fragmentName: 'VacancyListItem',
+    })) as VacancyListItemFragment[];
+
+    return [
+      ...new Set(
+        vacancies.map((vacancy) => ({
+          id: vacancy.location,
+          label: vacancy.location,
+        })),
+      ),
+    ];
+  },
+});
+
+const vacancyHours = defineCollection({
+  loader: async () => {
+    const vacancies = (await datocmsCollection({
+      collection: 'Vacancies',
+      fragment: vacancyListItemFragment,
+      fragmentName: 'VacancyListItem',
+    })) as VacancyListItemFragment[];
+
+    return [
+      ...new Set(
+        vacancies.map((vacancy) => ({
+          id: vacancy.weeklyHours,
+          label: vacancy.weeklyHours,
+        })),
+      ),
+    ];
+  },
+});
+
+const vacancyLanguages = defineCollection({
+  loader: async () => {
+    const vacancies = (await datocmsCollection({
+      collection: 'Vacancies',
+      fragment: vacancyListItemFragment,
+      fragmentName: 'VacancyListItem',
+    })) as VacancyListItemFragment[];
+
+    return [
+      ...new Set(
+        vacancies.map((vacancy) => ({
+          id: vacancy.language,
+          label: vacancy.language,
+        })),
+      ),
+    ];
+  },
+});
+
 export const collections = {
   memberLogos,
   vacancies,
+  vacancyLocations,
+  vacancyHours,
+  vacancyLanguages,
 };

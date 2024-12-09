@@ -28,15 +28,15 @@ export const SelectField = ({
   label,
   labelStyle = 'stack',
   options,
-  value,
+  value = '',
   onChange,
 }: Props) => {
-  const [selectedOption, setSelectedOption] = useState<string>();
+  const [selectedOption, setSelectedOption] = useState<string>('');
 
   useEffect(() => {
     if (value) {
       const firstValue = options.find((option) => option.value === value);
-      setSelectedOption(firstValue?.value ?? undefined);
+      setSelectedOption(firstValue?.value ?? '');
     }
   }, [value]);
 
@@ -59,7 +59,8 @@ export const SelectField = ({
             {labelStyle === 'contain'
               ? label
               : selectedOption
-                ? options.find((option)=> option.value === selectedOption)?.label
+                ? options.find((option) => option.value === selectedOption)
+                    ?.label
                 : ''}
           </Text>
 

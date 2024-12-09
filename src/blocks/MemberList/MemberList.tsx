@@ -1,27 +1,23 @@
+import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Column, Grid } from '@components/Grid';
+import { ListForm } from '@components/ListForm';
+import { Pagination } from '@components/Pagination';
+import { SelectField, TextField } from '@components/Forms';
+import { MemberCard } from '@blocks/MemberCard';
+import { datocmsRequest } from '@lib/datocms';
+import { t } from '@lib/i18n';
+import { withQueryClientProvider } from '@lib/react-query';
+import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
 import type {
   MemberModelOrderBy,
   MemberListQuery,
   MemberListQueryVariables,
   MemberModelFilter,
 } from '@lib/types/datocms';
-import query from './MemberList.query.graphql';
-
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { withQueryClientProvider } from '@lib/react-query';
-import { useSearchParams } from '@lib/hooks/use-search-params';
-import { useUrl } from '@lib/hooks/use-url';
-import debounce from 'debounce';
-
-import { datocmsRequest } from '@lib/datocms';
-
-import { MemberCard } from '@blocks/MemberCard';
-import { Column, Grid } from '@components/Grid';
-import { MembersFilter } from '@components/MembersFilter';
-import { Pagination } from '@components/Pagination';
-
 import './MemberList.css';
-import type { Filter } from '@components/MembersFilter/MembersFilter';
+import query from './MemberList.query.graphql';
 
 const DEFAULT_PAGE_SIZE = 6;
 
@@ -81,7 +77,7 @@ export const MemberList = withQueryClientProvider(
       initialData,
     });
 
-    const updateFilter = debounce((filter) => {
+    const updateFilter = (filter: Record<string, string>) => {
       updateSearchParams({ ...filter, page: undefined });
 
       if (filterRef.current) {
@@ -89,7 +85,7 @@ export const MemberList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
-    }, 300);
+    };
 
     const updatePage = (page: number) => {
       updateSearchParams({ ...searchParams, page: page.toString() });
@@ -103,11 +99,65 @@ export const MemberList = withQueryClientProvider(
 
     return (
       <>
-        <MembersFilter
+        <ListForm
           ref={filterRef}
-          filter={searchParams as Filter}
-          options={{ expertise: data.expertises }}
           onChange={updateFilter}
+          initialValues={searchParams}
+          search={({ onChange, values }) => (
+            <TextField
+              name="zoek"
+              label={t('find_an_agency')}
+              labelStyle="float"
+              value={values.zoek || ''}
+              onChange={(value) => onChange('zoek', value)}
+            />
+          )}
+          filters={({ onChange, values }) => (
+            <>
+              <SelectField
+                name="expertise"
+                label="Expertise"
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...data.expertises.map((option) => ({
+                    label: option.name,
+                    value: option.id,
+                  })),
+                ]}
+                value={values.expertise}
+                onChange={(value) => onChange('expertise', value)}
+              />
+              <SelectField
+                name="omvang"
+                label="Omvang"
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  { label: '1-9', value: '1-9' },
+                  { label: '10-24', value: '10-24' },
+                  { label: '25-49', value: '25-49' },
+                  { label: '50-99', value: '50-99' },
+                  { label: '100-249', value: '100-249' },
+                  { label: '250+', value: '250+' },
+                ]}
+                value={values.omvang}
+                onChange={(value) => onChange('omvang', value)}
+              />
+              <SelectField
+                name="sorteren"
+                label="Sorteren"
+                labelStyle="contain"
+                options={[
+                  { label: 'A-Z', value: 'name_ASC' },
+                  { label: 'Z-A', value: 'name_DESC' },
+                  { label: 'Aantal werknemers', value: 'employees_ASC' },
+                ]}
+                value={values.sorteren}
+                onChange={(value) => onChange('sorteren', value)}
+              />
+            </>
+          )}
         />
         <Grid as="ul" border={true} className="member-list">
           {data.members.map((member) => (
