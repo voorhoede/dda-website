@@ -1,6 +1,12 @@
 import { Client } from '@datocms/cli/lib/cma-client-node';
 
 export default async function (client: Client) {
+  console.log('Destroy fields in existing models/block models');
+
+  console.log(
+    'Delete Structured text field "Content" (`content`) in model "\uD83D\uDDDE\uFE0F Publication" (`publication`)',
+  );
+  await client.fields.destroy('G0WEoKvvR5CrxssDg3esmg');
   console.log('Creating new fields/fieldsets');
 
   console.log(
@@ -20,13 +26,6 @@ export default async function (client: Client) {
       parameters: { start_collapsed: false },
     },
   });
-
-  console.log('Destroy fields in existing models/block models');
-
-  console.log(
-    'Delete Structured text field "Content" (`content`) in model "\uD83D\uDDDE\uFE0F Publication" (`publication`)',
-  );
-  await client.fields.destroy('G0WEoKvvR5CrxssDg3esmg');
 
   console.log('Update existing fields/fieldsets');
 
