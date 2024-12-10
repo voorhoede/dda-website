@@ -20,7 +20,6 @@ const client = buildClient({
 });
 
 if (import.meta.main) {
-  const TAG_MODEL_ID = "UxqkfkpETnWtRgn2iP6Vhg";
   const newsCsv = await Deno.readTextFile("./nieuwsberichten.csv", {});
   const newsData = parseCsv(
     newsCsv,
@@ -28,37 +27,13 @@ if (import.meta.main) {
   )
     .filter((publication) => publication.Content);
 
-  const archiveTag = await client.items.list({
-    filter: {
-      type: "tag",
-      fields: {
-        label: {
-          eq: "Archief",
-        },
-      },
-    },
-  })
-    .then(([archiveTag]) => {
-      if (archiveTag) {
-        return archiveTag;
-      }
-
-      return client.items.create({
-        item_type: { type: "item_type", id: TAG_MODEL_ID },
-        label: { nl: "Archief" },
-      });
-    });
-
   for (const publication of newsData) {
-    await createPublication(publication, archiveTag);
+    await createPublication(publication);
     console.info(`Created publication ${publication.Title}`, "\n");
   }
 }
 
-async function createPublication(
-  publication: Record<string, string>,
-  archiveTag: { id: string },
-) {
+async function createPublication(publication: Record<string, string>) {
   const PUBLICATION_MODEL_ID = "UllaGfcETuK2MTg4FIMw3w";
   const TEXT_BLOCK_ID = "PAk40zGjQJCcDXXPgygUrA";
   const IMAGE_BLOCK_ID = "ZdBokLsWRgKKjHrKeJzdpw";
@@ -126,7 +101,6 @@ async function createPublication(
           .replace("ë", "e"),
       ),
     },
-    tags: [archiveTag.id],
   });
 }
 
