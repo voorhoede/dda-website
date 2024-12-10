@@ -11,3 +11,7 @@ export const getRandomItems = async <T>(
     .slice(0, count)
     .map((item) => item.data as T);
 };
+
+export const fillArray = <T>(array: T[], count: number): T[] => {
+  return [...array, ...Array(count - array.length).fill(null)];
+};

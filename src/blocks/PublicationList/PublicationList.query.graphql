@@ -13,6 +13,7 @@ query PublicationsList(
   publications: allPublications(first: $first, skip: $skip, filter: $filter) {
     id
     title
+    slug
     _createdAt
     tags {
       label
@@ -30,9 +31,6 @@ query PublicationsList(
         bgColor
         sizes
       }
-    }
-    content {
-      value
     }
   }
 }

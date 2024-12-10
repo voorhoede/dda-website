@@ -158,6 +158,7 @@ export const PublicationList = withQueryClientProvider(
                     icon="arrow-right"
                     level="secondary"
                     variant="large"
+                    href={`/publicaties/${publication.slug}/`}
                   >
                     {t('read_more')}
                   </Button>
