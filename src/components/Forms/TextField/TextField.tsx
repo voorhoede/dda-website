@@ -7,9 +7,11 @@ import './TextField.css';
 type Props = {
   name: string;
   label: string;
+  required?: boolean;
   labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   type?: 'text' | 'search';
 } & (
@@ -28,8 +30,10 @@ export const TextField = ({
   label,
   labelStyle = 'stack',
   placeholder = '',
-  type = 'text',
   value,
+  defaultValue,
+  required = false,
+  type = 'text',
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +59,9 @@ export const TextField = ({
         className="text-field__input"
         placeholder={placeholder}
         value={value}
+        defaultValue={defaultValue}
         onChange={handleChange}
+        required={required}
       />
     </Field>
   );
