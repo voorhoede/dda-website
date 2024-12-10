@@ -32,7 +32,27 @@ export const Pagination: React.FC<PaginationProps> = ({
 
   const renderPageLinks = () => {
     const pages = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const maxPagesToShow = 5; // Maximum number of page links to show
+    const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
+
+    let startPage = Math.max(1, currentPage - halfMaxPagesToShow);
+    let endPage = Math.min(totalPages, currentPage + halfMaxPagesToShow);
+
+    if (currentPage <= halfMaxPagesToShow) {
+      endPage = Math.min(totalPages, maxPagesToShow);
+    } else if (currentPage + halfMaxPagesToShow >= totalPages) {
+      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
+    }
+
+    if (startPage > 1) {
+      pages.push(
+        <span key="start-ellipsis" className="pagination__ellipsis">
+          ...
+        </span>,
+      );
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <Button
           as="a"
@@ -51,6 +71,15 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Button>,
       );
     }
+
+    if (endPage < totalPages) {
+      pages.push(
+        <span key="end-ellipsis" className="pagination__ellipsis">
+          ...
+        </span>,
+      );
+    }
+
     return pages;
   };
 

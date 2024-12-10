@@ -18,9 +18,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
       )}
       <CardContent>
         <TagList>
-          {event.labels.map(({ label }) => (
-            <Tag key={label}>{label}</Tag>
-          ))}
+          <Tag>{event.theme?.name}</Tag>
         </TagList>
         {(event.date || event.location) && (
           <Text variant="subtext">
@@ -40,6 +38,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
           icon="arrow-right"
           level="secondary"
           variant="large"
+          href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
         >
           {t('details')}
         </Button>

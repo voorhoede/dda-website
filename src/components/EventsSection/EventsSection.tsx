@@ -7,7 +7,7 @@ import {
 } from '@components/DataList';
 import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Heading } from '@components/Heading';
-import { TagList, TagListItem } from '@components/Tag';
+import { Tag } from '@components/Tag';
 import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
@@ -21,9 +21,6 @@ type EventsSectionProps = {
 export const EventsSection = ({ events }: EventsSectionProps) => {
   const colCount = Math.max(4, Math.min(12 / events.length, 6)) as SpanOptions;
   const renderAsList = events.length >= 4;
-
-  const getLabels = (labels: string) =>
-    labels.split(',').map((label) => label.trim()) ?? [];
 
   return (
     <Grid as="section" border={true}>
@@ -42,11 +39,9 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
             <DataList className="container-padding-x container-padding-y">
               {events.slice(1).map((event) => (
                 <DataListItem key={event.id}>
-                  <TagList>
-                    {event.labels.map(({ label }) => (
-                      <TagListItem key={label}>{label}</TagListItem>
-                    ))}
-                  </TagList>
+                  <div>
+                    <Tag>{event.theme?.name}</Tag>
+                  </div>
                   <Heading displayLevel={4} level={3}>
                     {event.title}
                   </Heading>

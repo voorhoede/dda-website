@@ -16,7 +16,16 @@ fragment EventCard on EventRecord {
   }
   date
   location
-  labels {
-    label
+  theme {
+    name
+  }
+  details {
+    __typename
+    ... on InternalEventRecord {
+      slug
+    }
+    ... on ExternalEventRecord {
+      link
+    }
   }
 }

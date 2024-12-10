@@ -30,25 +30,25 @@ export const Footer = () => {
       <Column as="nav" span={{ mobile: 12, tablet: 6, desktop: 3 }}>
         <ul className="footer__links">
           <li>
-            <Link href="#">{t('about_us')}</Link>
+            <Link href="/over-ons/">{t('about_us')}</Link>
           </li>
           <li>
-            <Link href="#">{t('events')}</Link>
+            <Link href="/evenementen/">{t('events')}</Link>
           </li>
           <li>
-            <Link href="#">{t('publications')}</Link>
+            <Link href="/publicaties/">{t('publications')}</Link>
           </li>
           <li>
-            <Link href="#">{t('members')}</Link>
+            <Link href="/leden/">{t('members')}</Link>
           </li>
           <li>
-            <Link href="#">{t('vacancies')}</Link>
+            <Link href="/vacatures/">{t('vacancies')}</Link>
           </li>
           <li>
-            <Link href="#">{t('terms_and_conditions')}</Link>
+            <Link href="/voorwaarden/">{t('terms_and_conditions')}</Link>
           </li>
           <li>
-            <Link href="#">{t('privacy_policy')}</Link>
+            <Link href="/privacy/">{t('privacy_policy')}</Link>
           </li>
         </ul>
       </Column>
@@ -75,13 +75,19 @@ export const Footer = () => {
       <Column span={12} className="footer__bottom">
         <ul className="footer__socials">
           <li>
-            <Link href="#">Instagram</Link>
+            <Link href="https://www.instagram.com/dutchdigitalagencies/">
+              Instagram
+            </Link>
           </li>
           <li>
-            <Link href="#">Facebook</Link>
+            <Link href="https://www.facebook.com/dutchdigitalagencies">
+              Facebook
+            </Link>
           </li>
           <li>
-            <Link href="#">Linkedin</Link>
+            <Link href="https://www.linkedin.com/company/dutch-digital-agencies/">
+              Linkedin
+            </Link>
           </li>
         </ul>
         <Text className="footer__copyright">

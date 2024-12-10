@@ -1,17 +1,35 @@
 ---
+import { getCollection } from 'astro:content';
 import { VacancyList as VacancyListComponent, loader } from './VacancyList';
+import { getDehydratedState } from '@lib/react-query';
 
 const searchParams = Astro.url.searchParams;
 const initialParams = {
   page: searchParams.get('page') ?? '1',
+  location: searchParams.get('location') ?? '',
+  hours: searchParams.get('hours') ?? '',
+  language: searchParams.get('language') ?? '',
 };
 const initialUrl = Astro.url.href;
 const initialData = await loader(initialParams);
+
+// these filter values are aggregated from all vacancies,
+// since they do not exist as their own collection in the CMS
+const vacancyLocations = await getCollection('vacancyLocations');
+const vacancyHours = await getCollection('vacancyHours');
+const vacancyLanguages = await getCollection('vacancyLanguages');
+
+const filterValues = {
+  locations: vacancyLocations,
+  hours: vacancyHours,
+  languages: vacancyLanguages,
+};
 ---
 
 <VacancyListComponent
   client:load
-  initialData={initialData}
   initialParams={initialParams}
+  initialState={getDehydratedState(['vacancies', initialParams], initialData)}
   initialUrl={initialUrl}
+  filterValues={filterValues}
 />

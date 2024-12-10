@@ -1,0 +1,26 @@
+.list-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-48) var(--spacing-24);
+  box-shadow: 0 -1px 0 0 var(--color-black);
+  flex-wrap: wrap;
+  gap: var(--spacing-24);
+}
+
+.list-form__search {
+  max-width: 304px;
+  width: 100%;
+}
+
+.list-form__filters {
+  display: flex;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 890px) {
+  .members-filter {
+    padding: var(--spacing-48);
+  }
+}

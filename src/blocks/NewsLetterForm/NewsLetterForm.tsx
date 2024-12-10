@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { t } from '@lib/i18n';
 import { MAILCHIMP_FORM_URL, MAILCHIMP_HONEYPOT_ID } from 'astro:env/client';
 import './NewsLetterForm.css';
+import { TextField } from '@components/Forms';
 
 export const NewsLetterForm = () => {
   return (
@@ -18,17 +18,13 @@ export const NewsLetterForm = () => {
         method="post"
         target="_blank"
       >
-        <div>
-          {/* TODO replace with styled input */}
-          <label htmlFor="email">{t('email_address')}</label>
-          <input
-            type="email"
-            name="EMAIL"
-            id="email"
-            required
-            defaultValue=""
-          />
-        </div>
+        <TextField
+          label={t('email_address')}
+          name="EMAIL"
+          labelStyle="float"
+          defaultValue=""
+          required
+        />
         <div aria-hidden="true" className="a11y-sr-only">
           <input
             type="text"

@@ -7,8 +7,7 @@ import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
 import { StructuredText } from 'react-datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
-import membersPageQuery from './membersPage.query.graphql';
-
+import { getCollection } from 'astro:content';
 import Layout from '@layouts/Default.astro';
 
 import {
@@ -21,6 +20,8 @@ import { Heading } from '@components/Heading';
 import { MemberList } from '@blocks/MemberList';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
+import membersPageQuery from './membersPage.query.graphql';
+
 const { locale } = Astro.params as { locale: SiteLocale };
 
 const { page } = await datocmsRequest<MembersPageQuery>({
@@ -31,6 +32,27 @@ const { page } = await datocmsRequest<MembersPageQuery>({
 if (!page) {
   return new Response(null, { status: 500 });
 }
+
+const members = await getCollection('memberLogos');
+const memberCount = members.length;
+
+// TODO: solve this by using inline block in structured text
+const formatDescription = (description: StructuredTextData['value']) => {
+  description.document.children.forEach((child) => {
+    if (child.type === 'paragraph') {
+      child.children.forEach((child) => {
+        if (child.type === 'span') {
+          child.value = child.value.replace(
+            /{{number}}/g,
+            memberCount.toString()
+          );
+        }
+      });
+    }
+  });
+
+  return description;
+};
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
@@ -47,11 +69,13 @@ if (!page) {
       <Heading level={1}>{page.title}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
-      <div>
-        <StructuredText
-          data={page.description as unknown as StructuredTextData}
-        />
-      </div>
+      <Heading displayLevel={6} level="span">
+        {
+          page.description && (
+            <StructuredText data={formatDescription(page.description.value)} />
+          )
+        }
+      </Heading>
     </PageTitleContent>
   </PageTitle>
 

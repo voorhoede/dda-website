@@ -1,8 +1,16 @@
-query PublicationsList($first: IntType!, $skip: IntType!) {
-  publicationsMeta: _allPublicationsMeta {
+query PublicationsList(
+  $first: IntType!
+  $skip: IntType!
+  $filter: PublicationModelFilter
+) {
+  publicationsMeta: _allPublicationsMeta(filter: $filter) {
     count
   }
-  publications: allPublications(first: $first, skip: $skip) {
+  tags: allTags {
+    id
+    label
+  }
+  publications: allPublications(first: $first, skip: $skip, filter: $filter) {
     id
     title
     slug
