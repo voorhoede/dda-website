@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { getUrlPathFilename, parsePipeSeparatedValue } from "./main.ts";
+import { getUrlPathFilename, parsePipeSeparatedValue } from "./members.ts";
 
 Deno.test("parsePipeSeparatedValue behaves as expected", () => {
   assertEquals(
