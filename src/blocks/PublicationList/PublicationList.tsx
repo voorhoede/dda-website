@@ -16,7 +16,10 @@ import { TagList, TagListItem } from '@components/Tag';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
-import { withQueryClientProvider } from '@lib/react-query';
+import {
+  withQueryClientProvider,
+  type QueryClientProviderComponentProps,
+} from '@lib/react-query';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
 import type { PublicationsListQuery } from '@lib/types/datocms';
@@ -56,14 +59,8 @@ export const loader = async (searchParams: Record<string, string>) => {
   };
 };
 
-type PublicationListProps = {
-  initialData: Awaited<ReturnType<typeof loader>>;
-  initialParams: Record<string, string>;
-  initialUrl: string;
-};
-
 export const PublicationList = withQueryClientProvider(
-  ({ initialData, initialParams, initialUrl }: PublicationListProps) => {
+  ({ initialParams, initialUrl }: QueryClientProviderComponentProps) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
@@ -71,7 +68,6 @@ export const PublicationList = withQueryClientProvider(
     const { data } = useQuery({
       queryKey: ['publications', searchParams],
       queryFn: () => loader(searchParams),
-      initialData,
     });
 
     const updateFilter = (filter: Record<string, string>) => {
@@ -93,6 +89,10 @@ export const PublicationList = withQueryClientProvider(
         });
       }
     };
+
+    if (!data) {
+      return null;
+    }
 
     return (
       <Grid border>
