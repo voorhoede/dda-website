@@ -12,3 +12,10 @@
 .pagination__page--active {
   text-decoration: underline;
 }
+
+.pagination__ellipsis {
+  display: inline-flex;
+  color: var(--black);
+  align-items: center;
+  justify-content: center;
+}
