@@ -33,14 +33,6 @@ if (import.meta.main) {
     console.info(`Created member ${member.Title}`);
   }
 }
-function inviteEditor(email: string) {
-  const EDITOR_ROLE_ID = "301184";
-
-  return client.siteInvitations.create({
-    email,
-    role: { type: "role", id: EDITOR_ROLE_ID },
-  });
-}
 
 async function createMember(member: Record<string, string>) {
   const MEMBER_MODEL_ID = "ByoMKdCkSp6T10UjQm26wg";
