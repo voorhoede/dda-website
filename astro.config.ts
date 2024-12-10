@@ -24,25 +24,25 @@ export default defineConfig({
   }),
   env: {
     schema: {
-      DATOCMS_READONLY_API_TOKEN: envField.string({
-        context: 'server',
-        access: 'secret',
-        default: process.env.DATOCMS_READONLY_API_TOKEN,
-      }),
       HEAD_START_PREVIEW_SECRET: envField.string({
         context: 'server',
         access: 'secret',
         default: process.env.HEAD_START_PREVIEW_SECRET,
       }),
-      HEAD_START_PREVIEW: envField.boolean({
-        context: 'server',
-        access: 'secret',
-        default: isPreview,
+      DATOCMS_READONLY_API_TOKEN: envField.string({
+        context: 'client',
+        access: 'public',
+        default: process.env.DATOCMS_READONLY_API_TOKEN,
       }),
       PUBLIC_IS_PRODUCTION: envField.boolean({
         context: 'server',
         access: 'public',
         default: process.env.NODE_ENV === 'production',
+      }),
+      HEAD_START_PREVIEW: envField.boolean({
+        context: 'client',
+        access: 'public',
+        default: isPreview,
       }),
       MAILCHIMP_FORM_URL: envField.string({
         context: 'client',

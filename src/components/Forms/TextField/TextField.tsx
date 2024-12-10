@@ -12,7 +12,8 @@ type Props = {
   placeholder?: string;
   value?: string;
   defaultValue?: string;
-  onChange?: (event: string) => void;
+  onChange?: (value: string) => void;
+  type?: 'text' | 'search';
 } & (
   | {
       labelStyle?: 'stack';
@@ -32,6 +33,7 @@ export const TextField = ({
   value,
   defaultValue,
   required = false,
+  type = 'text',
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +54,7 @@ export const TextField = ({
         {label}
       </Label>
       <Input
-        type="text"
+        type={type}
         name={name}
         className="text-field__input"
         placeholder={placeholder}

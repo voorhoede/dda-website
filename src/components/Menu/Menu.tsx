@@ -1,14 +1,35 @@
+import { useEffect, useRef, useState } from 'react';
+import clsx from 'clsx';
 import { Button } from '@components/Button';
 import { Link } from '@components/Link';
 import { t } from '@lib/i18n';
-import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import { FocusOn } from 'react-focus-on';
 import './Menu.css';
+
+let vacancyCount: string;
+
+// using this method we can get the vacancy count on the server
+// and use it in the client by retreving it from the DOM
+// we do this because we can only use getCollection on the server
+if (import.meta.env.SSR) {
+  const { getCollection } = await import('astro:content');
+
+  const vacancies = await getCollection('vacancies');
+
+  vacancyCount = vacancies.length.toString();
+} else {
+  vacancyCount =
+    document.querySelector('[data-vacancy-count]')?.textContent || '';
+}
 
 export const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+
+  if (!import.meta.env.SSR) {
+    vacancyCount =
+      document.querySelector('[data-vacancy-count]')?.textContent || '';
+  }
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
@@ -90,7 +111,10 @@ export const Menu = () => {
                   onClick={closeMenu}
                   className="menu__link"
                 >
-                  {t('vacancies')} <span className="menu__counter">54</span>
+                  {t('vacancies')}{' '}
+                  <span className="menu__counter" data-vacancy-count>
+                    {vacancyCount}
+                  </span>
                 </Link>
               </li>
             </ul>

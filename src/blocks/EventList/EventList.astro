@@ -1,0 +1,35 @@
+---
+import type { EventModelFilter } from '@lib/types/datocms';
+import {
+  EventList as EventListComponent,
+  loader,
+} from './EventList.tsx';
+
+interface Props {
+  queryKey: string;
+  defaultPageSize: number;
+  showFilter?: boolean;
+  fixedFilters?: EventModelFilter;
+}
+
+const { queryKey, defaultPageSize, showFilter = true, fixedFilters } = Astro.props;
+
+const searchParams = Astro.url.searchParams;
+const initialParams = {
+  page: searchParams.get('page') ?? '1',
+  zoek: searchParams.get('zoek') ?? ''
+};
+const initialData = await loader({ searchParams: initialParams, defaultPageSize });
+const initialUrl = Astro.url.href;
+---
+
+<EventListComponent
+  client:load
+  queryKey={queryKey}
+  defaultPageSize={defaultPageSize}
+  showFilter={showFilter}
+  fixedFilters={fixedFilters}
+  initialParams={initialParams}
+  initialData={initialData}
+  initialUrl={initialUrl}
+/>

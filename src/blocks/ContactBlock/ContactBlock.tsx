@@ -14,7 +14,7 @@ export const ContactBlock = ({ block }: Props) => {
       <address className="contact-block">
         <a className="text-semibold" href={block.website as string} aria-label={t('visit_agency_website', { agency: block.title })}>{block.title}</a>
         <p className="contact-block__address">
-          {block.streetName} {block.houseNumber}
+          {block.street}
           <br />
           {block.postalCode} {block.city}
         </p>

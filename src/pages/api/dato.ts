@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 import {
   DATOCMS_READONLY_API_TOKEN,
   HEAD_START_PREVIEW,
-} from 'astro:env/server';
+} from 'astro:env/client';
 
 export const prerender = false;
 

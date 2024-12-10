@@ -1,0 +1,12 @@
+---
+import { MemberParade as MemberParadeComponent } from './MemberParade';
+import { getRandomItems } from '@lib/content-collections';
+import type { MemberLogoFragment } from '@lib/types/datocms';
+
+const membersParadeMembers = await getRandomItems<MemberLogoFragment>(
+  'memberLogos',
+  16
+);
+---
+
+<MemberParadeComponent members={membersParadeMembers} />
