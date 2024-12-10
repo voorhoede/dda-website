@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Button } from '@components/Button';
 import { Link } from '@components/Link';
@@ -9,7 +9,7 @@ import './Menu.css';
 let vacancyCount: string;
 
 // using this method we can get the vacancy count on the server
-// and use it in the client by retreving it from the DOM
+// and use it in the client by retreving it from the DOM.
 // we do this because we can only use getCollection on the server
 if (import.meta.env.SSR) {
   const { getCollection } = await import('astro:content');
@@ -87,7 +87,11 @@ export const Menu = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" onClick={closeMenu} className="menu__link">
+                <Link
+                  href="/evenementen/"
+                  onClick={closeMenu}
+                  className="menu__link"
+                >
                   {t('events')}
                 </Link>
               </li>
