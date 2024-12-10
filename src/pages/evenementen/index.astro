@@ -10,13 +10,6 @@ import query from './_eventsPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
 
-import type { StructuredText as StructuredTextData } from 'datocms-structured-text-utils';
-import { StructuredText } from 'react-datocms';
-import {
-  PageTitle,
-  PageTitleHeader,
-  PageTitleContent,
-} from '@components/PageTitle';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { PartnerBanner } from '@blocks/PartnerBanner';
@@ -24,6 +17,7 @@ import EventList from '@blocks/EventList/EventList.astro';
 import { Grid, Column } from '@components/Grid';
 import { EventCard } from '@blocks/EventCard';
 import { NewsLetterForm } from '@blocks/NewsLetterForm';
+import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 
 const { locale } = Astro.params;
 
@@ -43,8 +37,8 @@ const today = `${year}-${month}-${day}`;
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
-  <PageTitle>
-    <PageTitleHeader>
+  <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
+    <Fragment slot="header">
       <Button
         as="a"
         href="../"
@@ -53,16 +47,8 @@ const today = `${year}-${month}-${day}`;
         icon="arrow-left"
         iconPosition="left">{t('back_to_home')}</Button
       >
-      <Heading level={1}>{page.title}</Heading>
-    </PageTitleHeader>
-    <PageTitleContent>
-      <Heading displayLevel={6} level="span">
-        <StructuredText
-          data={page.description as unknown as StructuredTextData}
-        />
-      </Heading>
-    </PageTitleContent>
-  </PageTitle>
+    </Fragment>
+  </PageHeader>
 
   <Grid border>
     {
@@ -107,22 +93,22 @@ const today = `${year}-${month}-${day}`;
   <NewsLetterForm />
 
   {partners.length > 0 && <PartnerBanner {partners} />}
-</Layout>
 
-<style>
-  .back-button {
-    margin-block-end: var(--spacing-16);
-  }
-
-  .past-events__heading {
-    border-block-start: 1px solid var(--color-black);
-    padding-block: var(--spacing-48) 0;
-    padding-inline: var(--spacing-16);
-  }
-
-  @media screen and (min-width: 890px) {
-    .past-events__heading {
-      padding-inline: var(--spacing-48);
+  <style>
+    .back-button {
+      margin-block-end: var(--spacing-16);
     }
-  }
-</style>
+
+    .past-events__heading {
+      border-block-start: 1px solid var(--color-black);
+      padding-block: var(--spacing-48) 0;
+      padding-inline: var(--spacing-16);
+    }
+
+    @media screen and (min-width: 890px) {
+      .past-events__heading {
+        padding-inline: var(--spacing-48);
+      }
+    }
+  </style>
+</Layout>

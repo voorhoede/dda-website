@@ -1,0 +1,13 @@
+fragment PageHeader on PageHeaderRecord {
+  title
+  subtitle {
+    value
+    blocks
+    links {
+      id
+      ... on RecordCountRecord {
+        recordType
+      }
+    }
+  }
+}

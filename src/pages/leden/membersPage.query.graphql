@@ -1,4 +1,5 @@
 #import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
 query MembersPage($locale: SiteLocale = nl) {
   page: membersPage(locale: $locale) {
@@ -7,14 +8,11 @@ query MembersPage($locale: SiteLocale = nl) {
       content
       tag
     }
-    title
-    description {
-      blocks
-      links
-      value
+    header {
+      ...PageHeader
     }
   }
-  
+
   partners: allPartners(first: 8) {
     ...PartnerLogo
   }

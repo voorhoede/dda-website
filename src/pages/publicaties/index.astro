@@ -1,19 +1,14 @@
 ---
 import Layout from '@layouts/Default.astro';
-import { defaultLocale } from '@lib/i18n';
+import { defaultLocale, t } from '@lib/i18n';
 import query from './_index.query.graphql';
 import { datocmsRequest } from '@lib/datocms';
 import type { PublicationsPageQuery } from '@lib/types/datocms';
-import {
-  PageTitle,
-  PageTitleContent,
-  PageTitleHeader,
-} from '@components/PageTitle';
 import { Column, Grid } from '@components/Grid';
 import { PublicationCard } from '@blocks/PublicationCard';
-import { Heading } from '@components/Heading';
-import StructuredText from '@components/StructuredText/StructuredText.astro';
 import PublicationList from '@blocks/PublicationList/PublicationList.astro';
+import PageHeader from '@blocks/PageHeader/PageHeader.astro';
+import { Button } from '@components/Button';
 
 export const prerender = false;
 
@@ -29,18 +24,20 @@ const { page, highlightedPublications } =
 {
   page && (
     <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
-      <PageTitle>
-        <PageTitleHeader>
-          {/* TODO: Add back button */}
-          <Heading level={1}>{page.title}</Heading>
-        </PageTitleHeader>
-        <PageTitleContent>
-          <Heading displayLevel={6} level="span">
-            <StructuredText data={page.subtitle.value} />
-          </Heading>
-        </PageTitleContent>
-      </PageTitle>
-
+      <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
+        <Fragment slot="header">
+          <Button
+            as="a"
+            href="../"
+            className="back-button"
+            level="tertiary"
+            icon="arrow-left"
+            iconPosition="left"
+          >
+            {t('back_to_home')}
+          </Button>
+        </Fragment>
+      </PageHeader>
       <Grid border>
         {highlightedPublications.map((publication) => (
           <Column

@@ -2,10 +2,12 @@ import { defineCollection } from 'astro:content';
 import { datocmsCollection } from '@lib/datocms';
 import type {
   MemberLogoFragment,
+  MemberCardFragment,
   VacancyListItemFragment,
 } from '@lib/types/datocms';
 import memberLogoFragment from '@blocks/MemberLogo/MemberLogo.fragment.graphql?raw';
 import vacancyListItemFragment from '@blocks/VacancyList/VacancyListItem.fragment.graphql?raw';
+import memberCardFragment from '@blocks/MemberCard/MemberCard.fragment.graphql?raw';
 
 const memberLogos = defineCollection({
   loader: async () => {
@@ -14,6 +16,16 @@ const memberLogos = defineCollection({
       fragment: memberLogoFragment,
       fragmentName: 'MemberLogo',
     }) as Promise<MemberLogoFragment[]>;
+  },
+});
+
+const members = defineCollection({
+  loader: async () => {
+    return datocmsCollection({
+      collection: 'Members',
+      fragment: memberCardFragment,
+      fragmentName: 'MemberCard',
+    }) as Promise<MemberCardFragment[]>;
   },
 });
 
@@ -85,6 +97,7 @@ const vacancyLanguages = defineCollection({
 });
 
 export const collections = {
+  members,
   memberLogos,
   vacancies,
   vacancyLocations,
