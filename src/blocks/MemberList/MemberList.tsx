@@ -19,7 +19,7 @@ import type {
 import './MemberList.css';
 import query from './MemberList.query.graphql';
 
-const DEFAULT_PAGE_SIZE = 6;
+const DEFAULT_PAGE_SIZE = 9;
 
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
