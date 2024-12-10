@@ -82,7 +82,11 @@ export const Menu = () => {
           <nav id="menu">
             <ul className="menu__list">
               <li>
-                <Link href="#" onClick={closeMenu} className="menu__link">
+                <Link
+                  href="/over-ons/"
+                  onClick={closeMenu}
+                  className="menu__link"
+                >
                   {t('about_us')}
                 </Link>
               </li>
