@@ -1,8 +1,6 @@
 ---
-import {
-  MemberList as MemberListComponent,
-  loader,
-} from './MemberList.tsx';
+import { MemberList as MemberListComponent, loader } from './MemberList.tsx';
+import { getDehydratedState } from '@lib/react-query';
 
 const searchParams = Astro.url.searchParams;
 const initialParams = {
@@ -18,7 +16,7 @@ const initialUrl = Astro.url.href;
 
 <MemberListComponent
   client:load
+  initialState={getDehydratedState(['members', initialParams], initialData)}
   initialParams={initialParams}
-  initialData={initialData}
   initialUrl={initialUrl}
 />
