@@ -2,11 +2,8 @@
 import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
 import type { EventPageQuery, EventPageQueryVariables, SiteLocale } from '@lib/types/datocms';
-
 import eventPageQuery from './_eventPage.query.graphql';
-
 import Layout from '@layouts/Default.astro';
-
 import {
   PageTitle,
   PageTitleContent,
@@ -19,14 +16,11 @@ import { SRCImage } from 'react-datocms';
 import { Column, Grid } from '@components/Grid';
 import { formatDate } from '@lib/date';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
-import { RegisterForm } from '@blocks/RegisterForm/RegisterForm';
-
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
 const { page } = await datocmsRequest<EventPageQuery, EventPageQueryVariables>({
   query: eventPageQuery,
   variables: { locale, slug },
 });
-
 if (!page || page.details.__typename !== 'InternalEventRecord') {
   return new Response(null, { status: 404 });
 }
@@ -49,7 +43,7 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
       <Text variant="subtext"><time datetime={page.date}>{formatDate(page.date)}</time> / {page.location}</Text>
     </PageTitleContent>
   </PageTitle>
-  
+
   {
     page.details.banner?.responsiveImage && (
       <div class="banner">
@@ -63,8 +57,8 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
       </div>
     )
   }
-  
-  <Grid className="event" rowGap={40}>
+
+  <Grid className="event" rowGap={40} columnGap={32}>
     <Column
       span={{ mobile: 12, tablet: 5 }}
     >
@@ -76,34 +70,30 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
         <h2 class="a11y-sr-only">{t('description')}</h2>
         <TextBlock block={page.details.description} />
       </section>
-      
-      <section class="schedule">
-        <Heading level={2} displayLevel={3}>{t('schedule')}</Heading>
-        
-        <table class="schedule-table">
-          <thead class="a11y-sr-only">
-            <tr>
-              <th>{t('activity')}</th>
-              <th>{t('time')}</th>
-            </tr>
-          </thead>
-          
-          <tbody>
-            { page.details.schedule.map((activity) => (
-              <tr class="schedule-table-row">
-                <td>{activity.name}</td>
-                <td>{activity.start} - {activity.end}</td>
+
+      { page.details.schedule.length > 0 && (
+        <section class="schedule">
+          <Heading level={2} displayLevel={3}>{t('schedule')}</Heading>
+  
+          <table class="schedule-table">
+            <thead class="a11y-sr-only">
+              <tr>
+                <th>{t('activity')}</th>
+                <th>{t('time')}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-      
-      <section class="register">
-        <Heading level={2} displayLevel={3}>{t('register')}</Heading>
-        
-        <RegisterForm client:load />
-      </section>
+            </thead>
+  
+            <tbody>
+              { page.details.schedule.map((activity) => (
+                <tr class="schedule-table-row">
+                  <td>{activity.name}</td>
+                  <td>{activity.start} - {activity.end}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) }
     </Column>
   </Grid>
 </Layout>
@@ -112,7 +102,7 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
   .back-button {
     margin-block-end: var(--spacing-16);
   }
-  
+
   .banner :global(.banner__picture) {
     width: 100%;
     display: block;
@@ -123,51 +113,51 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     border: 1px solid var(--color-black);
     max-height: 776px;
   }
-  
+
   .event {
     padding: var(--spacing-40) var(--spacing-16);
   }
-  
+
   .event__details {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-96);
   }
-  
+
   .schedule,
   .register {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-24);
   }
-  
+
   .schedule-table {
     border: 1px solid var(--color-black);
     padding: var(--spacing-24);
   }
-  
+
   .schedule-table-row {
     padding-block: var(--spacing-12);
     border-block-end: 1px solid var(--color-black);
     display: flex;
     gap: var(--spacing-48);
   }
-  
+
   .schedule-table-row:last-child {
     border-block-end: none;
   }
-  
+
   .schedule-table-row td {
     flex: 1;
   }
-  
+
   @media screen and (min-width: 481px) {
     .event {
       padding: var(--spacing-48);
       padding-block-end: var(--spacing-96);
     }
   }
-  
+
   @media screen and (min-width: 890px) {
     .banner {
       padding-inline: var(--spacing-48);
