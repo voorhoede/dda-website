@@ -55,8 +55,14 @@ export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
     };
 
     return (
-      <form ref={ref} className={clsx('list-form', className)} onSubmit={handleSubmit}>
-        {search({ onChange: handleSearchChange, values })}
+      <form
+        ref={ref}
+        className={clsx('list-form', className)}
+        onSubmit={handleSubmit}
+      >
+        <div className="list-form__search">
+          {search({ onChange: handleSearchChange, values })}
+        </div>
 
         <div className="list-form__filters">
           {filters({ onChange: handleFilterChange, values })}

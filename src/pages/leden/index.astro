@@ -7,14 +7,14 @@ import Layout from '@layouts/Default.astro';
 
 import { Button } from '@components/Button';
 import { MemberList } from '@blocks/MemberList';
-import { PartnerBanner } from '@blocks/PartnerBanner';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
 import membersPageQuery from './membersPage.query.graphql';
 
 const { locale } = Astro.params as { locale: SiteLocale };
 
-const { page, partners } = await datocmsRequest<MembersPageQuery>({
+const { page } = await datocmsRequest<MembersPageQuery>({
   query: membersPageQuery,
   variables: { locale },
 });
@@ -40,5 +40,5 @@ if (!page) {
 
   <MemberList />
 
-  {partners.length > 0 && <PartnerBanner {partners} />}
+  <PartnerBanner />
 </Layout>

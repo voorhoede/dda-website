@@ -19,4 +19,13 @@ fragment EventCard on EventRecord {
   theme {
     name
   }
+  details {
+    __typename
+    ... on InternalEventRecord {
+      slug
+    }
+    ... on ExternalEventRecord {
+      link
+    }
+  }
 }

@@ -78,6 +78,9 @@ interface Props {
   defaultPageSize: number;
   showFilter?: boolean;
   fixedFilters?: EventModelFilter;
+  initialData: Awaited<ReturnType<typeof loader>>;
+  initialParams: Record<string, string>;
+  initialUrl: string;
 }
 
 export const EventList = withQueryClientProvider(
@@ -86,8 +89,9 @@ export const EventList = withQueryClientProvider(
     defaultPageSize,
     showFilter,
     fixedFilters,
+    initialData,
     initialParams,
-    initialUrl,
+    initialUrl
   }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
@@ -96,6 +100,7 @@ export const EventList = withQueryClientProvider(
     const { data } = useQuery({
       queryKey: [queryKey, searchParams],
       queryFn: () => loader({ searchParams, fixedFilters, defaultPageSize }),
+      initialData,
     });
 
     const updateFilter = (filter: Record<string, string>) => {
@@ -117,11 +122,11 @@ export const EventList = withQueryClientProvider(
         });
       }
     };
-
+    
     if (!data) {
       return null;
     }
-
+    
     return (
       <>
         {showFilter && (
@@ -180,6 +185,7 @@ export const EventList = withQueryClientProvider(
                   icon="arrow-right"
                   level="secondary"
                   variant="large"
+                  href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
                 >
                   {t('details')}
                 </Button>

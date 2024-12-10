@@ -1,5 +1,6 @@
 fragment PublicationCard on PublicationRecord {
   id
+  slug
   _publishedAt
   title
   banner {

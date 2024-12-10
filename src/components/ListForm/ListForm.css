@@ -8,6 +8,11 @@
   gap: var(--spacing-24);
 }
 
+.list-form__search {
+  max-width: 304px;
+  width: 100%;
+}
+
 .list-form__filters {
   display: flex;
   gap: var(--spacing-16);

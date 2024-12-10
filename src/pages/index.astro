@@ -1,5 +1,4 @@
 ---
-import { PartnerBanner } from '@blocks/PartnerBanner';
 import { NewsLetterForm } from '@blocks/NewsLetterForm';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
@@ -7,6 +6,7 @@ import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { PublicationsSection } from '@components/PublicationsSection';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 import CtaBanner from '@blocks/CtaBanner/CtaBanner.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import HighlightedVacancies from '@blocks/HighlightedVacancies/HightlightedVacancies.astro';
@@ -36,7 +36,7 @@ const variables = {
   locale,
 };
 
-const { page, events, publications, partners } = await datocmsRequest<
+const { page, events, publications } = await datocmsRequest<
   NonNullable<HomePageQuery>
 >({
   query,
@@ -147,7 +147,7 @@ const pageUrls = locales.map((locale) => ({
           {page.ctaSectionCtaLabel}
         </Button>
       </CtaBanner>
-      <PartnerBanner partners={partners} />
+      <PartnerBanner />
     </Layout>
   ) : (
     <p>Page not found</p>

@@ -1,0 +1,58 @@
+#import '@blocks/TextBlock/TextBlock.fragment.graphql'
+
+query EventPage($locale: SiteLocale = nl, $slug: String!) {
+  page: event(
+    locale: $locale
+    filter: { details: { any: { internalEvent: { slug: { eq: $slug } } } } }
+  ) {
+    title
+    date
+    location
+    image {
+      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+        alt
+        base64
+        bgColor
+        height
+        sizes
+        src
+        srcSet
+        title
+        width
+      }
+    }
+    details {
+      __typename
+      ... on InternalEventRecord {
+        _seoMetaTags {
+          attributes
+          content
+          tag
+        }
+        title
+        slug
+        banner {
+          responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+            alt
+            base64
+            bgColor
+            height
+            sizes
+            src
+            srcSet
+            title
+            width
+          }
+        }
+        description {
+          ...TextBlock
+        }
+        schedule {
+          name
+          start
+          end
+        }
+      }
+    }
+  }
+}

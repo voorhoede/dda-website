@@ -1,0 +1,13 @@
+---
+import { PartnerBanner as PartnerBannerComponent } from './PartnerBanner';
+import { fillArray } from '@lib/content-collections';
+import { getCollection } from 'astro:content';
+
+const partners = await getCollection('partners');
+const filledPartners = fillArray(
+  partners.map((partner) => partner.data),
+  8
+);
+---
+
+<PartnerBannerComponent partners={filledPartners} />

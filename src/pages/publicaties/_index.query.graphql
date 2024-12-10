@@ -1,4 +1,5 @@
 #import '@blocks/PageHeader/PageHeader.fragment.graphql'
+#import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
 
 query PublicationsPage {
   page: publicationsPage {
@@ -12,28 +13,6 @@ query PublicationsPage {
     }
   }
   highlightedPublications: allPublications(first: 3) {
-    id
-    title
-    _createdAt
-    tags {
-      label
-    }
-    banner {
-      alt
-      responsiveImage {
-        src
-        srcSet
-        width
-        height
-        alt
-        title
-        base64
-        bgColor
-        sizes
-      }
-    }
-    content {
-      value
-    }
+    ...PublicationCard
   }
 }

@@ -4,10 +4,12 @@ import type {
   MemberLogoFragment,
   MemberCardFragment,
   VacancyListItemFragment,
+  PartnerLogoFragment,
 } from '@lib/types/datocms';
 import memberLogoFragment from '@blocks/MemberLogo/MemberLogo.fragment.graphql?raw';
 import vacancyListItemFragment from '@blocks/VacancyList/VacancyListItem.fragment.graphql?raw';
 import memberCardFragment from '@blocks/MemberCard/MemberCard.fragment.graphql?raw';
+import partnerFragment from '@blocks/PartnerBanner/PartnerLogo.fragment.graphql?raw';
 
 const memberLogos = defineCollection({
   loader: async () => {
@@ -36,6 +38,16 @@ const vacancies = defineCollection({
       fragment: vacancyListItemFragment,
       fragmentName: 'VacancyListItem',
     }) as Promise<VacancyListItemFragment[]>;
+  },
+});
+
+const partners = defineCollection({
+  loader: async () => {
+    return datocmsCollection({
+      collection: 'Partners',
+      fragment: partnerFragment,
+      fragmentName: 'PartnerLogo',
+    }) as Promise<PartnerLogoFragment[]>;
   },
 });
 
@@ -100,6 +112,7 @@ export const collections = {
   members,
   memberLogos,
   vacancies,
+  partners,
   vacancyLocations,
   vacancyHours,
   vacancyLanguages,

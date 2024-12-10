@@ -23,11 +23,20 @@ query EventList(
     filter: $filter
   ) {
     id
-    title
+    title 
     date
     location
     theme {
       name
+    }
+    details {
+      __typename
+      ... on InternalEventRecord {
+        slug
+      }
+      ... on ExternalEventRecord {
+        link
+      }
     }
   }
 }
