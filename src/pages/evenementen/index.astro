@@ -19,7 +19,6 @@ import {
 } from '@components/PageTitle';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
-import { PartnerBanner } from '@blocks/PartnerBanner';
 import EventList from '@blocks/EventList/EventList.astro';
 import { Grid, Column } from '@components/Grid';
 import { EventCard } from '@blocks/EventCard';
@@ -27,7 +26,7 @@ import { NewsLetterForm } from '@blocks/NewsLetterForm';
 
 const { locale } = Astro.params;
 
-const { page, highlightedEvents, partners } = await datocmsRequest<
+const { page, highlightedEvents } = await datocmsRequest<
   EventsPageQuery,
   EventsPageQueryVariables
 >({ query, variables: { locale: locale as SiteLocale } });
@@ -35,6 +34,7 @@ const { page, highlightedEvents, partners } = await datocmsRequest<
 if (!page) {
   return new Response(null, { status: 404 });
 }
+
 
 const year = new Date().getFullYear();
 const month = String(new Date().getMonth() + 1).padStart(2, '0');
@@ -45,81 +45,57 @@ const today = `${year}-${month}-${day}`;
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
   <PageTitle>
     <PageTitleHeader>
-      <Button
-        as="a"
-        href="../"
-        className="back-button"
-        level="tertiary"
-        icon="arrow-left"
-        iconPosition="left">{t('back_to_home')}</Button
-      >
+      <Button as="a" href="../" className="back-button" level="tertiary" icon="arrow-left" iconPosition="left">{t('back_to_home')}</Button>
       <Heading level={1}>{page.title}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
-      <Heading displayLevel={6} level="span">
-        <StructuredText
-          data={page.description as unknown as StructuredTextData}
-        />
-      </Heading>
+      <div>
+        <StructuredText data={page.description as unknown as StructuredTextData} />
+      </div>
     </PageTitleContent>
   </PageTitle>
-
+  
   <Grid border>
-    {
-      highlightedEvents.map((event) => (
-        <Column
-          key={event.id}
-          span={{
-            mobile: 12,
-            tablet: 6,
-            desktop: 4,
-          }}
-        >
-          <EventCard event={event} />
-        </Column>
-      ))
-    }
+    {highlightedEvents.map((event) => (
+      <Column
+        key={event.id}
+        span={{
+          mobile: 12,
+          tablet: 6,
+          desktop: 4,
+        }}
+      >
+        <EventCard event={event} />
+      </Column>
+    ))}
   </Grid>
-
-  <EventList
-    queryKey="events"
-    defaultPageSize={8}
-    fixedFilters={{
-      date: { gte: today },
-    }}
-  />
-
+    
+  <EventList queryKey="events" defaultPageSize={8} fixedFilters={{
+    date: { gte: today }
+  }} />
+  
   <section class="past-events">
-    <Heading className="past-events__heading" level={2} displayLevel={3}
-    >{page.pastEventsTitle}</Heading
-    >
-
-    <EventList
-      queryKey="past_events"
-      defaultPageSize={3}
-      showFilter={false}
-      fixedFilters={{
-        date: { lt: today },
-      }}
-    />
+    <Heading className='past-events__heading' level={2} displayLevel={3}>{page.pastEventsTitle}</Heading>
+    
+    <EventList queryKey="past_events" defaultPageSize={3} showFilter={false} fixedFilters={{
+      date: { lt: today }
+    }} />
   </section>
-
+  
   <NewsLetterForm />
-
-  {partners.length > 0 && <PartnerBanner {partners} />}
 </Layout>
 
 <style>
   .back-button {
     margin-block-end: var(--spacing-16);
   }
-
+  
   .past-events__heading {
     border-block-start: 1px solid var(--color-black);
     padding-block: var(--spacing-48) 0;
     padding-inline: var(--spacing-16);
   }
-
+  
   @media screen and (min-width: 890px) {
     .past-events__heading {
       padding-inline: var(--spacing-48);

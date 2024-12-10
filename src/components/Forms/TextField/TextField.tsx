@@ -11,9 +11,11 @@ type Props = {
   labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
+  className?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
-  type?: 'text' | 'search';
+  type?: 'text' | 'search' | 'email' | 'password' | 'tel';
+  autoComplete?: string;
 } & (
   | {
       labelStyle?: 'stack';
@@ -31,9 +33,11 @@ export const TextField = ({
   labelStyle = 'stack',
   placeholder = '',
   value,
+  className,
   defaultValue,
   required = false,
   type = 'text',
+  autoComplete,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +46,11 @@ export const TextField = ({
       onChange(newValue);
     }
   };
+  
+  console.log(className)
 
   return (
-    <Field className="text-field">
+    <Field className={clsx('text-field', className)}>
       <Label
         className={clsx(
           'text-field__label',
@@ -62,6 +68,7 @@ export const TextField = ({
         defaultValue={defaultValue}
         onChange={handleChange}
         required={required}
+        autoComplete={autoComplete}
       />
     </Field>
   );
