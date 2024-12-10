@@ -4,7 +4,10 @@ import type { VacancyListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import vacancyListQuery from './VacancyList.query.graphql';
 import { useSearchParams } from '@lib/hooks/use-search-params';
-import { withQueryClientProvider } from '@lib/react-query';
+import {
+  withQueryClientProvider,
+  type QueryClientProviderComponentProps,
+} from '@lib/react-query';
 import { useUrl } from '@lib/hooks/use-url';
 import { Column, Grid } from '@components/Grid';
 import { VacancyDataList } from '@components/VacancyDataList';
@@ -62,19 +65,15 @@ type FilterValuesType = {
 };
 
 type VacancyListProps = {
-  initialData: Awaited<ReturnType<typeof loader>>;
-  initialParams: Record<string, string>;
-  initialUrl: string;
   filterValues: FilterValuesType;
 };
 
 export const VacancyList = withQueryClientProvider(
   ({
-    initialData,
     initialParams,
     initialUrl,
     filterValues,
-  }: VacancyListProps) => {
+  }: QueryClientProviderComponentProps & VacancyListProps) => {
     const dataListRef = useRef<HTMLUListElement>(null);
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
@@ -83,7 +82,6 @@ export const VacancyList = withQueryClientProvider(
     const { data } = useQuery({
       queryKey: ['vacancies', searchParams],
       queryFn: () => loader(searchParams),
-      initialData,
     });
 
     const updateFilter = (filter: Record<string, string>) => {
@@ -105,6 +103,10 @@ export const VacancyList = withQueryClientProvider(
         });
       }
     };
+
+    if (!data) {
+      return null;
+    }
 
     return (
       <Grid border>

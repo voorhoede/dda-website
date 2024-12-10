@@ -19,7 +19,7 @@ import { SRCImage } from 'react-datocms';
 import { Column, Grid } from '@components/Grid';
 import { formatDate } from '@lib/date';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
-import { RegisterForm } from '@components/RegisterForm/RegisterForm';
+import { RegisterForm } from '@blocks/RegisterForm/RegisterForm';
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
 const { page } = await datocmsRequest<EventPageQuery, EventPageQueryVariables>({

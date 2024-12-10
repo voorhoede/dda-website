@@ -7,12 +7,15 @@ import './TextField.css';
 type Props = {
   name: string;
   label: string;
+  required?: boolean;
   labelStyle?: 'stack' | 'float';
   placeholder?: string;
   value?: string;
   className?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   type?: 'text' | 'search' | 'email' | 'password' | 'tel';
+  autoComplete?: string;
 } & (
   | {
       labelStyle?: 'stack';
@@ -29,9 +32,12 @@ export const TextField = ({
   label,
   labelStyle = 'stack',
   placeholder = '',
-  type = 'text',
   value,
   className,
+  defaultValue,
+  required = false,
+  type = 'text',
+  autoComplete,
   onChange,
 }: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +65,10 @@ export const TextField = ({
         className="text-field__input"
         placeholder={placeholder}
         value={value}
+        defaultValue={defaultValue}
         onChange={handleChange}
+        required={required}
+        autoComplete={autoComplete}
       />
     </Field>
   );

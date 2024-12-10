@@ -7,7 +7,10 @@ import { SelectField, TextField } from '@components/Forms';
 import { MemberCard } from '@blocks/MemberCard';
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
-import { withQueryClientProvider } from '@lib/react-query';
+import {
+  withQueryClientProvider,
+  type QueryClientProviderComponentProps,
+} from '@lib/react-query';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
 import type {
@@ -19,7 +22,7 @@ import type {
 import './MemberList.css';
 import query from './MemberList.query.graphql';
 
-const DEFAULT_PAGE_SIZE = 6;
+const DEFAULT_PAGE_SIZE = 9;
 
 export const loader = async (searchParams: Record<string, string>) => {
   const page = searchParams.page ? Number(searchParams.page) : 1;
@@ -59,14 +62,8 @@ export const loader = async (searchParams: Record<string, string>) => {
   };
 };
 
-interface Props {
-  initialData: Awaited<ReturnType<typeof loader>>;
-  initialParams: Record<string, string>;
-  initialUrl: string;
-}
-
 export const MemberList = withQueryClientProvider(
-  ({ initialData, initialParams, initialUrl }: Props) => {
+  ({ initialParams, initialUrl }: QueryClientProviderComponentProps) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
@@ -74,7 +71,6 @@ export const MemberList = withQueryClientProvider(
     const { data } = useQuery({
       queryKey: ['members', searchParams],
       queryFn: () => loader(searchParams),
-      initialData,
     });
 
     const updateFilter = (filter: Record<string, string>) => {
@@ -96,6 +92,10 @@ export const MemberList = withQueryClientProvider(
         });
       }
     };
+
+    if (!data) {
+      return null;
+    }
 
     return (
       <>

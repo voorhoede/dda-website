@@ -1,9 +1,7 @@
 ---
 import type { EventModelFilter } from '@lib/types/datocms';
-import {
-  EventList as EventListComponent,
-  loader,
-} from './EventList.tsx';
+import { EventList as EventListComponent, loader } from './EventList.tsx';
+import { getDehydratedState } from '@lib/react-query';
 
 interface Props {
   queryKey: string;
@@ -12,14 +10,23 @@ interface Props {
   fixedFilters?: EventModelFilter;
 }
 
-const { queryKey, defaultPageSize, showFilter = true, fixedFilters } = Astro.props;
+const {
+  queryKey,
+  defaultPageSize,
+  showFilter = true,
+  fixedFilters,
+} = Astro.props;
 
 const searchParams = Astro.url.searchParams;
 const initialParams = {
   page: searchParams.get('page') ?? '1',
-  zoek: searchParams.get('zoek') ?? ''
+  zoek: searchParams.get('zoek') ?? '',
 };
-const initialData = await loader({ searchParams: initialParams, defaultPageSize });
+const initialData = await loader({
+  searchParams: initialParams,
+  defaultPageSize,
+  fixedFilters,
+});
 const initialUrl = Astro.url.href;
 ---
 
@@ -31,5 +38,6 @@ const initialUrl = Astro.url.href;
   fixedFilters={fixedFilters}
   initialParams={initialParams}
   initialData={initialData}
+  initialState={getDehydratedState([queryKey, initialParams], initialData)}
   initialUrl={initialUrl}
 />

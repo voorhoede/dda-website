@@ -7,10 +7,12 @@ import query from './EventList.query.graphql';
 
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { withQueryClientProvider } from '@lib/react-query';
+import {
+  withQueryClientProvider,
+  type QueryClientProviderComponentProps,
+} from '@lib/react-query';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
-import debounce from 'debounce';
 
 import { datocmsRequest } from '@lib/datocms';
 import { Pagination } from '@components/Pagination';
@@ -32,7 +34,7 @@ import { SelectField, TextField } from '@components/Forms';
 
 export const loader = async ({
   searchParams,
-  fixedFilters,
+  fixedFilters = {},
   defaultPageSize,
 }: {
   searchParams: Record<string, string>;
@@ -89,8 +91,8 @@ export const EventList = withQueryClientProvider(
     fixedFilters,
     initialData,
     initialParams,
-    initialUrl,
-  }: Props) => {
+    initialUrl
+  }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
@@ -120,7 +122,11 @@ export const EventList = withQueryClientProvider(
         });
       }
     };
-
+    
+    if (!data) {
+      return null;
+    }
+    
     return (
       <>
         {showFilter && (

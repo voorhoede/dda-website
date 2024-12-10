@@ -23,7 +23,7 @@ query EventList(
     filter: $filter
   ) {
     id
-    title
+    title 
     date
     location
     theme {

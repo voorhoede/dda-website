@@ -5,7 +5,7 @@ fragment MemberLogo on MemberRecord {
   }
   logo {
     id
-    responsiveImage(imgixParams: { fit: crop, w: 200, h: 200, auto: format }) {
+    responsiveImage(imgixParams: { fit: fill, w: 200, h: 200, auto: format }) {
       src
       srcSet
       width
