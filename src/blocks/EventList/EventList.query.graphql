@@ -29,5 +29,14 @@ query EventList(
     theme {
       name
     }
+    details {
+      __typename
+      ... on InternalEventRecord {
+        slug
+      }
+      ... on ExternalEventRecord {
+        link
+      }
+    }
   }
 }
