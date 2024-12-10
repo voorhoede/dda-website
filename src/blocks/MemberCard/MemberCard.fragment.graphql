@@ -16,6 +16,24 @@ fragment MemberCard on MemberRecord {
       title
     }
   }
+  banner {
+    alt
+    title
+    width
+    height
+    url
+    responsiveImage(imgixParams: { h: 500, auto: format }) {
+      alt
+      base64
+      bgColor
+      height
+      sizes
+      src
+      srcSet
+      title
+      width
+    }
+  }
   location
   employees
   slug
