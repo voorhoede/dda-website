@@ -327,14 +327,6 @@ export default async function (client: Client) {
     validators: { format: { custom_pattern: '^\\+?[1-9]\\d{1,14}$' } },
   });
 
-  console.log(
-    'Update Single-line string field "Street Name" (`street_name`) in block model "Contact block" (`contact_block`)'
-  );
-  await client.fields.update('N47QsWgLSuaIpJv4Toi_iQ', {
-    label: 'Street Name',
-    api_key: 'street_name',
-  });
-
   console.log('Update permissions for environment in role Member');
   await client.roles.updateCurrentEnvironmentPermissions('301184', {
     positive_item_type_permissions: {
