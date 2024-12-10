@@ -8,8 +8,8 @@ import memberPageQuery from './memberPage.query.graphql';
 import Layout from '@layouts/Default.astro';
 
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 import { CaseBlock } from '@blocks/CaseBlock/CaseBlock';
-import { PartnerBanner } from '@blocks/PartnerBanner';
 import { VacancyDataList } from '@components/VacancyDataList';
 import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 
@@ -25,7 +25,7 @@ import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Button } from '@components/Button';
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
-const { page, partners } = await datocmsRequest<MemberPageQuery>({
+const { page } = await datocmsRequest<MemberPageQuery>({
   query: memberPageQuery,
   variables: { locale, slug },
 });
@@ -123,42 +123,53 @@ if (!page) {
       )
     }
   </section>
-  
-  {page.cases.length > 0 && (
-    <section>
-      <header class="cases__header">
-        <Heading level={2}>
-          {t('cases')}
-        </Heading>
-      </header>
-      <Grid border={true}>
-        { page.cases.map((block) => (
-          <Column className="cases-item" span={{ mobile: 12, tablet: 6, desktop: 4 }}>
-            <CaseBlock block={block} />
-          </Column>
-        )) }
-      </Grid>
-    </section>
-  )}
-  
-  {page.contact.length > 0 && ( 
-    <section class="contact">
-      <header class="contact__header">
-        <Heading level={2}>
-          {t('contact')}
-        </Heading>
-      </header>
-      <Grid columnGap={24} rowGap={48}>
-        { page.contact.map((block) => (
-          <Column span={{ mobile: 12, tablet: 6, desktop: Math.floor(12 / Math.min(page.contact.length, 4)) as SpanOptions }}>
-            <ContactBlock block={block} />
-          </Column>
-        )) }
-      </Grid>
-    </section>
-  )}
-  
-  { partners.length && <PartnerBanner {partners} /> }
+
+  {
+    page.cases.length > 0 && (
+      <section>
+        <header class="cases__header">
+          <Heading level={2}>{t('cases')}</Heading>
+        </header>
+        <Grid border={true}>
+          {page.cases.map((block) => (
+            <Column
+              className="cases-item"
+              span={{ mobile: 12, tablet: 6, desktop: 4 }}
+            >
+              <CaseBlock block={block} />
+            </Column>
+          ))}
+        </Grid>
+      </section>
+    )
+  }
+
+  {
+    page.contact.length > 0 && (
+      <section class="contact">
+        <header class="contact__header">
+          <Heading level={2}>{t('contact')}</Heading>
+        </header>
+        <Grid columnGap={24} rowGap={48}>
+          {page.contact.map((block) => (
+            <Column
+              span={{
+                mobile: 12,
+                tablet: 6,
+                desktop: Math.floor(
+                  12 / Math.min(page.contact.length, 4)
+                ) as SpanOptions,
+              }}
+            >
+              <ContactBlock block={block} />
+            </Column>
+          ))}
+        </Grid>
+      </section>
+    )
+  }
+
+  <PartnerBanner />
 </Layout>
 
 <style>
@@ -213,7 +224,7 @@ if (!page) {
     margin: 0px;
     text-align: center;
   }
-  
+
   .cases-item {
     padding: var(--spacing-24);
   }
@@ -259,11 +270,11 @@ if (!page) {
       flex-direction: row;
       justify-content: space-between;
     }
-    
+
     .cases-item {
       padding: var(--spacing-48);
     }
-    
+
     .contact {
       padding: var(--spacing-96) var(--spacing-48);
     }
