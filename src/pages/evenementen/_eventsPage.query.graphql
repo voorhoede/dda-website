@@ -1,5 +1,4 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
-#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 
 query EventsPage($locale: SiteLocale = nl) {
   page: eventsPage(locale: $locale) {
@@ -16,15 +15,8 @@ query EventsPage($locale: SiteLocale = nl) {
     }
     pastEventsTitle
   }
-  
-  highlightedEvents: allEvents(
-    locale: $locale
-    first: 3
-  ) {
+
+  highlightedEvents: allEvents(locale: $locale, first: 3) {
     ...EventCard
-  }
-  
-  partners: allPartners(first: 8) {
-    ...PartnerLogo
   }
 }

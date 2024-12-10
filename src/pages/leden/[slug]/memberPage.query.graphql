@@ -1,5 +1,4 @@
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
-#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 #import '@blocks/CaseBlock/CaseBlock.fragment.graphql'
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
@@ -72,9 +71,5 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
     contact {
       ...ContactBlock
     }
-  }
-
-  partners: allPartners(first: 8) {
-    ...PartnerLogo
   }
 }
