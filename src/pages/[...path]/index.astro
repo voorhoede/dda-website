@@ -15,9 +15,11 @@ import {
   getPagePath,
   getPageSlugFromPath,
 } from '@blocks/InternalLink';
+import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import { formatBreadcrumb } from '@components/Breadcrumbs';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
+import { defaultLocale } from '@lib/i18n';
 
 export const prerender = true;
 
@@ -26,6 +28,9 @@ export async function getStaticPaths() {
     _allSlugLocales: Array<{ locale: SiteLocale; value: string }>;
     parentPage: ParentPageFragment;
   }
+
+  console.log('HHOOIII');
+
   const pages = await datocmsCollection<PagesCollectionItem>({
     collection: 'Pages',
     fragmentName: 'Page',
@@ -64,7 +69,7 @@ type Params = {
   path: string;
 };
 
-const { locale, path } = Astro.params as Params;
+const { locale = defaultLocale, path } = Astro.params as Params;
 const variables = { locale, slug: getPageSlugFromPath(path) };
 const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
   page: PageRecord;
@@ -90,6 +95,8 @@ const pageUrls = (page._allSlugLocales || []).map(({ locale }) => ({
   seoMetaTags={page._seoMetaTags}
 >
   <PreviewModeSubscription query={query} variables={variables} />
-  <h1>{page.title}</h1>
+
+  <PageHeader title={page.header.title} subtitle={page.header.subtitle} />
+
   <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
 </Layout>

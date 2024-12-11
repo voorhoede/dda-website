@@ -19,22 +19,13 @@ query Page($locale: SiteLocale!, $slug: String!) {
       tag
     }
     ...ParentPage
+    header {
+      ...PageHeader
+    }
     bodyBlocks {
       __typename
-      ... on EmbedBlockRecord {
-        ...EmbedBlock
-      }
-      ... on ImageBlockRecord {
-        ...ImageBlock
-      }
-      ... on TableBlockRecord {
-        ...TableBlock
-      }
       ... on TextBlockRecord {
         ...TextBlock
-      }
-      ... on VideoEmbedBlockRecord {
-        ...VideoEmbedBlock
       }
     }
   }
