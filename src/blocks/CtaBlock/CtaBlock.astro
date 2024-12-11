@@ -1,0 +1,18 @@
+---
+import { Button } from '@components/Button';
+import type { CtaBlockFragment } from '@lib/types/datocms';
+
+const { block } = Astro.props as {
+  block: CtaBlockFragment;
+};
+---
+
+<Button
+  as="a"
+  href={block.link.url}
+  target={block.link.openInNewWindow ? '_blank' : undefined}
+  icon="arrow-right"
+  variant="large"
+>
+  {block.label}
+</Button>

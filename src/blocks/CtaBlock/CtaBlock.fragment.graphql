@@ -1,0 +1,10 @@
+fragment CtaBlock on CtaBlockRecord {
+  id
+  label
+  link {
+    ... on LinkRecord {
+      url
+      openInNewWindow
+    }
+  }
+}

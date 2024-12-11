@@ -1,0 +1,22 @@
+#import '@blocks/InternalLink/ParentPage.fragment.graphql'
+
+fragment InternalLink on InternalLinkRecord {
+  title
+  page {
+    __typename
+    ... on PageRecord {
+      title
+      slug
+      _allSlugLocales {
+        locale
+        value
+      }
+      ...ParentPage
+    }
+    ... on HomePageRecord {
+      header {
+        title
+      }
+    }
+  }
+}
