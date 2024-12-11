@@ -58,7 +58,7 @@ const pageUrls = locales.map((locale) => ({
         subtitle={page.header.subtitle}
         spacious
       >
-        <template slot="footer">
+        <Fragment slot="footer">
           <Button as="a" icon="arrow-right" variant="large">
             {page.becomeMemberCtaLabel}
           </Button>
@@ -71,7 +71,7 @@ const pageUrls = locales.map((locale) => ({
           >
             {page.findAgencyCtaLabel}
           </Button>
-        </template>
+        </Fragment>
       </PageHeader>
       <Grid border={true}>
         <Column span={12}>
