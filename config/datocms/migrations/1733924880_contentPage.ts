@@ -41,6 +41,11 @@ export default async function (client: Client) {
     validators: {
       rich_text_blocks: { item_types: ['PAk40zGjQJCcDXXPgygUrA'] },
     },
+    appearance: {
+      addons: [],
+      editor: 'rich_text',
+      parameters: { start_collapsed: false },
+    },
   });
 
   console.log(
