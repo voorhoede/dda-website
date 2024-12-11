@@ -1,10 +1,6 @@
 import { Client } from '@datocms/cli/lib/cma-client-node';
 
 export default async function (client: Client) {
-  console.log('Update environment\'s settings');
-
-  await client.site.update({ favicon: null });
-
   console.log('Creating new fields/fieldsets');
 
   console.log(
