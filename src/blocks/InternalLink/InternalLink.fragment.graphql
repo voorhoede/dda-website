@@ -14,7 +14,9 @@ fragment InternalLink on InternalLinkRecord {
       ...ParentPage
     }
     ... on HomePageRecord {
-      title
+      header {
+        title
+      }
     }
   }
 }

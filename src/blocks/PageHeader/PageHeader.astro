@@ -1,0 +1,66 @@
+---
+import React from 'react';
+import { StructuredText } from 'react-datocms';
+import { getCollection } from 'astro:content';
+import type { RenderInlineRecordContext } from 'react-datocms';
+import type { StructuredText as StructuredTextData } from 'datocms-structured-text-utils';
+
+import { Heading } from '@components/Heading';
+import {
+  PageTitle,
+  PageTitleHeader,
+  PageTitleContent,
+  PageTitleFooter,
+} from '@components/PageTitle';
+import type { PageHeaderFragment } from '@lib/types/datocms';
+
+type Props = PageHeaderFragment & {
+  spacious?: boolean;
+};
+
+const { title, subtitle, spacious = false } = Astro.props;
+
+const collections = {
+  members: await getCollection('members'),
+  vacancies: await getCollection('vacancies'),
+};
+
+const renderInlineRecord = ({ record }: RenderInlineRecordContext<any>) => {
+  const collection = collections[record.recordType as keyof typeof collections];
+
+  if (!collection) {
+    return null;
+  }
+
+  return React.createElement('span', null, collection.length.toString());
+};
+---
+
+<PageTitle spacious={spacious}>
+  <PageTitleHeader spacious={spacious}>
+    <div class="header-slot">
+      <slot name="header" />
+    </div>
+
+    <Heading level={1} displayLevel={1}>
+      {title}
+    </Heading>
+  </PageTitleHeader>
+
+  <PageTitleContent>
+    <StructuredText
+      data={subtitle as StructuredTextData<any, any>}
+      renderInlineRecord={renderInlineRecord}
+    />
+  </PageTitleContent>
+
+  <PageTitleFooter>
+    <slot name="footer" />
+  </PageTitleFooter>
+</PageTitle>
+
+<style>
+  .header-slot {
+    margin-block-end: var(--spacing-16);
+  }
+</style>

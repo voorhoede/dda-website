@@ -1,3 +1,5 @@
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+
 query VacanciesPage {
   page: vacanciesPage {
     _seoMetaTags {
@@ -5,9 +7,8 @@ query VacanciesPage {
       content
       tag
     }
-    title
-    subtitle {
-      value
+    header {
+      ...PageHeader
     }
   }
 }

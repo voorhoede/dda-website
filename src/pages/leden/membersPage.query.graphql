@@ -1,3 +1,5 @@
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+
 query MembersPage($locale: SiteLocale = nl) {
   page: membersPage(locale: $locale) {
     _seoMetaTags {
@@ -5,11 +7,8 @@ query MembersPage($locale: SiteLocale = nl) {
       content
       tag
     }
-    title
-    description {
-      blocks
-      links
-      value
+    header {
+      ...PageHeader
     }
   }
 }

@@ -5,12 +5,7 @@ import { EventsSection } from '@components/EventsSection';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { PublicationsSection } from '@components/PublicationsSection';
-import {
-  PageTitle,
-  PageTitleContent,
-  PageTitleFooter,
-  PageTitleHeader,
-} from '@components/PageTitle';
+import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 import CtaBanner from '@blocks/CtaBanner/CtaBanner.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
@@ -28,7 +23,6 @@ import { defaultLocale, locales } from '@lib/i18n';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
-import { getCollection } from 'astro:content';
 
 export const prerender = true;
 
@@ -49,9 +43,6 @@ const { page, events, publications } = await datocmsRequest<
   variables,
 });
 
-const members = await getCollection('memberLogos');
-const memberCount = members.length;
-
 const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
@@ -62,16 +53,12 @@ const pageUrls = locales.map((locale) => ({
   page ? (
     <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
       <PreviewModeSubscription query={query} variables={variables} />
-      <PageTitle spacious>
-        <PageTitleHeader spacious>
-          <Heading level={1}>{page.title}</Heading>
-        </PageTitleHeader>
-        <PageTitleContent>
-          <Heading displayLevel={6} level="p">
-            {page.subtitle.replace('{{number}}', memberCount.toString())}
-          </Heading>
-        </PageTitleContent>
-        <PageTitleFooter>
+      <PageHeader
+        title={page.header.title}
+        subtitle={page.header.subtitle}
+        spacious
+      >
+        <template slot="footer">
           <Button as="a" icon="arrow-right" variant="large">
             {page.becomeMemberCtaLabel}
           </Button>
@@ -84,8 +71,8 @@ const pageUrls = locales.map((locale) => ({
           >
             {page.findAgencyCtaLabel}
           </Button>
-        </PageTitleFooter>
-      </PageTitle>
+        </template>
+      </PageHeader>
       <Grid border={true}>
         <Column span={12}>
           <MemberParade server:defer />

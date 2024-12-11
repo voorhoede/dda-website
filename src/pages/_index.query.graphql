@@ -1,15 +1,17 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
 query HomePage($locale: SiteLocale!) {
   page: homePage(locale: $locale) {
-    title
+    header {
+      ...PageHeader
+    }
     _seoMetaTags {
       attributes
       content
       tag
     }
-    subtitle
     becomeMemberCtaLabel
     findAgencyCtaLabel
     eventsSectionLabel
