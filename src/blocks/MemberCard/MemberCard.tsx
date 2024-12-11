@@ -17,12 +17,21 @@ export const MemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        <SRCImage
-          data={
-            member.banner?.responsiveImage ||
-            (member.logo.responsiveImage as ResponsiveImageType)
-          }
-        />
+        {member.banner?.responsiveImage && (
+          <SRCImage data={member.banner.responsiveImage} />
+        )}
+        {member.logo.responsiveImage && (
+          <SRCImage
+            data={
+              member.banner?.responsiveImage ||
+              (member.logo.responsiveImage as ResponsiveImageType)
+            }
+            // disable placeholder for logo
+            // since its background can be transparent,
+            // causing placeholder to be visible after loading
+            usePlaceholder={false}
+          />
+        )}
       </CardImage>
 
       <CardContent>

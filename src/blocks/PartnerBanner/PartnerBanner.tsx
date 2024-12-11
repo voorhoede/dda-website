@@ -25,7 +25,13 @@ export const PartnerBanner = ({
             (partner) =>
               partner.logo.responsiveImage && (
                 <ImageParadeItem key={partner.logo.id}>
-                  <SRCImage data={partner.logo.responsiveImage} />
+                  <SRCImage
+                    data={partner.logo.responsiveImage}
+                    // disable placeholder for logo
+                    // since its background can be transparent,
+                    // causing placeholder to be visible after loading
+                    usePlaceholder={false}
+                  />
                 </ImageParadeItem>
               ),
           )}
