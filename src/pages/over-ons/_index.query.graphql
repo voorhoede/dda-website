@@ -1,0 +1,31 @@
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+#import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/TeamMemberCard/TeamMemberCard.fragment.graphql'
+#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
+
+query AboutUsPage($locale: SiteLocale = nl) {
+  page: aboutUsPage(locale: $locale) {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    header {
+      ...PageHeader
+    }
+    introText
+    text {
+      ...TextBlock
+    }
+    teamSectionLabel
+    teamSectionTitle
+  }
+  
+  teamMembers: allTeamMembers(locale: $locale) {
+    ...TeamMemberCard
+  }
+  
+  partners: allPartners(first: 8) {
+    ...PartnerLogo
+  }
+}
