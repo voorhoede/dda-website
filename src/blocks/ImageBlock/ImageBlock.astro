@@ -3,10 +3,11 @@ import type { ImageBlockFragment } from '@lib/types/datocms';
 import Image from './Image.astro';
 
 export interface Props {
-  block: ImageBlockFragment
+  block: ImageBlockFragment;
+  showTitle?: boolean;
 }
 
-const { block } = Astro.props;
+const { block, showTitle = true } = Astro.props;
 ---
 
-<Image image={ block.image } />
+<Image image={block.image} showTitle={showTitle} />

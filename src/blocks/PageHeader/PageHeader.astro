@@ -12,13 +12,21 @@ import {
   PageTitleContent,
   PageTitleFooter,
 } from '@components/PageTitle';
-import type { PageHeaderFragment } from '@lib/types/datocms';
+import ImageBlock from '@blocks/ImageBlock/ImageBlock.astro';
+import type {
+  ImageBlockFragment,
+  PageHeaderFragment,
+  VideoEmbedBlockFragment,
+} from '@lib/types/datocms';
+import VideoEmbedBlock from '@blocks/VideoEmbedBlock/VideoEmbedBlock.astro';
+
+import './PageHeader.css';
 
 type Props = PageHeaderFragment & {
   spacious?: boolean;
 };
 
-const { title, subtitle, spacious = false } = Astro.props;
+const { title, subtitle, visual, spacious = false } = Astro.props;
 
 const collections = {
   members: await getCollection('members'),
@@ -36,28 +44,55 @@ const renderInlineRecord = ({ record }: RenderInlineRecordContext<any>) => {
 };
 ---
 
-<PageTitle spacious={spacious}>
-  <PageTitleHeader spacious={spacious}>
-    <div class="header-slot">
-      <slot name="header" />
-    </div>
+<div class="page-header">
+  <PageTitle spacious={spacious}>
+    <PageTitleHeader spacious={spacious}>
+      {
+        Astro.slots.header && (
+          <div class="header-slot">
+            <slot name="header" />
+          </div>
+        )
+      }
 
-    <Heading level={1} displayLevel={1}>
-      {title}
-    </Heading>
-  </PageTitleHeader>
+      <Heading level={1} displayLevel={1}>
+        {title}
+      </Heading>
+    </PageTitleHeader>
 
-  <PageTitleContent>
-    <StructuredText
-      data={subtitle as StructuredTextData<any, any>}
-      renderInlineRecord={renderInlineRecord}
-    />
-  </PageTitleContent>
+    {
+      subtitle && (
+        <PageTitleContent>
+          <StructuredText
+            data={subtitle as StructuredTextData<any, any>}
+            renderInlineRecord={renderInlineRecord}
+          />
+        </PageTitleContent>
+      )
+    }
+    {
+      Astro.slots.footer && (
+        <PageTitleFooter>
+          <slot name="footer" />
+        </PageTitleFooter>
+      )
+    }
+  </PageTitle>
 
-  <PageTitleFooter>
-    <slot name="footer" />
-  </PageTitleFooter>
-</PageTitle>
+  <div class="visual container-padding-x">
+    {
+      (visual as ImageBlockFragment)?.image && (
+        <ImageBlock block={visual as ImageBlockFragment} showTitle={false} />
+      )
+    }
+
+    {
+      (visual as VideoEmbedBlockFragment)?.video && (
+        <VideoEmbedBlock block={visual as VideoEmbedBlockFragment} />
+      )
+    }
+  </div>
+</div>
 
 <style>
   .header-slot {
