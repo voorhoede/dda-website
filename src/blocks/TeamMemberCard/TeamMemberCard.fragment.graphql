@@ -1,0 +1,19 @@
+fragment TeamMemberCard on TeamMemberRecord {
+  image {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      alt
+      base64
+      bgColor
+      height
+      sizes
+      src
+      srcSet
+      title
+      width
+    }
+  }
+  name
+  role
+  linkedinLink
+  email
+}

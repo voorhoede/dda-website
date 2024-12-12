@@ -84,7 +84,7 @@
   column-gap: var(--spacing-128);
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 600px) {
   .grid--row-gap-tablet-8 {
     row-gap: var(--spacing-8);
   }
@@ -166,7 +166,7 @@
   }
 }
 
-@media screen and (min-width: 890px) {
+@media screen and (min-width: 1200px) {
   .grid--row-gap-desktop-8 {
     row-gap: var(--spacing-8);
   }
