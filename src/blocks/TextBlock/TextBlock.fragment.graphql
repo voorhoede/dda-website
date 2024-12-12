@@ -1,7 +1,6 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
-#import '@blocks/InternalLink/InternalLink.fragment.graphql'
-#import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
+#import '@blocks/CtaBlock/CtaBlock.fragment.graphql'
 
 fragment TextBlock on TextBlockRecord {
   text {
@@ -10,16 +9,12 @@ fragment TextBlock on TextBlockRecord {
       ... on ImageBlockRecord {
         ...ImageBlock
       }
-      ... on TableBlockRecord {
-        ...TableBlock
-      }
       ... on VideoEmbedBlockRecord {
         ...VideoEmbedBlock
       }
-    }
-    links {
-      id
-      ...InternalLink
+      ... on CtaBlockRecord {
+        ...CtaBlock
+      }
     }
     value
   }
