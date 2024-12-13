@@ -92,7 +92,7 @@ export const Menu = () => {
               </li>
               <li>
                 <Link
-                  href="/evenementen/"
+                  href="/events/"
                   onClick={closeMenu}
                   className="menu__link"
                 >

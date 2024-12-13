@@ -66,9 +66,9 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     </Column>
 
     <Column className="event__details" span={{ mobile: 12, tablet: 7 }}>
-      <section>
-        <h2 class="a11y-sr-only">{t('description')}</h2>
-        <TextBlock block={page.details.description} />
+      <section class="text-section">
+        <Heading level={2} displayLevel={4}>{page.details.introText}</Heading> 
+        <TextBlock block={page.details.text} />
       </section>
 
       { page.details.schedule.length > 0 && (
@@ -123,6 +123,12 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     flex-direction: column;
     gap: var(--spacing-96);
   }
+  
+  .text-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
 
   .schedule,
   .register {
@@ -151,16 +157,18 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     flex: 1;
   }
 
-  @media screen and (min-width: 481px) {
+  @media screen and (min-width: 890px) {
+    .banner {
+      padding-inline: var(--spacing-48);
+    }
+    
     .event {
       padding: var(--spacing-48);
       padding-block-end: var(--spacing-96);
     }
-  }
-
-  @media screen and (min-width: 890px) {
-    .banner {
-      padding-inline: var(--spacing-48);
+    
+    .text-section {
+      gap: var(--spacing-64);
     }
   }
 </style>

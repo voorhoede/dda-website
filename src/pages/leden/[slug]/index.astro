@@ -95,10 +95,11 @@ if (!page) {
         </Button>
       </div>
     </Column>
-
-    <Column as="section" span={{ mobile: 12, tablet: 7 }}>
-      <h2 class="a11y-sr-only">{t('about_us')}</h2>
-      <TextBlock block={page.aboutUs} />
+    
+    <Column as="section" className="text-section" span={{ mobile: 12, tablet: 7 }}>
+      <Heading level={2} displayLevel={3}>{page.introText}</Heading> 
+    
+      <TextBlock block={page.text} />
     </Column>
   </Grid>
 
@@ -204,6 +205,12 @@ if (!page) {
   .agency-info__data p {
     margin: 0px;
   }
+  
+  .text-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
 
   .vacancies__header,
   .cases__header {
@@ -243,12 +250,6 @@ if (!page) {
       padding-block-end: var(--spacing-96);
     }
 
-    .agency-info {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-24);
-    }
-
     .vacancies__header,
     .cases__header {
       padding: var(--spacing-48);
@@ -262,6 +263,16 @@ if (!page) {
   @media screen and (min-width: 890px) {
     .banner {
       padding-inline: var(--spacing-48);
+    }
+    
+    .agency-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-24);
+    }
+    
+    .text-section {
+      gap: var(--spacing-64);
     }
 
     .vacancies__header,
