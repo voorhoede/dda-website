@@ -95,10 +95,20 @@ if (!page) {
         </Button>
       </div>
     </Column>
-    
-    <Column as="section" className="text-section" span={{ mobile: 12, tablet: 7 }}>
-      <Heading level={2} displayLevel={3}>{page.introText}</Heading> 
-    
+
+    <Column
+      as="section"
+      className="text-section"
+      span={{ mobile: 12, tablet: 7 }}
+    >
+      {
+        page.introText && (
+          <Heading level={2} displayLevel={3}>
+            {page.introText}
+          </Heading>
+        )
+      }
+
       <TextBlock block={page.text} />
     </Column>
   </Grid>
@@ -205,7 +215,7 @@ if (!page) {
   .agency-info__data p {
     margin: 0px;
   }
-  
+
   .text-section {
     display: flex;
     flex-direction: column;
@@ -264,13 +274,13 @@ if (!page) {
     .banner {
       padding-inline: var(--spacing-48);
     }
-    
+
     .agency-info {
       display: flex;
       flex-direction: column;
       gap: var(--spacing-24);
     }
-    
+
     .text-section {
       gap: var(--spacing-64);
     }
