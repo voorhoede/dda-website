@@ -22,8 +22,8 @@ export const PublicationCard = ({
       )}
       <CardContent>
         <TagList>
-          {publication.tags.map(({ label }) => (
-            <Tag key={label}>{label}</Tag>
+          {publication.tags.map(({ name }) => (
+            <Tag key={name}>{name}</Tag>
           ))}
         </TagList>
         {publication._publishedAt && (

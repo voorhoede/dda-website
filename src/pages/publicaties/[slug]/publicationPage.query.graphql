@@ -12,7 +12,7 @@ query PublicationPage($locale: SiteLocale!, $slug: String!) {
     title
     tags {
       id
-      label
+      name
     }
     banner {
       responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {

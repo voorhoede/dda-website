@@ -26,10 +26,10 @@ export const MemberCard = ({ member }: Props) => {
       </CardImage>
 
       <CardContent>
-        {member.tags.length > 0 && (
+        {member.expertises.length > 0 && (
           <TagList>
-            {member.tags.map(({ label }) => (
-              <Tag key={label}>{label}</Tag>
+            {member.expertises.map(({ name }) => (
+              <Tag key={name}>{name}</Tag>
             ))}
           </TagList>
         )}

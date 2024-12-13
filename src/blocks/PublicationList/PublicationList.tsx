@@ -139,8 +139,8 @@ export const PublicationList = withQueryClientProvider(
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>
-                  {publication.tags.map(({ label }) => (
-                    <TagListItem key={label}>{label}</TagListItem>
+                  {publication.tags.map(({ name }) => (
+                    <TagListItem key={name}>{name}</TagListItem>
                   ))}
                 </TagList>
                 <Heading displayLevel={4} level={3}>

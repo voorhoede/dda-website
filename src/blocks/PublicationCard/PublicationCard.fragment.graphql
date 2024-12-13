@@ -17,6 +17,6 @@ fragment PublicationCard on PublicationRecord {
     }
   }
   tags {
-    label
+    name
   }
 }
