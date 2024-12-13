@@ -6,9 +6,9 @@ query PublicationsList(
   publicationsMeta: _allPublicationsMeta(filter: $filter) {
     count
   }
-  tags: allTags {
+  tags: allSubjects {
     id
-    label
+    name
   }
   publications: allPublications(first: $first, skip: $skip, filter: $filter) {
     id
@@ -16,7 +16,7 @@ query PublicationsList(
     slug
     _createdAt
     tags {
-      label
+      name
     }
     banner {
       alt

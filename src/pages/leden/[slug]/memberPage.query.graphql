@@ -58,11 +58,10 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
     }
     name
     slug
-    tags {
-      id
-      label
-    }
     website
+    expertises {
+      name
+    }
     vacancies {
       ...VacancyListItem
     }
