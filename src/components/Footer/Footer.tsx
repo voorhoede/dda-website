@@ -33,7 +33,7 @@ export const Footer = () => {
             <Link href="/over-ons/">{t('about_us')}</Link>
           </li>
           <li>
-            <Link href="/evenementen/">{t('events')}</Link>
+            <Link href="/events/">{t('events')}</Link>
           </li>
           <li>
             <Link href="/publicaties/">{t('publications')}</Link>

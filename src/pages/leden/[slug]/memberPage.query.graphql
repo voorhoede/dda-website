@@ -10,7 +10,8 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
       content
       tag
     }
-    aboutUs {
+    introText
+    text {
       ...TextBlock
     }
     banner {
