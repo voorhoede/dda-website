@@ -1,7 +1,7 @@
 fragment ContactBlock on ContactBlockRecord {
   title
   website
-  street
+  streetAddress
   postalCode
   city
   phone
