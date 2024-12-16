@@ -12,6 +12,11 @@ query MemberList(
     name
   }
   
+  provinces: allProvinces {
+    id
+    name
+  }
+    
   membersMeta: _allMembersMeta(
     locale: $locale
     filter: $filter

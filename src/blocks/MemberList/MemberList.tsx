@@ -38,11 +38,14 @@ export const loader = async (searchParams: Record<string, string>) => {
   if (searchParams.expertise) {
     Object.assign(filter, { expertises: { anyIn: searchParams.expertise } });
   }
+  if (searchParams.provincie) {
+    Object.assign(filter, { provinces: { anyIn: searchParams.provincie } });
+  }
   if (searchParams.omvang) {
     Object.assign(filter, { employees: { eq: searchParams.omvang } });
   }
 
-  const { expertises, membersMeta, members } = await datocmsRequest<
+  const { expertises, provinces, membersMeta, members } = await datocmsRequest<
     MemberListQuery,
     MemberListQueryVariables
   >({
@@ -57,6 +60,7 @@ export const loader = async (searchParams: Record<string, string>) => {
 
   return {
     expertises,
+    provinces,
     membersMeta,
     members,
   };
@@ -116,7 +120,7 @@ export const MemberList = withQueryClientProvider(
             <>
               <SelectField
                 name="expertise"
-                label="Expertise"
+                label={t('expertise')}
                 labelStyle="contain"
                 options={[
                   { label: t('all'), value: '' },
@@ -129,8 +133,22 @@ export const MemberList = withQueryClientProvider(
                 onChange={(value) => onChange('expertise', value)}
               />
               <SelectField
+                name="provincie"
+                label={t('province')}
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...data.provinces.map((option) => ({
+                    label: option.name,
+                    value: option.id,
+                  })),
+                ]}
+                value={values.provincie}
+                onChange={(value) => onChange('provincie', value)}
+              />
+              <SelectField
                 name="omvang"
-                label="Omvang"
+                label={t('company_size')}
                 labelStyle="contain"
                 options={[
                   { label: t('all'), value: '' },
@@ -146,7 +164,7 @@ export const MemberList = withQueryClientProvider(
               />
               <SelectField
                 name="sorteren"
-                label="Sorteren"
+                label={t('sort')}
                 labelStyle="contain"
                 options={[
                   { label: 'A-Z', value: 'name_ASC' },
