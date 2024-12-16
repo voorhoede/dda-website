@@ -1,14 +1,6 @@
 import { Client } from '@datocms/cli/lib/cma-client-node';
 
 export default async function (client: Client) {
-  console.log('Manage upload filters');
-
-  console.log('Install plugin "Multi-Select Conditional Fields"');
-  await client.plugins.create({
-    id: 'fmZ_Uy73SpmuizBw-RZckg',
-    package_name: 'datocms-plugin-multi-select-conditional-fields',
-  });
-
   console.log('Create new models/block models');
 
   console.log('Create model "\uD83C\uDDF3\uD83C\uDDF1 Province" (`province`)');
