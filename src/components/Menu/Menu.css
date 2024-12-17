@@ -31,7 +31,7 @@
 
 .menu__overlay--open::before {
   background-color: rgba(0, 0, 0, 0.25);
-  content: '';
+  content: "";
   display: block;
   height: 100%;
   pointer-events: none;
@@ -102,7 +102,19 @@
   padding: 0 4px;
 }
 
+.menu__footer {
+  margin-inline: var(--spacing-24);
+  padding-block: var(--spacing-48);
+  display: flex;
+  gap: var(--spacing-24) var(--spacing-48);
+  flex-wrap: wrap;
+}
+
 @media screen and (min-width: 890px) {
+  .menu {
+    flex: 1;
+  }
+
   .menu__burger-button.button {
     display: none;
   }
@@ -124,6 +136,9 @@
   }
 
   .menu__content {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--spacing-32);
     transform: none;
     transition: none;
   }
@@ -135,5 +150,13 @@
     margin: var(--spacing-16) 0 0;
     opacity: 1;
     padding: 0;
+  }
+  
+  .menu__footer {
+    margin-inline: 0;
+    padding-block: 0;
+    display: flex;
+    gap: var(--spacing-24) var(--spacing-48);
+    flex-wrap: wrap;
   }
 }

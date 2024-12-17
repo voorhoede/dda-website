@@ -127,6 +127,12 @@ export const Menu = () => {
               </li>
             </ul>
           </nav>
+          <div className="menu__footer">
+            <Button as="a" icon="arrow-right" level="secondary" href="https://dda-website.admin.datocms.com/sign_in" target="_blank">
+              {t('login')}
+            </Button>
+            <Button as="a" icon="arrow-right" href="/lid-worden/">{t('become_a_member')}</Button>
+          </div>
         </div>
       </FocusOn>
     </div>
