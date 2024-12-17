@@ -1,7 +1,7 @@
 import logo from '@assets/logo.svg';
 import { Link } from '@components/Link';
 import { Menu } from '@components/Menu';
-import { getLocale, t } from '@lib/i18n';
+import { t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
