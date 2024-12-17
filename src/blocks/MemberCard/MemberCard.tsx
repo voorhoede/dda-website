@@ -5,7 +5,7 @@ import { Heading } from '@components/Heading';
 import { Text } from '@components/Text';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Button } from '@components/Button';
-import { Tag, TagList } from '@components/Tag';
+import { Tag } from '@components/Tag';
 
 import './MemberCard.css';
 
@@ -26,13 +26,6 @@ export const MemberCard = ({ member }: Props) => {
       </CardImage>
 
       <CardContent>
-        {member.expertises.length > 0 && (
-          <TagList>
-            {member.expertises.map(({ name }) => (
-              <Tag key={name}>{name}</Tag>
-            ))}
-          </TagList>
-        )}
         <Heading level={2} displayLevel={3}>
           {member.name}
         </Heading>

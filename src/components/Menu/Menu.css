@@ -138,6 +138,7 @@
   .menu__content {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     gap: var(--spacing-32);
     transform: none;
     transition: none;

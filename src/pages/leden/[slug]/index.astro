@@ -16,11 +16,9 @@ import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 import { SRCImage } from 'react-datocms';
 import {
   PageTitle,
-  PageTitleContent,
   PageTitleHeader,
 } from '@components/PageTitle';
 import { Heading } from '@components/Heading';
-import { TagList, TagListItem } from '@components/Tag';
 import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Button } from '@components/Button';
 
@@ -48,11 +46,6 @@ if (!page) {
       >
       <Heading level={1}>{page.name}</Heading>
     </PageTitleHeader>
-    <PageTitleContent>
-      <TagList>
-        {page.expertises.map((tag) => <TagListItem>{tag.name}</TagListItem>)}
-      </TagList>
-    </PageTitleContent>
   </PageTitle>
 
   {

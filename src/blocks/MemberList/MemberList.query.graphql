@@ -7,11 +7,6 @@ query MemberList(
   $orderBy: MemberModelOrderBy = _createdAt_ASC
   $filter: MemberModelFilter
 ) {
-  expertises: allExpertises {
-    id
-    name
-  }
-  
   provinces: allProvinces {
     id
     name
