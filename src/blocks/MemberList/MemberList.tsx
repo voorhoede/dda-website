@@ -35,9 +35,6 @@ export const loader = async (searchParams: Record<string, string>) => {
       name: { matches: { pattern: searchParams.zoek } },
     });
   }
-  if (searchParams.expertise) {
-    Object.assign(filter, { expertises: { anyIn: searchParams.expertise } });
-  }
   if (searchParams.provincie) {
     Object.assign(filter, { provinces: { anyIn: searchParams.provincie } });
   }
@@ -45,7 +42,7 @@ export const loader = async (searchParams: Record<string, string>) => {
     Object.assign(filter, { employees: { eq: searchParams.omvang } });
   }
 
-  const { expertises, provinces, membersMeta, members } = await datocmsRequest<
+  const { provinces, membersMeta, members } = await datocmsRequest<
     MemberListQuery,
     MemberListQueryVariables
   >({
@@ -59,7 +56,6 @@ export const loader = async (searchParams: Record<string, string>) => {
   });
 
   return {
-    expertises,
     provinces,
     membersMeta,
     members,
@@ -118,20 +114,6 @@ export const MemberList = withQueryClientProvider(
           )}
           filters={({ onChange, values }) => (
             <>
-              <SelectField
-                name="expertise"
-                label={t('expertise')}
-                labelStyle="contain"
-                options={[
-                  { label: t('all'), value: '' },
-                  ...data.expertises.map((option) => ({
-                    label: option.name,
-                    value: option.id,
-                  })),
-                ]}
-                value={values.expertise}
-                onChange={(value) => onChange('expertise', value)}
-              />
               <SelectField
                 name="provincie"
                 label={t('province')}

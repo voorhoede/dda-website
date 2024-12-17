@@ -37,9 +37,6 @@ fragment MemberCard on MemberRecord {
   location
   employees
   slug
-  expertises {
-    name
-  }
   vacancies {
     id
   }

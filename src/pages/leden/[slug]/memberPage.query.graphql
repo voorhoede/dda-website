@@ -59,9 +59,6 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
     name
     slug
     website
-    expertises {
-      name
-    }
     vacancies {
       ...VacancyListItem
     }
