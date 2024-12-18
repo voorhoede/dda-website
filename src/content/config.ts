@@ -70,6 +70,25 @@ const vacancyLocations = defineCollection({
   },
 });
 
+const vacancyEmploymentTypes = defineCollection({
+  loader: async () => {
+    const vacancies = (await datocmsCollection({
+      collection: 'Vacancies',
+      fragment: vacancyListItemFragment,
+      fragmentName: 'VacancyListItem',
+    })) as VacancyListItemFragment[];
+
+    return [
+      ...new Set(
+        vacancies.map((vacancy) => ({
+          id: vacancy.employmentType.id,
+          label: vacancy.employmentType.name,
+        })),
+      ),
+    ];
+  },
+});
+
 const vacancyHours = defineCollection({
   loader: async () => {
     const vacancies = (await datocmsCollection({
@@ -114,6 +133,7 @@ export const collections = {
   vacancies,
   partners,
   vacancyLocations,
+  vacancyEmploymentTypes,
   vacancyHours,
   vacancyLanguages,
 };

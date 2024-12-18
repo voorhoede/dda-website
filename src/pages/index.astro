@@ -47,63 +47,46 @@ const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
 })) as PageUrl[];
+
+if (!page) {
+  return new Response(null, { status: 404 });
+}
 ---
 
-{
-  page ? (
-    <Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
-      <PreviewModeSubscription query={query} variables={variables} />
-      <PageHeader
-        title={page.header.title}
-        subtitle={page.header.subtitle}
-        spacious
+<Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
+  <PreviewModeSubscription query={query} variables={variables} />
+  <PageHeader
+    title={page.header.title}
+    subtitle={page.header.subtitle}
+    spacious
+  >
+    <Fragment slot="footer">
+      <Button as="a" icon="arrow-right" variant="large" href="/lid-worden/">
+        {page.becomeMemberCtaLabel}
+      </Button>
+      <Button
+        as="a"
+        height="narrow"
+        icon="arrow-right"
+        level="secondary"
+        variant="large"
+        href="/leden/"
       >
-        <Fragment slot="footer">
-          <Button as="a" icon="arrow-right" variant="large">
-            {page.becomeMemberCtaLabel}
-          </Button>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-          >
-            {page.findAgencyCtaLabel}
-          </Button>
-        </Fragment>
-      </PageHeader>
-      <Grid border={true}>
-        <Column span={12}>
-          <MemberParade server:defer />
-        </Column>
-      </Grid>
-      {events.length > 0 && (
-        <>
-          <TitleSection>
-            <TitleSectionContent>
-              <Tag>{page.eventsSectionLabel}</Tag>
-              <Heading level={2}>{page.eventsSectionTitle}</Heading>
-            </TitleSectionContent>
-            <TitleSectionFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="arrow-right"
-                level="secondary"
-                variant="large"
-              >
-                {page.eventsSectionCtaLabel}
-              </Button>
-            </TitleSectionFooter>
-          </TitleSection>
-          <EventsSection events={events} />
-        </>
-      )}
+        {page.findAgencyCtaLabel}
+      </Button>
+    </Fragment>
+  </PageHeader>
+  <Grid border={true}>
+    <Column span={12}>
+      <MemberParade server:defer />
+    </Column>
+  </Grid>
+  {events.length > 0 && (
+    <>
       <TitleSection>
         <TitleSectionContent>
-          <Tag>{page.vacanciesSectionLabel}</Tag>
-          <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+          <Tag>{page.eventsSectionLabel}</Tag>
+          <Heading level={2}>{page.eventsSectionTitle}</Heading>
         </TitleSectionContent>
         <TitleSectionFooter>
           <Button
@@ -112,44 +95,63 @@ const pageUrls = locales.map((locale) => ({
             icon="arrow-right"
             level="secondary"
             variant="large"
+            href="/events/"
           >
-            {page.vacanciesSectionCtaLabel}
+            {page.eventsSectionCtaLabel}
           </Button>
         </TitleSectionFooter>
       </TitleSection>
-      <HighlightedVacancies server:defer />
-      {publications.length > 0 && (
-        <>
-          <TitleSection>
-            <TitleSectionContent>
-              <Tag>{page.publicationsSectionLabel}</Tag>
-              <Heading level={2}>{page.publicationsSectionTitle}</Heading>
-            </TitleSectionContent>
-            <TitleSectionFooter>
-              <Button
-                as="a"
-                height="narrow"
-                icon="arrow-right"
-                level="secondary"
-                variant="large"
-              >
-                {page.publicationsSectionCtaLabel}
-              </Button>
-            </TitleSectionFooter>
-          </TitleSection>
-          <PublicationsSection publications={publications} />
-        </>
-      )}
-      <NewsLetterForm />
-      <CtaBanner server:defer message={page.ctaSectionMessage}>
-        <Heading level={2}>{page.ctaSectionTitle}</Heading>
-        <Button as="a" href="/word-lid" icon="arrow-right">
-          {page.ctaSectionCtaLabel}
-        </Button>
-      </CtaBanner>
-      <PartnerBanner />
-    </Layout>
-  ) : (
-    <p>Page not found</p>
-  )
-}
+      <EventsSection events={events} />
+    </>
+  )}
+  <TitleSection>
+    <TitleSectionContent>
+      <Tag>{page.vacanciesSectionLabel}</Tag>
+      <Heading level={2}>{page.vacanciesSectionTitle}</Heading>
+    </TitleSectionContent>
+    <TitleSectionFooter>
+      <Button
+        as="a"
+        height="narrow"
+        icon="arrow-right"
+        level="secondary"
+        variant="large"
+        href="/vacatures/"
+      >
+        {page.vacanciesSectionCtaLabel}
+      </Button>
+    </TitleSectionFooter>
+  </TitleSection>
+  <HighlightedVacancies server:defer />
+  {publications.length > 0 && (
+    <>
+      <TitleSection>
+        <TitleSectionContent>
+          <Tag>{page.publicationsSectionLabel}</Tag>
+          <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+        </TitleSectionContent>
+        <TitleSectionFooter>
+          <Button
+            as="a"
+            height="narrow"
+            icon="arrow-right"
+            level="secondary"
+            variant="large"
+            href="/publicaties/"
+          >
+            {page.publicationsSectionCtaLabel}
+          </Button>
+        </TitleSectionFooter>
+      </TitleSection>
+      <PublicationsSection publications={publications} />
+    </>
+  )}
+  <NewsLetterForm />
+  <CtaBanner server:defer message={page.ctaSectionMessage}>
+    <Heading level={2}>{page.ctaSectionTitle}</Heading>
+    <Button as="a" href="/lid-worden/" icon="arrow-right">
+      {page.ctaSectionCtaLabel}
+    </Button>
+  </CtaBanner>
+  <PartnerBanner />
+</Layout>

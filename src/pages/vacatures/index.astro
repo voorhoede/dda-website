@@ -16,27 +16,27 @@ const { page } = await datocmsRequest<VacanciesPageQuery>({
   query,
   variables: { locale },
 });
+
+if (!page) {
+  return new Response(null, { status: 404 });
+}
 ---
 
-{
-  page && (
-    <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
-      <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
-        <Fragment slot="header">
-          <Button
-            as="a"
-            href="../"
-            className="back-button"
-            level="tertiary"
-            icon="arrow-left"
-            iconPosition="left"
-          >
-            {t('back_to_home')}
-          </Button>
-        </Fragment>
-      </PageHeader>
+<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
+    <Fragment slot="header">
+      <Button
+        as="a"
+        href="../"
+        className="back-button"
+        level="tertiary"
+        icon="arrow-left"
+        iconPosition="left"
+      >
+        {t('back_to_home')}
+      </Button>
+    </Fragment>
+  </PageHeader>
 
-      <VacancyList />
-    </Layout>
-  )
-}
+  <VacancyList />
+</Layout>
