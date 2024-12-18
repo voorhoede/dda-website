@@ -30,17 +30,21 @@ export const loader = async (searchParams: Record<string, string>) => {
       title: { matches: { pattern: searchParams.zoek } },
     });
   }
-
-  if (searchParams.location) {
-    Object.assign(filter, { location: { eq: searchParams.location } });
+  
+  if (searchParams.dienstverband) {
+    Object.assign(filter, { employmentType: { eq: searchParams.dienstverband } });
   }
 
-  if (searchParams.hours) {
-    Object.assign(filter, { weeklyHours: { eq: searchParams.hours } });
+  if (searchParams.uren) {
+    Object.assign(filter, { weeklyHours: { eq: searchParams.uren } });
   }
 
-  if (searchParams.language) {
-    Object.assign(filter, { language: { eq: searchParams.language } });
+  if (searchParams.voertaal) {
+    Object.assign(filter, { language: { eq: searchParams.voertaal } });
+  }
+  
+  if (searchParams.locatie) {
+    Object.assign(filter, { location: { eq: searchParams.locatie } });
   }
 
   const { vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
@@ -60,6 +64,7 @@ export const loader = async (searchParams: Record<string, string>) => {
 
 type FilterValuesType = {
   locations: Awaited<ReturnType<typeof getCollection<'vacancyLocations'>>>;
+  employmentTypes: Awaited<ReturnType<typeof getCollection<'vacancyEmploymentTypes'>>>;
   hours: Awaited<ReturnType<typeof getCollection<'vacancyHours'>>>;
   languages: Awaited<ReturnType<typeof getCollection<'vacancyLanguages'>>>;
 };
@@ -128,8 +133,8 @@ export const VacancyList = withQueryClientProvider(
             filters={({ onChange, values }) => (
               <>
                 <SelectField
-                  name="location"
-                  label="Location"
+                  name="locatie"
+                  label={t('location')}
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -139,11 +144,25 @@ export const VacancyList = withQueryClientProvider(
                     })),
                   ]}
                   value={values.location}
-                  onChange={(value) => onChange('location', value)}
+                  onChange={(value) => onChange('locatie', value)}
                 />
                 <SelectField
-                  name="hour"
-                  label="Hours"
+                  name="dienstverband"
+                  label={ t('employment_type') }
+                  labelStyle="contain"
+                  options={[
+                    { label: t('all'), value: '' },
+                    ...filterValues.employmentTypes.map((hours) => ({
+                      label: hours.data.label,
+                      value: hours.id,
+                    })),
+                  ]}
+                  value={values.hour}
+                  onChange={(value) => onChange('dienstverband', value)}
+                />
+                <SelectField
+                  name="uren"
+                  label={t('hours')}
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -153,11 +172,11 @@ export const VacancyList = withQueryClientProvider(
                     })),
                   ]}
                   value={values.hour}
-                  onChange={(value) => onChange('hours', value)}
+                  onChange={(value) => onChange('uren', value)}
                 />
                 <SelectField
-                  name="language"
-                  label="Language"
+                  name="voertaal"
+                  label={ t('work_language') }
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -167,7 +186,7 @@ export const VacancyList = withQueryClientProvider(
                     })),
                   ]}
                   value={values.language}
-                  onChange={(value) => onChange('language', value)}
+                  onChange={(value) => onChange('voertaal', value)}
                 />
               </>
             )}

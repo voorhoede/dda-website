@@ -5,6 +5,10 @@ fragment VacancyListItem on VacancyRecord {
   id
   title
   language
+  employmentType {
+    id
+    name
+  }
   weeklyHours
   url
   location
