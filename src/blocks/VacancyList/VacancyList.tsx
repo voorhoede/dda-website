@@ -143,7 +143,7 @@ export const VacancyList = withQueryClientProvider(
                       value: location.id,
                     })),
                   ]}
-                  value={values.location}
+                  value={values.locatie}
                   onChange={(value) => onChange('locatie', value)}
                 />
                 <SelectField
@@ -157,7 +157,7 @@ export const VacancyList = withQueryClientProvider(
                       value: hours.id,
                     })),
                   ]}
-                  value={values.hour}
+                  value={values.dienstverband}
                   onChange={(value) => onChange('dienstverband', value)}
                 />
                 <SelectField
@@ -171,7 +171,7 @@ export const VacancyList = withQueryClientProvider(
                       value: hours.id,
                     })),
                   ]}
-                  value={values.hour}
+                  value={values.uren}
                   onChange={(value) => onChange('uren', value)}
                 />
                 <SelectField
@@ -185,7 +185,7 @@ export const VacancyList = withQueryClientProvider(
                       value: language.id,
                     })),
                   ]}
-                  value={values.language}
+                  value={values.voertaal}
                   onChange={(value) => onChange('voertaal', value)}
                 />
               </>

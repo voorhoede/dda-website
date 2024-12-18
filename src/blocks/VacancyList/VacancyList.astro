@@ -6,10 +6,11 @@ import { getDehydratedState } from '@lib/react-query';
 const searchParams = Astro.url.searchParams;
 const initialParams = {
   page: searchParams.get('page') ?? '1',
-  language: searchParams.get('voertaal') ?? '',
+  zoek: searchParams.get('zoek') ?? '',
+  voertaal: searchParams.get('voertaal') ?? '',
   dienstverband: searchParams.get('dienstverband') ?? '',
-  hours: searchParams.get('uren') ?? '',
-  location: searchParams.get('locatie') ?? '',
+  uren: searchParams.get('uren') ?? '',
+  locatie: searchParams.get('locatie') ?? '',
 };
 const initialUrl = Astro.url.href;
 const initialData = await loader(initialParams);
