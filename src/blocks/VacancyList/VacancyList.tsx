@@ -31,8 +31,8 @@ export const loader = async (searchParams: Record<string, string>) => {
     });
   }
   
-  if (searchParams.dienstverband) {
-    Object.assign(filter, { employmentType: { eq: searchParams.dienstverband } });
+  if (searchParams.soort) {
+    Object.assign(filter, { employmentType: { eq: searchParams.soort } });
   }
 
   if (searchParams.uren) {
@@ -123,7 +123,7 @@ export const VacancyList = withQueryClientProvider(
             search={({ onChange, values }) => (
               <TextField
                 name="zoek"
-                label="Search Vacancies"
+                label={t('search_vacancies')}
                 labelStyle="float"
                 value={values.zoek || ''}
                 onChange={(value) => onChange('zoek', value)}
@@ -147,8 +147,8 @@ export const VacancyList = withQueryClientProvider(
                   onChange={(value) => onChange('locatie', value)}
                 />
                 <SelectField
-                  name="dienstverband"
-                  label={ t('employment_type') }
+                  name="soort"
+                  label={ t('type') }
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -157,8 +157,8 @@ export const VacancyList = withQueryClientProvider(
                       value: hours.id,
                     })),
                   ]}
-                  value={values.dienstverband}
-                  onChange={(value) => onChange('dienstverband', value)}
+                  value={values.soort}
+                  onChange={(value) => onChange('soort', value)}
                 />
                 <SelectField
                   name="uren"
