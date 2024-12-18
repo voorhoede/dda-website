@@ -19,40 +19,40 @@ const { page, highlightedPublications } =
     query,
     variables: { locale },
   });
+
+if (!page) {
+  return new Response(null, { status: 404 });
+}
 ---
 
-{
-  page && (
-    <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
-      <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
-        <Fragment slot="header">
-          <Button
-            as="a"
-            href="../"
-            className="back-button"
-            level="tertiary"
-            icon="arrow-left"
-            iconPosition="left"
-          >
-            {t('back_to_home')}
-          </Button>
-        </Fragment>
-      </PageHeader>
-      <Grid border>
-        {highlightedPublications.map((publication) => (
-          <Column
-            key={publication.id}
-            span={{
-              mobile: 12,
-              tablet: 6,
-              desktop: 4,
-            }}
-          >
-            <PublicationCard publication={publication} />
-          </Column>
-        ))}
-      </Grid>
-      <PublicationList />
-    </Layout>
-  )
-}
+<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
+    <Fragment slot="header">
+      <Button
+        as="a"
+        href="../"
+        className="back-button"
+        level="tertiary"
+        icon="arrow-left"
+        iconPosition="left"
+      >
+        {t('back_to_home')}
+      </Button>
+    </Fragment>
+  </PageHeader>
+  <Grid border>
+    {highlightedPublications.map((publication) => (
+      <Column
+        key={publication.id}
+        span={{
+          mobile: 12,
+          tablet: 6,
+          desktop: 4,
+        }}
+      >
+        <PublicationCard publication={publication} />
+      </Column>
+    ))}
+  </Grid>
+  <PublicationList />
+</Layout>

@@ -20,7 +20,7 @@ const { page } = await datocmsRequest<MembersPageQuery>({
 });
 
 if (!page) {
-  return new Response(null, { status: 500 });
+  return new Response(null, { status: 404 });
 }
 ---
 
