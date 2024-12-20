@@ -17,9 +17,6 @@ export const MemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        {member.banner?.responsiveImage && (
-          <SRCImage data={member.banner.responsiveImage} />
-        )}
         {member.logo.responsiveImage && (
           <SRCImage
             data={
