@@ -38,6 +38,7 @@ export const CaseBlock = ({ block }: Props) => {
             icon="arrow-right"
             level="secondary"
             variant="large"
+            targetArea="parent"
           >
             {t("read_more_on_our_site")}
           </Button>

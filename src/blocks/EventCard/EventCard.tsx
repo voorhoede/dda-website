@@ -39,6 +39,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
           level="secondary"
           variant="large"
           href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
+          targetArea="parent"
         >
           {t('details')}
         </Button>
