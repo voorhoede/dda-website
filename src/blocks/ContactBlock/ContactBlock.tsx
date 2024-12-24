@@ -1,7 +1,7 @@
-import { t } from "@lib/i18n";
-import type { ContactBlockFragment } from "@lib/types/datocms";
+import { t } from '@lib/i18n';
+import type { ContactBlockFragment } from '@lib/types/datocms';
 
-import "./ContactBlock.css";
+import './ContactBlock.css';
 
 export interface Props {
   block: ContactBlockFragment;
@@ -10,9 +10,16 @@ export interface Props {
 export const ContactBlock = ({ block }: Props) => {
   return (
     <section>
-      <h3 className="a11y-sr-only">{ block.title }</h3>
+      <h3 className="a11y-sr-only">{block.title}</h3>
       <address className="contact-block">
-        <a className="text-semibold" href={block.website as string} aria-label={t('visit_agency_website', { agency: block.title })}>{block.title}</a>
+        <a
+          className="text-semibold"
+          href={block.website as string}
+          target="_blank"
+          aria-label={t('visit_agency_website', { agency: block.title })}
+        >
+          {block.title}
+        </a>
         <p className="contact-block__address">
           {block.streetAddress}
           <br />

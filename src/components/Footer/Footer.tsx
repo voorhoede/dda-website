@@ -11,7 +11,7 @@ export const Footer = () => {
 
   return (
     <Grid as="footer" className="footer" border={true}>
-      <Column span={{ mobile: 12, desktop: 6 }}>
+      <Column span={{ mobile: 12, desktop: 5 }}>
         <Link
           rel="home"
           href={`/${locale}/`}
@@ -53,7 +53,7 @@ export const Footer = () => {
         </ul>
       </Column>
       <Column
-        span={{ mobile: 12, tablet: 6, desktop: 3 }}
+        span={{ mobile: 12, tablet: 6, desktop: 4 }}
         className="footer__contact"
       >
         <address className="footer__address">
@@ -75,24 +75,31 @@ export const Footer = () => {
       <Column span={12} className="footer__bottom">
         <ul className="footer__socials">
           <li>
-            <Link href="https://www.instagram.com/dutchdigitalagencies/">
+            <Link
+              href="https://www.instagram.com/dutchdigitalagencies/"
+              target="_blank"
+            >
               Instagram
             </Link>
           </li>
           <li>
-            <Link href="https://www.facebook.com/dutchdigitalagencies">
+            <Link
+              href="https://www.facebook.com/dutchdigitalagencies"
+              target="_blank"
+            >
               Facebook
             </Link>
           </li>
           <li>
-            <Link href="https://www.linkedin.com/company/dutch-digital-agencies/">
+            <Link
+              href="https://www.linkedin.com/company/dutch-digital-agencies/"
+              target="_blank"
+            >
               Linkedin
             </Link>
           </li>
         </ul>
-        <Text className="footer__copyright">
-          Copyright &copy; 2023 Dutch Digital Agencies
-        </Text>
+        <Text className="footer__copyright">{t('copyright_disclaimer')}</Text>
       </Column>
     </Grid>
   );
