@@ -114,3 +114,9 @@
 .button.link {
   text-decoration: none;
 }
+
+.button--target-area-parent::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
