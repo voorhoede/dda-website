@@ -53,6 +53,7 @@ export const MemberCard = ({ member }: Props) => {
           icon="arrow-right"
           level="secondary"
           variant="large"
+          targetArea="parent"
         >
           {t('details')}
         </Button>

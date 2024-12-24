@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100%;
   padding: 24px;
+  position: relative;
 }
 
 @media (min-width: 768px) {
