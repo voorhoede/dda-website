@@ -1,23 +1,31 @@
 @font-face {
-  src: url('/fonts/Archivo-Regular.ttf') format('truetype');
-  font-family: 'Archivo';
+  font-family: "Archivo";
+  src:
+    url("/fonts/Archivo-Regular.woff2") format("woff2"),
+    url("/fonts/Archivo-Regular.woff") format("woff");
 }
 
 @font-face {
-  src: url('/fonts/Archivo-SemiBold.ttf') format('truetype');
-  font-family: 'Archivo';
+  font-family: "Archivo";
   font-weight: 600;
+  src:
+    url("/fonts/Archivo-SemiBold.woff2") format("woff2"),
+    url("/fonts/Archivo-SemiBold.woff") format("woff");
 }
 
 @font-face {
-  src: url('/fonts/MartianMono-Regular.ttf') format('truetype');
-  font-family: 'MartianMono';
+  font-family: "MartianMono";
+  src:
+    url("/fonts/MartianMono-Regular.woff2") format("woff2"),
+    url("/fonts/MartianMono-Regular.woff") format("woff");
 }
 
 @font-face {
-  src: url('/fonts/MartianMono-Light.ttf') format('truetype');
-  font-family: 'MartianMono';
+  font-family: "MartianMono";
   font-weight: 300;
+  src:
+    url("/fonts/MartianMono-Light.woff2") format("woff2"),
+    url("/fonts/MartianMono-Light.woff") format("woff");
 }
 
 :root {
@@ -81,32 +89,32 @@ h6 {
     font-size: 1.125rem;
     line-height: 2rem;
   }
-  
+
   h1 {
     font-size: 6rem;
     line-height: 6rem;
   }
-  
+
   h2 {
     font-size: 4rem;
     line-height: 4rem;
   }
-  
+
   h3 {
     font-size: 3rem;
     line-height: 3rem;
   }
-  
+
   h4 {
     font-size: 2rem;
     line-height: 2.5rem;
   }
-  
+
   h5 {
     font-size: 1.25rem;
     line-height: 2.5rem;
   }
-  
+
   h6 {
     font-size: 1.25rem;
     line-height: 2.5rem;
