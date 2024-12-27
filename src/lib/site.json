@@ -1,0 +1,239 @@
+{
+  "id": "144536",
+  "type": "site",
+  "name": "Dutch Digital Agencies",
+  "theme": {
+    "logo": null,
+    "type": "custom",
+    "darkColor": {
+      "red": 42,
+      "blue": 54,
+      "alpha": 255,
+      "green": 0
+    },
+    "lightColor": {
+      "red": 235,
+      "blue": 235,
+      "alpha": 255,
+      "green": 234
+    },
+    "accentColor": {
+      "red": 54,
+      "blue": 247,
+      "alpha": 255,
+      "green": 75
+    },
+    "primaryColor": {
+      "red": 2,
+      "blue": 2,
+      "alpha": 255,
+      "green": 2
+    },
+    "hue": null
+  },
+  "imgixHost": "www.datocms-assets.com",
+  "domain": null,
+  "internalDomain": "dda-website.admin.datocms.com",
+  "locales": [
+    "nl"
+  ],
+  "lastDataChangeAt": "2024-12-24T13:31:35.907Z",
+  "googleMapsApiToken": "AIzaSyDMMrHWNDFFrsj-MYvM0ScFmkzA1YmgsAo",
+  "globalSeo": {
+    "siteName": "Dutch Digital Agencies",
+    "fallbackSeo": {
+      "title": "Dutch Digital Agencies",
+      "description": "Dutch Digital Agencies is de branchevereniging voor de beste verslimmers uit de Nederlandse digitale industrie.",
+      "image": null,
+      "twitterCard": "summary_large_image",
+      "noIndex": null
+    },
+    "titleSuffix": " - Dutch Digital Agencies",
+    "twitterAccount": null,
+    "facebookPageUrl": ""
+  },
+  "favicon": "fRA3riG7ScCVfLBENOL5aw",
+  "noIndex": false,
+  "timezone": "Europe/Amsterdam",
+  "require_2fa": false,
+  "ipTrackingEnabled": true,
+  "forceUseOfSandboxEnvironments": false,
+  "assetsCdnDefaultSettings": {
+    "image": {
+      "auto": [
+        "format"
+      ]
+    },
+    "video": {
+      "disableServingRawVideos": true
+    }
+  },
+  "account": null,
+  "owner": {
+    "id": "629354",
+    "type": "organization"
+  },
+  "itemTypes": [
+    {
+      "id": "AWOhQlrVRK-r09nRy0PPFw",
+      "type": "item_type"
+    },
+    {
+      "id": "H5jzGHegTs2j6hDY_eO9Sg",
+      "type": "item_type"
+    },
+    {
+      "id": "Np0If4eoTeq724l05tv1AA",
+      "type": "item_type"
+    },
+    {
+      "id": "PAk40zGjQJCcDXXPgygUrA",
+      "type": "item_type"
+    },
+    {
+      "id": "T5DMLHeUTF2ub3p2Wx-CBw",
+      "type": "item_type"
+    },
+    {
+      "id": "VZvVfu52RZK81WG0Dxp-FQ",
+      "type": "item_type"
+    },
+    {
+      "id": "WywlzYXpSVWFQIeeNk3iMw",
+      "type": "item_type"
+    },
+    {
+      "id": "YFPp0Gm6Tdq8KePwcfTEkA",
+      "type": "item_type"
+    },
+    {
+      "id": "ZdBokLsWRgKKjHrKeJzdpw",
+      "type": "item_type"
+    },
+    {
+      "id": "c0S4sIyiRK-EewRhFEFPLA",
+      "type": "item_type"
+    },
+    {
+      "id": "gezG9nO7SfaiWcWnp-HNqw",
+      "type": "item_type"
+    },
+    {
+      "id": "0SxYNS2CR1it_5LHYWuEQg",
+      "type": "item_type"
+    },
+    {
+      "id": "ByoMKdCkSp6T10UjQm26wg",
+      "type": "item_type"
+    },
+    {
+      "id": "Bc_RFLXqQDG5Eb0SJblw5Q",
+      "type": "item_type"
+    },
+    {
+      "id": "WsNJp5eaRz2-QZserzWOTw",
+      "type": "item_type"
+    },
+    {
+      "id": "Ww4h9Q92Td6NzvxQHI6KUg",
+      "type": "item_type"
+    },
+    {
+      "id": "SQB-0a-eRKK4dOSmxN7LIw",
+      "type": "item_type"
+    },
+    {
+      "id": "Hwfbdgu_TMqmzK2i0-xmXg",
+      "type": "item_type"
+    },
+    {
+      "id": "Q04RdQnVQw-xei_UK8GzjA",
+      "type": "item_type"
+    },
+    {
+      "id": "BdrPCTMrRGWPtEqBP0nSYg",
+      "type": "item_type"
+    },
+    {
+      "id": "UllaGfcETuK2MTg4FIMw3w",
+      "type": "item_type"
+    },
+    {
+      "id": "AvM1EYonTfqynDlXSGmGjw",
+      "type": "item_type"
+    },
+    {
+      "id": "AVYmi04HRvyHIEjyxDgF8A",
+      "type": "item_type"
+    },
+    {
+      "id": "DIB1XvrHTH2pOK8tMn6p8Q",
+      "type": "item_type"
+    },
+    {
+      "id": "CvaytqzTRs-iu_Rcur5ZLQ",
+      "type": "item_type"
+    },
+    {
+      "id": "Rr331K1ORGa_w85NKCWbYA",
+      "type": "item_type"
+    },
+    {
+      "id": "Q82PkA7iSR2bSjgonqs5MA",
+      "type": "item_type"
+    },
+    {
+      "id": "Jf1MPr7fQTeckmDNiSXsDA",
+      "type": "item_type"
+    },
+    {
+      "id": "DeDj7UUbQfenkwHbs4jLew",
+      "type": "item_type"
+    },
+    {
+      "id": "FseXjiLFRp2WTVndi1DhxA",
+      "type": "item_type"
+    },
+    {
+      "id": "E5AOJFyISyqeM2QwrlQ37g",
+      "type": "item_type"
+    },
+    {
+      "id": "HqRofhCbQKGKdMNb7eawoQ",
+      "type": "item_type"
+    },
+    {
+      "id": "AUh1SEj_Tz2rbRMfJ2RfrQ",
+      "type": "item_type"
+    },
+    {
+      "id": "ObRBP1yLTLqHcxQYa36y1A",
+      "type": "item_type"
+    },
+    {
+      "id": "LTc2CSpLS5eDuCUIbvANSg",
+      "type": "item_type"
+    },
+    {
+      "id": "QkO8R_TgQvaOTwICv_me_A",
+      "type": "item_type"
+    },
+    {
+      "id": "MBKAE-oATMCeIE8oMGeO8g",
+      "type": "item_type"
+    },
+    {
+      "id": "YJ7iUPfTR6WBHjePqpFkBw",
+      "type": "item_type"
+    }
+  ],
+  "meta": {
+    "createdAt": "2024-10-28T07:35:03.506Z",
+    "improvedTimezoneManagement": true,
+    "improvedHexManagement": true,
+    "improvedGqlMultilocaleFields": true,
+    "improvedGqlVisibilityControl": true,
+    "improvedBooleanFields": true,
+    "customUploadStorageSettings": false
+  }
+}

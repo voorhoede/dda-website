@@ -1,0 +1,1 @@
+export type IconName = 'arrow-left' | 'arrow-right' | 'arrow-up-right' | 'burger' | 'chevron-down' | 'close' | 'external' | 'loading' | 'minus' | 'play' | 'plus' | 'share' | 'twitter';

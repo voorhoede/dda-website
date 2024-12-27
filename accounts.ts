@@ -7,17 +7,17 @@ const client = buildClient({
   logLevel: LogLevel.BASIC,
 });
 
-if (import.meta.main) {
-  const accountsCsv = await Deno.readTextFile('./accounts.csv', {});
-  const accountsData = parseCsv(
-    accountsCsv,
-    { skipFirstRow: true },
-  );
+// if (import.meta.main) {
+//   const accountsCsv = await Deno.readTextFile('./accounts.csv', {});
+//   const accountsData = parseCsv(
+//     accountsCsv,
+//     { skipFirstRow: true },
+//   );
 
-  for (const account of accountsData) {
-    await inviteEditor(account.Email);
-  }
-}
+//   for (const account of accountsData) {
+//     await inviteEditor(account.Email);
+//   }
+// }
 
 function inviteEditor(email: string) {
   const MEMBER_ROLE_ID = '301184';
