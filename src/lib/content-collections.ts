@@ -13,5 +13,8 @@ export const getRandomItems = async <T>(
 };
 
 export const fillArray = <T>(array: T[], count: number): T[] => {
+  if (array.length >= count) {
+    return array;
+  }
   return [...array, ...Array(count - array.length).fill(null)];
 };
