@@ -47,8 +47,6 @@ export const TextField = ({
     }
   };
   
-  console.log(className)
-
   return (
     <Field className={clsx('text-field', className)}>
       <Label

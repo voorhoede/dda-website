@@ -93,7 +93,7 @@ export const EventList = withQueryClientProvider(
     initialParams,
     initialUrl
   }: QueryClientProviderComponentProps & Props) => {
-    const filterRef = useRef<HTMLFormElement>(null);
+    const filterRef = useRef<HTMLElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -165,19 +165,19 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        <DataList className="container-padding-x container-padding-y">
+        <DataList ref={showFilter ? null : filterRef} className="container-padding-x container-padding-y">
           {data.events.map((event) => (
             <DataListItem key={event.id}>
               <div>
-                <Tag>{event.theme?.name}</Tag>
+                {event.theme?.name && <Tag>{event.theme?.name}</Tag>}
               </div>
               <Heading displayLevel={4} level={3}>
                 {event.title}
               </Heading>
               <DataListItemFooter>
                 <Text variant="subtext">
-                  <time dateTime={event.date}>{formatDate(event.date)}</time> /{' '}
-                  {event.location}
+                  <time dateTime={event.date}>{formatDate(event.date)}</time>
+                  {event.location && ` / ${event.location}`}
                 </Text>
                 <Button
                   as="a"
