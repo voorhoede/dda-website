@@ -17,7 +17,7 @@ export const PartnerBanner = ({
         <Heading displayLevel={4} level={2}>
           {t('become_a_partner_cta_body')}
         </Heading>
-        <Button icon="arrow-right">{t('become_a_partner_cta_label')}</Button>
+        <Button as="a" icon="arrow-right" href="mailto:info@dutchdigitalagencies.com">{t('become_a_partner_cta_label')}</Button>
       </div>
       {partners.length >= 8 && (
         <ImageParade direction="right">
