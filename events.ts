@@ -16,7 +16,7 @@ import { withHttps } from "npm:ufo";
 
 const client = buildClient({
   apiToken: Deno.env.get("DATOCMS_API_TOKEN")!,
-  environment: "events-import",
+  environment: "main",
   logLevel: LogLevel.BASIC,
 });
 
