@@ -46,8 +46,6 @@ export const TextField = ({
       onChange(newValue);
     }
   };
-  
-  console.log(className)
 
   return (
     <Field className={clsx('text-field', className)}>

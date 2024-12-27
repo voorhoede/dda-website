@@ -89,10 +89,14 @@ export const datocmsCollection = async <CollectionType>({
   collection,
   fragment,
   fragmentName,
+  filter,
+  orderBy,
 }: {
   collection: string;
   fragment: string;
   fragmentName: string;
+  filter?: Record<string, unknown>;
+  orderBy?: string;
 }) => {
   const { meta } = (await datocmsRequest({
     query: parse(/* graphql */ `
@@ -105,20 +109,27 @@ export const datocmsCollection = async <CollectionType>({
   const recordsPerPage = 100; // DatoCMS GraphQL API has a limit of 100 records per request
   const totalPages = Math.ceil(meta.count / recordsPerPage);
   const records: CollectionType[] = [];
+  const singularCollectionName = collection.slice(0, -1);
 
   for (let page = 0; page < totalPages; page++) {
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
         ${fragment}
-        query All${collection} {
+        query All${collection}($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy]) {
           ${collection}: all${collection} (
              first: ${recordsPerPage},
-             skip: ${page * recordsPerPage}
+             skip: ${page * recordsPerPage},
+             filter: $filter,
+             orderBy: $orderBy
           ) {
             ...${fragmentName}
           }
         }
       `),
+      variables: {
+        filter,
+        orderBy,
+      },
     })) as CollectionData<CollectionType>;
 
     records.push(...data[collection]);
