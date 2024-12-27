@@ -14,4 +14,7 @@ fragment PartnerLogo on PartnerRecord {
       sizes
     }
   }
+  page {
+    slug
+  }
 }
