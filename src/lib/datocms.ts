@@ -112,10 +112,15 @@ export const datocmsCollection = async <CollectionType>({
   const singularCollectionName = collection.slice(0, -1);
 
   for (let page = 0; page < totalPages; page++) {
+    const parameters =
+      filter || orderBy
+        ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
+        : '';
+
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
         ${fragment}
-        query All${collection}($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy]) {
+        query All${collection} ${parameters} {
           ${collection}: all${collection} (
              first: ${recordsPerPage},
              skip: ${page * recordsPerPage},
