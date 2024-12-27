@@ -26,7 +26,7 @@ interface ListFormProps {
   }) => React.ReactNode;
 }
 
-export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
+export const ListForm = forwardRef<HTMLElement, ListFormProps>(
   ({ className, initialValues, onChange, search, filters }, ref) => {
     const [values, setValues] = useState<FormData>(initialValues);
 
@@ -56,7 +56,7 @@ export const ListForm = forwardRef<HTMLFormElement, ListFormProps>(
 
     return (
       <form
-        ref={ref}
+        ref={ref as React.RefObject<HTMLFormElement>}
         className={clsx('list-form', className)}
         onSubmit={handleSubmit}
       >

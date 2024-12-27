@@ -18,7 +18,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
       )}
       <CardContent>
         <TagList>
-          <Tag>{event.theme?.name}</Tag>
+          {event.theme?.name && <Tag>{event.theme?.name}</Tag>}
         </TagList>
         {(event.date || event.location) && (
           <Text variant="subtext">
