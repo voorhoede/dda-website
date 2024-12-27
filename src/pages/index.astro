@@ -82,27 +82,29 @@ if (!page) {
     </Column>
   </Grid>
   {events.length > 0 && (
-    <>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.eventsSectionLabel}</Tag>
-          <Heading level={2}>{page.eventsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-            href="/events/"
-          >
-            {page.eventsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <EventsSection events={events} />
-    </>
+    <Grid as="section" border={true}>
+      <Column span={12}>
+        <TitleSection>
+          <TitleSectionContent>
+            <Tag>{page.eventsSectionLabel}</Tag>
+            <Heading level={2}>{page.eventsSectionTitle}</Heading>
+          </TitleSectionContent>
+          <TitleSectionFooter>
+            <Button
+              as="a"
+              height="narrow"
+              icon="arrow-right"
+              level="secondary"
+              variant="large"
+              href="/events/"
+            >
+              {page.eventsSectionCtaLabel}
+            </Button>
+          </TitleSectionFooter>
+        </TitleSection>
+        <EventsSection events={events} />
+      </Column>
+    </Grid>
   )}
   <TitleSection>
     <TitleSectionContent>
@@ -124,27 +126,29 @@ if (!page) {
   </TitleSection>
   <HighlightedVacancies server:defer />
   {publications.length > 0 && (
-    <>
-      <TitleSection>
-        <TitleSectionContent>
-          <Tag>{page.publicationsSectionLabel}</Tag>
-          <Heading level={2}>{page.publicationsSectionTitle}</Heading>
-        </TitleSectionContent>
-        <TitleSectionFooter>
-          <Button
-            as="a"
-            height="narrow"
-            icon="arrow-right"
-            level="secondary"
-            variant="large"
-            href="/publicaties/"
-          >
-            {page.publicationsSectionCtaLabel}
-          </Button>
-        </TitleSectionFooter>
-      </TitleSection>
-      <PublicationsSection publications={publications} />
-    </>
+    <Grid as="section" border={true}>
+      <Column span={12}>
+        <TitleSection>
+          <TitleSectionContent>
+            <Tag>{page.publicationsSectionLabel}</Tag>
+            <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+          </TitleSectionContent>
+          <TitleSectionFooter>
+            <Button
+              as="a"
+              height="narrow"
+              icon="arrow-right"
+              level="secondary"
+              variant="large"
+              href="/publicaties/"
+            >
+              {page.publicationsSectionCtaLabel}
+            </Button>
+          </TitleSectionFooter>
+        </TitleSection>
+        <PublicationsSection publications={publications} />
+      </Column>
+    </Grid>
   )}
   <NewsLetterForm />
   <CtaBanner server:defer message={page.ctaSectionMessage}>

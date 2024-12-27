@@ -60,14 +60,14 @@ export const SelectField = ({
               ? label
               : selectedOption
                 ? options.find((option) => option.value === selectedOption)
-                    ?.label
+                  ?.label
                 : ''}
           </Text>
 
-          <div className="select-button__icon ">
+          <span className="select-button__icon ">
             <Icon className="select-button__icon--open" name="plus" />
             <Icon className="select-button__icon--close" name="minus" />
-          </div>
+          </span>
         </ListboxButton>
         <ListboxOptions anchor="bottom start" className="select-options">
           {options.map((option) => (

@@ -23,7 +23,7 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
   const renderAsList = events.length >= 4;
 
   return (
-    <Grid as="section" border={true}>
+    <Grid border={true}>
       {renderAsList ? (
         <>
           <Column

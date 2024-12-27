@@ -61,6 +61,7 @@
     "hls.js": "^1.5.2",
     "html-validate": "^8.7.4",
     "jiti": "^1.20.0",
+    "libphonenumber-js": "^1.11.17",
     "nanostores": "^0.9.5",
     "oembed-providers": "^1.0.20230906",
     "promise-all-props": "^3.0.0",
