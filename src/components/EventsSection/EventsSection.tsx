@@ -40,7 +40,7 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
               {events.slice(1).map((event) => (
                 <DataListItem key={event.id}>
                   <div>
-                    <Tag>{event.theme?.name}</Tag>
+                    {event.theme?.name && <Tag>{event.theme.name}</Tag>}
                   </div>
                   <Heading displayLevel={4} level={3}>
                     {event.title}
@@ -49,8 +49,8 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
                     <Text variant="subtext">
                       <time dateTime={event.date}>
                         {formatDate(event.date)}
-                      </time>{' '}
-                      / {event.location}
+                      </time>
+                      {event.location && ` / ${event.location}`}
                     </Text>
                     <Button
                       as="a"

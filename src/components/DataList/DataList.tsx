@@ -3,11 +3,11 @@ import clsx from 'clsx';
 import './DataList.css';
 
 export const DataList = forwardRef<
-  HTMLUListElement,
+  HTMLElement,
   PropsWithChildren<HTMLAttributes<HTMLUListElement>>
 >(({ children, className, ...rest }, ref) => {
   return (
-    <ul ref={ref} className={clsx('data-list', className)} {...rest}>
+    <ul ref={ref as React.RefObject<HTMLUListElement>} className={clsx('data-list', className)} {...rest}>
       {children}
     </ul>
   );
