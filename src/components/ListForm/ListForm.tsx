@@ -2,6 +2,8 @@ import { useState, type FormEvent, forwardRef, useCallback } from 'react';
 import debounce from 'debounce';
 import './ListForm.css';
 import clsx from 'clsx';
+import { t } from '@lib/i18n';
+import { Button } from '@components/Button';
 
 type OnChange = (name: string, value: string) => void;
 type FormData = Record<string, string>;
@@ -32,6 +34,10 @@ export const ListForm = forwardRef<HTMLElement, ListFormProps>(
 
     const debouncedOnChange = useCallback(debounce(onChange, 500), [onChange]);
 
+    const shouldShowResetButton = Object.entries(values).some(
+      ([key, value]) => key !== 'page' && value !== '',
+    );
+
     const handleSearchChange: OnChange = (name: string, value: string) => {
       const updatedFormData = { ...values, [name]: value };
 
@@ -54,17 +60,35 @@ export const ListForm = forwardRef<HTMLElement, ListFormProps>(
       event.preventDefault();
     };
 
+    const handleReset = () => {
+      const emptyValues = Object.keys(initialValues).reduce((acc, key) => {
+        acc[key] = '';
+
+        return acc;
+      }, {} as FormData);
+
+      setValues(emptyValues);
+      onChange(emptyValues);
+    };
+
     return (
       <form
         ref={ref as React.RefObject<HTMLFormElement>}
         className={clsx('list-form', className)}
         onSubmit={handleSubmit}
+        key={JSON.stringify(values)}
       >
         <div className="list-form__search">
           {search({ onChange: handleSearchChange, values })}
         </div>
 
         <div className="list-form__filters">
+          {shouldShowResetButton && (
+            <Button icon="reset" onClick={handleReset}>
+              {t('reset')}
+            </Button>
+          )}
+
           {filters({ onChange: handleFilterChange, values })}
         </div>
       </form>
