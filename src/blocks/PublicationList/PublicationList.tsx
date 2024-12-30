@@ -144,7 +144,7 @@ export const PublicationList = withQueryClientProvider(
           />
         </Column>
         <Column span={12}>
-          <DataList ref={listRef} className="container-padding-x container-padding-y">
+          <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>

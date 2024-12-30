@@ -165,7 +165,7 @@ export const MemberList = withQueryClientProvider(
             </>
           )}
         />
-        <Grid as="ul" ref={listRef} border={true} className="member-list">
+        <Grid as="ul" ref={listRef} aria-live="polite" border={true} className="member-list">
           {data.members.map((member) => (
             <Column
               key={member.id}

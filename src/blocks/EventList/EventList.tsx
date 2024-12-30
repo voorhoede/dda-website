@@ -174,7 +174,7 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        <DataList ref={listRef} className="container-padding-x container-padding-y">
+        <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
           {data.events.map((event) => (
             <DataListItem key={event.id}>
               <div>

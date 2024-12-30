@@ -203,7 +203,7 @@ export const VacancyList = withQueryClientProvider(
         <Column span={12}>
           <Grid>
             <Column span={12}>
-              <VacancyDataList ref={dataListRef} vacancies={data.vacancies} />
+              <VacancyDataList ref={dataListRef} aria-live="polite" vacancies={data.vacancies} />
             </Column>
             <Column
               span={12}
