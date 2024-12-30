@@ -67,15 +67,8 @@
   border: 1px solid transparent;
 }
 
-.select-options__option:hover {
-  color: var(--color-blue);
-}
-
 .select-options__option[data-focus] {
-  border-style: dashed;
-  border-color: var(--color-black);
-  outline: none;
-  background-color: var(--color-yellow);
+  color: var(--color-blue);
 }
 
 .select-options__option[data-selected] {
