@@ -17,7 +17,13 @@ export const PartnerBanner = ({
         <Heading displayLevel={4} level={2}>
           {t('become_a_partner_cta_body')}
         </Heading>
-        <Button as="a" icon="arrow-right" href="mailto:info@dutchdigitalagencies.com">{t('become_a_partner_cta_label')}</Button>
+        <Button
+          as="a"
+          icon="arrow-right"
+          href="mailto:info@dutchdigitalagencies.com"
+        >
+          {t('become_a_partner_cta_label')}
+        </Button>
       </div>
       {partners.length >= 8 && (
         <ImageParade direction="right">
@@ -25,7 +31,10 @@ export const PartnerBanner = ({
             (partner) =>
               partner.logo.responsiveImage && (
                 <ImageParadeItem key={partner.logo.id}>
-                  <a href={`/${partner.page?.slug}/`}>
+                  <a
+                    href={`/${partner.page?.slug}/`}
+                    className="partner-banner__logo"
+                  >
                     <SRCImage
                       data={partner.logo.responsiveImage}
                       // disable placeholder for logo
