@@ -67,8 +67,8 @@ export const ListForm = forwardRef<HTMLElement, ListFormProps>(
         return acc;
       }, {} as FormData);
 
-      setValues(emptyValues);
       onChange(emptyValues);
+      setValues(emptyValues);
     };
 
     return (
@@ -76,13 +76,12 @@ export const ListForm = forwardRef<HTMLElement, ListFormProps>(
         ref={ref as React.RefObject<HTMLFormElement>}
         className={clsx('list-form', className)}
         onSubmit={handleSubmit}
-        key={JSON.stringify(values)}
       >
         <div className="list-form__search">
           {search({ onChange: handleSearchChange, values })}
         </div>
 
-        <div className="list-form__filters">
+        <div className="list-form__filters" key={JSON.stringify(values)}>
           {shouldShowResetButton && (
             <Button icon="reset" onClick={handleReset}>
               {t('reset')}
