@@ -133,8 +133,8 @@ export const datocmsCollection = async <CollectionType>({
           ${collection}: all${collection} (
              first: ${recordsPerPage},
              skip: ${page * recordsPerPage},
-             filter: $filter,
-             orderBy: $orderBy
+             ${filter ? 'filter: $filter,' : ''}
+             ${orderBy ? 'orderBy: $orderBy,' : ''}
           ) {
             ...${fragmentName}
           }
