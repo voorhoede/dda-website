@@ -94,6 +94,7 @@ export const EventList = withQueryClientProvider(
     initialUrl
   }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLElement>(null);
+    const listRef = useRef<HTMLElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -111,6 +112,10 @@ export const EventList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
+      
+      if(listRef.current) {
+        listRef.current.focus();
+      }
     };
 
     const updatePage = (page: number) => {
@@ -120,6 +125,10 @@ export const EventList = withQueryClientProvider(
         filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
+      }
+      
+      if(listRef.current) {
+        listRef.current.focus();
       }
     };
     
@@ -165,7 +174,7 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        <DataList ref={showFilter ? null : filterRef} className="container-padding-x container-padding-y">
+        <DataList ref={listRef} className="container-padding-x container-padding-y">
           {data.events.map((event) => (
             <DataListItem key={event.id}>
               <div>

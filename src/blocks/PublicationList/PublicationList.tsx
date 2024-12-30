@@ -62,6 +62,7 @@ export const loader = async (searchParams: Record<string, string>) => {
 export const PublicationList = withQueryClientProvider(
   ({ initialParams, initialUrl }: QueryClientProviderComponentProps) => {
     const filterRef = useRef<HTMLFormElement>(null);
+    const listRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -78,6 +79,10 @@ export const PublicationList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
+      
+      if(listRef.current) {
+        listRef.current.focus();
+      }
     };
 
     const updatePage = (page: number) => {
@@ -87,6 +92,10 @@ export const PublicationList = withQueryClientProvider(
         filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
+      }
+      
+      if(listRef.current) {
+        listRef.current.focus();
       }
     };
 
@@ -135,7 +144,7 @@ export const PublicationList = withQueryClientProvider(
           />
         </Column>
         <Column span={12}>
-          <DataList className="container-padding-x container-padding-y">
+          <DataList ref={listRef} className="container-padding-x container-padding-y">
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>
