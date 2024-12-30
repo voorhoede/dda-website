@@ -5,7 +5,8 @@ import sitemap from '@astrojs/sitemap';
 import { isPreview } from './config/preview';
 import pkg from './package.json';
 
-import react from '@astrojs/react';
+// import react from '@astrojs/react';
+import preact from '@astrojs/preact';
 
 const productionUrl = `https://${pkg.name}.pages.dev`; // overwrite if you have a custom domain
 const localhostPort = 4323; // 4323 is "head" in T9
@@ -61,13 +62,29 @@ export default defineConfig({
     // @see https://docs.astro.build/en/guides/images/#configure-no-op-passthrough-service
     service: passthroughImageService(),
   },
-  integrations: [sitemap(), react()],
+  integrations: [
+    sitemap(),
+    preact({
+      compat: true,
+    }),
+  ],
   output: 'server',
   server: { port: localhostPort },
   site: siteUrl,
   trailingSlash: 'always',
   vite: {
     plugins: [graphql()],
+    ssr: {
+      noExternal: [
+        '@tanstack/react-query',
+        'react-focus-on',
+        'react-datocms',
+        // @headlessui/react related dependencies
+        '@headlessui/react',
+        '@floating-ui/*',
+        '@react-aria/*',
+      ],
+    },
   },
   devToolbar: {
     enabled: false,
