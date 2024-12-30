@@ -83,7 +83,7 @@ export const ListForm = forwardRef<HTMLElement, ListFormProps>(
 
         <div className="list-form__filters" key={JSON.stringify(values)}>
           {shouldShowResetButton && (
-            <Button icon="reset" onClick={handleReset}>
+            <Button type="reset" icon="reset" onClick={handleReset}>
               {t('reset')}
             </Button>
           )}
