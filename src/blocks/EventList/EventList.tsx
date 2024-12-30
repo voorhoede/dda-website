@@ -50,6 +50,7 @@ export const loader = async ({
       title: { matches: { pattern: searchParams.zoek } },
     });
   }
+
   if (searchParams.thema) {
     Object.assign(filter, { theme: { eq: searchParams.thema } });
   }
@@ -91,7 +92,7 @@ export const EventList = withQueryClientProvider(
     fixedFilters,
     initialData,
     initialParams,
-    initialUrl
+    initialUrl,
   }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLElement>(null);
     const listRef = useRef<HTMLElement>(null);
@@ -131,11 +132,11 @@ export const EventList = withQueryClientProvider(
         listRef.current.focus();
       }
     };
-    
+
     if (!data) {
       return null;
     }
-    
+
     return (
       <>
         {showFilter && (
@@ -167,7 +168,7 @@ export const EventList = withQueryClientProvider(
                     })),
                   ]}
                   value={values.omvang}
-                  onChange={(value) => onChange('omvang', value)}
+                  onChange={(value) => onChange('thema', value)}
                 />
               </>
             )}
@@ -177,9 +178,7 @@ export const EventList = withQueryClientProvider(
         <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
           {data.events.map((event) => (
             <DataListItem key={event.id}>
-              <div>
-                {event.theme?.name && <Tag>{event.theme?.name}</Tag>}
-              </div>
+              <div>{event.theme?.name && <Tag>{event.theme?.name}</Tag>}</div>
               <Heading displayLevel={4} level={3}>
                 {event.title}
               </Heading>
@@ -194,7 +193,11 @@ export const EventList = withQueryClientProvider(
                   icon="arrow-right"
                   level="secondary"
                   variant="large"
-                  href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
+                  href={
+                    event.details.__typename === 'ExternalEventRecord'
+                      ? event.details.link
+                      : `./${event.details.slug}/`
+                  }
                   targetArea="parent"
                 >
                   {t('details')}

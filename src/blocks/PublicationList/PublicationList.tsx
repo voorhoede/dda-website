@@ -134,7 +134,7 @@ export const PublicationList = withQueryClientProvider(
                       value: '',
                     },
                     ...data.tags.map((tag) => ({
-                      label: tag.label,
+                      label: tag.name || '',
                       value: tag.id,
                     })),
                   ]}

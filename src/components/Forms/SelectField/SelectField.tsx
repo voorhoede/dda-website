@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import {
   Field,
   Label,
@@ -8,8 +6,9 @@ import {
   ListboxOption,
   ListboxOptions,
 } from '@headlessui/react';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
-import { Text } from '@components/Text';
 import { Icon } from '@components/Icon';
 
 import './SelectField.css';
@@ -48,22 +47,25 @@ export const SelectField = ({
     }
   };
 
+  const selectedLabel = selectedOption
+    ? options.find((option) => option.value === selectedOption)?.label
+    : '';
+  const hasSelectedValue = selectedLabel !== '';
+
+  const displayLabel = selectedLabel || label;
+
   return (
     <Field>
       <Label className={clsx({ 'a11y-sr-only': labelStyle === 'contain' })}>
         {label}
       </Label>
       <Listbox name={name} value={selectedOption} onChange={handleChange}>
-        <ListboxButton className="select-button">
-          <Text as="span" variant="subtext" className="select-button__label">
-            {labelStyle === 'contain'
-              ? label
-              : selectedOption
-                ? options.find((option) => option.value === selectedOption)
-                  ?.label
-                : ''}
-          </Text>
-
+        <ListboxButton
+          className={clsx('select-button', {
+            'select-button--has-value': hasSelectedValue,
+          })}
+        >
+          <div className="select-button__label">{displayLabel}</div>
           <span className="select-button__icon ">
             <Icon className="select-button__icon--open" name="plus" />
             <Icon className="select-button__icon--close" name="minus" />

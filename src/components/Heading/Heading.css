@@ -31,12 +31,14 @@
   font-weight: 400;
   line-height: 2rem;
   letter-spacing: 0rem;
+  text-transform: none;
 }
 
 .heading--5 {
   font-size: 1.125rem;
   line-height: 2rem;
   letter-spacing: 0rem;
+  text-transform: none;
 }
 
 .heading--6 {
@@ -44,6 +46,7 @@
   font-weight: 400;
   line-height: 2rem;
   letter-spacing: 0rem;
+  text-transform: none;
 }
 
 @media screen and (min-width: 890px) {

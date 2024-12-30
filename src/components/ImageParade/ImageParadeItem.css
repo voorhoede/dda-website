@@ -1,4 +1,5 @@
 .image-parade__item {
+  aspect-ratio: 1/1;
   flex-shrink: 0;
   width: calc(100% / var(--visible-item-count));
   height: auto;
