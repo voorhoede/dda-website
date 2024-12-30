@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Button } from '@components/Button';
 import { Link } from '@components/Link';
 import { t } from '@lib/i18n';
-import { FocusOn } from 'react-focus-on';
+import { createFocusTrap } from 'focus-trap';
 import './Menu.css';
 
 let vacancyCount: string;
@@ -25,11 +25,14 @@ if (import.meta.env.SSR) {
 export const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   if (!import.meta.env.SSR) {
     vacancyCount =
       document.querySelector('[data-vacancy-count]')?.textContent || '';
   }
+
+  console.log(isOpen);
 
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
@@ -51,6 +54,26 @@ export const Menu = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!overlayRef.current) return;
+
+    const focusTrap = createFocusTrap(overlayRef.current, {
+      clickOutsideDeactivates: true,
+      escapeDeactivates: true,
+      onDeactivate: closeMenu,
+    });
+
+    if (isOpen) {
+      focusTrap.activate();
+    } else {
+      focusTrap.deactivate();
+    }
+
+    return () => {
+      focusTrap.deactivate();
+    };
+  }, [isOpen, openMenu, closeMenu]);
+
   return (
     <div className={clsx('menu', isResizing && 'menu--resizing')}>
       <Button
@@ -63,11 +86,9 @@ export const Menu = () => {
         iconOnly
         onClick={openMenu}
       />
-      <FocusOn
+      <div
+        ref={overlayRef}
         className={clsx('menu__overlay', isOpen && 'menu__overlay--open')}
-        enabled={isOpen}
-        onClickOutside={closeMenu}
-        onEscapeKey={closeMenu}
       >
         <div className="menu__content">
           <div className="menu__header">
@@ -128,13 +149,21 @@ export const Menu = () => {
             </ul>
           </nav>
           <div className="menu__footer">
-            <Button as="a" icon="arrow-right" level="secondary" href="https://dda-website.admin.datocms.com/sign_in" target="_blank">
+            <Button
+              as="a"
+              icon="arrow-right"
+              level="secondary"
+              href="https://dda-website.admin.datocms.com/sign_in"
+              target="_blank"
+            >
               {t('login')}
             </Button>
-            <Button as="a" icon="arrow-right" href="/lid-worden/">{t('become_a_member')}</Button>
+            <Button as="a" icon="arrow-right" href="/lid-worden/">
+              {t('become_a_member')}
+            </Button>
           </div>
         </div>
-      </FocusOn>
+      </div>
     </div>
   );
 };
