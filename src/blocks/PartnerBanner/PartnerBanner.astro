@@ -1,11 +1,12 @@
 ---
 import { PartnerBanner as PartnerBannerComponent } from './PartnerBanner';
 import { fillArray } from '@lib/content-collections';
+import type { PartnerLogoFragment } from '@lib/types/datocms';
 import { getCollection } from 'astro:content';
 
 const partners = await getCollection('partners');
-const filledPartners = fillArray(
-  partners.map((partner) => partner.data),
+const filledPartners: PartnerLogoFragment[] = fillArray(
+  partners.map((partner: { data: PartnerLogoFragment }) => partner.data),
   8
 );
 ---
