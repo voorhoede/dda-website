@@ -45,6 +45,9 @@
 .button__content {
   border-right: 1px solid;
   padding: var(--spacing-12);
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .button--large .button__content {

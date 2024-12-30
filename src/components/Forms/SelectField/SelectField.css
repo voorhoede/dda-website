@@ -2,9 +2,14 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0px;
+  padding: 0;
   background-color: var(--color-white);
   border: 1px solid var(--color-black);
+  font-family: MartianMono, monospace;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
 .select-button:hover {
@@ -24,8 +29,28 @@
   border-color: var(--color-white);
 }
 
+.select-button--has-value {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.select-button--has-value:hover {
+  border-color: var(--color-white);
+  color: var(--color-white);
+}
+
+.select-button--has-value:active {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-black);
+}
+
 .select-button__label {
   padding: var(--spacing-12);
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .select-button__icon {
@@ -34,16 +59,20 @@
   line-height: 0;
 }
 
+.select-button--has-value .select-button__icon {
+  border-inline-start: 1px solid var(--color-white);
+}
+
 .select-button:hover .select-button__icon {
   border-color: 1px solid var(--color-blue);
 }
 
 .select-button .select-button__icon--close,
-.select-button[aria-expanded="true"] .select-button__icon--open {
+.select-button[aria-expanded='true'] .select-button__icon--open {
   display: none;
 }
 
-.select-button[aria-expanded="true"]  .select-button__icon--close {
+.select-button[aria-expanded='true'] .select-button__icon--close {
   display: inline-block;
 }
 
@@ -57,20 +86,23 @@
   border-top: none;
   box-shadow: 0 -1px 0 0 var(--color-black);
   background-color: var(--color-white);
+  z-index: 1;
 }
 
 .select-options__option {
   padding: var(--spacing-12);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.75rem;
   font-family: var(--font-family-mono);
+  line-height: 1rem;
+  text-transform: uppercase;
 }
 
 .select-options__option:hover {
   color: var(--color-blue);
 }
 
-.select-options__option[aria-selected="true"] {
+.select-options__option[aria-selected='true'] {
   color: var(--color-blue);
   font-weight: bold;
 }
