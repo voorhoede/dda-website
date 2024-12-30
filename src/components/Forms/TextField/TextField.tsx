@@ -46,7 +46,7 @@ export const TextField = ({
       onChange(newValue);
     }
   };
-  
+
   return (
     <Field className={clsx('text-field', className)}>
       <Label

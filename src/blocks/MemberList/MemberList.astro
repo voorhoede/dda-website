@@ -2,21 +2,26 @@
 import { MemberList as MemberListComponent, loader } from './MemberList.tsx';
 import { getDehydratedState } from '@lib/react-query';
 
+// seed is used to shuffle the members consistently across SSR and CSR
+const seed = Math.random();
 const searchParams = Astro.url.searchParams;
 const initialParams = {
-  page: searchParams.get('page') ?? '1',
   zoek: searchParams.get('zoek') ?? '',
   provincie: searchParams.get('provincie') ?? '',
   omvang: searchParams.get('omvang') ?? '',
   sorteren: searchParams.get('sorteren') ?? '',
 };
-const initialData = await loader(initialParams);
+const initialData = await loader(initialParams, seed);
 const initialUrl = Astro.url.href;
 ---
 
 <MemberListComponent
   client:load
-  initialState={getDehydratedState(['members', initialParams], initialData)}
+  initialState={getDehydratedState(
+    ['members', initialParams, seed],
+    initialData
+  )}
   initialParams={initialParams}
   initialUrl={initialUrl}
+  seed={seed}
 />
