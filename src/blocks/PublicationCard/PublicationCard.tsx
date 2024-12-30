@@ -48,6 +48,9 @@ export const PublicationCard = ({
           targetArea="parent"
         >
           {t('read_more')}
+          <span className="a11y-sr-only">
+            {t('_about_subject', { subject: publication.title })}
+          </span>
         </Button>
       </CardFooter>
     </Card>

@@ -1,11 +1,11 @@
-import { SRCImage, type ResponsiveImageType } from 'react-datocms';
-import type { MemberCardFragment } from '@lib/types/datocms';
-import { t } from '@lib/i18n';
-import { Heading } from '@components/Heading';
-import { Text } from '@components/Text';
-import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Button } from '@components/Button';
+import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { Heading } from '@components/Heading';
 import { Tag } from '@components/Tag';
+import { Text } from '@components/Text';
+import { t } from '@lib/i18n';
+import type { MemberCardFragment } from '@lib/types/datocms';
+import { SRCImage, type ResponsiveImageType } from 'react-datocms';
 
 import './MemberCard.css';
 
@@ -56,6 +56,9 @@ export const MemberCard = ({ member }: Props) => {
           targetArea="parent"
         >
           {t('details')}
+          <span className="a11y-sr-only">
+            {t('_about_subject', { subject: member.name })}
+          </span>
         </Button>
       </CardFooter>
     </Card>

@@ -1,9 +1,10 @@
-import type { TeamMemberCardFragment } from '@lib/types/datocms';
-import { SRCImage } from 'react-datocms';
+import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Heading } from '@components/Heading';
 import { Text } from '@components/Text';
-import { Button } from '@components/Button';
+import { t } from '@lib/i18n';
+import type { TeamMemberCardFragment } from '@lib/types/datocms';
+import { SRCImage } from 'react-datocms';
 
 import './TeamMemberCard.css';
 
@@ -36,6 +37,7 @@ export const TeamMemberCard = ({ member }: Props) => {
           targetArea="parent"
         >
           LinkedIn
+          <span className="a11y-sr-only">{t('_of_team_member', { teamMember: member.name })}</span>
         </Button>
         <Button
           as="a"
@@ -47,6 +49,7 @@ export const TeamMemberCard = ({ member }: Props) => {
           variant="large"
         >
           E-mail
+          <span className="a11y-sr-only">{t('_to_team_member', { teamMember: member.name })}</span>
         </Button>
       </CardFooter>
     </Card>

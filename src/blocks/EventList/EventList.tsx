@@ -5,32 +5,32 @@ import type {
 } from '@lib/types/datocms';
 import query from './EventList.query.graphql';
 
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import { useSearchParams } from '@lib/hooks/use-search-params';
-import { useUrl } from '@lib/hooks/use-url';
+import { useQuery } from '@tanstack/react-query';
+import { useRef } from 'react';
 
-import { datocmsRequest } from '@lib/datocms';
 import { Pagination } from '@components/Pagination';
+import { datocmsRequest } from '@lib/datocms';
 
-import './EventList.css';
+import { Button } from '@components/Button';
 import {
   DataList,
   DataListItem,
   DataListItemFooter,
 } from '@components/DataList';
-import { Tag } from '@components/Tag';
-import { Heading } from '@components/Heading';
-import { formatDate } from '@lib/date';
-import { Button } from '@components/Button';
-import { Text } from '@components/Text';
-import { t } from '@lib/i18n';
-import { ListForm } from '@components/ListForm';
 import { SelectField, TextField } from '@components/Forms';
+import { Heading } from '@components/Heading';
+import { ListForm } from '@components/ListForm';
+import { Tag } from '@components/Tag';
+import { Text } from '@components/Text';
+import { formatDate } from '@lib/date';
+import { t } from '@lib/i18n';
+import './EventList.css';
 
 export const loader = async ({
   searchParams,
@@ -189,6 +189,9 @@ export const EventList = withQueryClientProvider(
                   targetArea="parent"
                 >
                   {t('details')}
+                  <span className="a11y-sr-only">
+                    {t('_about_subject', { subject: event.title })}
+                  </span>
                 </Button>
               </DataListItemFooter>
             </DataListItem>

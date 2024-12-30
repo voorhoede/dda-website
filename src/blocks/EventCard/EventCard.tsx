@@ -38,10 +38,17 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
           icon="arrow-right"
           level="secondary"
           variant="large"
-          href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
+          href={
+            event.details.__typename === 'ExternalEventRecord'
+              ? event.details.link
+              : `./${event.details.slug}/`
+          }
           targetArea="parent"
         >
           {t('details')}
+          <span className="a11y-sr-only">
+            {t('_about_subject', { subject: event.title })}
+          </span>
         </Button>
       </CardFooter>
     </Card>
