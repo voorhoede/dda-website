@@ -16,5 +16,9 @@ export const fillArray = <T>(array: T[], count: number): T[] => {
   if (array.length >= count) {
     return array;
   }
-  return [...array, ...Array(count - array.length).fill(null)];
+  const additionalItems = Array.from(
+    { length: count - array.length },
+    (_, i) => array[i % array.length],
+  );
+  return [...array, ...additionalItems];
 };

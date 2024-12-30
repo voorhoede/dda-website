@@ -2,34 +2,33 @@ import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Column, Grid } from '@components/Grid';
 import { ListForm } from '@components/ListForm';
-import { Pagination } from '@components/Pagination';
 import { SelectField, TextField } from '@components/Forms';
 import { MemberCard } from '@blocks/MemberCard';
-import { datocmsRequest } from '@lib/datocms';
+import { datocmsCollection, datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
 import { useSearchParams } from '@lib/hooks/use-search-params';
-import { useUrl } from '@lib/hooks/use-url';
 import type {
-  MemberModelOrderBy,
+  MemberCardFragment,
   MemberListQuery,
   MemberListQueryVariables,
   MemberModelFilter,
 } from '@lib/types/datocms';
 import './MemberList.css';
-import query from './MemberList.query.graphql';
+import query from './_MemberList.query.graphql';
+import memberCardFragment from '../MemberCard/MemberCard.fragment.graphql?raw';
+import { shuffle } from '@lib/seed-random';
 
-const DEFAULT_PAGE_SIZE = 9;
-
-export const loader = async (searchParams: Record<string, string>) => {
-  const page = searchParams.page ? Number(searchParams.page) : 1;
-  const skip = (page - 1) * DEFAULT_PAGE_SIZE;
-  const orderBy = searchParams.sorteren || undefined;
-
+export const loader = async (
+  searchParams: Record<string, string>,
+  seed: number,
+) => {
+  const orderBy = searchParams.sorteren;
   const filter: MemberModelFilter = {};
+
   if (searchParams.zoek) {
     Object.assign(filter, {
       name: { matches: { pattern: searchParams.zoek } },
@@ -42,49 +41,50 @@ export const loader = async (searchParams: Record<string, string>) => {
     Object.assign(filter, { employees: { eq: searchParams.omvang } });
   }
 
-  const { provinces, membersMeta, members } = await datocmsRequest<
+  const hasFilters = Object.keys(filter).length > 0;
+
+  const { provinces } = await datocmsRequest<
     MemberListQuery,
     MemberListQueryVariables
   >({
     query: query,
-    variables: {
-      first: DEFAULT_PAGE_SIZE,
-      skip,
-      orderBy: orderBy as MemberModelOrderBy,
-      filter,
-    },
   });
+
+  let members = await datocmsCollection<MemberCardFragment>({
+    collection: 'Members',
+    fragment: memberCardFragment,
+    fragmentName: 'MemberCard',
+    filter,
+    orderBy: orderBy || 'name_ASC',
+  });
+
+  if (!hasFilters && !orderBy) {
+    const newMembers = shuffle<MemberCardFragment>(members, seed);
+
+    members = newMembers;
+  }
 
   return {
     provinces,
-    membersMeta,
     members,
   };
 };
 
 export const MemberList = withQueryClientProvider(
-  ({ initialParams, initialUrl }: QueryClientProviderComponentProps) => {
+  ({
+    initialParams,
+    seed,
+  }: QueryClientProviderComponentProps & { seed: number }) => {
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
-    const url = useUrl(initialUrl);
 
     const { data } = useQuery({
-      queryKey: ['members', searchParams],
-      queryFn: () => loader(searchParams),
+      queryKey: ['members', searchParams, seed],
+      queryFn: () => loader(searchParams, seed),
     });
 
     const updateFilter = (filter: Record<string, string>) => {
       updateSearchParams({ ...filter, page: undefined });
-
-      if (filterRef.current) {
-        filterRef.current.scrollIntoView({
-          behavior: 'instant',
-        });
-      }
-    };
-
-    const updatePage = (page: number) => {
-      updateSearchParams({ ...searchParams, page: page.toString() });
 
       if (filterRef.current) {
         filterRef.current.scrollIntoView({
@@ -149,6 +149,7 @@ export const MemberList = withQueryClientProvider(
                 label={t('sort')}
                 labelStyle="contain"
                 options={[
+                  { label: t('none'), value: '' },
                   { label: 'A-Z', value: 'name_ASC' },
                   { label: 'Z-A', value: 'name_DESC' },
                   { label: 'Aantal werknemers', value: 'employees_ASC' },
@@ -170,12 +171,6 @@ export const MemberList = withQueryClientProvider(
             </Column>
           ))}
         </Grid>
-        <Pagination
-          url={url}
-          currentPage={Number(searchParams.page)}
-          totalPages={Math.ceil(data.membersMeta.count / DEFAULT_PAGE_SIZE)}
-          onPageChange={updatePage}
-        />
       </>
     );
   },

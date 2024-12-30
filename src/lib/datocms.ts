@@ -6,6 +6,7 @@ import {
   DATOCMS_READONLY_API_TOKEN,
   HEAD_START_PREVIEW,
 } from 'astro:env/client';
+import pluralize from 'pluralize';
 
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
@@ -89,10 +90,14 @@ export const datocmsCollection = async <CollectionType>({
   collection,
   fragment,
   fragmentName,
+  filter,
+  orderBy,
 }: {
   collection: string;
   fragment: string;
   fragmentName: string;
+  filter?: Record<string, unknown>;
+  orderBy?: string;
 }) => {
   const { meta } = (await datocmsRequest({
     query: parse(/* graphql */ `
@@ -105,20 +110,37 @@ export const datocmsCollection = async <CollectionType>({
   const recordsPerPage = 100; // DatoCMS GraphQL API has a limit of 100 records per request
   const totalPages = Math.ceil(meta.count / recordsPerPage);
   const records: CollectionType[] = [];
+  const singularCollectionName = pluralize.singular(collection);
 
   for (let page = 0; page < totalPages; page++) {
+    const parameters =
+      filter || orderBy
+        ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
+        : '';
+
+    const variables =
+      filter || orderBy
+        ? {
+          filter,
+          orderBy,
+        }
+        : {};
+
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
         ${fragment}
-        query All${collection} {
+        query All${collection} ${parameters} {
           ${collection}: all${collection} (
              first: ${recordsPerPage},
-             skip: ${page * recordsPerPage}
+             skip: ${page * recordsPerPage},
+             ${filter ? 'filter: $filter,' : ''}
+             ${orderBy ? 'orderBy: $orderBy,' : ''}
           ) {
             ...${fragmentName}
           }
         }
       `),
+      variables,
     })) as CollectionData<CollectionType>;
 
     records.push(...data[collection]);
