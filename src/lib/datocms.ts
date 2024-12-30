@@ -6,6 +6,7 @@ import {
   DATOCMS_READONLY_API_TOKEN,
   HEAD_START_PREVIEW,
 } from 'astro:env/client';
+import pluralize from 'pluralize';
 
 const wait = (milliSeconds: number) =>
   new Promise((resolve) => setTimeout(resolve, milliSeconds));
@@ -109,13 +110,21 @@ export const datocmsCollection = async <CollectionType>({
   const recordsPerPage = 100; // DatoCMS GraphQL API has a limit of 100 records per request
   const totalPages = Math.ceil(meta.count / recordsPerPage);
   const records: CollectionType[] = [];
-  const singularCollectionName = collection.slice(0, -1);
+  const singularCollectionName = pluralize.singular(collection);
 
   for (let page = 0; page < totalPages; page++) {
     const parameters =
       filter || orderBy
         ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
         : '';
+
+    const variables =
+      filter || orderBy
+        ? {
+          filter,
+          orderBy,
+        }
+        : {};
 
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
@@ -131,10 +140,7 @@ export const datocmsCollection = async <CollectionType>({
           }
         }
       `),
-      variables: {
-        filter,
-        orderBy,
-      },
+      variables,
     })) as CollectionData<CollectionType>;
 
     records.push(...data[collection]);
