@@ -10,7 +10,6 @@ describe('TextBlock Component', () => {
           __typename: 'TextBlockRecord',
           text: {
             blocks: [],
-            links: [],
             value: {
               schema: 'dast',
               document: {
@@ -22,29 +21,33 @@ describe('TextBlock Component', () => {
                     children: [
                       {
                         type: 'span',
-                        value: 'This is a test heading'
-                      }
-                    ]
+                        value: 'This is a test heading',
+                      },
+                    ],
                   },
                   {
                     type: 'paragraph',
                     children: [
                       {
                         type: 'span',
-                        value: 'This is a test paragraph'
+                        value: 'This is a test paragraph',
                       },
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        }
-      }
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
     });
 
-    expect(fragment.querySelector('h2')?.textContent).toBe('This is a test heading');
-    expect(fragment.querySelector('p')?.textContent).toBe('This is a test paragraph');
+    expect(fragment.querySelector('h2')?.textContent).toBe(
+      'This is a test heading',
+    );
+    expect(fragment.querySelector('p')?.textContent).toBe(
+      'This is a test paragraph',
+    );
   });
 
   test('renders a heading level 3 and a paragraph with the correct text content', async () => {
@@ -54,7 +57,6 @@ describe('TextBlock Component', () => {
           __typename: 'TextBlockRecord',
           text: {
             blocks: [],
-            links: [],
             value: {
               schema: 'dast',
               document: {
@@ -66,28 +68,32 @@ describe('TextBlock Component', () => {
                     children: [
                       {
                         type: 'span',
-                        value: 'This is a test heading'
-                      }
-                    ]
+                        value: 'This is a test heading',
+                      },
+                    ],
                   },
                   {
                     type: 'paragraph',
                     children: [
                       {
                         type: 'span',
-                        value: 'This is a test paragraph'
+                        value: 'This is a test paragraph',
                       },
-                    ]
-                  }
-                ]
-              }
-            }
-          }
-        }
-      }
+                    ],
+                  },
+                ],
+              },
+            },
+          },
+        },
+      },
     });
 
-    expect(fragment.querySelector('h3')?.textContent).toBe('This is a test heading');
-    expect(fragment.querySelector('p')?.textContent).toBe('This is a test paragraph');
+    expect(fragment.querySelector('h3')?.textContent).toBe(
+      'This is a test heading',
+    );
+    expect(fragment.querySelector('p')?.textContent).toBe(
+      'This is a test paragraph',
+    );
   });
 });

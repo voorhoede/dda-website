@@ -1,9 +1,9 @@
-import type { TeamMemberCardFragment } from "@lib/types/datocms";
-import { SRCImage } from "react-datocms";
-import { Card, CardContent, CardFooter, CardImage } from "@components/Card";
-import { Heading } from "@components/Heading";
-import { Text } from "@components/Text";
-import { Button } from "@components/Button";
+import type { TeamMemberCardFragment } from '@lib/types/datocms';
+import { SRCImage } from 'react-datocms';
+import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { Heading } from '@components/Heading';
+import { Text } from '@components/Text';
+import { Button } from '@components/Button';
 
 interface Props {
   member: TeamMemberCardFragment;
@@ -13,7 +13,9 @@ export const TeamMemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        <SRCImage data={member.image?.responsiveImage} />
+        {member.image?.responsiveImage && (
+          <SRCImage data={member.image?.responsiveImage} />
+        )}
       </CardImage>
 
       <CardContent>
