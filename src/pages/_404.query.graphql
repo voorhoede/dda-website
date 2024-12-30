@@ -3,10 +3,14 @@
 #import '@blocks/TableBlock/TableBlock.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
 query NotFoundPage($locale: SiteLocale!) {
   page: notFoundPage(locale: $locale) {
     title
+    header {
+      ...PageHeader
+    }
     bodyBlocks {
       __typename
       ... on EmbedBlockRecord {
