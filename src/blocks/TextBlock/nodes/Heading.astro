@@ -1,8 +1,12 @@
 ---
-import type { Heading } from 'datocms-structured-text-utils';
+import type { Heading as HeadingType } from 'datocms-structured-text-utils';
+import {
+  Heading as HeadingComponent,
+  type HeadingProps,
+} from '@components/Heading';
 
 interface Props {
-  node: Heading;
+  node: HeadingType;
 }
 
 const { node } = Astro.props;
@@ -10,8 +14,21 @@ const { node } = Astro.props;
 // H1 is reserved for the page title, so we start at H2
 const minimumLevel = 2;
 const defaultLevel = 2;
-const level = Math.max(minimumLevel, (node.level || defaultLevel));
+const level = Math.max(
+  minimumLevel,
+  node.level || defaultLevel
+) as HeadingProps['level'];
 
-const Tag = `h${level}`;
+// This is a mapping of the heading level to the display level
+// used specifically in text blocks to only use the smaller variants
+// of the headings
+const levelMap: Record<number, HeadingProps['displayLevel']> = {
+  2: 4,
+  3: 5,
+  4: 6,
+};
 ---
-<Tag><slot /></Tag>
+
+<HeadingComponent level={level} displayLevel={levelMap[level as number]}>
+  <slot />
+</HeadingComponent>
