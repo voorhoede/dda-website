@@ -175,6 +175,19 @@ export const MemberList = withQueryClientProvider(
               <MemberCard member={member} />
             </Column>
           ))}
+          
+          
+          
+          { data.members.length === 0 && (
+            <Column
+              as="li"
+              role="alert"
+              span={12}
+              className='empty-message'
+            >
+              {t('no_results')}
+            </Column>
+          ) }
         </Grid>
       </>
     );

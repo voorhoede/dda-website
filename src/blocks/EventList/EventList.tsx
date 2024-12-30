@@ -205,6 +205,10 @@ export const EventList = withQueryClientProvider(
               </DataListItemFooter>
             </DataListItem>
           ))}
+          
+          { data.events.length === 0 && (
+            <DataListItem role="alert" className='empty-message'>{t('no_results')}</DataListItem>
+          ) }
         </DataList>
 
         <Pagination

@@ -63,6 +63,12 @@ export const VacancyDataList = forwardRef<
           </div>
         </li>
       ))}
+      
+      { vacancies.length === 0 && (
+        <li role="alert" className='vacancy-data-list__item'>
+          <span className='empty-message'>{t('no_results')}</span>
+        </li>
+      ) }
     </ul>
   );
 });
