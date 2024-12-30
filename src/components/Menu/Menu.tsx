@@ -32,8 +32,6 @@ export const Menu = () => {
       document.querySelector('[data-vacancy-count]')?.textContent || '';
   }
 
-  console.log(isOpen);
-
   const openMenu = () => setIsOpen(true);
   const closeMenu = () => setIsOpen(false);
 
