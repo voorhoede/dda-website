@@ -1,7 +1,7 @@
 import { Button } from '@components/Button';
 import { t } from '@lib/i18n';
-import './Pagination.css';
 import clsx from 'clsx';
+import './Pagination.css';
 
 interface PaginationProps {
   url: string;
@@ -67,6 +67,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             'pagination__page--active': i === currentPage,
           })}
         >
+          <span className="a11y-sr-only">{t('page_')}</span>
           {i}
         </Button>,
       );
@@ -83,6 +84,10 @@ export const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
     <div className="pagination">
       {currentPage > 1 && (
@@ -96,6 +101,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           }
         >
           {t('previous')}
+          <span className="a11y-sr-only">{t('_page')}</span>
         </Button>
       )}
       <div className="pagination__pages">{renderPageLinks()}</div>
@@ -110,6 +116,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           }
         >
           {t('next')}
+          <span className="a11y-sr-only">{t('_page')}</span>
         </Button>
       )}
     </div>

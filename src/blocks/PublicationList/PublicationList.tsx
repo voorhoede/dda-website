@@ -1,29 +1,31 @@
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Column, Grid } from '@components/Grid';
-import { ListForm } from '@components/ListForm';
-import { Pagination } from '@components/Pagination';
-import { SelectField, TextField } from '@components/Forms';
 import { Button } from '@components/Button';
 import {
   DataList,
   DataListItem,
   DataListItemFooter,
 } from '@components/DataList';
+import { SelectField, TextField } from '@components/Forms';
+import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
-import { Text } from '@components/Text';
+import { ListForm } from '@components/ListForm';
+import { Pagination } from '@components/Pagination';
 import { TagList, TagListItem } from '@components/Tag';
+import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
-import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
+import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
+import { t } from '@lib/i18n';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import { useSearchParams } from '@lib/hooks/use-search-params';
-import { useUrl } from '@lib/hooks/use-url';
 import type { PublicationsListQuery } from '@lib/types/datocms';
+import { useQuery } from '@tanstack/react-query';
+import { useRef } from 'react';
 import publicationListQuery from './PublicationList.query.graphql';
+
+import './PublicationList.css';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -62,6 +64,7 @@ export const loader = async (searchParams: Record<string, string>) => {
 export const PublicationList = withQueryClientProvider(
   ({ initialParams, initialUrl }: QueryClientProviderComponentProps) => {
     const filterRef = useRef<HTMLFormElement>(null);
+    const listRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -78,6 +81,10 @@ export const PublicationList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
+      
+      if(listRef.current) {
+        listRef.current.focus();
+      }
     };
 
     const updatePage = (page: number) => {
@@ -87,6 +94,10 @@ export const PublicationList = withQueryClientProvider(
         filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
+      }
+      
+      if(listRef.current) {
+        listRef.current.focus();
       }
     };
 
@@ -135,7 +146,7 @@ export const PublicationList = withQueryClientProvider(
           />
         </Column>
         <Column span={12}>
-          <DataList className="container-padding-x container-padding-y">
+          <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>
@@ -162,10 +173,17 @@ export const PublicationList = withQueryClientProvider(
                     targetArea="parent"
                   >
                     {t('read_more')}
+                    <span className="a11y-sr-only">
+                      {t('_about_subject', { subject: publication.title })}
+                    </span>
                   </Button>
                 </DataListItemFooter>
               </DataListItem>
             ))}
+            
+            { data.publications.length === 0 && (
+              <DataListItem role="alert" className='empty-message'>{t('no_results')}</DataListItem>
+            ) }
           </DataList>
         </Column>
 

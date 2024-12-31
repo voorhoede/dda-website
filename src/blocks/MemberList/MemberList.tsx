@@ -1,26 +1,26 @@
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { MemberCard } from '@blocks/MemberCard';
+import { SelectField, TextField } from '@components/Forms';
 import { Column, Grid } from '@components/Grid';
 import { ListForm } from '@components/ListForm';
-import { SelectField, TextField } from '@components/Forms';
-import { MemberCard } from '@blocks/MemberCard';
 import { datocmsCollection, datocmsRequest } from '@lib/datocms';
+import { useSearchParams } from '@lib/hooks/use-search-params';
 import { t } from '@lib/i18n';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import { useSearchParams } from '@lib/hooks/use-search-params';
+import { shuffle } from '@lib/seed-random';
 import type {
   MemberCardFragment,
   MemberListQuery,
   MemberListQueryVariables,
   MemberModelFilter,
 } from '@lib/types/datocms';
+import { useQuery } from '@tanstack/react-query';
+import { useRef } from 'react';
+import memberCardFragment from '../MemberCard/MemberCard.fragment.graphql?raw';
 import './MemberList.css';
 import query from './_MemberList.query.graphql';
-import memberCardFragment from '../MemberCard/MemberCard.fragment.graphql?raw';
-import { shuffle } from '@lib/seed-random';
 
 export const loader = async (
   searchParams: Record<string, string>,
@@ -76,6 +76,7 @@ export const MemberList = withQueryClientProvider(
     seed,
   }: QueryClientProviderComponentProps & { seed: number }) => {
     const filterRef = useRef<HTMLFormElement>(null);
+    const listRef = useRef<HTMLUListElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
 
     const { data } = useQuery({
@@ -90,6 +91,10 @@ export const MemberList = withQueryClientProvider(
         filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
+      }
+      
+      if(listRef.current) {
+        listRef.current.focus();
       }
     };
 
@@ -160,7 +165,7 @@ export const MemberList = withQueryClientProvider(
             </>
           )}
         />
-        <Grid as="ul" border={true} className="member-list">
+        <Grid as="ul" ref={listRef} aria-live="polite" border={true} className="member-list">
           {data.members.map((member) => (
             <Column
               key={member.id}
@@ -170,6 +175,19 @@ export const MemberList = withQueryClientProvider(
               <MemberCard member={member} />
             </Column>
           ))}
+          
+          
+          
+          { data.members.length === 0 && (
+            <Column
+              as="li"
+              role="alert"
+              span={12}
+              className='empty-message'
+            >
+              {t('no_results')}
+            </Column>
+          ) }
         </Grid>
       </>
     );

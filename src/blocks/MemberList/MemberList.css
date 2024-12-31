@@ -3,3 +3,8 @@
   padding: 0px;
   margin: 0px;
 }
+
+.empty-message {
+  padding: var(--spacing-104) var(--spacing-48);
+  text-align: center;
+}

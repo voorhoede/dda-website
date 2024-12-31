@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import {
   Field,
   Label,
@@ -8,6 +6,8 @@ import {
   ListboxOption,
   ListboxOptions,
 } from '@headlessui/react';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 import { Icon } from '@components/Icon';
 
@@ -66,11 +66,10 @@ export const SelectField = ({
           })}
         >
           <div className="select-button__label">{displayLabel}</div>
-
-          <div className="select-button__icon ">
+          <span className="select-button__icon ">
             <Icon className="select-button__icon--open" name="plus" />
             <Icon className="select-button__icon--close" name="minus" />
-          </div>
+          </span>
         </ListboxButton>
         <ListboxOptions anchor="bottom start" className="select-options">
           {options.map((option) => (

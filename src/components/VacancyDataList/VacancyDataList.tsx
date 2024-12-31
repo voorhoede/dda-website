@@ -1,10 +1,10 @@
-import React, { forwardRef } from 'react';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { Text } from '@components/Text';
-import type { VacancyListItemFragment } from '@lib/types/datocms';
-import './VacancyDataList.css';
 import { t } from '@lib/i18n';
+import type { VacancyListItemFragment } from '@lib/types/datocms';
+import { forwardRef } from 'react';
+import './VacancyDataList.css';
 
 export const VacancyDataList = forwardRef<
   HTMLUListElement,
@@ -55,11 +55,20 @@ export const VacancyDataList = forwardRef<
               target="_blank"
               variant="large"
             >
+              <span className='a11y-sr-only'>
+                {t('vacancy_of_agency_', { vacancy: vacancy.title, agency: vacancy.company[0]?.name })}
+              </span>
               {t('see')}
             </Button>
           </div>
         </li>
       ))}
+      
+      { vacancies.length === 0 && (
+        <li role="alert" className='vacancy-data-list__item'>
+          <span className='empty-message'>{t('no_results')}</span>
+        </li>
+      ) }
     </ul>
   );
 });

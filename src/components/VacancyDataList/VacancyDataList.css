@@ -43,6 +43,12 @@
   width: 100%;
 }
 
+.empty-message {
+  padding: var(--spacing-64) var(--spacing-48);
+  text-align: center;
+  grid-column: span 5;
+}
+
 @media screen and (min-width: 1225px) {
   .vacancy-data-list__item {
     display: contents;

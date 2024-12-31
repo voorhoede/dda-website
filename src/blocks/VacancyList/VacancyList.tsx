@@ -1,21 +1,21 @@
-import { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import type { VacancyListQuery } from '@lib/types/datocms';
+import { SelectField, TextField } from '@components/Forms';
+import { Column, Grid } from '@components/Grid';
+import { ListForm } from '@components/ListForm';
+import { Pagination } from '@components/Pagination';
+import { VacancyDataList } from '@components/VacancyDataList';
 import { datocmsRequest } from '@lib/datocms';
-import vacancyListQuery from './VacancyList.query.graphql';
 import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
+import { t } from '@lib/i18n';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import { useUrl } from '@lib/hooks/use-url';
-import { Column, Grid } from '@components/Grid';
-import { VacancyDataList } from '@components/VacancyDataList';
-import { Pagination } from '@components/Pagination';
-import { ListForm } from '@components/ListForm';
-import { TextField, SelectField } from '@components/Forms';
+import type { VacancyListQuery } from '@lib/types/datocms';
+import { useQuery } from '@tanstack/react-query';
 import type { getCollection } from 'astro:content';
-import { t } from '@lib/i18n';
+import { useRef } from 'react';
+import vacancyListQuery from './VacancyList.query.graphql';
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -97,6 +97,10 @@ export const VacancyList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
+      
+      if (dataListRef.current) {
+        dataListRef.current.focus();
+      }
     };
 
     const updatePage = (page: number) => {
@@ -106,6 +110,10 @@ export const VacancyList = withQueryClientProvider(
         filterRef.current.scrollIntoView({
           behavior: 'instant',
         });
+      }
+      
+      if (dataListRef.current) {
+        dataListRef.current.focus();
       }
     };
 
@@ -195,7 +203,7 @@ export const VacancyList = withQueryClientProvider(
         <Column span={12}>
           <Grid>
             <Column span={12}>
-              <VacancyDataList vacancies={data.vacancies} ref={dataListRef} />
+              <VacancyDataList ref={dataListRef} aria-live="polite" vacancies={data.vacancies} />
             </Column>
             <Column
               span={12}
