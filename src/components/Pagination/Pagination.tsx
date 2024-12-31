@@ -84,6 +84,10 @@ export const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
     <div className="pagination">
       {currentPage > 1 && (
