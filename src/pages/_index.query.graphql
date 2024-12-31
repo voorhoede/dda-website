@@ -1,0 +1,38 @@
+#import '@blocks/EventCard/EventCard.fragment.graphql'
+#import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+
+query HomePage($locale: SiteLocale!) {
+  page: homePage(locale: $locale) {
+    header {
+      ...PageHeader
+    }
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    becomeMemberCtaLabel
+    findAgencyCtaLabel
+    eventsSectionLabel
+    eventsSectionTitle
+    eventsSectionCtaLabel
+    vacanciesSectionLabel
+    vacanciesSectionTitle
+    vacanciesSectionCtaLabel
+    publicationsSectionLabel
+    publicationsSectionTitle
+    publicationsSectionCtaLabel
+    ctaSectionMessage
+    ctaSectionTitle
+    ctaSectionCtaLabel
+  }
+
+  publications: allPublications(first: 3, orderBy: _publishedAt_DESC) {
+    ...PublicationCard
+  }
+
+  events: allEvents(first: 6, orderBy: date_DESC) {
+    ...EventCard
+  }
+}
