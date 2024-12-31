@@ -6,7 +6,14 @@ import { getLocale, t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import './Footer.css';
 
-export const Footer = () => {
+type FooterProps = {
+  links: {
+    title: string;
+    url: string;
+  }[];
+};
+
+export const Footer = ({ links }: FooterProps) => {
   const locale = getLocale();
 
   return (
@@ -29,27 +36,11 @@ export const Footer = () => {
       </Column>
       <Column as="nav" span={{ mobile: 12, tablet: 6, desktop: 3 }}>
         <ul className="footer__links">
-          <li>
-            <Link href="/over-ons/">{t('about_us')}</Link>
-          </li>
-          <li>
-            <Link href="/events/">{t('events')}</Link>
-          </li>
-          <li>
-            <Link href="/publicaties/">{t('publications')}</Link>
-          </li>
-          <li>
-            <Link href="/leden/">{t('members')}</Link>
-          </li>
-          <li>
-            <Link href="/vacatures/">{t('vacancies')}</Link>
-          </li>
-          <li>
-            <Link href="/voorwaarden/">{t('terms_and_conditions')}</Link>
-          </li>
-          <li>
-            <Link href="/privacy/">{t('privacy_policy')}</Link>
-          </li>
+          {links.map((link) => (
+            <li key={link.url}>
+              <Link href={link.url}>{link.title}</Link>
+            </li>
+          ))}
         </ul>
       </Column>
       <Column

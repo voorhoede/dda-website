@@ -5,4 +5,10 @@ query DefaultLayout($locale: SiteLocale!) {
       attributes
     }
   }
+  footer {
+    links {
+      title
+      url
+    }
+  }
 }

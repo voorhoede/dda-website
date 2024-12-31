@@ -3,6 +3,7 @@ import type {
   DefaultLayoutQuery,
   Site,
   SiteLocale,
+  FooterRecord,
   Tag as MetaTag,
 } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
@@ -35,7 +36,10 @@ const { locale = defaultLocale as SiteLocale } = Astro.params as {
 const data = (await datocmsRequest<DefaultLayoutQuery>({
   query,
   variables: { locale },
-})) as { site: Site };
+})) as { site: Site; footer: FooterRecord };
+
+console.log(data);
+
 const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
 const mainContentId = 'content';
 ---
@@ -69,7 +73,7 @@ const mainContentId = 'content';
         <main id={mainContentId} tabindex="-1">
           <slot />
         </main>
-        <Footer />
+        <Footer links={data.footer.links} />
       </div>
       <IconSprite />
     </PreviewModeProvider>
