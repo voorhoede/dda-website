@@ -113,8 +113,8 @@ export const EventList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
-      
-      if(listRef.current) {
+
+      if (listRef.current) {
         listRef.current.focus();
       }
     };
@@ -122,13 +122,15 @@ export const EventList = withQueryClientProvider(
     const updatePage = (page: number) => {
       updateSearchParams({ ...searchParams, page: page.toString() });
 
-      if (filterRef.current) {
-        filterRef.current.scrollIntoView({
+      const activeRef = filterRef.current || listRef.current;
+
+      if (activeRef) {
+        activeRef.scrollIntoView({
           behavior: 'instant',
         });
       }
-      
-      if(listRef.current) {
+
+      if (listRef.current) {
         listRef.current.focus();
       }
     };
@@ -175,7 +177,11 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
+        <DataList
+          ref={listRef}
+          aria-live="polite"
+          className="container-padding-x container-padding-y"
+        >
           {data.events.map((event) => (
             <DataListItem key={event.id}>
               <div>{event.theme?.name && <Tag>{event.theme?.name}</Tag>}</div>
@@ -208,10 +214,12 @@ export const EventList = withQueryClientProvider(
               </DataListItemFooter>
             </DataListItem>
           ))}
-          
-          { data.events.length === 0 && (
-            <DataListItem role="alert" className='empty-message'>{t('no_results')}</DataListItem>
-          ) }
+
+          {data.events.length === 0 && (
+            <DataListItem role="alert" className="empty-message">
+              {t('no_results')}
+            </DataListItem>
+          )}
         </DataList>
 
         <Pagination
