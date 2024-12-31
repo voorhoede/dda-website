@@ -3,6 +3,7 @@ import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
 
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
+import { setCacheControl } from '@lib/cache-control';
 import Layout from '@layouts/Default.astro';
 
 import { Button } from '@components/Button';
@@ -11,6 +12,8 @@ import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
 import membersPageQuery from './membersPage.query.graphql';
+
+setCacheControl(Astro.response);
 
 const { locale } = Astro.params as { locale: SiteLocale };
 

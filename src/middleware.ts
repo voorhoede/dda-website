@@ -43,6 +43,18 @@ const i18n = defineMiddleware(async ({ params, request }, next) => {
   return response;
 });
 
+const forceTrailingSlash = defineMiddleware(
+  async ({ request, redirect }, next) => {
+    const url = new URL(request.url);
+
+    if (!url.pathname.endsWith('/')) {
+      return redirect(url.pathname + '/', 301);
+    }
+
+    return next();
+  },
+);
+
 const preview = defineMiddleware(async ({ cookies, locals }, next) => {
   const previewSecret = HEAD_START_PREVIEW_SECRET!;
   Object.assign(locals, {
@@ -79,4 +91,10 @@ const redirects = defineMiddleware(async ({ request, redirect }, next) => {
   return response;
 });
 
-export const onRequest = sequence(datocms, i18n, preview, redirects);
+export const onRequest = sequence(
+  datocms,
+  i18n,
+  preview,
+  forceTrailingSlash,
+  redirects,
+);

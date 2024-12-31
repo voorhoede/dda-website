@@ -20,15 +20,12 @@ import {
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale, locales } from '@lib/i18n';
+import { setCacheControl } from '@lib/cache-control';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  return locales.map((locale) => ({ params: { locale } }));
-}
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 
@@ -81,31 +78,33 @@ if (!page) {
       <MemberParade server:defer />
     </Column>
   </Grid>
-  {events.length > 0 && (
-    <Grid as="section" border={true}>
-      <Column span={12}>
-        <TitleSection>
-          <TitleSectionContent>
-            <Tag>{page.eventsSectionLabel}</Tag>
-            <Heading level={2}>{page.eventsSectionTitle}</Heading>
-          </TitleSectionContent>
-          <TitleSectionFooter>
-            <Button
-              as="a"
-              height="narrow"
-              icon="arrow-right"
-              level="secondary"
-              variant="large"
-              href="/events/"
-            >
-              {page.eventsSectionCtaLabel}
-            </Button>
-          </TitleSectionFooter>
-        </TitleSection>
-        <EventsSection events={events} />
-      </Column>
-    </Grid>
-  )}
+  {
+    events.length > 0 && (
+      <Grid as="section" border={true}>
+        <Column span={12}>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.eventsSectionLabel}</Tag>
+              <Heading level={2}>{page.eventsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="arrow-right"
+                level="secondary"
+                variant="large"
+                href="/events/"
+              >
+                {page.eventsSectionCtaLabel}
+              </Button>
+            </TitleSectionFooter>
+          </TitleSection>
+          <EventsSection events={events} />
+        </Column>
+      </Grid>
+    )
+  }
   <TitleSection>
     <TitleSectionContent>
       <Tag>{page.vacanciesSectionLabel}</Tag>
@@ -125,31 +124,33 @@ if (!page) {
     </TitleSectionFooter>
   </TitleSection>
   <HighlightedVacancies server:defer />
-  {publications.length > 0 && (
-    <Grid as="section" border={true}>
-      <Column span={12}>
-        <TitleSection>
-          <TitleSectionContent>
-            <Tag>{page.publicationsSectionLabel}</Tag>
-            <Heading level={2}>{page.publicationsSectionTitle}</Heading>
-          </TitleSectionContent>
-          <TitleSectionFooter>
-            <Button
-              as="a"
-              height="narrow"
-              icon="arrow-right"
-              level="secondary"
-              variant="large"
-              href="/publicaties/"
-            >
-              {page.publicationsSectionCtaLabel}
-            </Button>
-          </TitleSectionFooter>
-        </TitleSection>
-        <PublicationsSection publications={publications} />
-      </Column>
-    </Grid>
-  )}
+  {
+    publications.length > 0 && (
+      <Grid as="section" border={true}>
+        <Column span={12}>
+          <TitleSection>
+            <TitleSectionContent>
+              <Tag>{page.publicationsSectionLabel}</Tag>
+              <Heading level={2}>{page.publicationsSectionTitle}</Heading>
+            </TitleSectionContent>
+            <TitleSectionFooter>
+              <Button
+                as="a"
+                height="narrow"
+                icon="arrow-right"
+                level="secondary"
+                variant="large"
+                href="/publicaties/"
+              >
+                {page.publicationsSectionCtaLabel}
+              </Button>
+            </TitleSectionFooter>
+          </TitleSection>
+          <PublicationsSection publications={publications} />
+        </Column>
+      </Grid>
+    )
+  }
   <NewsLetterForm />
   <CtaBanner server:defer message={page.ctaSectionMessage}>
     <Heading level={2}>{page.ctaSectionTitle}</Heading>

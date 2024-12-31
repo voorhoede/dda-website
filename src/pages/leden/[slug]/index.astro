@@ -2,6 +2,7 @@
 import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
 import type { MemberPageQuery, SiteLocale } from '@lib/types/datocms';
+import { setCacheControl } from '@lib/cache-control';
 
 import memberPageQuery from './memberPage.query.graphql';
 
@@ -14,13 +15,12 @@ import { VacancyDataList } from '@components/VacancyDataList';
 import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 
 import { SRCImage } from 'react-datocms';
-import {
-  PageTitle,
-  PageTitleHeader,
-} from '@components/PageTitle';
+import { PageTitle, PageTitleHeader } from '@components/PageTitle';
 import { Heading } from '@components/Heading';
 import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Button } from '@components/Button';
+
+setCacheControl(Astro.response);
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
 const { page } = await datocmsRequest<MemberPageQuery>({
@@ -235,7 +235,7 @@ if (!page) {
     margin: 0px;
     text-align: center;
   }
-  
+
   .contact {
     padding: var(--spacing-96) var(--spacing-24);
     display: flex;
@@ -281,7 +281,7 @@ if (!page) {
       flex-direction: row;
       justify-content: space-between;
     }
-    
+
     .contact {
       padding: var(--spacing-96) var(--spacing-48);
     }

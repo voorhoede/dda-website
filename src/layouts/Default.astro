@@ -38,8 +38,6 @@ const data = (await datocmsRequest<DefaultLayoutQuery>({
   variables: { locale },
 })) as { site: Site; footer: FooterRecord };
 
-console.log(data);
-
 const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
 const mainContentId = 'content';
 ---

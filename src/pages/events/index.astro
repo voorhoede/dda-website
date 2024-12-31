@@ -6,6 +6,7 @@ import type {
 } from '@lib/types/datocms';
 import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
+import { setCacheControl } from '@lib/cache-control';
 import query from './_eventsPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
@@ -18,6 +19,8 @@ import { EventCard } from '@blocks/EventCard';
 import { NewsLetterForm } from '@blocks/NewsLetterForm';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+
+setCacheControl(Astro.response);
 
 const { locale } = Astro.params;
 
