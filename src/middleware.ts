@@ -69,13 +69,20 @@ const preview = defineMiddleware(async ({ cookies, locals }, next) => {
  */
 const redirects = defineMiddleware(async ({ request, redirect }, next) => {
   const response = await next();
+
   if (response.status === 404) {
+    console.log('REDIRECTING');
+
     const { pathname } = new URL(request.url);
     const redirectTarget = getRedirectTarget(pathname);
+
+    console.log('TARGET', redirectTarget);
+
     if (redirectTarget) {
       return redirect(redirectTarget.url, redirectTarget.statusCode);
     }
   }
+
   return response;
 });
 
