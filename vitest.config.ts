@@ -2,6 +2,7 @@
 import { getViteConfig } from 'astro/config';
 
 export default getViteConfig({
+  // @ts-expect-error - Vitest configuration options
   test: {
     // Vitest configuration options
     teardownTimeout: 1000,
