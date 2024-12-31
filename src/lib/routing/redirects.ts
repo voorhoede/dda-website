@@ -51,7 +51,7 @@ const getPathParams = ({
 };
 
 const redirectRules = redirectConfiguration.map(
-  (rule: { from: string; to: string; statusCode: number }) => {
+  (rule: { from: string; to: string; statusCode: string }) => {
     const { keys, pattern } = parse(rule.from);
     const statusCode = redirectStatusCode(Number(rule.statusCode));
     return {

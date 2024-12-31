@@ -2,6 +2,7 @@
 import { datocmsCollection, datocmsRequest } from '@lib/datocms';
 import type {
   ImageBlockFragment,
+  PageHeaderFragment,
   PageQuery,
   PageRecord,
   ParentPageFragment,
@@ -76,9 +77,9 @@ const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
   <PreviewModeSubscription query={query} variables={variables} />
 
   <PageHeader
-    title={page.header.title}
-    subtitle={page.header.subtitle}
-    visual={page.header.visual}
+    title={page.header?.title}
+    subtitle={page.header?.subtitle}
+    visual={page.header?.visual as PageHeaderFragment['visual']}
   >
     <Fragment slot="header">
       <Button

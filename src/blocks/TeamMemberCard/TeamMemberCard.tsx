@@ -16,7 +16,9 @@ export const TeamMemberCard = ({ member }: Props) => {
   return (
     <Card>
       <CardImage>
-        <SRCImage data={member.image?.responsiveImage} />
+        {member.image?.responsiveImage && (
+          <SRCImage data={member.image?.responsiveImage} />
+        )}
       </CardImage>
 
       <CardContent>
@@ -37,7 +39,9 @@ export const TeamMemberCard = ({ member }: Props) => {
           targetArea="parent"
         >
           LinkedIn
-          <span className="a11y-sr-only">{t('_of_team_member', { teamMember: member.name })}</span>
+          <span className="a11y-sr-only">
+            {t('_of_team_member', { teamMember: member.name })}
+          </span>
         </Button>
         <Button
           as="a"
@@ -49,7 +53,9 @@ export const TeamMemberCard = ({ member }: Props) => {
           variant="large"
         >
           E-mail
-          <span className="a11y-sr-only">{t('_to_team_member', { teamMember: member.name })}</span>
+          <span className="a11y-sr-only">
+            {t('_to_team_member', { teamMember: member.name })}
+          </span>
         </Button>
       </CardFooter>
     </Card>
