@@ -27,7 +27,7 @@ export default defineConfig({
     schema: {
       HEAD_START_PREVIEW_SECRET: envField.string({
         context: 'server',
-        access: 'secret',
+        access: 'public',
         default: process.env.HEAD_START_PREVIEW_SECRET,
       }),
       DATOCMS_READONLY_API_TOKEN: envField.string({

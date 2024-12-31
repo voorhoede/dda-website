@@ -75,7 +75,7 @@ if (!page) {
   </PageHeader>
   <Grid border={true}>
     <Column span={12}>
-      <MemberParade server:defer />
+      <MemberParade />
     </Column>
   </Grid>
   {
@@ -152,7 +152,7 @@ if (!page) {
     )
   }
   <NewsLetterForm />
-  <CtaBanner server:defer message={page.ctaSectionMessage}>
+  <CtaBanner message={page.ctaSectionMessage}>
     <Heading level={2}>{page.ctaSectionTitle}</Heading>
     <Button as="a" href="/lid-worden/" icon="arrow-right">
       {page.ctaSectionCtaLabel}
