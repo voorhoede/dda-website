@@ -10,10 +10,9 @@ export const setCacheControl = (
   cdnMaxAge: number = defaultCdnMaxAge,
 ) => {
   if (response.headers) {
-    response.headers = {
-      ...response.headers,
-      'Cache-Control': `max-age=${maxAge}`,
-      'CDN-Cache-Control': `max-age=${cdnMaxAge}`,
-    };
+    (response.headers as Record<string, string>)['Cache-Control'] =
+      `max-age=${maxAge}`;
+    (response.headers as Record<string, string>)['CDN-Cache-Control'] =
+      `max-age=${cdnMaxAge}`;
   }
 };
