@@ -7,10 +7,6 @@ import {
   DATOCMS_READONLY_API_TOKEN,
 } from 'astro:env/client';
 
-console.log('HEAD_START_PREVIEW_SECRET', HEAD_START_PREVIEW_SECRET);
-console.log('HEAD_START_PREVIEW', HEAD_START_PREVIEW);
-console.log('DATOCMS_READONLY_API_TOKEN', DATOCMS_READONLY_API_TOKEN);
-
 export const previewCookieName = 'HEAD_START_PREVIEW';
 
 export const hashSecret = async (secret: string) => {
@@ -26,6 +22,7 @@ export const datocms = defineMiddleware(async ({ locals }, next) => {
     datocmsToken: DATOCMS_READONLY_API_TOKEN,
   });
   const response = await next();
+
   return response;
 });
 
@@ -48,6 +45,23 @@ const preview = defineMiddleware(async ({ cookies, locals }, next) => {
   return response;
 });
 
+// checks if trailing slash is present, otherwise adds it
+const checkTrailingSlash = defineMiddleware(
+  async ({ request, redirect }, next) => {
+    const response = await next();
+
+    if (response.status === 404) {
+      console.log('WE GOT A 404 from checkTrailingSlash');
+      const { pathname } = new URL(request.url);
+      if (!pathname.endsWith('/')) {
+        return redirect(pathname + '/', 301);
+      }
+    }
+
+    return response;
+  },
+);
+
 /**
  * Redirects middleware:
  * If there is no matching route (404) and there is a matching redirect rule,
@@ -55,14 +69,22 @@ const preview = defineMiddleware(async ({ cookies, locals }, next) => {
  */
 const redirects = defineMiddleware(async ({ request, redirect }, next) => {
   const response = await next();
+
   if (response.status === 404) {
+    console.log('WE GOT A 404 from redirects');
     const { pathname } = new URL(request.url);
     const redirectTarget = getRedirectTarget(pathname);
     if (redirectTarget) {
+      console.log('REDIRECTING');
       return redirect(redirectTarget.url, redirectTarget.statusCode);
     }
   }
   return response;
 });
 
-export const onRequest = sequence(datocms, preview, redirects);
+export const onRequest = sequence(
+  datocms,
+  preview,
+  checkTrailingSlash,
+  redirects,
+);

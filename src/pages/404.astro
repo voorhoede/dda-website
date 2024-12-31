@@ -1,5 +1,4 @@
 ---
-import type { SiteLocale } from '@lib/i18n.types';
 import type {
   NotFoundPageQuery,
   NotFoundPageRecord,
@@ -10,16 +9,16 @@ import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import type { AnyBlock } from '@blocks/Blocks';
+import { defaultLocale } from '@lib/i18n';
 import query from './_404.query.graphql';
 
 export const prerender = false;
 
 Astro.response.status = 404;
 
-const { locale } = Astro.params as { locale: SiteLocale };
 const { page } = (await datocmsRequest<NotFoundPageQuery>({
   query,
-  variables: { locale },
+  variables: { locale: defaultLocale },
 })) as { page: NotFoundPageRecord };
 ---
 
