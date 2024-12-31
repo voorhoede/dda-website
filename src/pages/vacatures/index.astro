@@ -1,14 +1,17 @@
 ---
 import Layout from '@layouts/Default.astro';
 import { defaultLocale, t } from '@lib/i18n';
-import query from './_index.query.graphql';
+import { setCacheControl } from '@lib/cache-control';
 import { datocmsRequest } from '@lib/datocms';
 import type { VacanciesPageQuery } from '@lib/types/datocms';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import VacancyList from '@blocks/VacancyList/VacancyList.astro';
 import { Button } from '@components/Button';
+import query from './_index.query.graphql';
 
 export const prerender = false;
+
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 

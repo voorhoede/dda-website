@@ -20,9 +20,12 @@ import {
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale, locales } from '@lib/i18n';
+import { setCacheControl } from '@lib/cache-control';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
+
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 

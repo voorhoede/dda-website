@@ -1,7 +1,12 @@
 ---
 import { t } from '@lib/i18n';
 import { datocmsRequest } from '@lib/datocms';
-import type { EventPageQuery, EventPageQueryVariables, SiteLocale } from '@lib/types/datocms';
+import { setCacheControl } from '@lib/cache-control';
+import type {
+  EventPageQuery,
+  EventPageQueryVariables,
+  SiteLocale,
+} from '@lib/types/datocms';
 import eventPageQuery from './_eventPage.query.graphql';
 import Layout from '@layouts/Default.astro';
 import {
@@ -16,11 +21,15 @@ import { SRCImage } from 'react-datocms';
 import { Column, Grid } from '@components/Grid';
 import { formatDate } from '@lib/date';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+
+setCacheControl(Astro.response);
+
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
 const { page } = await datocmsRequest<EventPageQuery, EventPageQueryVariables>({
   query: eventPageQuery,
   variables: { locale, slug },
 });
+
 if (!page || page.details.__typename !== 'InternalEventRecord') {
   return new Response(null, { status: 404 });
 }
@@ -40,7 +49,11 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
       <Heading level={1}>{page.title}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
-      <Text variant="subtext"><time datetime={page.date}>{formatDate(page.date)}</time> / {page.location}</Text>
+      <Text variant="subtext"
+      ><time datetime={page.date}>{formatDate(page.date)}</time> / {
+          page.location
+        }</Text
+      >
     </PageTitleContent>
   </PageTitle>
 
@@ -59,41 +72,48 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
   }
 
   <Grid className="event" rowGap={40} columnGap={32}>
-    <Column
-      span={{ mobile: 12, tablet: 5 }}
-    >
-      <Text variant="subtext">{page.title} - <time datetime={page.date}>{formatDate(page.date)}</time>, {page.location}</Text>
+    <Column span={{ mobile: 12, tablet: 5 }}>
+      <Text variant="subtext"
+      >{page.title} - <time datetime={page.date}>{formatDate(page.date)}</time
+        >, {page.location}</Text
+      >
     </Column>
 
     <Column className="event__details" span={{ mobile: 12, tablet: 7 }}>
       <section class="text-section">
-        <Heading level={2} displayLevel={4}>{page.details.introText}</Heading> 
+        <Heading level={2} displayLevel={4}>{page.details.introText}</Heading>
         <TextBlock block={page.details.text} />
       </section>
 
-      { page.details.schedule.length > 0 && (
-        <section class="schedule">
-          <Heading level={2} displayLevel={3}>{t('schedule')}</Heading>
-  
-          <table class="schedule-table">
-            <thead class="a11y-sr-only">
-              <tr>
-                <th>{t('activity')}</th>
-                <th>{t('time')}</th>
-              </tr>
-            </thead>
-  
-            <tbody>
-              { page.details.schedule.map((activity) => (
-                <tr class="schedule-table-row">
-                  <td>{activity.name}</td>
-                  <td>{activity.start} - {activity.end}</td>
+      {
+        page.details.schedule.length > 0 && (
+          <section class="schedule">
+            <Heading level={2} displayLevel={3}>
+              {t('schedule')}
+            </Heading>
+
+            <table class="schedule-table">
+              <thead class="a11y-sr-only">
+                <tr>
+                  <th>{t('activity')}</th>
+                  <th>{t('time')}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      ) }
+              </thead>
+
+              <tbody>
+                {page.details.schedule.map((activity) => (
+                  <tr class="schedule-table-row">
+                    <td>{activity.name}</td>
+                    <td>
+                      {activity.start} - {activity.end}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </section>
+        )
+      }
     </Column>
   </Grid>
 </Layout>
@@ -123,7 +143,7 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     flex-direction: column;
     gap: var(--spacing-96);
   }
-  
+
   .text-section {
     display: flex;
     flex-direction: column;
@@ -161,12 +181,12 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
     .banner {
       padding-inline: var(--spacing-48);
     }
-    
+
     .event {
       padding: var(--spacing-48);
       padding-block-end: var(--spacing-96);
     }
-    
+
     .text-section {
       gap: var(--spacing-64);
     }
