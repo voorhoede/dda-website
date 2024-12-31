@@ -1,13 +1,15 @@
 import { defineMiddleware, sequence } from 'astro/middleware';
-import { defaultLocale, locales, setLocale } from './lib/i18n';
-import type { SiteLocale } from '@lib/i18n.types';
 import { getRedirectTarget } from '@lib/routing/redirects';
 import { datocmsEnvironment } from '@root/datocms-environment';
 import { HEAD_START_PREVIEW_SECRET } from 'astro:env/server';
 import {
-  DATOCMS_READONLY_API_TOKEN,
   HEAD_START_PREVIEW,
+  DATOCMS_READONLY_API_TOKEN,
 } from 'astro:env/client';
+
+console.log('HEAD_START_PREVIEW_SECRET', HEAD_START_PREVIEW_SECRET);
+console.log('HEAD_START_PREVIEW', HEAD_START_PREVIEW);
+console.log('DATOCMS_READONLY_API_TOKEN', DATOCMS_READONLY_API_TOKEN);
 
 export const previewCookieName = 'HEAD_START_PREVIEW';
 
@@ -23,22 +25,6 @@ export const datocms = defineMiddleware(async ({ locals }, next) => {
     datocmsEnvironment,
     datocmsToken: DATOCMS_READONLY_API_TOKEN,
   });
-  const response = await next();
-  return response;
-});
-
-const i18n = defineMiddleware(async ({ params, request }, next) => {
-  if (!params.locale) {
-    // if the locale param is unavailable, it didn't match a [locale]/* route
-    // so we attempt to extract the locale from the URL and fallback to the default locale
-    const pathLocale = new URL(request.url).pathname.split('/')[1];
-    const locale = locales.includes(pathLocale as SiteLocale)
-      ? pathLocale
-      : defaultLocale;
-    Object.assign(params, { locale });
-  }
-  setLocale(params.locale as SiteLocale);
-
   const response = await next();
   return response;
 });
@@ -69,21 +55,14 @@ const preview = defineMiddleware(async ({ cookies, locals }, next) => {
  */
 const redirects = defineMiddleware(async ({ request, redirect }, next) => {
   const response = await next();
-
   if (response.status === 404) {
-    console.log('REDIRECTING');
-
     const { pathname } = new URL(request.url);
     const redirectTarget = getRedirectTarget(pathname);
-
-    console.log('TARGET', redirectTarget);
-
     if (redirectTarget) {
       return redirect(redirectTarget.url, redirectTarget.statusCode);
     }
   }
-
   return response;
 });
 
-export const onRequest = sequence(datocms, i18n, preview, redirects);
+export const onRequest = sequence(datocms, preview, redirects);
