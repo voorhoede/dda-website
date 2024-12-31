@@ -24,10 +24,6 @@ import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
 import query from './_index.query.graphql';
 
-export async function getStaticPaths() {
-  return locales.map((locale) => ({ params: { locale } }));
-}
-
 const { locale = defaultLocale } = Astro.params;
 
 const variables = {
