@@ -2,6 +2,7 @@
   "version": "4",
   "specifiers": {
     "jsr:@std/assert@1": "1.0.8",
+    "jsr:@std/bytes@^1.0.3": "1.0.4",
     "jsr:@std/csv@^1.0.4": "1.0.4",
     "jsr:@std/internal@^1.0.5": "1.0.5",
     "jsr:@std/streams@^1.0.8": "1.0.8",
@@ -12,6 +13,7 @@
     "npm:datocms-html-to-structured-text@^4.0.1": "4.0.1",
     "npm:parse5@*": "7.2.1",
     "npm:parse5@^7.2.1": "7.2.1",
+    "npm:string-similarity-js@1": "1.2.0",
     "npm:ufo@*": "1.5.4",
     "npm:ufo@^1.5.4": "1.5.4"
   },
@@ -21,6 +23,9 @@
       "dependencies": [
         "jsr:@std/internal"
       ]
+    },
+    "@std/bytes@1.0.4": {
+      "integrity": "11a0debe522707c95c7b7ef89b478c13fb1583a7cfb9a85674cd2cc2e3a28abc"
     },
     "@std/csv@1.0.4": {
       "integrity": "aa351de654b10b8a407275b61f588863b9538027fd47aed90dd9e7f54ab5bdc0",
@@ -32,7 +37,10 @@
       "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
     },
     "@std/streams@1.0.8": {
-      "integrity": "b41332d93d2cf6a82fe4ac2153b930adf1a859392931e2a19d9fabfb6f154fb3"
+      "integrity": "b41332d93d2cf6a82fe4ac2153b930adf1a859392931e2a19d9fabfb6f154fb3",
+      "dependencies": [
+        "jsr:@std/bytes"
+      ]
     },
     "@std/text@1.0.8": {
       "integrity": "40ba34caa095f393e78796e5eda37b8b4e2cc6cfd6f51f34658ad7487b1451e4"
@@ -374,6 +382,9 @@
     "space-separated-tokens@1.1.5": {
       "integrity": "sha512-q/JSVd1Lptzhf5bkYm4ob4iWPjx0KiRe3sRFBNrVqbJkFaBm5vbbowy1mymoPNLRa52+oadOhJ+K49wsSeSjTA=="
     },
+    "string-similarity-js@1.2.0": {
+      "integrity": "sha512-y6yjZ8Kg9ubl9VFh9KRv2B0T9iqRb8lVpfLwmScYtOhfew3bOffCsI/rqVSanOLnLO2+BUngLBm6IyEWx9sWGA=="
+    },
     "tmp-promise@3.0.3": {
       "integrity": "sha512-RwM7MoPojPxsOBYnyd2hy0bxtIlVrihNs9pj5SUvY8Zz1sQcQG2tG1hSr8PDxfgEB8RNKDhqbIlroIarSNDNsQ==",
       "dependencies": [
@@ -468,6 +479,7 @@
       "npm:@datocms/cma-client-node@^3.3.15",
       "npm:datocms-html-to-structured-text@^4.0.1",
       "npm:parse5@^7.2.1",
+      "npm:string-similarity-js@1",
       "npm:ufo@^1.5.4"
     ]
   }

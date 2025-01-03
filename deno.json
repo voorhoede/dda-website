@@ -3,7 +3,8 @@
     "members": "deno run --env-file=.env --allow-env --allow-read --allow-net --allow-write members.ts",
     "accounts": "deno run --env-file=.env --allow-env --allow-read --allow-net accounts.ts",
     "news": "deno run --env-file=.env --allow-env --allow-read --allow-net --allow-write news.ts",
-    "events": "deno run --env-file=.env --allow-env --allow-read --allow-net --allow-write events.ts"
+    "events": "deno run --env-file=.env --allow-env --allow-read --allow-net --allow-write events.ts",
+    "post-slugs": "deno run --env-file=.env --allow-env --allow-read --allow-net --allow-write post-slugs.ts"
   },
   "imports": {
     "@datocms/cma-client-node": "npm:@datocms/cma-client-node@^3.3.15",
@@ -12,6 +13,7 @@
     "@std/text": "jsr:@std/text@^1.0.8",
     "datocms-html-to-structured-text": "npm:datocms-html-to-structured-text@^4.0.1",
     "parse5": "npm:parse5@^7.2.1",
-    "ufo": "npm:ufo@^1.5.4"
+    "ufo": "npm:ufo@^1.5.4",
+    "string-similarity-js": "npm:string-similarity-js@^1.0.0"
   }
 }
