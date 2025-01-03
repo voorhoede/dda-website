@@ -41,6 +41,7 @@ export const PartnerBanner = ({
                       // since its background can be transparent,
                       // causing placeholder to be visible after loading
                       usePlaceholder={false}
+                      priority={true}
                     />
                   </a>
                 </ImageParadeItem>
