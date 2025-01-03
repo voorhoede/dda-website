@@ -10,7 +10,12 @@ query PublicationsList(
     id
     name
   }
-  publications: allPublications(first: $first, skip: $skip, filter: $filter) {
+  publications: allPublications(
+    first: $first
+    skip: $skip
+    filter: $filter
+    orderBy: _createdAt_DESC
+  ) {
     id
     title
     slug

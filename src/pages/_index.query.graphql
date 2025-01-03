@@ -28,7 +28,7 @@ query HomePage($locale: SiteLocale!) {
     ctaSectionCtaLabel
   }
 
-  publications: allPublications(first: 3, orderBy: _publishedAt_DESC) {
+  publications: allPublications(first: 3, orderBy: _createdAt_DESC) {
     ...PublicationCard
   }
 

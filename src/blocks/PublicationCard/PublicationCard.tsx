@@ -26,10 +26,10 @@ export const PublicationCard = ({
             <Tag key={name}>{name}</Tag>
           ))}
         </TagList>
-        {publication._publishedAt && (
+        {publication._createdAt && (
           <Text variant="subtext">
-            <time dateTime={publication._publishedAt}>
-              {formatDate(publication._publishedAt)}
+            <time dateTime={publication._createdAt}>
+              {formatDate(publication._createdAt)}
             </time>
           </Text>
         )}

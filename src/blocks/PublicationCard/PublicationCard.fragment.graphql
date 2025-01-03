@@ -1,7 +1,7 @@
 fragment PublicationCard on PublicationRecord {
   id
   slug
-  _publishedAt
+  _createdAt
   title
   banner {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
