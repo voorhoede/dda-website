@@ -58,7 +58,11 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
                       icon="arrow-right"
                       level="secondary"
                       variant="large"
-                      href={ event.details.__typename === 'ExternalEventRecord' ? event.details.link : `./${event.details.slug}/` }
+                      href={
+                        event.details.__typename === 'ExternalEventRecord'
+                          ? event.details.link
+                          : `/evenementen/${event.details.slug}/`
+                      }
                       targetArea="parent"
                     >
                       {t('details')}
