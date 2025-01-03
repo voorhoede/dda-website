@@ -31,7 +31,8 @@ const { page } = (await datocmsRequest<NotFoundPageQuery>({
   </div>
 
   <script is:inline>
-    // plausible 404 tracking
-    window.plausible('404');
+    document.addEventListener('DOMContentLoaded', function () {
+      window.plausible('404', { props: { path: document.location.pathname } });
+    });
   </script>
 </Layout>
