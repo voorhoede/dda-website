@@ -4,7 +4,7 @@ import { datocmsRequest } from '@lib/datocms';
 import type { MemberPageQuery, SiteLocale } from '@lib/types/datocms';
 import { setCacheControl } from '@lib/cache-control';
 
-import memberPageQuery from './memberPage.query.graphql';
+import memberPageQuery from './_memberPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
 
@@ -84,7 +84,12 @@ if (!page) {
       </div>
 
       <div>
-        <Button as="a" href={page.website as string} icon="arrow-right" target="_blank">
+        <Button
+          as="a"
+          href={page.website as string}
+          icon="arrow-right"
+          target="_blank"
+        >
           {t('go_to_website')}
         </Button>
       </div>

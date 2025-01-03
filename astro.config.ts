@@ -63,7 +63,15 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [
-    sitemap(),
+    sitemap({
+      customPages: [
+        '/over-ons/',
+        '/leden/',
+        '/publicaties/',
+        '/vacatures/',
+        '/events/',
+      ],
+    }),
     preact({
       compat: true,
     }),
