@@ -5,7 +5,7 @@ import './PageTitleContent.css';
 export const PageTitleContent = ({ children }: { children: ReactNode }) => {
   return (
     <Column
-      className="page-title-content"
+      className="page-title-content container-padding-x"
       span={{ mobile: 12, desktop: 8 }}
       start={{ mobile: 1, desktop: 3 }}
     >
