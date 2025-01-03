@@ -12,7 +12,7 @@ export const setCacheControl = (
   if (response.headers) {
     // @ts-expect-error - response.headers is not a Headers object
     response.headers.set('Cache-Control', `public, max-age=${maxAge}`);
-    // @ts-expect-error - response.headers is not a Headers object
-    response.headers.set('CDN-Cache-Control', `public, max-age=${cdnMaxAge}`);
+    console.log(cdnMaxAge);
+    // response.headers.set('CDN-Cache-Control', `public, max-age=${cdnMaxAge}`);
   }
 };
