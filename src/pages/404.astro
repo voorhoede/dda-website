@@ -29,4 +29,9 @@ const { page } = (await datocmsRequest<NotFoundPageQuery>({
   <div class="container-padding-x">
     <Blocks blocks={page.bodyBlocks as AnyBlock[]} />
   </div>
+
+  <script is:inline>
+    // plausible 404 tracking
+    window.plausible('404');
+  </script>
 </Layout>
