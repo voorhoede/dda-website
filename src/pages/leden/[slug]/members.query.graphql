@@ -1,6 +1,0 @@
-query Members {
-  members: allMembers {
-    id
-    slug
-  }
-}

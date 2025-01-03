@@ -20,7 +20,8 @@ import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { PublicationCard } from '@blocks/PublicationCard';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
-import publicationPageQuery from './publicationPage.query.graphql';
+import publicationPageQuery from './_publicationPage.query.graphql';
+
 setCacheControl(Astro.response);
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };

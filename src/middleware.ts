@@ -45,13 +45,17 @@ const i18n = defineMiddleware(async ({ params, request }, next) => {
 
 const forceTrailingSlash = defineMiddleware(
   async ({ request, redirect }, next) => {
-    const url = new URL(request.url);
+    const response = await next();
 
-    if (!url.pathname.endsWith('/')) {
-      return redirect(url.pathname + '/', 301);
+    if (response.status === 404) {
+      const url = new URL(request.url);
+
+      if (!url.pathname.endsWith('/')) {
+        return redirect(url.pathname + '/', 301);
+      }
     }
 
-    return next();
+    return response;
   },
 );
 
