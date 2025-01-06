@@ -42,8 +42,6 @@ const { page, events, publications } = await datocmsRequest<
   variables,
 });
 
-console.log(events);
-
 const pageUrls = locales.map((locale) => ({
   locale,
   pathname: `/${locale}/`,
