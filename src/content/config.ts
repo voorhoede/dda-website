@@ -59,12 +59,12 @@ const vacancyLocations = defineCollection({
       fragmentName: 'VacancyListItem',
     })) as VacancyListItemFragment[];
 
-    return [...new Set(vacancies.map((vacancy) => vacancy.location))].map(
-      (location) => ({
+    return [...new Set(vacancies.map((vacancy) => vacancy.location))]
+      .sort((a, b) => a.localeCompare(b))
+      .map((location) => ({
         id: location,
         label: location,
-      }),
-    );
+      }));
   },
 });
 
