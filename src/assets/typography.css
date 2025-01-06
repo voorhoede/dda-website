@@ -1,5 +1,6 @@
 @font-face {
   font-family: 'Archivo';
+  font-display: swap;
   src:
     url('/fonts/Archivo-Regular.woff2') format('woff2'),
     url('/fonts/Archivo-Regular.woff') format('woff');
@@ -8,6 +9,7 @@
 @font-face {
   font-family: 'Archivo';
   font-weight: 600;
+  font-display: swap;
   src:
     url('/fonts/Archivo-SemiBold.woff2') format('woff2'),
     url('/fonts/Archivo-SemiBold.woff') format('woff');
@@ -15,6 +17,7 @@
 
 @font-face {
   font-family: 'MartianMono';
+  font-display: swap;
   src:
     url('/fonts/MartianMono-Regular.woff2') format('woff2'),
     url('/fonts/MartianMono-Regular.woff') format('woff');
@@ -23,6 +26,7 @@
 @font-face {
   font-family: 'MartianMono';
   font-weight: 300;
+  font-display: swap;
   src:
     url('/fonts/MartianMono-Light.woff2') format('woff2'),
     url('/fonts/MartianMono-Light.woff') format('woff');
@@ -39,7 +43,6 @@ body {
   font-size: 1rem;
   line-height: 1.5rem;
   font-synthesis-weight: none;
-  font-display: swap;
 }
 
 h1 {
