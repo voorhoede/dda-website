@@ -151,7 +151,7 @@ export const Menu = () => {
               as="a"
               icon="arrow-right"
               level="secondary"
-              href="https://dda-website.admin.datocms.com/sign_in"
+              href="/inloggen/"
               target="_blank"
             >
               {t('login')}
