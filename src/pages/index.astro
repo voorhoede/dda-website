@@ -19,10 +19,9 @@ import {
 } from '@components/TitleSection';
 import Layout from '@layouts/Default.astro';
 import { datocmsRequest } from '@lib/datocms';
-import { defaultLocale, locales } from '@lib/i18n';
+import { defaultLocale } from '@lib/i18n';
 import { setCacheControl } from '@lib/cache-control';
 import type { HomePageQuery } from '@lib/types/datocms';
-import type { PageUrl } from '@lib/types/page-url';
 import { getToday } from '@lib/date';
 import query from './_index.query.graphql';
 
@@ -42,17 +41,12 @@ const { page, events, publications } = await datocmsRequest<
   variables,
 });
 
-const pageUrls = locales.map((locale) => ({
-  locale,
-  pathname: `/${locale}/`,
-})) as PageUrl[];
-
 if (!page) {
   return new Response(null, { status: 404 });
 }
 ---
 
-<Layout pageUrls={pageUrls} seoMetaTags={page._seoMetaTags}>
+<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
   <PreviewModeSubscription query={query} variables={variables} />
   <PageHeader
     title={page.header.title}
