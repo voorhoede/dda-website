@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
 import type { MemberLogoFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
-import { useMemo } from 'react';
+import clsx from 'clsx';
 import './MemberLogo.css';
 
-export const MemberLogo = (props: MemberLogoFragment) => {
+export const MemberLogo = (
+  props: MemberLogoFragment & { className?: string },
+) => {
   const backgroundColor = useMemo(() => {
     if (props.brandColor?.hex) {
       return props.brandColor.hex;
@@ -18,7 +21,7 @@ export const MemberLogo = (props: MemberLogoFragment) => {
 
   return (
     <div
-      className="member-logo"
+      className={clsx('member-logo', props.className)}
       style={{
         backgroundColor,
       }}
