@@ -1,7 +1,7 @@
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Heading } from '@components/Heading';
-import { Tag, TagList } from '@components/Tag';
+import { TagList, TagListItem } from '@components/Tag';
 import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
@@ -18,7 +18,7 @@ export const EventCard = ({ event }: { event: EventCardFragment }) => {
       )}
       <CardContent>
         <TagList>
-          {event.theme?.name && <Tag>{event.theme?.name}</Tag>}
+          {event.theme?.name && <TagListItem>{event.theme?.name}</TagListItem>}
         </TagList>
         {(event.date || event.location) && (
           <Text variant="subtext">

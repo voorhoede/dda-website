@@ -1,7 +1,7 @@
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
 import { Heading } from '@components/Heading';
-import { Tag, TagList } from '@components/Tag';
+import { TagList, TagListItem } from '@components/Tag';
 import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
@@ -23,7 +23,7 @@ export const PublicationCard = ({
       <CardContent>
         <TagList>
           {publication.tags.map(({ name }) => (
-            <Tag key={name}>{name}</Tag>
+            <TagListItem key={name}>{name}</TagListItem>
           ))}
         </TagList>
         {publication._createdAt && (

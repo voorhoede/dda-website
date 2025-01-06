@@ -1,12 +1,12 @@
-import { SRCImage } from "react-datocms";
-import { t } from "@lib/i18n";
-import type { CaseBlockFragment } from "@lib/types/datocms";
+import { SRCImage } from 'react-datocms';
+import { t } from '@lib/i18n';
+import type { CaseBlockFragment } from '@lib/types/datocms';
 
-import { Button } from "@components/Button";
-import { Card, CardContent, CardFooter, CardImage } from "@components/Card";
-import { Heading } from "@components/Heading";
-import { Tag, TagList } from "@components/Tag";
-import { Text } from "@components/Text";
+import { Button } from '@components/Button';
+import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { Heading } from '@components/Heading';
+import { TagList, TagListItem } from '@components/Tag';
+import { Text } from '@components/Text';
 
 export interface Props {
   block: CaseBlockFragment;
@@ -23,10 +23,12 @@ export const CaseBlock = ({ block }: Props) => {
       <CardContent>
         <TagList>
           {block.expertiseTags.map(({ name }) => (
-            <Tag key={name}>{name}</Tag>
+            <TagListItem key={name}>{name}</TagListItem>
           ))}
         </TagList>
-        <Heading level={3} displayLevel={4}>{block.title}</Heading>
+        <Heading level={3} displayLevel={4}>
+          {block.title}
+        </Heading>
         <Text variant="subtext">{block.customer}</Text>
       </CardContent>
       {block.link && (
@@ -40,7 +42,7 @@ export const CaseBlock = ({ block }: Props) => {
             variant="large"
             targetArea="parent"
           >
-            {t("read_more_on_our_site")}
+            {t('read_more_on_our_site')}
           </Button>
         </CardFooter>
       )}
