@@ -1,4 +1,5 @@
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/MemberLogo/MemberLogo.fragment.graphql'
 #import '@blocks/CaseBlock/CaseBlock.fragment.graphql'
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
 #import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
@@ -38,24 +39,6 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
     employees
     id
     location
-    logo {
-      alt
-      title
-      width
-      height
-      url
-      responsiveImage(imgixParams: { fit: crop, h: 192, auto: format }) {
-        alt
-        base64
-        bgColor
-        height
-        sizes
-        src
-        srcSet
-        title
-        width
-      }
-    }
     name
     slug
     website
@@ -68,5 +51,8 @@ query MemberPage($locale: SiteLocale = nl, $slug: String!) {
     contact {
       ...ContactBlock
     }
+  }
+  logo: member(locale: $locale, filter: { slug: { eq: $slug } }) {
+    ...MemberLogo
   }
 }

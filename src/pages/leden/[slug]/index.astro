@@ -2,7 +2,11 @@
 import { setCacheControl } from '@lib/cache-control';
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
-import type { MemberPageQuery, SiteLocale } from '@lib/types/datocms';
+import type {
+  MemberLogoFragment,
+  MemberPageQuery,
+  SiteLocale,
+} from '@lib/types/datocms';
 
 import memberPageQuery from './_memberPage.query.graphql';
 
@@ -19,11 +23,12 @@ import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { PageTitle, PageTitleHeader } from '@components/PageTitle';
 import { SRCImage } from 'react-datocms';
+import { MemberLogo } from '@blocks/MemberLogo';
 
 setCacheControl(Astro.response);
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
-const { page } = await datocmsRequest<MemberPageQuery>({
+const { page, logo } = await datocmsRequest<MemberPageQuery>({
   query: memberPageQuery,
   variables: { locale, slug },
 });
@@ -70,17 +75,21 @@ if (!page) {
     >
       <h2 class="a11y-sr-only">{t('agency_info')}</h2>
 
-      <SRCImage
-        pictureClassName="agency-info__logo"
-        data={page.logo.responsiveImage!}
-        priority={true}
-        usePlaceholder={false}
+      <MemberLogo
+        {...logo as MemberLogoFragment}
+        className="agency-info__logo"
       />
 
       <div class="agency-info__data">
         <p class="text-semibold">{page.name}</p>
         <p>{page.location}</p>
-        <p>{t('count_employees', { count: t(`count_employees_${page.employees}`) })}</p>
+        <p>
+          {
+            t('count_employees', {
+              count: t(`count_employees_${page.employees}`),
+            })
+          }
+        </p>
       </div>
 
       <div>
