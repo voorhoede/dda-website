@@ -1,7 +1,7 @@
 #import '@blocks/EventCard/EventCard.fragment.graphql'
 #import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
-query EventsPage($locale: SiteLocale = nl) {
+query EventsPage($locale: SiteLocale = nl, $today: Date!) {
   page: eventsPage(locale: $locale) {
     _seoMetaTags {
       attributes
@@ -14,7 +14,11 @@ query EventsPage($locale: SiteLocale = nl) {
     pastEventsTitle
   }
 
-  highlightedEvents: allEvents(locale: $locale, first: 3) {
+  highlightedEvents: allEvents(
+    locale: $locale
+    first: 3
+    filter: { date: { gte: $today } }
+  ) {
     ...EventCard
   }
 }

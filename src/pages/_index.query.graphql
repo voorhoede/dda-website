@@ -2,7 +2,7 @@
 #import '@blocks/PublicationCard/PublicationCard.fragment.graphql'
 #import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
-query HomePage($locale: SiteLocale!) {
+query HomePage($locale: SiteLocale!, $today: Date!) {
   page: homePage(locale: $locale) {
     header {
       ...PageHeader
@@ -32,7 +32,11 @@ query HomePage($locale: SiteLocale!) {
     ...PublicationCard
   }
 
-  events: allEvents(first: 6, orderBy: date_DESC) {
+  events: allEvents(
+    first: 6
+    orderBy: date_DESC
+    filter: { date: { gte: $today } }
+  ) {
     ...EventCard
   }
 }

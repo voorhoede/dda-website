@@ -23,6 +23,7 @@ import { defaultLocale, locales } from '@lib/i18n';
 import { setCacheControl } from '@lib/cache-control';
 import type { HomePageQuery } from '@lib/types/datocms';
 import type { PageUrl } from '@lib/types/page-url';
+import { getToday } from '@lib/date';
 import query from './_index.query.graphql';
 
 setCacheControl(Astro.response);
@@ -31,6 +32,7 @@ const { locale = defaultLocale } = Astro.params;
 
 const variables = {
   locale,
+  today: getToday(),
 };
 
 const { page, events, publications } = await datocmsRequest<
@@ -39,6 +41,8 @@ const { page, events, publications } = await datocmsRequest<
   query,
   variables,
 });
+
+console.log(events);
 
 const pageUrls = locales.map((locale) => ({
   locale,
