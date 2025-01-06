@@ -38,7 +38,7 @@ export const MemberCard = ({ member }: Props) => {
         <Text variant="subtext">{member.location}</Text>
         <div className="agency__employees">
           <Text variant="subtext">
-            {t('count_employees', { count: member.employees })}
+            {t('count_employees', { count: t(`count_employees_${member.employees}`) })}
           </Text>
           {member.vacancies.length > 0 && (
             <Tag variant="blue">{t('hiring')}</Tag>

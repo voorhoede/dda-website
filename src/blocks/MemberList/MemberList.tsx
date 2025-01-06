@@ -139,12 +139,12 @@ export const MemberList = withQueryClientProvider(
                 labelStyle="contain"
                 options={[
                   { label: t('all'), value: '' },
-                  { label: '1-9', value: '1-9' },
-                  { label: '10-24', value: '10-24' },
-                  { label: '25-49', value: '25-49' },
-                  { label: '50-99', value: '50-99' },
-                  { label: '100-249', value: '100-249' },
-                  { label: '250+', value: '250+' },
+                  { label: '1-9', value: '1' },
+                  { label: '10-24', value: '2' },
+                  { label: '25-49', value: '3' },
+                  { label: '50-99', value: '4' },
+                  { label: '100-249', value: '5' },
+                  { label: '250+', value: '6' },
                 ]}
                 value={values.omvang}
                 onChange={(value) => onChange('omvang', value)}

@@ -1,24 +1,24 @@
 ---
-import { t } from '@lib/i18n';
-import { datocmsRequest } from '@lib/datocms';
-import type { MemberPageQuery, SiteLocale } from '@lib/types/datocms';
 import { setCacheControl } from '@lib/cache-control';
+import { datocmsRequest } from '@lib/datocms';
+import { t } from '@lib/i18n';
+import type { MemberPageQuery, SiteLocale } from '@lib/types/datocms';
 
 import memberPageQuery from './_memberPage.query.graphql';
 
 import Layout from '@layouts/Default.astro';
 
-import TextBlock from '@blocks/TextBlock/TextBlock.astro';
-import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 import { CaseBlock } from '@blocks/CaseBlock/CaseBlock';
-import { VacancyDataList } from '@components/VacancyDataList';
 import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
+import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import { VacancyDataList } from '@components/VacancyDataList';
 
-import { SRCImage } from 'react-datocms';
-import { PageTitle, PageTitleHeader } from '@components/PageTitle';
-import { Heading } from '@components/Heading';
-import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Button } from '@components/Button';
+import { Column, Grid, type SpanOptions } from '@components/Grid';
+import { Heading } from '@components/Heading';
+import { PageTitle, PageTitleHeader } from '@components/PageTitle';
+import { SRCImage } from 'react-datocms';
 
 setCacheControl(Astro.response);
 
@@ -80,7 +80,7 @@ if (!page) {
       <div class="agency-info__data">
         <p class="text-semibold">{page.name}</p>
         <p>{page.location}</p>
-        <p>{t('count_employees', { count: page.employees })}</p>
+        <p>{t('count_employees', { count: t(`count_employees_${page.employees}`) })}</p>
       </div>
 
       <div>
