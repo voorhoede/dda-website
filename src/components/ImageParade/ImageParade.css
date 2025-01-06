@@ -2,7 +2,7 @@
   overflow: hidden;
   position: relative;
   --visible-item-count: 3;
-  --animation-duration: calc(100s / var(--visible-item-count));
+  --animation-duration: 15s;
 }
 
 .image-parade__list {
@@ -17,7 +17,7 @@
 }
 
 .image-parade--right .image-parade__list {
-  animation: slideRight calc(100s / var(--visible-item-count)) linear infinite;
+  animation: slideRight var(--animation-duration) linear infinite;
 }
 
 @media (min-width: 512px) {
