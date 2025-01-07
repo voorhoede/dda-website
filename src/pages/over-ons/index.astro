@@ -22,7 +22,7 @@ import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 
-setCacheControl(Astro.response, 0, 60);
+setCacheControl(Astro.response);
 
 const { locale } = Astro.params;
 const { page, teamMembers, partners } = await datocmsRequest<
