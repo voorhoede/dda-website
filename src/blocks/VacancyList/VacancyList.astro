@@ -1,7 +1,7 @@
 ---
+import { getDehydratedState } from '@lib/react-query';
 import { getCollection } from 'astro:content';
 import { VacancyList as VacancyListComponent, loader } from './VacancyList';
-import { getDehydratedState } from '@lib/react-query';
 
 const searchParams = Astro.url.searchParams;
 const initialParams = {
@@ -11,6 +11,7 @@ const initialParams = {
   soort: searchParams.get('soort') ?? '',
   uren: searchParams.get('uren') ?? '',
   locatie: searchParams.get('locatie') ?? '',
+  provincie: searchParams.get('provincie') ?? '',
 };
 const initialUrl = Astro.url.href;
 const initialData = await loader(initialParams);

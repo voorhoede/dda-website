@@ -5,6 +5,10 @@ query VacancyList(
   $skip: IntType!
   $filter: VacancyModelFilter
 ) {
+  provinces: allProvinces {
+    id
+    name
+  }
   vacanciesMeta: _allVacanciesMeta(filter: $filter) {
     count
   }

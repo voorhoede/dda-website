@@ -46,8 +46,12 @@ export const loader = async (searchParams: Record<string, string>) => {
   if (searchParams.locatie) {
     Object.assign(filter, { location: { eq: searchParams.locatie } });
   }
+  
+  if (searchParams.provincie) {
+    Object.assign(filter, { province: { eq: searchParams.provincie } });
+  }
 
-  const { vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
+  const { provinces, vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
     query: vacancyListQuery,
     variables: {
       first: DEFAULT_PAGE_SIZE,
@@ -57,6 +61,7 @@ export const loader = async (searchParams: Record<string, string>) => {
   });
 
   return {
+    provinces,
     vacancies,
     vacanciesMeta,
   };
@@ -153,6 +158,20 @@ export const VacancyList = withQueryClientProvider(
                   ]}
                   value={values.locatie}
                   onChange={(value) => onChange('locatie', value)}
+                />
+                <SelectField
+                  name="provincie"
+                  label={t('province')}
+                  labelStyle="contain"
+                  options={[
+                    { label: t('all'), value: '' },
+                    ...data.provinces.map((option) => ({
+                      label: option.name,
+                      value: option.id,
+                    })),
+                  ]}
+                  value={values.provincie}
+                  onChange={(value) => onChange('provincie', value)}
                 />
                 <SelectField
                   name="soort"
