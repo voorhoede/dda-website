@@ -10,7 +10,6 @@ const initialParams = {
   voertaal: searchParams.get('voertaal') ?? '',
   soort: searchParams.get('soort') ?? '',
   uren: searchParams.get('uren') ?? '',
-  locatie: searchParams.get('locatie') ?? '',
   provincie: searchParams.get('provincie') ?? '',
 };
 const initialUrl = Astro.url.href;
@@ -18,13 +17,11 @@ const initialData = await loader(initialParams);
 
 // these filter values are aggregated from all vacancies,
 // since they do not exist as their own collection in the CMS
-const vacancyLocations = await getCollection('vacancyLocations');
 const vacancyEmploymentTypes = await getCollection('vacancyEmploymentTypes');
 const vacancyHours = await getCollection('vacancyHours');
 const vacancyLanguages = await getCollection('vacancyLanguages');
 
 const filterValues = {
-  locations: vacancyLocations,
   employmentTypes: vacancyEmploymentTypes,
   hours: vacancyHours,
   languages: vacancyLanguages,
