@@ -25,6 +25,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useRef } from 'react';
 import publicationListQuery from './PublicationList.query.graphql';
 
+import clsx from 'clsx';
 import './PublicationList.css';
 
 const DEFAULT_PAGE_SIZE = 10;
@@ -146,7 +147,7 @@ export const PublicationList = withQueryClientProvider(
           />
         </Column>
         <Column span={12}>
-          <DataList ref={listRef} aria-live="polite" className="container-padding-x container-padding-y">
+          <DataList ref={listRef} aria-live="polite" className={clsx({ 'container-padding-x container-padding-y': data.publications.length > 0 }) }>
             {data?.publications.map((publication) => (
               <DataListItem key={publication.id}>
                 <TagList>
@@ -181,10 +182,10 @@ export const PublicationList = withQueryClientProvider(
               </DataListItem>
             ))}
             
-            { data.publications.length === 0 && (
-              <DataListItem role="alert" className='empty-message'>{t('no_results')}</DataListItem>
-            ) }
           </DataList>
+          { data.publications.length === 0 && (
+            <p role="alert" className='empty-message'>{t('no_results')}</p>
+          ) }
         </Column>
 
         <Column span={12} className="container-padding-x container-padding-y">
