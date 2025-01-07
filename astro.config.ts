@@ -1,7 +1,6 @@
 import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
-import sitemap from '@astrojs/sitemap';
 import { isPreview } from './config/preview';
 import pkg from './package.json';
 
@@ -63,15 +62,6 @@ export default defineConfig({
     service: passthroughImageService(),
   },
   integrations: [
-    sitemap({
-      customPages: [
-        '/over-ons/',
-        '/leden/',
-        '/publicaties/',
-        '/vacatures/',
-        '/events/',
-      ],
-    }),
     preact({
       compat: true,
     }),
