@@ -2,12 +2,10 @@ import { defineConfig, envField, passthroughImageService } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
 import { isPreview } from './config/preview';
-import pkg from './package.json';
 
-// import react from '@astrojs/react';
 import preact from '@astrojs/preact';
 
-const productionUrl = `https://${pkg.name}.pages.dev`; // overwrite if you have a custom domain
+const productionUrl = 'https://dutchdigitalagencies.com'; // overwrite if you have a custom domain
 const localhostPort = 4323; // 4323 is "head" in T9
 export const siteUrl = process.env.CF_PAGES
   ? process.env.CF_PAGES_BRANCH === 'main'

@@ -55,7 +55,7 @@ const mainContentId = 'content';
     <script
       is:inline
       defer
-      data-domain="dutchdigitalagencies.com"
+      data-domain={Astro.site?.host}
       src="https://plausible.io/js/script.js"></script>
     <script is:inline>
       window.plausible =
