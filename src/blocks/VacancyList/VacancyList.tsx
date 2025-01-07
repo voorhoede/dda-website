@@ -43,11 +43,11 @@ export const loader = async (searchParams: Record<string, string>) => {
     Object.assign(filter, { language: { eq: searchParams.voertaal } });
   }
   
-  if (searchParams.locatie) {
-    Object.assign(filter, { location: { eq: searchParams.locatie } });
+  if (searchParams.provincie) {
+    Object.assign(filter, { province: { eq: searchParams.provincie } });
   }
 
-  const { vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
+  const { provinces, vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
     query: vacancyListQuery,
     variables: {
       first: DEFAULT_PAGE_SIZE,
@@ -57,13 +57,13 @@ export const loader = async (searchParams: Record<string, string>) => {
   });
 
   return {
+    provinces,
     vacancies,
     vacanciesMeta,
   };
 };
 
 type FilterValuesType = {
-  locations: Awaited<ReturnType<typeof getCollection<'vacancyLocations'>>>;
   employmentTypes: Awaited<ReturnType<typeof getCollection<'vacancyEmploymentTypes'>>>;
   hours: Awaited<ReturnType<typeof getCollection<'vacancyHours'>>>;
   languages: Awaited<ReturnType<typeof getCollection<'vacancyLanguages'>>>;
@@ -141,18 +141,18 @@ export const VacancyList = withQueryClientProvider(
             filters={({ onChange, values }) => (
               <>
                 <SelectField
-                  name="locatie"
-                  label={t('location')}
+                  name="provincie"
+                  label={t('province')}
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
-                    ...filterValues.locations.map((location) => ({
-                      label: location.data.label,
-                      value: location.id,
+                    ...data.provinces.map((option) => ({
+                      label: option.name,
+                      value: option.id,
                     })),
                   ]}
-                  value={values.locatie}
-                  onChange={(value) => onChange('locatie', value)}
+                  value={values.provincie}
+                  onChange={(value) => onChange('provincie', value)}
                 />
                 <SelectField
                   name="soort"
