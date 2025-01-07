@@ -20,7 +20,7 @@ import { EventCard } from '@blocks/EventCard';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
-setCacheControl(Astro.response);
+setCacheControl(Astro.response, 0, 10);
 
 const { locale } = Astro.params;
 
