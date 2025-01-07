@@ -25,7 +25,7 @@ import type { HomePageQuery } from '@lib/types/datocms';
 import { getToday } from '@lib/date';
 import query from './_index.query.graphql';
 
-setCacheControl(Astro.response);
+setCacheControl(Astro.response, 0, 10);
 
 const { locale = defaultLocale } = Astro.params;
 
