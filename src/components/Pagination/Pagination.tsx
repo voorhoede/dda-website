@@ -63,9 +63,9 @@ export const Pagination: React.FC<PaginationProps> = ({
           onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
             handlePageChange(e, i)
           }
-          className={clsx({
+          className={clsx(['pagination__page', {
             'pagination__page--active': i === currentPage,
-          })}
+          }])}
         >
           <span className="a11y-sr-only">{t('page_')}</span>
           {i}

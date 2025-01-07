@@ -6,7 +6,10 @@
 
 .pagination__pages {
   display: flex;
-  gap: 0.5rem;
+}
+
+.pagination__page {
+  padding-inline: 0.5rem;
 }
 
 .pagination__page--active {
@@ -18,4 +21,5 @@
   color: var(--black);
   align-items: center;
   justify-content: center;
+  padding-inline: 0.5rem;
 }

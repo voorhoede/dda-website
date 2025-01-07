@@ -11,9 +11,10 @@ import './MemberCard.css';
 
 interface Props {
   member: MemberCardFragment;
+  priority?: boolean;
 }
 
-export const MemberCard = ({ member }: Props) => {
+export const MemberCard = ({ member, priority }: Props) => {
   return (
     <Card>
       <CardImage>
@@ -27,6 +28,7 @@ export const MemberCard = ({ member }: Props) => {
             // since its background can be transparent,
             // causing placeholder to be visible after loading
             usePlaceholder={false}
+            priority={priority}
           />
         )}
       </CardImage>

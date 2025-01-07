@@ -10,14 +10,16 @@ import { SRCImage } from 'react-datocms';
 
 export const PublicationCard = ({
   publication,
+  priority,
 }: {
   publication: PublicationCardFragment;
+  priority?: boolean;
 }) => {
   return (
     <Card>
       {publication.banner.responsiveImage && (
         <CardImage>
-          <SRCImage data={publication.banner.responsiveImage} />
+          <SRCImage data={publication.banner.responsiveImage} priority={priority} />
         </CardImage>
       )}
       <CardContent>
