@@ -11,6 +11,7 @@ query PublicationsPage {
     header {
       ...PageHeader
     }
+    highlightedPublicationsTitle
   }
   highlightedPublications: allPublications(first: 3, orderBy: _createdAt_DESC) {
     ...PublicationCard

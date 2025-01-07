@@ -50,7 +50,8 @@ if (!page) {
     </Fragment>
   </PageHeader>
 
-  <Grid border>
+  <Grid as="section" border>
+    <h2 class="a11y-sr-only">{ page.highlightedEventsTitle }</h2>
     {
       highlightedEvents.map((event) => (
         <Column

@@ -41,7 +41,8 @@ if (!page) {
       </Button>
     </Fragment>
   </PageHeader>
-  <Grid border>
+  <Grid as="section" border>
+    <h2 class="a11y-sr-only">{ page.highlightedPublicationsTitle }</h2>
     {
       highlightedPublications.map((publication) => (
         <Column

@@ -11,6 +11,7 @@ query EventsPage($locale: SiteLocale = nl, $today: Date!) {
     header {
       ...PageHeader
     }
+    highlightedEventsTitle
     pastEventsTitle
   }
 
