@@ -13,7 +13,7 @@ import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
 import membersPageQuery from './_membersPage.query.graphql';
 
-setCacheControl(Astro.response);
+setCacheControl(Astro.response, 60, 10);
 
 const { locale } = Astro.params as { locale: SiteLocale };
 
