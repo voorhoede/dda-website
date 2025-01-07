@@ -36,7 +36,6 @@ export const TeamMemberCard = ({ member }: Props) => {
           icon="arrow-up-right"
           level="secondary"
           variant="large"
-          targetArea="parent"
         >
           LinkedIn
           <span className="a11y-sr-only">
