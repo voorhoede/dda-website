@@ -27,6 +27,7 @@ export function withQueryClientProvider<T extends object>(
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
+        refetchOnMount: false,
         placeholderData: keepPreviousData,
       },
     },
