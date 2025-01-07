@@ -71,7 +71,7 @@ if (!page) {
   </PageHeader>
   <Grid border={true}>
     <Column span={12}>
-      <MemberParade server:defer />
+      <MemberParade />
     </Column>
   </Grid>
   {
@@ -119,7 +119,7 @@ if (!page) {
       </Button>
     </TitleSectionFooter>
   </TitleSection>
-  <HighlightedVacancies server:defer />
+  <HighlightedVacancies />
   {
     publications.length > 0 && (
       <Grid as="section" border={true}>
