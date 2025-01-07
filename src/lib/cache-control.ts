@@ -2,7 +2,7 @@
 const defaultMaxAge = 60;
 
 // 1 hour
-const defaultCdnMaxAge = 60 * 60;
+const defaultCdnMaxAge = 60;
 
 export const setCacheControl = (
   response: ResponseInit,
