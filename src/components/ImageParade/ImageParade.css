@@ -2,7 +2,7 @@
   overflow: hidden;
   position: relative;
   --visible-item-count: 3;
-  --animation-duration: 15s;
+  --animation-duration: 30s;
 }
 
 .image-parade__list {
