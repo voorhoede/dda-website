@@ -1,5 +1,5 @@
 // 1 minute
-const defaultMaxAge = 60;
+const defaultMaxAge = 0;
 
 // 1 hour
 const defaultCdnMaxAge = 60;

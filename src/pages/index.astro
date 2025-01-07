@@ -25,8 +25,7 @@ import type { HomePageQuery } from '@lib/types/datocms';
 import { getToday } from '@lib/date';
 import query from './_index.query.graphql';
 
-// 1 minute for the client, 5 minutes for the CDN
-setCacheControl(Astro.response, 60, 5 * 60);
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 
