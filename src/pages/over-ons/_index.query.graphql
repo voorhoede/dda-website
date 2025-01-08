@@ -1,7 +1,6 @@
 #import '@blocks/PageHeader/PageHeader.fragment.graphql'
 #import '@blocks/TextBlock/TextBlock.fragment.graphql'
 #import '@blocks/TeamMemberCard/TeamMemberCard.fragment.graphql'
-#import '@blocks/PartnerBanner/PartnerLogo.fragment.graphql'
 
 query AboutUsPage($locale: SiteLocale = nl) {
   page: aboutUsPage(locale: $locale) {
@@ -20,12 +19,8 @@ query AboutUsPage($locale: SiteLocale = nl) {
     teamSectionLabel
     teamSectionTitle
   }
-  
+
   teamMembers: allTeamMembers(locale: $locale) {
     ...TeamMemberCard
-  }
-  
-  partners: allPartners(first: 8) {
-    ...PartnerLogo
   }
 }
