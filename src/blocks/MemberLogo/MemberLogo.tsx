@@ -33,6 +33,7 @@ export const MemberLogo = (
           // since its background can be transparent,
           // causing placeholder to be visible after loading
           usePlaceholder={false}
+          priority={true}
         />
       )}
     </div>
