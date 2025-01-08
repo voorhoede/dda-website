@@ -1,24 +1,24 @@
 ---
-import React from 'react';
-import { StructuredText } from 'react-datocms';
 import { getCollection } from 'astro:content';
-import type { RenderInlineRecordContext } from 'react-datocms';
 import type { StructuredText as StructuredTextData } from 'datocms-structured-text-utils';
+import React from 'react';
+import type { RenderInlineRecordContext } from 'react-datocms';
+import { StructuredText } from 'react-datocms';
 
+import ImageBlock from '@blocks/ImageBlock/ImageBlock.astro';
+import VideoEmbedBlock from '@blocks/VideoEmbedBlock/VideoEmbedBlock.astro';
 import { Heading } from '@components/Heading';
 import {
   PageTitle,
-  PageTitleHeader,
   PageTitleContent,
   PageTitleFooter,
+  PageTitleHeader,
 } from '@components/PageTitle';
-import ImageBlock from '@blocks/ImageBlock/ImageBlock.astro';
 import type {
   ImageBlockFragment,
   PageHeaderFragment,
   VideoEmbedBlockFragment,
 } from '@lib/types/datocms';
-import VideoEmbedBlock from '@blocks/VideoEmbedBlock/VideoEmbedBlock.astro';
 
 import './PageHeader.css';
 
@@ -82,7 +82,7 @@ const renderInlineRecord = ({ record }: RenderInlineRecordContext<any>) => {
   <div class="visual container-padding-x">
     {
       (visual as ImageBlockFragment)?.image && (
-        <ImageBlock block={visual as ImageBlockFragment} showTitle={false} />
+        <ImageBlock block={visual as ImageBlockFragment} showTitle={false} priority={true} />
       )
     }
 

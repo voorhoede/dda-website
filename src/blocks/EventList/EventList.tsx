@@ -30,6 +30,7 @@ import { Tag } from '@components/Tag';
 import { Text } from '@components/Text';
 import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
+import clsx from 'clsx';
 import './EventList.css';
 
 export const loader = async ({
@@ -180,7 +181,7 @@ export const EventList = withQueryClientProvider(
         <DataList
           ref={listRef}
           aria-live="polite"
-          className="container-padding-x container-padding-y"
+          className={clsx({ 'container-padding-x container-padding-y': data.events.length > 0 }) }
         >
           {data.events.map((event) => (
             <DataListItem key={event.id}>
@@ -214,13 +215,13 @@ export const EventList = withQueryClientProvider(
               </DataListItemFooter>
             </DataListItem>
           ))}
-
-          {data.events.length === 0 && (
-            <DataListItem role="alert" className="empty-message">
-              {t('no_results')}
-            </DataListItem>
-          )}
         </DataList>
+        
+        {data.events.length === 0 && (
+          <p role="alert" className="empty-message">
+            {t('no_results')}
+          </p>
+        )}
 
         <Pagination
           url={url}

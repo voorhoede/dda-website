@@ -8,12 +8,12 @@ import { t } from '@lib/i18n';
 import type { EventCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 
-export const EventCard = ({ event }: { event: EventCardFragment }) => {
+export const EventCard = ({ event, priority }: { event: EventCardFragment, priority?: boolean }) => {
   return (
     <Card>
       {event.image.responsiveImage && (
         <CardImage>
-          <SRCImage data={event.image.responsiveImage} />
+          <SRCImage data={event.image.responsiveImage} priority={priority} />
         </CardImage>
       )}
       <CardContent>

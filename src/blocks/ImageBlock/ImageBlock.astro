@@ -5,9 +5,10 @@ import Image from './Image.astro';
 export interface Props {
   block: ImageBlockFragment;
   showTitle?: boolean;
+  priority?: boolean;
 }
 
-const { block, showTitle = true } = Astro.props;
+const { block, showTitle = true, priority } = Astro.props;
 ---
 
-<Image image={block.image} showTitle={showTitle} />
+<Image image={block.image} showTitle={showTitle} loading={priority && 'eager'} />

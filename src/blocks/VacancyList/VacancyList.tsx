@@ -14,6 +14,7 @@ import {
 import type { VacancyListQuery } from '@lib/types/datocms';
 import { useQuery } from '@tanstack/react-query';
 import type { getCollection } from 'astro:content';
+import clsx from 'clsx';
 import { useRef } from 'react';
 import vacancyListQuery from './VacancyList.query.graphql';
 
@@ -207,7 +208,7 @@ export const VacancyList = withQueryClientProvider(
             </Column>
             <Column
               span={12}
-              className="container-padding-x container-padding-y"
+              className={clsx({ 'container-padding-x container-padding-y': data.vacanciesMeta.count > 0 }) }
             >
               <Pagination
                 url={url}

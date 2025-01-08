@@ -47,11 +47,30 @@ const mainContentId = 'content';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    
+    <link rel="preconnect" href="https://www.datocms-assets.com" />
+    <link rel="preconnect" href="https://plausible.io" />
+
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Archivo-SemiBold.woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Archivo-Regular.woff2"
+      crossorigin="anonymous"
+    />
+    
     <SeoHead
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
-    <link rel="preconnect" href="https://plausible.io" />
+    
     <script
       is:inline
       defer

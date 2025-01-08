@@ -1,7 +1,7 @@
-import { useMemo } from 'react';
 import type { MemberLogoFragment } from '@lib/types/datocms';
-import { SRCImage } from 'react-datocms';
 import clsx from 'clsx';
+import { useMemo } from 'react';
+import { SRCImage } from 'react-datocms';
 import './MemberLogo.css';
 
 export const MemberLogo = (

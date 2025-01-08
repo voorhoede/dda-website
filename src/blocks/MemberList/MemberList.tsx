@@ -165,30 +165,27 @@ export const MemberList = withQueryClientProvider(
             </>
           )}
         />
-        <Grid as="ul" ref={listRef} aria-live="polite" border={true} className="member-list">
-          {data.members.map((member) => (
+        
+        <Grid as="ul" ref={listRef} aria-live="polite" border={data.members.length > 0} className="member-list">
+          {data.members.map((member, index) => (
             <Column
               key={member.id}
               as="li"
               span={{ mobile: 12, tablet: 6, desktop: 4 }}
             >
-              <MemberCard member={member} />
+              <MemberCard member={member} priority={index < 3} />
             </Column>
           ))}
-          
-          
-          
-          { data.members.length === 0 && (
-            <Column
-              as="li"
-              role="alert"
-              span={12}
-              className='empty-message'
-            >
-              {t('no_results')}
-            </Column>
-          ) }
         </Grid>
+        
+        { data.members.length === 0 && (
+          <p
+            role="alert"
+            className='empty-message'
+          >
+            {t('no_results')}
+          </p>
+        ) }
       </>
     );
   },

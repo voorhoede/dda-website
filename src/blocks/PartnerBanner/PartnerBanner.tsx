@@ -1,10 +1,10 @@
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { ImageParade, ImageParadeItem } from '@components/ImageParade';
+import { t } from '@lib/i18n';
 import type { PartnerLogoFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 import './PartnerBanner.css';
-import { t } from '@lib/i18n';
 
 export const PartnerBanner = ({
   partners,
