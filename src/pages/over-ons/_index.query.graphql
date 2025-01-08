@@ -24,8 +24,4 @@ query AboutUsPage($locale: SiteLocale = nl) {
   teamMembers: allTeamMembers(locale: $locale) {
     ...TeamMemberCard
   }
-  
-  partners: allPartners(first: 8) {
-    ...PartnerLogo
-  }
 }

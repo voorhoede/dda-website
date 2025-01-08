@@ -1,31 +1,31 @@
 ---
+import { setCacheControl } from '@lib/cache-control';
+import { datocmsRequest } from '@lib/datocms';
+import { t } from '@lib/i18n';
 import {
   SiteLocale,
   type AboutUsPageQuery,
   type AboutUsPageQueryVariables,
 } from '@lib/types/datocms';
-import { datocmsRequest } from '@lib/datocms';
-import { t } from '@lib/i18n';
-import { setCacheControl } from '@lib/cache-control';
 import query from './_index.query.graphql';
 
-import Layout from '@layouts/Default.astro';
-import { Heading } from '@components/Heading';
-import { Button } from '@components/Button';
+import MemberParade from '@blocks/MemberParade/MemberParade.astro';
+import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import { PartnerBanner } from '@blocks/PartnerBanner';
+import { TeamMemberCard } from '@blocks/TeamMemberCard';
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import { Button } from '@components/Button';
 import { Column, Grid } from '@components/Grid';
+import { Heading } from '@components/Heading';
 import { Tag } from '@components/Tag';
 import { Text } from '@components/Text';
 import { TitleSection, TitleSectionContent } from '@components/TitleSection';
-import { TeamMemberCard } from '@blocks/TeamMemberCard';
-import PageHeader from '@blocks/PageHeader/PageHeader.astro';
-import MemberParade from '@blocks/MemberParade/MemberParade.astro';
-import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import Layout from '@layouts/Default.astro';
 
 setCacheControl(Astro.response);
 
 const { locale } = Astro.params;
-const { page, teamMembers, partners } = await datocmsRequest<
+const { page, teamMembers } = await datocmsRequest<
   AboutUsPageQuery,
   AboutUsPageQueryVariables
 >({
@@ -113,7 +113,7 @@ if (!page) {
     </Column>
   </Grid>
 
-  {partners.length > 0 && <PartnerBanner {partners} />}
+  <PartnerBanner server:defer />
 </Layout>
 
 <style>

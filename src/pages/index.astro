@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import { NewsLetterForm } from '@blocks/NewsLetterForm';
 import { Button } from '@components/Button';
 import { EventsSection } from '@components/EventsSection';
@@ -6,7 +8,7 @@ import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { PublicationsSection } from '@components/PublicationsSection';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
-import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+import { PartnerBanner } from '@blocks/PartnerBanner';
 import CtaBanner from '@blocks/CtaBanner/CtaBanner.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import HighlightedVacancies from '@blocks/HighlightedVacancies/HightlightedVacancies.astro';

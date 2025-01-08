@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import { setCacheControl } from '@lib/cache-control';
 import { getToday } from '@lib/date';
 import { datocmsRequest } from '@lib/datocms';
@@ -9,13 +11,11 @@ import type {
   SiteLocale,
 } from '@lib/types/datocms';
 import query from './_eventsPage.query.graphql';
-
 import Layout from '@layouts/Default.astro';
-
 import { EventCard } from '@blocks/EventCard';
 import EventList from '@blocks/EventList/EventList.astro';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
-import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+import { PartnerBanner } from '@blocks/PartnerBanner';
 import { Button } from '@components/Button';
 import { Column, Grid } from '@components/Grid';
 import { Heading } from '@components/Heading';

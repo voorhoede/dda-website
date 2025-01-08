@@ -1,1 +1,1 @@
-export { PartnerBanner } from './PartnerBanner';
+export { default as PartnerBanner } from './PartnerBanner.astro';

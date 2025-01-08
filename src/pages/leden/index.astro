@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import type { MembersPageQuery, SiteLocale } from '@lib/types/datocms';
 
 import { datocmsRequest } from '@lib/datocms';
@@ -9,7 +11,7 @@ import Layout from '@layouts/Default.astro';
 import { Button } from '@components/Button';
 import { MemberList } from '@blocks/MemberList';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
-import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
+import { PartnerBanner } from '@blocks/PartnerBanner';
 
 import membersPageQuery from './_membersPage.query.graphql';
 
