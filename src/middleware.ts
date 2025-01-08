@@ -84,6 +84,8 @@ const preview = defineMiddleware(async ({ cookies, locals }, next) => {
  * redirect to the target URL with the specified status code.
  */
 const redirects = defineMiddleware(async ({ request, redirect }, next) => {
+  console.log('hello from middleware');
+
   const response = await next();
   if (response.status === 404) {
     const { pathname } = new URL(request.url);
