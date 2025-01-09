@@ -110,7 +110,7 @@ const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
         )
       }
       {
-        (page.header.visual as VideoEmbedBlockFragment).video?.title && (
+        (page.header.visual as VideoEmbedBlockFragment)?.video?.title && (
           <Text
             aria-hidden="true"
             variant="subtext"
