@@ -156,7 +156,7 @@ export const Menu = () => {
             >
               {t('login')}
             </Button>
-            <Button as="a" icon="arrow-right" href="/lid-worden/">
+            <Button as="a" icon="arrow-right" href="https://aanmelden-dutchdigitalagencies.com/lid-worden" target="_blank">
               {t('become_a_member')}
             </Button>
           </div>
