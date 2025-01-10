@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/_astro/*",
+    "/fonts/Archivo-Regular.woff",
+    "/fonts/Archivo-Regular.woff2",
+    "/fonts/Archivo-SemiBold.woff",
+    "/fonts/Archivo-SemiBold.woff2",
+    "/fonts/MartianMono-Light.woff",
+    "/fonts/MartianMono-Light.woff2",
+    "/fonts/MartianMono-Regular.woff",
+    "/fonts/MartianMono-Regular.woff2",
+    "/robots.txt",
+    "/over-ons",
+    "/publicaties/*"
+  ]
+}
