@@ -31,7 +31,7 @@ export const loader = async (searchParams: Record<string, string>) => {
       title: { matches: { pattern: searchParams.zoek } },
     });
   }
-  
+
   if (searchParams.soort) {
     Object.assign(filter, { employmentType: { eq: searchParams.soort } });
   }
@@ -43,19 +43,20 @@ export const loader = async (searchParams: Record<string, string>) => {
   if (searchParams.voertaal) {
     Object.assign(filter, { language: { eq: searchParams.voertaal } });
   }
-  
+
   if (searchParams.provincie) {
     Object.assign(filter, { province: { eq: searchParams.provincie } });
   }
 
-  const { provinces, vacancies, vacanciesMeta } = await datocmsRequest<VacancyListQuery>({
-    query: vacancyListQuery,
-    variables: {
-      first: DEFAULT_PAGE_SIZE,
-      skip,
-      filter,
-    },
-  });
+  const { provinces, vacancies, vacanciesMeta } =
+    await datocmsRequest<VacancyListQuery>({
+      query: vacancyListQuery,
+      variables: {
+        first: DEFAULT_PAGE_SIZE,
+        skip,
+        filter,
+      },
+    });
 
   return {
     provinces,
@@ -65,7 +66,9 @@ export const loader = async (searchParams: Record<string, string>) => {
 };
 
 type FilterValuesType = {
-  employmentTypes: Awaited<ReturnType<typeof getCollection<'vacancyEmploymentTypes'>>>;
+  employmentTypes: Awaited<
+    ReturnType<typeof getCollection<'vacancyEmploymentTypes'>>
+  >;
   hours: Awaited<ReturnType<typeof getCollection<'vacancyHours'>>>;
   languages: Awaited<ReturnType<typeof getCollection<'vacancyLanguages'>>>;
 };
@@ -98,7 +101,7 @@ export const VacancyList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
-      
+
       if (dataListRef.current) {
         dataListRef.current.focus();
       }
@@ -112,7 +115,7 @@ export const VacancyList = withQueryClientProvider(
           behavior: 'instant',
         });
       }
-      
+
       if (dataListRef.current) {
         dataListRef.current.focus();
       }
@@ -157,7 +160,7 @@ export const VacancyList = withQueryClientProvider(
                 />
                 <SelectField
                   name="soort"
-                  label={ t('type') }
+                  label={t('type')}
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -185,7 +188,7 @@ export const VacancyList = withQueryClientProvider(
                 />
                 <SelectField
                   name="voertaal"
-                  label={ t('work_language') }
+                  label={t('work_language')}
                   labelStyle="contain"
                   options={[
                     { label: t('all'), value: '' },
@@ -204,15 +207,22 @@ export const VacancyList = withQueryClientProvider(
         <Column span={12}>
           <Grid>
             <Column span={12}>
-              <VacancyDataList ref={dataListRef} aria-live="polite" vacancies={data.vacancies} />
+              <VacancyDataList
+                ref={dataListRef}
+                aria-live="polite"
+                vacancies={data.vacancies}
+              />
             </Column>
             <Column
               span={12}
-              className={clsx({ 'container-padding-x container-padding-y': data.vacanciesMeta.count > 0 }) }
+              className={clsx({
+                'container-padding-x container-padding-y':
+                  data.vacanciesMeta.count > 0,
+              })}
             >
               <Pagination
                 url={url}
-                currentPage={Number(searchParams.page)}
+                currentPage={Number(searchParams.page || 1)}
                 totalPages={Math.ceil(
                   data.vacanciesMeta.count / DEFAULT_PAGE_SIZE,
                 )}

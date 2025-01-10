@@ -181,7 +181,9 @@ export const EventList = withQueryClientProvider(
         <DataList
           ref={listRef}
           aria-live="polite"
-          className={clsx({ 'container-padding-x container-padding-y': data.events.length > 0 }) }
+          className={clsx({
+            'container-padding-x container-padding-y': data.events.length > 0,
+          })}
         >
           {data.events.map((event) => (
             <DataListItem key={event.id}>
@@ -216,7 +218,7 @@ export const EventList = withQueryClientProvider(
             </DataListItem>
           ))}
         </DataList>
-        
+
         {data.events.length === 0 && (
           <p role="alert" className="empty-message">
             {t('no_results')}
@@ -225,7 +227,7 @@ export const EventList = withQueryClientProvider(
 
         <Pagination
           url={url}
-          currentPage={Number(searchParams.page)}
+          currentPage={Number(searchParams.page || 1)}
           totalPages={Math.ceil(data.eventsMeta.count / defaultPageSize)}
           onPageChange={updatePage}
         />
