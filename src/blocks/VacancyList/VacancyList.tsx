@@ -1,8 +1,8 @@
-import { SelectField, TextField } from '@components/Forms';
-import { Column, Grid } from '@components/Grid';
-import { ListForm } from '@components/ListForm';
-import { Pagination } from '@components/Pagination';
-import { VacancyDataList } from '@components/VacancyDataList';
+import type { getCollection } from 'astro:content';
+import clsx from 'clsx';
+import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import type { VacancyListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
@@ -11,11 +11,12 @@ import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import type { VacancyListQuery } from '@lib/types/datocms';
-import { useQuery } from '@tanstack/react-query';
-import type { getCollection } from 'astro:content';
-import clsx from 'clsx';
-import { useRef } from 'react';
+import { SelectField, TextField } from '@components/Forms';
+import { Column, Grid } from '@components/Grid';
+import { ListForm } from '@components/ListForm';
+import { VacancyDataList } from '@components/VacancyDataList';
+import { Pagination } from '@components/Pagination';
+
 import vacancyListQuery from './VacancyList.query.graphql';
 
 const DEFAULT_PAGE_SIZE = 10;
