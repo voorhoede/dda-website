@@ -10,6 +10,8 @@ const url = referer ? new URL(referer) : Astro.url;
 
 const searchParams = url.searchParams;
 const initialParams = {
+  zoek: searchParams.get('zoek') ?? '',
+  tag: searchParams.get('tag') ?? '',
   page: searchParams.get('page') ?? '1',
 };
 const initialData = await loader(initialParams);
