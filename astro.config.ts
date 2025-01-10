@@ -16,11 +16,6 @@ export const siteUrl = process.env.CF_PAGES
 // https://astro.build/config
 export default defineConfig({
   adapter: cloudflare({
-    routes: {
-      extend: {
-        exclude: [{ pattern: '/publicaties/*' }]
-      }
-    },
     platformProxy: {
       enabled: true,
     },

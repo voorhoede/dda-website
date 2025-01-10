@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "@astrojs/cloudflare": "^12.0.0-beta.0",
+    "@astrojs/cloudflare": "^12.1.0",
     "@astrojs/preact": "^4.0.1",
     "@astrojs/react": "^3.6.2",
     "@headlessui/react": "^2.2.0",
@@ -52,7 +52,7 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "accept-language-parser": "^1.5.0",
-    "astro": "^5.0.0-beta.2",
+    "astro": "^5.1.2",
     "clsx": "^2.1.1",
     "datocms-listen": "^0.1.15",
     "datocms-structured-text-utils": "^2.0.4",
@@ -78,7 +78,7 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
-    "@astrojs/ts-plugin": "^1.10.2",
+    "@astrojs/ts-plugin": "^1.10.4",
     "@datocms/cli": "^2.0.5",
     "@datocms/cma-client-node": "^2.0.0",
     "@graphql-codegen/cli": "^5.0.0",
