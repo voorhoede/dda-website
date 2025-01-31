@@ -1,0 +1,30 @@
+---
+import { getDehydratedState } from '@lib/react-query';
+import { api, type Endpoint } from '@lib/api';
+import { DataList as ClientDataList } from './DataList';
+
+interface Props {
+  endpoint: Endpoint;
+  fixedFilters?: Record<string, string>;
+}
+
+const { endpoint, fixedFilters } = Astro.props;
+
+const referer = Astro.request.headers.get('Referer');
+const url = new URL(referer || Astro.url);
+const initialParams = Object.fromEntries(url.searchParams.entries());
+
+const { meta, items, filter } = await (
+  await api[endpoint].GET(Astro)
+).json();
+---
+
+<ClientDataList 
+  endpoint={endpoint}
+  filter={filter}
+  fixedFilters={fixedFilters}
+  initialParams={initialParams}
+  initialUrl={url.href}
+  initialState={getDehydratedState([endpoint, initialParams], { meta, items })}
+  client:load 
+/>
