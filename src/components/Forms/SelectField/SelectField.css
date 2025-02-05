@@ -22,6 +22,8 @@
   border-style: dashed;
   outline: none;
   background-color: var(--color-yellow);
+  border-color: var(--color-black);
+  color: var(--color-black);
 }
 
 .select-button--has-value {
@@ -58,6 +60,10 @@
   border-inline-start: 1px solid var(--color-white);
 }
 
+.select-button--has-value:focus-visible .select-button__icon {
+  border-inline-start: 1px solid var(--color-black);
+}
+
 .select-button:hover .select-button__icon {
   border-color: 1px solid var(--color-blue);
 }
@@ -67,7 +73,7 @@
   display: none;
 }
 
-.select-button[data-open]  .select-button__icon--close {
+.select-button[data-open] .select-button__icon--close {
   display: inline-block;
 }
 
