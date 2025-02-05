@@ -60,25 +60,18 @@ export const GET: APIRoute = async ({ site }) => {
       xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
       xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
     >
-      // Home
       <url><loc>${site}</loc></url>
-      
-      // Events
       <url><loc>${site}events/</loc></url>
       ${events.map((event) => `<url><loc>${site}events/${event.details.slug}</loc></url>`).join('\n') }
-      // Members
       <url><loc>${site}leden/</loc></url>
       ${members.map((member) => `<url><loc>${site}leden/${member.slug}</loc></url>`).join('\n') }
-      // Publications
       <url><loc>${site}publicaties/</loc></url>
       ${publications.map((publication) => `<url><loc>${site}publicaties/${publication.slug}</loc></url>`).join('\n') }
-    
-      // Rest
       <url><loc>${site}over-ons/</loc></url>
       <url><loc>${site}vacatures/</loc></url>
       ${pages.map((page) => `<url><loc>${site}${page.slug}</loc></url>`).join('\n') }
     </urlset>
-  `.trim();
+  `.replace(/\s+/g, ' ').trim();
 
   return new Response(result, {
     headers: {
