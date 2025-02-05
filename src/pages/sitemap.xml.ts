@@ -65,10 +65,10 @@ export const GET: APIRoute = async ({ site }) => {
       
       // Events
       <url><loc>${site}/events/</loc></url>
-      ${events.map((event) => `<url><loc>${site}events${event.details.slug}</loc></url>`).join('\n') }
+      ${events.map((event) => `<url><loc>${site}events/${event.details.slug}</loc></url>`).join('\n') }
       // Members
       <url><loc>${site}/leden/</loc></url>
-      ${members.map((member) => `<url><loc>${site}leden${member.slug}</loc></url>`).join('\n') }
+      ${members.map((member) => `<url><loc>${site}leden/${member.slug}</loc></url>`).join('\n') }
       // Publications
       <url><loc>${site}/publicaties/</loc></url>
       ${publications.map((publication) => `<url><loc>${site}publicaties/${publication.slug}</loc></url>`).join('\n') }
