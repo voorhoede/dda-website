@@ -4,16 +4,14 @@ import type { APIRoute } from 'astro';
 
 export const prerender = true;
 
-const robotsTxt = () =>
-  `
+const robotsTxt = (sitemapURL: URL) => `
 User-agent: *
 Allow: /
-`.trim();
 
-export const GET: APIRoute = () => {
-  return new Response(robotsTxt(), {
-    headers: {
-      'content-type': 'text/plain',
-    },
-  });
+Sitemap: ${sitemapURL.href}
+`;
+
+export const GET: APIRoute = ({ site }) => {
+  const sitemapURL = new URL('sitemap.xml', site);
+  return new Response(robotsTxt(sitemapURL));
 };
