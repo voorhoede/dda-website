@@ -12,6 +12,6 @@ Sitemap: ${sitemapURL.href}
 `;
 
 export const GET: APIRoute = ({ site }) => {
-  const sitemapURL = new URL('sitemap.xml', site);
+  const sitemapURL = new URL('sitemap-index.xml', site);
   return new Response(robotsTxt(sitemapURL));
 };
