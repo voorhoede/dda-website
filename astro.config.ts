@@ -62,7 +62,7 @@ export default defineConfig({
   integrations: [
     preact({
       compat: true,
-    })
+    }),
   ],
   output: 'server',
   server: { port: localhostPort },
