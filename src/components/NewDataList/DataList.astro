@@ -10,10 +10,13 @@ interface Props {
 
 const { endpoint, fixedFilters } = Astro.props;
 
-const referer = Astro.request.headers.get('Referer');
-const url = new URL(referer || Astro.url);
-const initialParams = Object.fromEntries(url.searchParams.entries());
+let url = Astro.url;
 
+if (url.href.includes('_server-islands')) {
+  const referer = Astro.request.headers.get('Referer')!;
+  url = new URL(referer);
+}
+const initialParams = Object.fromEntries(url.searchParams.entries());
 const { meta, items, filter } = await (
   await api[endpoint].GET(Astro)
 ).json();

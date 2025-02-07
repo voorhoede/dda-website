@@ -9,6 +9,10 @@ import { useUrl } from '@lib/hooks/use-url';
 import { api } from '@lib/api';
 import { Filter } from '@components/Filter/Filter';
 import { Pagination } from '@components/NewPagination/Pagination';
+import { t } from '@lib/i18n';
+
+import './DataList.css';
+import { useRef } from 'react';
 
 interface Props {
   endpoint: Endpoint;
@@ -22,6 +26,7 @@ export const DataList = withQueryClientProvider<
 >(({ endpoint, filter, fixedFilters, initialParams, initialUrl }) => {
   const [searchParams, updateSearchParams] = useSearchParams(initialParams);
   const url = useUrl(initialUrl);
+  const listRef = useRef<HTMLFormElement>(null);
   
   const ListComponent = api[endpoint].Component;
 
@@ -30,21 +35,33 @@ export const DataList = withQueryClientProvider<
     queryFn: async () => {
       const params = new URLSearchParams({ ...searchParams, ...fixedFilters });
       const response = await fetch(`${endpoint}?${params.toString()}`);
-      const { meta, items } = await response.json();
-      return { meta, items };
+      return await response.json();
     },
   });
 
   const handleFilterChange = (data) => {
-    updateSearchParams(data);
+    updateSearchParams({ ...data, page: null });    
+    
+    const listElement = listRef.current;
+    if (listElement) {
+      listElement.scrollIntoView();
+      listElement.focus();
+    }
   };
 
   const handlePageChange = (page: number) => {
     updateSearchParams({ ...searchParams, page: page.toString() });
+    
+    const listElement = listRef.current;
+    if (listElement) {
+      listElement.scrollIntoView();
+      listElement.focus();
+    }
   };
 
   return (
     <Filter
+      ref={listRef}
       endpoint={endpoint}
       search={filter.search}
       filters={filter.filters}
@@ -53,7 +70,11 @@ export const DataList = withQueryClientProvider<
     >
       {data && (
         <>
-          <ListComponent data={data.items} />
+          {data.items.length > 0 ? (
+            <ListComponent data={data.items} /> 
+          ) : (
+            <p role="alert" className='empty-message'>{t('no_results')}</p>
+          )}
           <Pagination
             url={url}
             currentPage={Number(searchParams.page || 1)}

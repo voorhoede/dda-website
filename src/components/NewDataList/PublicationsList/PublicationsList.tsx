@@ -1,7 +1,11 @@
+import clsx from 'clsx';
 import { t } from '@lib/i18n';
 import { formatDate } from '@lib/date';
-import clsx from 'clsx';
-import { DataList, DataListItem, DataListItemFooter } from '@components/DataList';
+import {
+  DataList,
+  DataListItem,
+  DataListItemFooter,
+} from '@components/DataList';
 import { TagList, TagListItem } from '@components/Tag';
 import { Text } from '@components/Text';
 import { Heading } from '@components/Heading';
@@ -14,9 +18,13 @@ type Props = {
   data: PublicatiesQueryQuery['items'];
 };
 
-export const PublicationsList = ({ data }: Props) => { 
+export const PublicationsList = ({ data }: Props) => {
   return (
-    <DataList className={clsx({ 'container-padding-x container-padding-y': data.length > 0 }) }>
+    <DataList
+      className={clsx({
+        'container-padding-x container-padding-y': data.length > 0,
+      })}
+    >
       {data?.map((publication) => (
         <DataListItem key={publication.id}>
           <TagList>
@@ -50,7 +58,6 @@ export const PublicationsList = ({ data }: Props) => {
           </DataListItemFooter>
         </DataListItem>
       ))}
-      
     </DataList>
   );
 };

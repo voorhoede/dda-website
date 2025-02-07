@@ -33,10 +33,11 @@ export const SelectField = ({
   const [selectedOption, setSelectedOption] = useState<string>('');
 
   useEffect(() => {
-    if (value) {
+    if (value || value === '') {
       const firstValue = options.find((option) => option.value === value);
       setSelectedOption(firstValue?.value ?? '');
     }
+    
   }, [value]);
 
   const handleChange = (value: string) => {

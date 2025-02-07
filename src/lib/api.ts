@@ -45,7 +45,7 @@ export const sharedServerRequest = async <Result>(
 
   filter.filters.forEach(({ name }) => {
     if (searchParams.has(name)) {
-      Object.assign(datoFilter, { [name]: { eq: searchParams.get(name) } });
+      Object.assign(datoFilter, { [name]: { anyIn: searchParams.get(name) } });
     }
   });
 

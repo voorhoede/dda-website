@@ -1,4 +1,4 @@
-import { useState, type ReactNode, type FormEvent, useCallback } from 'react';
+import { useState, type ReactNode, type FormEvent, useCallback, forwardRef } from 'react';
 import debounce from 'debounce';
 import { SelectField, TextField } from '@components/Forms';
 
@@ -22,7 +22,7 @@ interface Props {
   children: ReactNode;
 }
 
-export const Filter = ({ endpoint, search, filters, initialValues, onChange, children }: Props) => {
+export const Filter = forwardRef<HTMLFormElement, Props>(({ endpoint, search, filters, initialValues, onChange, children }, ref) => {
   const [data, setData] = useState<Record<string, string>>({
     [search.name]: initialValues?.[search.name] || '',
     ...filters.reduce((acc, filter) => {
@@ -30,6 +30,7 @@ export const Filter = ({ endpoint, search, filters, initialValues, onChange, chi
       return acc;
     }, {}),
   });
+  
   const shouldShowResetButton = Object.entries(data).some(
     ([key, value]) => key !== 'page' && value !== '',
   );
@@ -66,6 +67,8 @@ export const Filter = ({ endpoint, search, filters, initialValues, onChange, chi
 
   return (
     <form 
+      ref={ref}
+      tabIndex={-1}
       action={endpoint} 
       onSubmit={handleSubmit} 
       onReset={handleReset}
@@ -107,4 +110,4 @@ export const Filter = ({ endpoint, search, filters, initialValues, onChange, chi
       <output>{children}</output>
     </form>
   );
-};
+});
