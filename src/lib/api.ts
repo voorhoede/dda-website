@@ -3,11 +3,11 @@ import type { DocumentNode } from 'graphql';
 import { datocmsRequest } from '@lib/datocms';
 
 import { GET as PUBLICATIONS_GET } from '@api/publicaties';
-import { PublicationsList } from '@components/NewDataList/PublicationsList/PublicationsList';
+import { Publications } from '@components/SmartList/Publications/Publications';
 
 export const recordsPerPage = 10;
 export const api = {
-  '/api/publicaties/': { GET: PUBLICATIONS_GET, Component: PublicationsList },
+  '/api/publicaties/': { GET: PUBLICATIONS_GET, Component: Publications },
 };
 
 export type Endpoint = keyof typeof api;

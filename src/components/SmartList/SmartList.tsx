@@ -11,7 +11,7 @@ import { Filter } from '@components/Filter/Filter';
 import { Pagination } from '@components/NewPagination/Pagination';
 import { t } from '@lib/i18n';
 
-import './DataList.css';
+import './SmartList.css';
 import { useRef } from 'react';
 
 interface Props {
@@ -21,7 +21,7 @@ interface Props {
   initialParams: Record<string, string>;
 }
 
-export const DataList = withQueryClientProvider<
+export const SmartList = withQueryClientProvider<
   Props & QueryClientProviderComponentProps
 >(({ endpoint, filter, fixedFilters, initialParams, initialUrl }) => {
   const [searchParams, updateSearchParams] = useSearchParams(initialParams);
@@ -40,13 +40,7 @@ export const DataList = withQueryClientProvider<
   });
 
   const handleFilterChange = (data) => {
-    updateSearchParams({ ...data, page: null });    
-    
-    const listElement = listRef.current;
-    if (listElement) {
-      listElement.scrollIntoView();
-      listElement.focus();
-    }
+    updateSearchParams({ ...data, page: null });
   };
 
   const handlePageChange = (page: number) => {

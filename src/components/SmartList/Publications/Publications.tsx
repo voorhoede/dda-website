@@ -11,14 +11,14 @@ import { Text } from '@components/Text';
 import { Heading } from '@components/Heading';
 import { Button } from '@components/Button';
 
-import './PublicationsList.css';
+import './Publications.css';
 import type { PublicatiesQueryQuery } from '@lib/types/datocms';
 
 type Props = {
   data: PublicatiesQueryQuery['items'];
 };
 
-export const PublicationsList = ({ data }: Props) => {
+export const Publications = ({ data }: Props) => {
   return (
     <DataList
       className={clsx({
