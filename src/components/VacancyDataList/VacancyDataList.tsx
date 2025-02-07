@@ -57,7 +57,7 @@ export const VacancyDataList = forwardRef<
                 variant="large"
               >
                 <span className='a11y-sr-only'>
-                  {t('vacancy_of_agency_', { vacancy: vacancy.title, agency: vacancy.company[0]?.name })}
+                  {t('vacancy_title_at_agency', { title: vacancy.title, agency: vacancy.company[0]?.name })}
                 </span>
                 {t('see')}
               </Button>
