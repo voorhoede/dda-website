@@ -4,7 +4,9 @@ import type { EventsQuery } from '@lib/types/datocms';
 import { t } from '@lib/i18n';
 
 import query from './_index.query.graphql';
+import provinceOptionsQuery from './_provinceOptions.query.graphql';
 import { datocmsRequest } from '@lib/datocms';
+import { getFilterOptions } from '@lib/api';
 
 const getFilter = async () => {
   return {
@@ -21,6 +23,7 @@ const getFilter = async () => {
             label: t('all'),
             value: '',
           },
+          ...(await getFilterOptions(provinceOptionsQuery))
         ],
       },
       {
