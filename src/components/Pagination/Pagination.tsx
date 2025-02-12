@@ -1,3 +1,4 @@
+import type { MouseEvent } from 'react';
 import { t } from '@lib/i18n';
 import { Button } from '@components/Button';
 
@@ -41,7 +42,7 @@ export const Pagination = ({
           level="secondary"
           variant="large"
           href={pageUrl(prevPage)}
-          onClick={(event) => {
+          onClick={(event: MouseEvent<HTMLAnchorElement>) => {
             handlePageChange(prevPage);
             event.preventDefault();
           }}
@@ -73,7 +74,7 @@ export const Pagination = ({
                   className="pagination-list__item"
                   href={pageUrl(page)}
                   aria-current={page === currentPage && 'page'}
-                  onClick={(event) => {
+                  onClick={(event: MouseEvent<HTMLAnchorElement>) => {
                     handlePageChange(page);
                     event.preventDefault();
                   }}
@@ -94,7 +95,7 @@ export const Pagination = ({
           level="secondary"
           variant="large"
           href={pageUrl(nextPage)}
-          onClick={(event) => {
+          onClick={(event: MouseEvent<HTMLAnchorElement>) => {
             handlePageChange(nextPage);
             event.preventDefault();
           }}
