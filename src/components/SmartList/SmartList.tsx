@@ -8,11 +8,11 @@ import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
 import { api } from '@lib/api';
 import { Filter } from '@components/Filter/Filter';
-import { Pagination } from '@components/NewPagination/Pagination';
+import { Pagination } from '@components/Pagination/Pagination';
 import { t } from '@lib/i18n';
+import { useRef } from 'react';
 
 import './SmartList.css';
-import { useRef } from 'react';
 
 interface Props {
   endpoint: Endpoint;

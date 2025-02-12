@@ -1,6 +1,0 @@
-query MemberList {
-  provinces: allProvinces {
-    id
-    name
-  }
-}

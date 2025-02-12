@@ -1,4 +1,4 @@
-#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
+#import '@components/VacancyListItem/VacancyListItem.fragment.graphql'
 
 query Vacancies(
   $first: IntType!

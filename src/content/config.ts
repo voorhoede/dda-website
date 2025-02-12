@@ -7,7 +7,7 @@ import type {
   PartnerLogoFragment,
 } from '@lib/types/datocms';
 import memberLogoFragment from '@blocks/MemberLogo/MemberLogo.fragment.graphql?raw';
-import vacancyListItemFragment from '@blocks/VacancyList/VacancyListItem.fragment.graphql?raw';
+import vacancyListItemFragment from '@components/VacancyListItem/VacancyListItem.fragment.graphql?raw';
 import memberCardFragment from '@blocks/MemberCard/MemberCard.fragment.graphql?raw';
 import partnerFragment from '@blocks/PartnerBanner/PartnerLogo.fragment.graphql?raw';
 

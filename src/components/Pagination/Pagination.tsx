@@ -1,124 +1,108 @@
-import { Button } from '@components/Button';
 import { t } from '@lib/i18n';
-import clsx from 'clsx';
+import { Button } from '@components/Button';
+
 import './Pagination.css';
 
-interface PaginationProps {
+interface Props {
   url: string;
   currentPage: number;
-  totalPages: number;
+  recordsCount: number;
+  recordsPerPage: number;
   onPageChange: (page: number) => void;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
+export const Pagination = ({
   url,
   currentPage,
-  totalPages,
+  recordsCount,
+  recordsPerPage,
   onPageChange,
-}) => {
-  const handlePageChange = (
-    event: React.MouseEvent<HTMLAnchorElement>,
-    page: number,
-  ) => {
-    event.preventDefault();
-    onPageChange(page);
-  };
+}: Props) => {
+  const pagesCount = Math.ceil(recordsCount / recordsPerPage);
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+  const prevPage = currentPage - 1;
+  const nextPage = currentPage + 1;
 
-  const generatePageUrl = (page: number) => {
+  const pageUrl = (page: number) => {
     const newUrl = new URL(url);
     newUrl.searchParams.set('page', page.toString());
     return newUrl.toString();
   };
 
-  const renderPageLinks = () => {
-    const pages = [];
-    const maxPagesToShow = 5; // Maximum number of page links to show
-    const halfMaxPagesToShow = Math.floor(maxPagesToShow / 2);
-
-    let startPage = Math.max(1, currentPage - halfMaxPagesToShow);
-    let endPage = Math.min(totalPages, currentPage + halfMaxPagesToShow);
-
-    if (currentPage <= halfMaxPagesToShow) {
-      endPage = Math.min(totalPages, maxPagesToShow);
-    } else if (currentPage + halfMaxPagesToShow >= totalPages) {
-      startPage = Math.max(1, totalPages - maxPagesToShow + 1);
-    }
-
-    if (startPage > 1) {
-      pages.push(
-        <span key="start-ellipsis" className="pagination__ellipsis">
-          ...
-        </span>,
-      );
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(
-        <Button
-          as="a"
-          level="secondary"
-          variant="large"
-          key={i}
-          href={generatePageUrl(i)}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
-            handlePageChange(e, i)
-          }
-          className={clsx(['pagination__page', {
-            'pagination__page--active': i === currentPage,
-          }])}
-        >
-          <span className="a11y-sr-only">{t('page_')}</span>
-          {i}
-        </Button>,
-      );
-    }
-
-    if (endPage < totalPages) {
-      pages.push(
-        <span key="end-ellipsis" className="pagination__ellipsis">
-          ...
-        </span>,
-      );
-    }
-
-    return pages;
+  const handlePageChange = (page: number) => {
+    onPageChange(page);
   };
 
-  if (totalPages <= 1) {
-    return null;
-  }
-
   return (
-    <div className="pagination">
+    <nav className="pagination">
       {currentPage > 1 && (
         <Button
           as="a"
           level="secondary"
           variant="large"
-          href={generatePageUrl(currentPage - 1)}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
-            handlePageChange(e, currentPage - 1)
-          }
+          href={pageUrl(prevPage)}
+          onClick={(event) => {
+            handlePageChange(prevPage);
+            event.preventDefault();
+          }}
         >
           {t('previous')}
           <span className="a11y-sr-only">{t('_page')}</span>
         </Button>
       )}
-      <div className="pagination__pages">{renderPageLinks()}</div>
-      {currentPage < totalPages && (
+      <div className="pagination-list">
+        {1 < currentPage - 2 && (
+          <span className="pagination__ellipsis">...</span>
+        )}
+        <ul>
+          {pages
+            .filter((page) => {
+              if (currentPage <= 3) {
+                return page <= 5;
+              } else if (currentPage >= pages.length - 2) {
+                return page > pages.length - 5;
+              }
+              return Math.abs(page - currentPage) <= 2;
+            })
+            .map((page) => (
+              <li>
+                <Button
+                  as="a"
+                  level="secondary"
+                  variant="large"
+                  className="pagination-list__item"
+                  href={pageUrl(page)}
+                  aria-current={page === currentPage && 'page'}
+                  onClick={(event) => {
+                    handlePageChange(page);
+                    event.preventDefault();
+                  }}
+                >
+                  <span className="a11y-sr-only">{t('page_')}</span>
+                  {page}
+                </Button>
+              </li>
+            ))}
+        </ul>
+        {pages.length > currentPage + 2 && (
+          <span className="pagination__ellipsis">...</span>
+        )}
+      </div>
+      {currentPage < pagesCount && (
         <Button
           as="a"
           level="secondary"
           variant="large"
-          href={generatePageUrl(currentPage + 1)}
-          onClick={(e: React.MouseEvent<HTMLAnchorElement>) =>
-            handlePageChange(e, currentPage + 1)
-          }
+          href={pageUrl(nextPage)}
+          onClick={(event) => {
+            handlePageChange(nextPage);
+            event.preventDefault();
+          }}
         >
           {t('next')}
           <span className="a11y-sr-only">{t('_page')}</span>
         </Button>
       )}
-    </div>
+    </nav>
   );
 };

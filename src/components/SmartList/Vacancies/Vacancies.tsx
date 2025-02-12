@@ -1,4 +1,5 @@
-import { VacancyDataList } from '@components/VacancyDataList';
+import type { VacanciesQuery } from '@lib/types/datocms';
+import { VacancyList } from '@components/VacancyList';
 
 type Props = {
   data: VacanciesQuery['items'];
@@ -7,6 +8,6 @@ type Props = {
 
 export const Vacancies = ({ data }: Props) => {
   return (
-    <VacancyDataList vacancies={data} />
+    <VacancyList vacancies={data} />
   );
 }
