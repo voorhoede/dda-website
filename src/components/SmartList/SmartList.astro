@@ -5,10 +5,12 @@ import { SmartList as ClientSmartList } from './SmartList';
 
 interface Props {
   endpoint: Endpoint;
-  fixedFilters?: Record<string, string>;
+  pageSize?: number | null;
+  showFilters?: boolean;
+  fixedFilters?: Record<string, any>;
 }
 
-const { endpoint, fixedFilters } = Astro.props;
+const { endpoint, pageSize = 10, showFilters = true, fixedFilters } = Astro.props;
 
 let url = Astro.url;
 
@@ -16,18 +18,34 @@ if (url.href.includes('_server-islands')) {
   const referer = Astro.request.headers.get('Referer')!;
   url = new URL(referer);
 }
-const initialParams = Object.fromEntries(url.searchParams.entries());
+
+const initialParams = {};
+
+if (showFilters) {
+  Object.assign(initialParams, {
+    ...Object.fromEntries(url.searchParams.entries()),
+    ...fixedFilters,
+    pageSize: String(pageSize)
+  });
+  
+  Object.entries(initialParams).forEach(([key, value]) => {
+    url.searchParams.set(key, String(value));
+  });
+}
+
 const { meta, items, filter } = await (
-  await api[endpoint].GET(Astro)
+  await api[endpoint].GET({ ...Astro, url })
 ).json();
 ---
 
 <ClientSmartList 
   endpoint={endpoint}
+  pageSize={pageSize}
+  showFilters={showFilters}
   filter={filter}
   fixedFilters={fixedFilters}
   initialParams={initialParams}
   initialUrl={url.href}
-  initialState={getDehydratedState([endpoint, initialParams], { meta, items })}
+  initialState={getDehydratedState([endpoint, { ...initialParams, ...fixedFilters, pageSize: String(pageSize) }], { meta, items })}
   client:load 
 />
