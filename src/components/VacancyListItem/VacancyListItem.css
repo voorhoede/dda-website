@@ -1,0 +1,32 @@
+.vacancy-list-item {
+  border-bottom: 1px solid var(--color-black);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  padding-bottom: var(--spacing-32);  
+  flex: 1;
+  position: relative;
+}
+
+.vacancy-list-item:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+@media screen and (min-width: 1225px) {
+  .vacancy-list-item {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+  }
+}
+
+.vacancy-list-item__meta {
+  display: contents;
+}
+
+.vacancy-list-item__meta > * {
+  margin: 0;
+  grid-column: span 1;
+}

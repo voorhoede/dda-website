@@ -3,6 +3,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@api": ["src/pages/api"],
+      "@api/*": ["src/pages/api/*"],
       "@assets/*": ["src/assets/*"],
       "@blocks/*": ["src/blocks/*"],
       "@components/*": ["src/components/*"],

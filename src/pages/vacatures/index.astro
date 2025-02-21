@@ -5,9 +5,9 @@ import { setCacheControl } from '@lib/cache-control';
 import { datocmsRequest } from '@lib/datocms';
 import type { VacanciesPageQuery } from '@lib/types/datocms';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
-import VacancyList from '@blocks/VacancyList/VacancyList.astro';
 import { Button } from '@components/Button';
 import query from './_index.query.graphql';
+import { SmartList } from '@components/SmartList';
 
 setCacheControl(Astro.response, 0, 10);
 
@@ -39,5 +39,5 @@ if (!page) {
     </Fragment>
   </PageHeader>
 
-  <VacancyList />
+  <SmartList endpoint="/api/vacatures/" />
 </Layout>

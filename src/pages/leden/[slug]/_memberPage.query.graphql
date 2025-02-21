@@ -2,7 +2,7 @@
 #import '@blocks/MemberLogo/MemberLogo.fragment.graphql'
 #import '@blocks/CaseBlock/CaseBlock.fragment.graphql'
 #import '@blocks/ContactBlock/ContactBlock.fragment.graphql'
-#import '@blocks/VacancyList/VacancyListItem.fragment.graphql'
+#import '@components/VacancyListItem/VacancyListItem.fragment.graphql'
 
 query MemberPage($locale: SiteLocale = nl, $slug: String!) {
   page: member(locale: $locale, filter: { slug: { eq: $slug } }) {

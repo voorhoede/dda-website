@@ -10,7 +10,7 @@ declare namespace App {
   }
 }
 
-declare module '*.query.graphql' {
+declare module '*.graphql' {
   import { DocumentNode } from 'graphql';
   const value: DocumentNode;
   export = value;

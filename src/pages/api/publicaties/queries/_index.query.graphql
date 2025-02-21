@@ -1,0 +1,37 @@
+query PublicatiesQuery(
+  $first: IntType!
+  $skip: IntType!
+  $filter: PublicationModelFilter
+) {
+  meta: _allPublicationsMeta(filter: $filter) {
+    count
+  }
+  items: allPublications(
+    first: $first
+    skip: $skip
+    filter: $filter
+    orderBy: _createdAt_DESC
+  ) {
+    id
+    title
+    slug
+    _createdAt
+    tags {
+      name
+    }
+    banner {
+      alt
+      responsiveImage {
+        src
+        srcSet
+        width
+        height
+        alt
+        title
+        base64
+        bgColor
+        sizes
+      }
+    }
+  }
+}

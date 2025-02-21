@@ -1,0 +1,6 @@
+query TagOptions {
+  options: allSubjects {
+    value: id
+    label: name
+  }
+}

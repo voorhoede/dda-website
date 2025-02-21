@@ -1,0 +1,6 @@
+query ProvinceOptions {
+  options: allProvinces {
+    value: id
+    label: name
+  }
+}

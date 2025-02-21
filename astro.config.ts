@@ -1,9 +1,8 @@
-import { defineConfig, envField, passthroughImageService } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import preact from '@astrojs/preact';
 import graphql from '@rollup/plugin-graphql';
 import { isPreview } from './config/preview';
-
-import preact from '@astrojs/preact';
 
 const productionUrl = 'https://dutchdigitalagencies.com'; // overwrite if you have a custom domain
 const localhostPort = 4323; // 4323 is "head" in T9
@@ -16,6 +15,7 @@ export const siteUrl = process.env.CF_PAGES
 // https://astro.build/config
 export default defineConfig({
   adapter: cloudflare({
+    imageService: 'passthrough',
     platformProxy: {
       enabled: true,
     },
@@ -53,11 +53,6 @@ export default defineConfig({
         default: process.env.MAILCHIMP_HONEYPOT_ID,
       }),
     },
-  },
-  image: {
-    // cloudflare is not supported by the Astro image service
-    // @see https://docs.astro.build/en/guides/images/#configure-no-op-passthrough-service
-    service: passthroughImageService(),
   },
   integrations: [
     preact({

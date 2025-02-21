@@ -1,0 +1,34 @@
+query Events(
+  $locale: SiteLocale = nl
+  $first: IntType!
+  $skip: IntType!
+  $filter: EventModelFilter
+) {
+  meta: _allEventsMeta(locale: $locale, filter: $filter) {
+    count
+  }
+
+  items: allEvents(
+    locale: $locale
+    first: $first
+    skip: $skip
+    filter: $filter
+  ) {
+    id
+    title
+    date
+    location
+    theme {
+      name
+    }
+    details {
+      __typename
+      ... on InternalEventRecord {
+        slug
+      }
+      ... on ExternalEventRecord {
+        link
+      }
+    }
+  }
+}

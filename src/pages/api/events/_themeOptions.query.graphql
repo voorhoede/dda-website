@@ -1,0 +1,6 @@
+query ThemeOptions {
+  options: allThemes {
+    value: id
+    label: name
+  }
+}
