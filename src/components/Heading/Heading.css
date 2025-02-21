@@ -1,5 +1,6 @@
 .heading {
   margin: 0;
+  hyphens: auto;
 }
 
 .heading--1 {
@@ -8,7 +9,6 @@
   letter-spacing: -0.04em;
   line-height: 1;
   text-transform: uppercase;
-  hyphens: auto;
 }
 
 .heading--2 {
