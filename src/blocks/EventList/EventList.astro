@@ -1,5 +1,5 @@
 ---
-import type { EventModelFilter } from '@lib/types/datocms';
+import type { EventModelFilter, EventModelOrderBy } from '@lib/types/datocms';
 import { EventList as EventListComponent, loader } from './EventList.tsx';
 import { getDehydratedState } from '@lib/react-query';
 
@@ -8,6 +8,7 @@ interface Props {
   defaultPageSize: number;
   showFilter?: boolean;
   fixedFilters?: EventModelFilter;
+  orderBy?: EventModelOrderBy;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   defaultPageSize,
   showFilter = true,
   fixedFilters,
+  orderBy,
 } = Astro.props;
 
 const searchParams = Astro.url.searchParams;
@@ -26,6 +28,7 @@ const initialData = await loader({
   searchParams: initialParams,
   defaultPageSize,
   fixedFilters,
+  orderBy,
 });
 const initialUrl = Astro.url.href;
 ---
@@ -38,6 +41,10 @@ const initialUrl = Astro.url.href;
   fixedFilters={fixedFilters}
   initialParams={initialParams}
   initialData={initialData}
-  initialState={getDehydratedState([queryKey, initialParams], initialData)}
+  initialState={getDehydratedState(
+    [queryKey, initialParams, orderBy],
+    initialData
+  )}
   initialUrl={initialUrl}
+  orderBy={orderBy}
 />

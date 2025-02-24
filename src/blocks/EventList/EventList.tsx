@@ -2,6 +2,7 @@ import type {
   EventListQuery,
   EventListQueryVariables,
   EventModelFilter,
+  EventModelOrderBy,
 } from '@lib/types/datocms';
 import query from './EventList.query.graphql';
 
@@ -37,11 +38,15 @@ export const loader = async ({
   searchParams,
   fixedFilters = {},
   defaultPageSize,
+  orderBy = 'date_ASC' as EventModelOrderBy,
 }: {
   searchParams: Record<string, string>;
   fixedFilters?: EventModelFilter;
   defaultPageSize: number;
+  orderBy?: EventModelOrderBy;
 }) => {
+  console.log('[EventListLoader] orderBy', { orderBy });
+
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const skip = (page - 1) * defaultPageSize;
 
@@ -65,6 +70,7 @@ export const loader = async ({
       first: defaultPageSize,
       skip,
       filter: { ...filter, ...fixedFilters },
+      orderBy: [orderBy],
     },
   });
 
@@ -83,6 +89,7 @@ interface Props {
   initialData: Awaited<ReturnType<typeof loader>>;
   initialParams: Record<string, string>;
   initialUrl: string;
+  orderBy?: EventModelOrderBy;
 }
 
 export const EventList = withQueryClientProvider(
@@ -94,6 +101,7 @@ export const EventList = withQueryClientProvider(
     initialData,
     initialParams,
     initialUrl,
+    orderBy,
   }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLElement>(null);
     const listRef = useRef<HTMLElement>(null);
@@ -101,8 +109,9 @@ export const EventList = withQueryClientProvider(
     const url = useUrl(initialUrl);
 
     const { data } = useQuery({
-      queryKey: [queryKey, searchParams],
-      queryFn: () => loader({ searchParams, fixedFilters, defaultPageSize }),
+      queryKey: [queryKey, searchParams, orderBy],
+      queryFn: () =>
+        loader({ searchParams, fixedFilters, defaultPageSize, orderBy }),
       initialData,
     });
 

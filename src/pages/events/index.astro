@@ -3,10 +3,11 @@ import { setCacheControl } from '@lib/cache-control';
 import { getToday } from '@lib/date';
 import { datocmsRequest } from '@lib/datocms';
 import { t } from '@lib/i18n';
-import type {
-  EventsPageQuery,
-  EventsPageQueryVariables,
-  SiteLocale,
+import {
+  type EventModelOrderBy,
+  type EventsPageQuery,
+  type EventsPageQueryVariables,
+  type SiteLocale,
 } from '@lib/types/datocms';
 import query from './_eventsPage.query.graphql';
 
@@ -51,7 +52,7 @@ if (!page) {
   </PageHeader>
 
   <Grid as="section" border>
-    <h2 class="a11y-sr-only">{ page.highlightedEventsTitle }</h2>
+    <h2 class="a11y-sr-only">{page.highlightedEventsTitle}</h2>
     {
       highlightedEvents.map((event) => (
         <Column
@@ -75,6 +76,7 @@ if (!page) {
     fixedFilters={{
       date: { gte: today },
     }}
+    orderBy={'date_ASC' as EventModelOrderBy}
   />
 
   <section class="past-events">
@@ -89,6 +91,7 @@ if (!page) {
       fixedFilters={{
         date: { lt: today },
       }}
+      orderBy={'date_DESC' as EventModelOrderBy}
     />
   </section>
 

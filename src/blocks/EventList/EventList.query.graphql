@@ -3,27 +3,26 @@ query EventList(
   $first: IntType!
   $skip: IntType!
   $filter: EventModelFilter
+  $orderBy: [EventModelOrderBy!]
 ) {
   themes: allThemes {
     id
     name
   }
-  
-  eventsMeta: _allEventsMeta(
-    locale: $locale
-    filter: $filter
-  ) {
+
+  eventsMeta: _allEventsMeta(locale: $locale, filter: $filter) {
     count
   }
-  
+
   events: allEvents(
     locale: $locale
     first: $first
     skip: $skip
     filter: $filter
+    orderBy: $orderBy
   ) {
     id
-    title 
+    title
     date
     location
     theme {
