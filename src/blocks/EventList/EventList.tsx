@@ -45,8 +45,6 @@ export const loader = async ({
   defaultPageSize: number;
   orderBy?: EventModelOrderBy;
 }) => {
-  console.log('[EventListLoader] orderBy', { orderBy });
-
   const page = searchParams.page ? Number(searchParams.page) : 1;
   const skip = (page - 1) * defaultPageSize;
 
