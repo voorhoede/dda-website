@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-// import { getCollection } from 'astro:content';
 import type { EventsQuery } from '@lib/types/datocms';
 import { t } from '@lib/i18n';
 
@@ -8,7 +7,17 @@ import provinceOptionsQuery from './_provinceOptions.query.graphql';
 import { datocmsRequest } from '@lib/datocms';
 import { getFilterOptions } from '@lib/api';
 
-const getFilter = async () => {
+const getFilter = async (url: string | URL | undefined) => {
+  const employmentTypes = await (
+    await fetch(new URL('/api/vacatures/employment-types.json', url))
+  ).json();
+  const hours = await (
+    await fetch(new URL('/api/vacatures/hours.json', url))
+  ).json();
+  const languages = await (
+    await fetch(new URL('/api/vacatures/languages.json', url))
+  ).json();
+
   return {
     search: {
       name: 'title',
@@ -23,7 +32,7 @@ const getFilter = async () => {
             label: t('all'),
             value: '',
           },
-          ...(await getFilterOptions(provinceOptionsQuery))
+          ...(await getFilterOptions(provinceOptionsQuery)),
         ],
       },
       {
@@ -34,10 +43,7 @@ const getFilter = async () => {
             label: t('all'),
             value: '',
           },
-          // ...(await getCollection('vacancyEmploymentTypes')).map((type) => ({
-          //   label: type.data.label,
-          //   value: type.id,
-          // })),
+          ...employmentTypes
         ],
       },
       {
@@ -48,10 +54,7 @@ const getFilter = async () => {
             label: t('all'),
             value: '',
           },
-          // ...(await getCollection('vacancyHours')).map((hours) => ({
-          //   label: hours.data.label,
-          //   value: hours.id,
-          // })),
+          ...hours
         ],
       },
       {
@@ -61,13 +64,10 @@ const getFilter = async () => {
           {
             label: t('all'),
             value: '',
-            // ...(await getCollection('vacancyLanguages')).map((language) => ({
-            //   label: language.data.label,
-            //   value: language.id,
-            // })),
           },
+          ...languages
         ],
-      }
+      },
     ],
   };
 };
@@ -87,31 +87,30 @@ export const GET: APIRoute = async ({ url }) => {
       title: { matches: { pattern: searchParams.get('title') } },
     });
   }
-  
+
   if (searchParams.has('province')) {
     Object.assign(queryFilter, {
       province: { eq: searchParams.get('province') },
     });
   }
-  
+
   if (searchParams.has('employmentType')) {
     Object.assign(queryFilter, {
       employmentType: { eq: searchParams.get('employmentType') },
     });
   }
-  
+
   if (searchParams.has('weeklyHours')) {
     Object.assign(queryFilter, {
       weeklyHours: { eq: searchParams.get('weeklyHours') },
     });
   }
-  
+
   if (searchParams.has('language')) {
     Object.assign(queryFilter, {
       language: { eq: searchParams.get('language') },
     });
   }
-
 
   const { meta, items } = await datocmsRequest<EventsQuery>({
     query,
@@ -126,7 +125,7 @@ export const GET: APIRoute = async ({ url }) => {
     JSON.stringify({
       meta,
       items,
-      filter: await getFilter(),
+      filter: await getFilter(url),
     }),
   );
 };
