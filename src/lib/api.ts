@@ -74,23 +74,3 @@ export const getFilterOptions = async (query: DocumentNode) => {
   }>({ query });
   return data.options;
 };
-
-export const parseFilter = (filter: Record<string, string>) => {
-  const parsedFilter: Record<string, string> = {};
-
-  Object.entries(filter).forEach(([key, value]) => {
-    const keys = key.split('.');
-    let ref = parsedFilter;
-
-    keys.forEach((part, index) => {
-      if (index === keys.length - 1) {
-        ref[part] = value;
-      } else {
-        ref[part] = ref[part] || {};
-        ref = ref[part];
-      }
-    });
-  });
-
-  return parsedFilter;
-};

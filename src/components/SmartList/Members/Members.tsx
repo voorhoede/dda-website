@@ -1,11 +1,11 @@
-import type { MembersQuery } from '@lib/types/datocms';
-
-import './Members.css';
+import type { MemberCardFragment } from '@lib/types/datocms';
 import { Column, Grid } from '@components/Grid';
 import { MemberCard } from '@blocks/MemberCard';
 
+import './Members.css';
+
 type Props = {
-  data: MembersQuery['items'];
+  data: MemberCardFragment[];
 };
 
 export const Members = ({ data }: Props) => {
