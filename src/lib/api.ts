@@ -2,20 +2,16 @@ import type { APIContext } from 'astro';
 import type { DocumentNode } from 'graphql';
 import { datocmsRequest } from '@lib/datocms';
 
-import { GET as EVENTS_GET } from '@api/events';
 import { Events } from '@components/SmartList/Events/Events';
-import { GET as MEMBERS_GET } from '@api/leden';
 import { Members } from '@components/SmartList/Members/Members';
-import { GET as PUBLICATIONS_GET } from '@api/publicaties';
 import { Publications } from '@components/SmartList/Publications/Publications';
-import { GET as VACANCIES_GET } from '@api/vacatures';
 import { Vacancies } from '@components/SmartList/Vacancies/Vacancies';
 
 export const api = {
-  '/api/events/': { GET: EVENTS_GET, Component: Events },
-  '/api/leden/': { GET: MEMBERS_GET, Component: Members },
-  '/api/publicaties/': { GET: PUBLICATIONS_GET, Component: Publications },
-  '/api/vacatures/': { GET: VACANCIES_GET, Component: Vacancies },
+  '/api/events/': { Component: Events },
+  '/api/leden/': { Component: Members },
+  '/api/publicaties/': { Component: Publications },
+  '/api/vacatures/': { Component: Vacancies },
 };
 
 export type Endpoint = keyof typeof api;

@@ -1,6 +1,6 @@
 ---
 import { getDehydratedState } from '@lib/react-query';
-import { api, type Endpoint } from '@lib/api';
+import { type Endpoint } from '@lib/api';
 import { SmartList as ClientSmartList } from './SmartList';
 
 interface Props {
@@ -34,7 +34,7 @@ if (showFilters) {
 }
 
 const { meta, items, filter } = await (
-  await api[endpoint].GET({ ...Astro, url })
+  await fetch(new URL(endpoint, url))
 ).json();
 ---
 
