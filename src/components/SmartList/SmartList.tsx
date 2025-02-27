@@ -42,7 +42,7 @@ export const SmartList = withQueryClientProvider<
     const ListComponent = api[endpoint].Component;
 
     const { data } = useQuery({
-      queryKey: [endpoint, searchParams, fixedFilters, pageSize],
+      queryKey: [endpoint, { ...initialParams, ...fixedFilters, pageSize: String(pageSize) }],
       queryFn: async () => {
         const params = new URLSearchParams({
           ...searchParams,
