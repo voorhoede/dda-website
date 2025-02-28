@@ -1,0 +1,22 @@
+.filter-fields {
+  padding: var(--spacing-48) var(--spacing-24);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-48) var(--spacing-24);
+  border-bottom: 1px solid var(--color-black);
+  box-shadow: 0 -1px 0 0 var(--color-black);
+  flex-wrap: wrap;
+  gap: var(--spacing-24);
+}
+
+.filter-field-search {
+  max-width: 304px;
+  width: 100%;
+}
+
+.filters {  
+  display: flex;
+  gap: var(--spacing-16);
+  flex-wrap: wrap;
+}

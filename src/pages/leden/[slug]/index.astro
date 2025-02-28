@@ -16,7 +16,7 @@ import { CaseBlock } from '@blocks/CaseBlock/CaseBlock';
 import { ContactBlock } from '@blocks/ContactBlock/ContactBlock';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
-import { VacancyDataList } from '@components/VacancyDataList';
+import { VacancyList } from '@components/VacancyList';
 
 import { Button } from '@components/Button';
 import { Column, Grid, type SpanOptions } from '@components/Grid';
@@ -134,7 +134,7 @@ if (!page) {
     </header>
     {
       page.vacancies.length > 0 ? (
-        <VacancyDataList vacancies={page.vacancies} />
+        <VacancyList vacancies={page.vacancies} />
       ) : (
         <div class="vacancies__fallback">
           <p>{t('at_this_moment_this_agency_has_no_vacancies')}</p>
