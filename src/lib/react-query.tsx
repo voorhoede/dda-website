@@ -48,7 +48,7 @@ export function withQueryClientProvider<T extends object>(
 }
 
 export function getDehydratedState<T extends object>(
-  key: [string, Record<string, string>, number?],
+  key: [string, Record<string, string>, unknown?],
   data: T,
 ) {
   const queryClient = new QueryClient();

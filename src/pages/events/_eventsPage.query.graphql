@@ -19,6 +19,7 @@ query EventsPage($locale: SiteLocale = nl, $today: Date!) {
     locale: $locale
     first: 3
     filter: { date: { gte: $today } }
+    orderBy: date_ASC
   ) {
     ...EventCard
   }
