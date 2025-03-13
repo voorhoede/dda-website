@@ -92,12 +92,14 @@ export const datocmsCollection = async <CollectionType>({
   fragmentName,
   filter,
   orderBy,
+  locale
 }: {
   collection: string;
   fragment: string;
   fragmentName: string;
   filter?: Record<string, unknown>;
   orderBy?: string;
+  locale?: string;
 }) => {
   const { meta } = (await datocmsRequest({
     query: parse(/* graphql */ `
@@ -113,28 +115,31 @@ export const datocmsCollection = async <CollectionType>({
   const singularCollectionName = pluralize.singular(collection);
 
   for (let page = 0; page < totalPages; page++) {
-    const parameters =
-      filter || orderBy
-        ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
-        : '';
-
-    const variables =
-      filter || orderBy
-        ? {
-          filter,
-          orderBy,
-        }
-        : {};
+    const parameters = [];
+    const variables = {};
+    if (filter) {
+      Object.assign(variables, { filter });
+      parameters.push(`$filter: ${singularCollectionName}ModelFilter`);
+    }
+    if (orderBy) {
+      Object.assign(variables, { orderBy });
+      parameters.push(`$orderBy: [${singularCollectionName}ModelOrderBy]`);
+    }
+    if (locale) {
+      Object.assign(variables, { locale });
+      parameters.push('$locale: SiteLocale');
+    }
 
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
         ${fragment}
-        query All${collection} ${parameters} {
+        query All${collection} ${parameters.length > 0 ? `(${parameters.join(', ')})` : ''} {
           ${collection}: all${collection} (
              first: ${recordsPerPage},
              skip: ${page * recordsPerPage},
              ${filter ? 'filter: $filter,' : ''}
              ${orderBy ? 'orderBy: $orderBy,' : ''}
+             ${locale ? 'locale: $locale,' : ''}
           ) {
             ...${fragmentName}
           }
