@@ -28,7 +28,7 @@ const today = getToday();
 const { page } = await datocmsRequest<
   EventsPageQuery,
   EventsPageQueryVariables
->({ query, variables: { locale: locale as SiteLocale, today } });
+>({ query, variables: { locale: locale as SiteLocale } });
 
 if (!page) {
   return new Response(null, { status: 404 });
