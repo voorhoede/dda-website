@@ -2,7 +2,7 @@ import logo from '@assets/logo.svg';
 import { Column, Grid } from '@components/Grid';
 import { Link } from '@components/Link';
 import { Text } from '@components/Text';
-import { getLocale, t } from '@lib/i18n';
+import { t } from '@lib/i18n';
 import { siteName } from '@lib/seo';
 import './Footer.css';
 
@@ -14,14 +14,12 @@ type FooterProps = {
 };
 
 export const Footer = ({ links }: FooterProps) => {
-  const locale = getLocale();
-
   return (
     <Grid as="footer" className="footer" border={true}>
       <Column span={{ mobile: 12, desktop: 5 }}>
         <Link
           rel="home"
-          href={`/${locale}/`}
+          href="/"
           aria-label={t('go_to_home_page', { siteName })}
           className="footer__logo-link"
         >
