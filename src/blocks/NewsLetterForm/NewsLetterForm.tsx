@@ -6,7 +6,10 @@ import { MAILCHIMP_FORM_URL, MAILCHIMP_HONEYPOT_ID } from 'astro:env/client';
 import './NewsLetterForm.css';
 import { TextField } from '@components/Forms';
 
-export type Props = NewsLetterFormBlockFragment
+export type Props = {
+  mailchimpFormUrl?: string;
+  mailchimpHoneypotId?: string;
+};
 
 export const NewsLetterForm = ({
   mailchimpFormUrl = MAILCHIMP_FORM_URL, 
