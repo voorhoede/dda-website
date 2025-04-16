@@ -1,3 +1,4 @@
+import type { NewsLetterFormBlockFragment } from '@lib/types/datocms';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { t } from '@lib/i18n';
@@ -5,7 +6,12 @@ import { MAILCHIMP_FORM_URL, MAILCHIMP_HONEYPOT_ID } from 'astro:env/client';
 import './NewsLetterForm.css';
 import { TextField } from '@components/Forms';
 
-export const NewsLetterForm = () => {
+export type Props = NewsLetterFormBlockFragment
+
+export const NewsLetterForm = ({
+  mailchimpFormUrl = MAILCHIMP_FORM_URL, 
+  mailchimpHoneypotId = MAILCHIMP_HONEYPOT_ID
+}: Props) => {
   return (
     <section className="newsletter-form">
       <Heading displayLevel={4} level={2}>
@@ -14,7 +20,7 @@ export const NewsLetterForm = () => {
 
       <form
         className="newsletter-form__form"
-        action={MAILCHIMP_FORM_URL}
+        action={mailchimpFormUrl}
         method="post"
         target="_blank"
       >
@@ -28,7 +34,7 @@ export const NewsLetterForm = () => {
         <div aria-hidden="true" className="a11y-sr-only">
           <input
             type="text"
-            name={MAILCHIMP_HONEYPOT_ID}
+            name={mailchimpHoneypotId}
             tabIndex={-1}
             defaultValue=""
           />

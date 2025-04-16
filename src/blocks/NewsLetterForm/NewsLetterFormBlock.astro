@@ -1,0 +1,21 @@
+---
+import type { NewsLetterFormBlockFragment } from '@lib/types/datocms';
+import { NewsLetterForm } from './NewsLetterForm';
+
+type Props = {
+  block: NewsLetterFormBlockFragment;
+}
+
+const { block } = Astro.props;
+---
+
+<div class="news-letter-form-block">
+  <NewsLetterForm client:load {...block} />
+</div>
+
+<style>
+  .news-letter-form-block :global(.newsletter-form) {
+    margin-block-start: var(--spacing-48);
+    padding: var(--spacing-48) 0px 0px 0px;
+  }
+</style>
