@@ -1,3 +1,5 @@
+#import '@blocks/EventCard/EventCard.fragment.graphql'
+
 query EventList(
   $locale: SiteLocale = nl
   $first: IntType!
@@ -21,21 +23,6 @@ query EventList(
     filter: $filter
     orderBy: $orderBy
   ) {
-    id
-    title
-    date
-    location
-    theme {
-      name
-    }
-    details {
-      __typename
-      ... on InternalEventRecord {
-        slug
-      }
-      ... on ExternalEventRecord {
-        link
-      }
-    }
+    ...EventCard
   }
 }

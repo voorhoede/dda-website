@@ -9,6 +9,7 @@ interface Props {
   showFilter?: boolean;
   fixedFilters?: EventModelFilter;
   orderBy?: EventModelOrderBy;
+  presentation?: 'list' | 'grid';
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   showFilter = true,
   fixedFilters,
   orderBy,
+  presentation = 'list',
 } = Astro.props;
 
 const searchParams = Astro.url.searchParams;
@@ -47,4 +49,5 @@ const initialUrl = Astro.url.href;
   )}
   initialUrl={initialUrl}
   orderBy={orderBy}
+  presentation={presentation}
 />
