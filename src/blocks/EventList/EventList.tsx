@@ -4,35 +4,28 @@ import type {
   EventModelFilter,
   EventModelOrderBy,
 } from '@lib/types/datocms';
-import query from './EventList.query.graphql';
 
+import { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import { datocmsRequest } from '@lib/datocms';
+import { t } from '@lib/i18n';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
 } from '@lib/react-query';
-import { useQuery } from '@tanstack/react-query';
-import { useRef } from 'react';
 
 import { Pagination } from '@components/Pagination';
-import { datocmsRequest } from '@lib/datocms';
-
-import { Button } from '@components/Button';
-import {
-  DataList,
-  DataListItem,
-  DataListItemFooter,
-} from '@components/DataList';
 import { SelectField, TextField } from '@components/Forms';
-import { Heading } from '@components/Heading';
 import { ListForm } from '@components/ListForm';
-import { Tag } from '@components/Tag';
-import { Text } from '@components/Text';
-import { formatDate } from '@lib/date';
-import { t } from '@lib/i18n';
-import clsx from 'clsx';
+
+import { List } from './components/List';
+
+import query from './EventList.query.graphql';
 import './EventList.css';
+import { Grid } from './components/Grid/Grid';
 
 export const loader = async ({
   searchParams,
@@ -79,15 +72,18 @@ export const loader = async ({
   };
 };
 
+export type EventsData = Awaited<ReturnType<typeof loader>>;
+
 interface Props {
   queryKey: string;
   defaultPageSize: number;
   showFilter?: boolean;
   fixedFilters?: EventModelFilter;
-  initialData: Awaited<ReturnType<typeof loader>>;
+  initialData: EventsData;
   initialParams: Record<string, string>;
   initialUrl: string;
   orderBy?: EventModelOrderBy;
+  presentation?: 'list' | 'grid';
 }
 
 export const EventList = withQueryClientProvider(
@@ -100,9 +96,10 @@ export const EventList = withQueryClientProvider(
     initialParams,
     initialUrl,
     orderBy,
+    presentation = 'list',
   }: QueryClientProviderComponentProps & Props) => {
     const filterRef = useRef<HTMLElement>(null);
-    const listRef = useRef<HTMLElement>(null);
+    const listRef = useRef<HTMLUListElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
@@ -185,46 +182,12 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        <DataList
-          ref={listRef}
-          aria-live="polite"
-          className={clsx({
-            'container-padding-x container-padding-y': data.events.length > 0,
-          })}
-        >
-          {data.events.map((event) => (
-            <DataListItem key={event.id}>
-              <div>{event.theme?.name && <Tag>{event.theme?.name}</Tag>}</div>
-              <Heading displayLevel={4} level={3}>
-                {event.title}
-              </Heading>
-              <DataListItemFooter>
-                <Text variant="subtext">
-                  <time dateTime={event.date}>{formatDate(event.date)}</time>
-                  {event.location && ` / ${event.location}`}
-                </Text>
-                <Button
-                  as="a"
-                  height="narrow"
-                  icon="arrow-right"
-                  level="secondary"
-                  variant="large"
-                  href={
-                    event.details.__typename === 'ExternalEventRecord'
-                      ? event.details.link
-                      : `./${event.details.slug}/`
-                  }
-                  targetArea="parent"
-                >
-                  {t('details')}
-                  <span className="a11y-sr-only">
-                    {t('_about_subject', { subject: event.title })}
-                  </span>
-                </Button>
-              </DataListItemFooter>
-            </DataListItem>
-          ))}
-        </DataList>
+        
+        {presentation === 'list' ? (
+          <List ref={listRef} data={data.events} />
+        ) : (
+          <Grid ref={listRef} data={data.events} />
+        )}
 
         {data.events.length === 0 && (
           <p role="alert" className="empty-message">
