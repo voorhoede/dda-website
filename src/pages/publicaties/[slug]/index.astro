@@ -1,8 +1,8 @@
 ---
+export const prerender = true;
+
 import { t } from '@lib/i18n';
-import { datocmsRequest } from '@lib/datocms';
-import type { PublicationPageQuery, SiteLocale } from '@lib/types/datocms';
-import { setCacheControl } from '@lib/cache-control';
+import { datocmsCollection, datocmsRequest } from '@lib/datocms';
 import Layout from '@layouts/Default.astro';
 import { SRCImage } from 'react-datocms';
 import { Button } from '@components/Button';
@@ -19,19 +19,38 @@ import {
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { PublicationCard } from '@blocks/PublicationCard';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
-
 import publicationPageQuery from './_publicationPage.query.graphql';
+import type { PublicationPageQuery, SiteLocale } from '@lib/types/datocms';
 
-setCacheControl(Astro.response);
-
-const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
-
-const { page, latestPublications } = await datocmsRequest<PublicationPageQuery>(
-  {
-    query: publicationPageQuery,
-    variables: { locale, slug },
+export const getStaticPaths = async () => {
+  interface Publication {
+    _allSlugLocales: Array<{ locale: SiteLocale; value: string }>;
   }
-);
+  
+  const publications = await datocmsCollection<Publication>({
+    collection: 'Publications',
+    fragmentName: 'Publication',
+    fragment: `
+      fragment Publication on PublicationRecord {
+        _allSlugLocales { locale, value }
+      }
+    `,
+  });
+
+  return publications.flatMap(({ _allSlugLocales }) => 
+    _allSlugLocales.map(({ locale, value }) => ({ 
+      params: { locale: locale, slug: value } 
+    })));
+};
+
+const { locale, slug } = Astro.params;
+const { page, latestPublications } = (await datocmsRequest<PublicationPageQuery>({ 
+  query: publicationPageQuery, 
+  variables: {
+    locale,
+    slug 
+  } 
+}));
 
 if (!page) {
   return new Response(null, { status: 404 });
