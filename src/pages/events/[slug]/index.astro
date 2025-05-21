@@ -17,11 +17,10 @@ import {
 import { Heading } from '@components/Heading';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
-import { SRCImage } from 'react-datocms';
+import { EventDate } from '@components/EventDate';
 import { Column, Grid } from '@components/Grid';
-import { formatDate } from '@lib/date';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
-import { EventDate } from '@components/EventDate/EventDate';
+import { SRCImage } from 'react-datocms';
 
 setCacheControl(Astro.response);
 
@@ -73,9 +72,11 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
 
   <Grid className="event" rowGap={40} columnGap={32}>
     <Column span={{ mobile: 12, tablet: 5 }}>
-      <Text variant="subtext"
-      >{page.title} - <time datetime={page.date}>{formatDate(page.date)}</time
-        >, {page.location}</Text
+      <Text variant="subtext">
+        {page.title} - <EventDate
+          startDate={page.startDate}
+          endDate={page.endDate}
+        />, {page.location}</Text
       >
     </Column>
 
