@@ -21,6 +21,7 @@ import { SRCImage } from 'react-datocms';
 import { Column, Grid } from '@components/Grid';
 import { formatDate } from '@lib/date';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import { EventDate } from '@components/EventDate/EventDate';
 
 setCacheControl(Astro.response);
 
@@ -49,11 +50,10 @@ if (!page || page.details.__typename !== 'InternalEventRecord') {
       <Heading level={1}>{page.title}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
-      <Text variant="subtext"
-      ><time datetime={page.date}>{formatDate(page.date)}</time> / {
-          page.location
-        }</Text
-      >
+      <Text variant="subtext">
+        <EventDate startDate={page.startDate} endDate={page.endDate} />
+        {' '}/ {page.location}
+      </Text>
     </PageTitleContent>
   </PageTitle>
 

@@ -53,9 +53,9 @@ if (!page) {
     queryKey="events"
     defaultPageSize={15}
     fixedFilters={{
-      date: { gte: today },
+      startDate: { gte: today },
     }}
-    orderBy={'date_ASC' as EventModelOrderBy}
+    orderBy={'startDate_ASC' as EventModelOrderBy}
     presentation="grid"
   />
 
@@ -69,9 +69,9 @@ if (!page) {
       defaultPageSize={3}
       showFilter={false}
       fixedFilters={{
-        date: { lt: today },
+        startDate: { lt: today },
       }}
-      orderBy={'date_DESC' as EventModelOrderBy}
+      orderBy={'startDate_DESC' as EventModelOrderBy}
     />
   </section>
 

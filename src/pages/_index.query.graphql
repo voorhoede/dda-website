@@ -34,8 +34,8 @@ query HomePage($locale: SiteLocale!, $today: Date!) {
 
   events: allEvents(
     first: 6
-    orderBy: date_ASC
-    filter: { date: { gte: $today } }
+    orderBy: startDate_ASC
+    filter: { startDate: { gte: $today } }
   ) {
     ...EventCard
   }

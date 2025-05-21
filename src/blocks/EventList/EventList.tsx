@@ -31,7 +31,7 @@ export const loader = async ({
   searchParams,
   fixedFilters = {},
   defaultPageSize,
-  orderBy = 'date_ASC' as EventModelOrderBy,
+  orderBy = 'startDate_ASC' as EventModelOrderBy,
 }: {
   searchParams: Record<string, string>;
   fixedFilters?: EventModelFilter;
@@ -182,7 +182,6 @@ export const EventList = withQueryClientProvider(
           />
         )}
 
-        
         {presentation === 'list' ? (
           <List ref={listRef} data={data.events} />
         ) : (
