@@ -1,5 +1,10 @@
 ---
-import { extractScripts, getEmbedText, isIframeHtml, sanatizeHtml } from '../index';
+import {
+  extractScripts,
+  getEmbedText,
+  isIframeHtml,
+  sanatizeHtml,
+} from '../index';
 
 const { data, url, class: classList, ...props } = Astro.props;
 const { noscriptHtml, scripts } = extractScripts(data.html);
@@ -9,30 +14,48 @@ const aspectRatio = data.width && data.height ? data.width / data.height : null;
 const maxWidth = data.width ? `${data.width}px` : '100%';
 ---
 
-<default-embed 
-  data-enhanced="false" 
+<default-embed
+  data-enhanced="false"
   data-provider={data.provider_name}
-  class:list={[ classList, { 'with-iframe': isIframeHtml(html) } ]}
-  { ...props }
+  class:list={[classList, { 'with-iframe': isIframeHtml(html) }]}
+  {...props}
 >
   <slot name="html">
-    { isIframeHtml(html)
-      ? (<>
-        <a href={ url } rel="noreferrer noopener" target="_blank" class="embed-placeholder">
-          { data.thumbnail_url
-            ? <img alt={ placeholderText } src={ data.thumbnail_url } loading="lazy" /> 
-            : <span>{ placeholderText }</span>
-          }
-        </a>
-        <template set:html={html}></template>
-      </>)
-      : <div set:html={html} />
+    {
+      isIframeHtml(html) ? (
+        <>
+          <a
+            href={url}
+            rel="noreferrer noopener"
+            target="_blank"
+            class="embed-placeholder"
+          >
+            {data.thumbnail_url ? (
+              <img
+                alt={placeholderText}
+                src={data.thumbnail_url}
+                loading="lazy"
+              />
+            ) : (
+              <span>{placeholderText}</span>
+            )}
+          </a>
+
+          <template>
+            <div set:html={html} />
+          </template>
+        </>
+      ) : (
+        <div set:html={html} />
+      )
     }
   </slot>
   <slot name="noscript">
-    { scripts.map(({ src, ...attributes }) => (
-      <script is:inline data-src={ src } {...attributes} />
-    )) }
+    {
+      scripts.map(({ src, ...attributes }) => (
+        <script is:inline data-src={src} {...attributes} />
+      ))
+    }
   </slot>
 </default-embed>
 
@@ -44,7 +67,6 @@ const maxWidth = data.width ? `${data.width}px` : '100%';
     aspect-ratio: var(--aspectRatio);
     max-width: var(--maxWidth);
     overflow: hidden;
-    background-color: #ebebeb;
   }
 
   .embed-placeholder img {
@@ -54,12 +76,12 @@ const maxWidth = data.width ? `${data.width}px` : '100%';
     object-fit: cover;
     object-position: center;
   }
-  default-embed[data-enhanced="false"] .embed-placeholder {
+  default-embed[data-enhanced='false'] .embed-placeholder {
     display: block;
     width: 100%;
     height: 100%;
   }
-  default-embed[data-enhanced="true"] .embed-placeholder {
+  default-embed[data-enhanced='true'] .embed-placeholder {
     display: none;
   }
 
@@ -69,6 +91,7 @@ const maxWidth = data.width ? `${data.width}px` : '100%';
     aspect-ratio: var(--aspectRatio);
     max-width: 100% !important;
     height: auto !important;
+    border: none;
   }
   default-embed :global(img) {
     max-width: 100% !important;
