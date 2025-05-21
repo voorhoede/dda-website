@@ -15,6 +15,24 @@ fragment PartnerLogo on PartnerRecord {
     }
   }
   page {
-    slug
+    __typename
+    ... on ExternalLinkRecord {
+      title
+      url
+    }
+    ... on PageRecord {
+      slug
+    }
+    ... on EventRecord {
+      details {
+        __typename
+        ... on InternalEventRecord {
+          slug
+        }
+        ... on ExternalEventRecord {
+          link
+        }
+      }
+    }
   }
 }
