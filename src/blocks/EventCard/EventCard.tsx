@@ -8,7 +8,20 @@ import { t } from '@lib/i18n';
 import type { EventCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
 
-export const EventCard = ({ event, priority }: { event: EventCardFragment, priority?: boolean }) => {
+export function getEventUrl(event: EventCardFragment): string {
+  if (event.details?.__typename === 'ExternalEventRecord') {
+    return event.details.link;
+  }
+  return `/events/${event.details?.slug}/`;
+}
+
+export const EventCard = ({
+  event,
+  priority,
+}: {
+  event: EventCardFragment;
+  priority?: boolean;
+}) => {
   return (
     <Card>
       {event.image.responsiveImage && (
@@ -38,11 +51,7 @@ export const EventCard = ({ event, priority }: { event: EventCardFragment, prior
           icon="arrow-right"
           level="secondary"
           variant="large"
-          href={
-            event.details.__typename === 'ExternalEventRecord'
-              ? event.details.link
-              : `./${event.details.slug}/`
-          }
+          href={getEventUrl(event)}
           targetArea="parent"
         >
           {t('details')}

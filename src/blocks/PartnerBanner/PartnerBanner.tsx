@@ -1,10 +1,38 @@
+import { SRCImage } from 'react-datocms';
 import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { ImageParade, ImageParadeItem } from '@components/ImageParade';
+import { getEventUrl } from '@blocks/EventCard/EventCard';
+import type {
+  EventCardFragment,
+  PartnerLogoFragment,
+} from '@lib/types/datocms';
 import { t } from '@lib/i18n';
-import type { PartnerLogoFragment } from '@lib/types/datocms';
-import { SRCImage } from 'react-datocms';
 import './PartnerBanner.css';
+
+function getPartnerUrl(partner: PartnerLogoFragment): string {
+  if (partner.page?.__typename === 'ExternalLinkRecord') {
+    return partner.page.url ?? '';
+  }
+
+  if (partner.page?.__typename === 'PageRecord') {
+    return `/${partner.page?.slug}/`;
+  }
+
+  if (partner.page?.__typename === 'EventRecord') {
+    return getEventUrl(partner.page as EventCardFragment);
+  }
+
+  return '';
+}
+
+function getPartnerTarget(partner: PartnerLogoFragment): string | undefined {
+  if (partner.page?.__typename === 'ExternalLinkRecord') {
+    return '_blank';
+  }
+
+  return undefined;
+}
 
 export const PartnerBanner = ({
   partners,
@@ -32,7 +60,8 @@ export const PartnerBanner = ({
               partner.logo.responsiveImage && (
                 <ImageParadeItem key={partner.logo.id}>
                   <a
-                    href={`/${partner.page?.slug}/`}
+                    href={getPartnerUrl(partner)}
+                    target={getPartnerTarget(partner)}
                     className="partner-banner__logo"
                   >
                     <SRCImage
