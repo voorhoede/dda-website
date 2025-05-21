@@ -10,7 +10,7 @@ query EventPage($locale: SiteLocale = nl, $slug: String!) {
     endDate
     location
     image {
-      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      responsiveImage(imgixParams: { fit: crop, auto: format }) {
         alt
         base64
         bgColor
@@ -33,7 +33,10 @@ query EventPage($locale: SiteLocale = nl, $slug: String!) {
         title
         slug
         banner {
-          responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+          responsiveImage(
+            imgixParams: { fit: crop, auto: format }
+            sizes: "(min-width: 890px) 80vw, 100vw"
+          ) {
             alt
             base64
             bgColor

@@ -15,7 +15,10 @@ query PublicationPage($locale: SiteLocale!, $slug: String!) {
       name
     }
     banner {
-      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      responsiveImage(
+        imgixParams: { fit: crop, auto: format }
+        sizes: "(min-width: 890px) 80vw, 100vw"
+      ) {
         base64
         height
         width
