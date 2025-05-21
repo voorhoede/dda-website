@@ -2,14 +2,18 @@ import type { EventsData } from '../EventList';
 
 import { forwardRef } from 'react';
 import { t } from '@lib/i18n';
-import { formatDate } from '@lib/date';
 import clsx from 'clsx';
 
-import { DataList, DataListItem, DataListItemFooter } from '@components/DataList';
+import {
+  DataList,
+  DataListItem,
+  DataListItemFooter,
+} from '@components/DataList';
 import { Heading } from '@components/Heading';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { Tag } from '@components/Tag';
+import { EventDate } from '@components/EventDate';
 
 type Props = {
   data: EventsData['events'];
@@ -32,7 +36,7 @@ export const List = forwardRef<HTMLUListElement, Props>(({ data }, ref) => {
           </Heading>
           <DataListItemFooter>
             <Text variant="subtext">
-              <time dateTime={item.date}>{formatDate(item.date)}</time>
+              <EventDate startDate={item.startDate} endDate={item.endDate} />
               {item.location && ` / ${item.location}`}
             </Text>
             <Button

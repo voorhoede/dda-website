@@ -1,9 +1,9 @@
 import { Button } from '@components/Button';
 import { Card, CardContent, CardFooter, CardImage } from '@components/Card';
+import { EventDate } from '@components/EventDate';
 import { Heading } from '@components/Heading';
 import { TagList, TagListItem } from '@components/Tag';
 import { Text } from '@components/Text';
-import { formatDate } from '@lib/date';
 import { t } from '@lib/i18n';
 import type { EventCardFragment } from '@lib/types/datocms';
 import { SRCImage } from 'react-datocms';
@@ -33,12 +33,12 @@ export const EventCard = ({
         <TagList>
           {event.theme?.name && <TagListItem>{event.theme?.name}</TagListItem>}
         </TagList>
-        {(event.date || event.location) && (
+        {(event.startDate || event.location) && (
           <Text variant="subtext">
-            {event.date && (
-              <time dateTime={event.date}>{formatDate(event.date)}</time>
+            {event.startDate && (
+              <EventDate startDate={event.startDate} endDate={event.endDate} />
             )}
-            {event.date && event.location && <>&nbsp;/&nbsp;</>}
+            {event.startDate && event.location && <>&nbsp;/&nbsp;</>}
             {event.location && event.location}
           </Text>
         )}

@@ -9,9 +9,16 @@ export const getToday = () => {
   return today;
 };
 
-export const formatDate = (date: string | Date) =>
-  new Date(date).toLocaleDateString(getLocale(), {
-    day: 'numeric',
-    month: 'short',
+export const formatDate = (startDate: string, endDate?: string) => {
+  if (!startDate) return '';
+
+  const fmt = new Intl.DateTimeFormat(getLocale(), {
     year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   });
+
+  if (!endDate) return fmt.format(new Date(startDate));
+
+  return fmt.formatRange(new Date(startDate), new Date(endDate));
+};

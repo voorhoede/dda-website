@@ -6,7 +6,8 @@ query EventPage($locale: SiteLocale = nl, $slug: String!) {
     filter: { details: { any: { internalEvent: { slug: { eq: $slug } } } } }
   ) {
     title
-    date
+    startDate
+    endDate
     location
     image {
       responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {

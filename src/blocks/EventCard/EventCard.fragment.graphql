@@ -14,7 +14,8 @@ fragment EventCard on EventRecord {
       width
     }
   }
-  date
+  startDate
+  endDate
   location
   theme {
     name

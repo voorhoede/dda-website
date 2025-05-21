@@ -9,7 +9,7 @@ import { Column, Grid, type SpanOptions } from '@components/Grid';
 import { Heading } from '@components/Heading';
 import { Tag } from '@components/Tag';
 import { Text } from '@components/Text';
-import { formatDate } from '@lib/date';
+import { EventDate } from '@components/EventDate';
 import { t } from '@lib/i18n';
 import type { EventCardFragment } from '@lib/types/datocms';
 import './EventsSection.css';
@@ -47,9 +47,10 @@ export const EventsSection = ({ events }: EventsSectionProps) => {
                   </Heading>
                   <DataListItemFooter>
                     <Text variant="subtext">
-                      <time dateTime={event.date}>
-                        {formatDate(event.date)}
-                      </time>
+                      <EventDate
+                        startDate={event.startDate}
+                        endDate={event.endDate}
+                      />
                       {event.location && ` / ${event.location}`}
                     </Text>
                     <Button
