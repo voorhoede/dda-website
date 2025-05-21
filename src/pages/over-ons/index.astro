@@ -21,6 +21,7 @@ import { TeamMemberCard } from '@blocks/TeamMemberCard';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
+import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 
 setCacheControl(Astro.response);
 
@@ -39,6 +40,10 @@ if (!page) {
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PreviewModeSubscription
+    query={query}
+    variables={{ locale: locale as SiteLocale }}
+  />
   <PageHeader
     title={page.header.title}
     subtitle={page.header.subtitle}

@@ -15,13 +15,13 @@ import {
   PageTitleContent,
   PageTitleHeader,
 } from '@components/PageTitle';
+import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { PublicationCard } from '@blocks/PublicationCard';
 import PartnerBanner from '@blocks/PartnerBanner/PartnerBanner.astro';
 
 import publicationPageQuery from './_publicationPage.query.graphql';
-
 setCacheControl(Astro.response);
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
@@ -39,6 +39,10 @@ if (!page) {
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PreviewModeSubscription
+    query={publicationPageQuery}
+    variables={{ locale, slug }}
+  />
   <PageTitle>
     <PageTitleHeader>
       <Button
