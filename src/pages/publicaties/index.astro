@@ -4,6 +4,7 @@ import { PublicationCard } from '@blocks/PublicationCard';
 import PublicationList from '@blocks/PublicationList/PublicationList.astro';
 import { Button } from '@components/Button';
 import { Column, Grid } from '@components/Grid';
+import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import Layout from '@layouts/Default.astro';
 import { setCacheControl } from '@lib/cache-control';
 import { datocmsRequest } from '@lib/datocms';
@@ -27,6 +28,7 @@ if (!page) {
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+  <PreviewModeSubscription query={query} variables={{ locale }} />
   <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
     <Fragment slot="header">
       <Button
@@ -42,7 +44,7 @@ if (!page) {
     </Fragment>
   </PageHeader>
   <Grid as="section" border>
-    <h2 class="a11y-sr-only">{ page.highlightedPublicationsTitle }</h2>
+    <h2 class="a11y-sr-only">{page.highlightedPublicationsTitle}</h2>
     {
       highlightedPublications.map((publication) => (
         <Column
