@@ -3,6 +3,11 @@
 query LoginPage($locale: SiteLocale!) {
   loginPage(locale: $locale) {
     title
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
     header {
       ...PageHeader
     }

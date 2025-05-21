@@ -22,7 +22,7 @@ if (!page) {
 }
 ---
 
-<Layout pageUrls={[]} seoMetaTags={[]}>
+<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
   <div>
     <PageHeader
       title={page.header?.title as string}
