@@ -51,7 +51,7 @@ if (!page) {
 
   <EventList
     queryKey="events"
-    defaultPageSize={10}
+    defaultPageSize={15}
     fixedFilters={{
       date: { gte: today },
     }}
@@ -60,9 +60,9 @@ if (!page) {
   />
 
   <section class="past-events">
-    <Heading className="past-events__heading" level={2} displayLevel={3}
-    >{page.pastEventsTitle}</Heading
-    >
+    <Heading className="past-events__heading" level={2} displayLevel={3}>
+      {page.pastEventsTitle}
+    </Heading>
 
     <EventList
       queryKey="past_events"
