@@ -13,7 +13,7 @@ import { Heading } from '@components/Heading';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { Tag } from '@components/Tag';
-import { EventDate } from '@components/EventDate/EventDate';
+import { EventDate } from '@components/EventDate';
 
 type Props = {
   data: EventsData['events'];
