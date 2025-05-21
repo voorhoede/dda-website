@@ -41,13 +41,19 @@ if (!page) {
       </Fragment>
     </PageHeader>
 
-    <Grid gap={32} className="container-padding-y container-padding-x">
+    <Grid border>
       <Column span={12}>
-        <TextBlock block={page.datocmsDescription as TextBlockFragment} />
-      </Column>
+        <Grid gap={32} className="container-padding-y container-padding-x">
+          <Column span={12}>
+            <TextBlock block={page.datocmsDescription as TextBlockFragment} />
+          </Column>
 
-      <Column span={12}>
-        <TextBlock block={page.ledenplatformDescription as TextBlockFragment} />
+          <Column span={12}>
+            <TextBlock
+              block={page.ledenplatformDescription as TextBlockFragment}
+            />
+          </Column>
+        </Grid>
       </Column>
     </Grid>
   </div>
