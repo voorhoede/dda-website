@@ -8,6 +8,7 @@ import {
   DATOCMS_READONLY_API_TOKEN,
   HEAD_START_PREVIEW,
 } from 'astro:env/client';
+import { applyHeaderRules } from './lib/headers';
 
 export const previewCookieName = 'HEAD_START_PREVIEW';
 
@@ -17,6 +18,19 @@ export const hashSecret = async (secret: string) => {
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 };
+
+/**
+ * Headers middleware: Apply headers from _headers file to dynamic responses
+ * These headers are not automatically applied by Cloudflare Pages to dynamic responses
+ */
+const headers = defineMiddleware(async ({ request }, next) => {
+  const response = await next();
+
+  // Apply all header rules from the _headers file
+  applyHeaderRules(request.url, response);
+
+  return response;
+});
 
 export const datocms = defineMiddleware(async ({ locals }, next) => {
   Object.assign(locals, {
@@ -96,6 +110,7 @@ const redirects = defineMiddleware(async ({ request, redirect }, next) => {
 });
 
 export const onRequest = sequence(
+  headers,
   datocms,
   i18n,
   preview,
