@@ -1,5 +1,4 @@
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import content from '../../public/_headers?raw';
 
 interface HeaderRule {
   pattern: string;
@@ -18,8 +17,6 @@ function parseHeadersFile(): HeaderRule[] {
   }
 
   try {
-    const headersPath = join(process.cwd(), 'public', '_headers');
-    const content = readFileSync(headersPath, 'utf-8');
     const lines = content.split('\n');
 
     const rules: HeaderRule[] = [];
