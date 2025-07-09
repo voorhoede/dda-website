@@ -1,10 +1,9 @@
 import { describe, it, expect, vi } from 'vitest';
 import { applyHeaderRules } from './headers';
 
-// Mock the fs module for testing
-vi.mock('fs', () => ({
-  readFileSync: vi.fn(
-    () => `# Headers configuration file for Cloudflare Pages
+// Mock the raw import for testing
+vi.mock('../../public/_headers?raw', () => ({
+  default: `# Headers configuration file for Cloudflare Pages
 /*
   Referrer-Policy: no-referrer-when-downgrade
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
@@ -21,7 +20,6 @@ vi.mock('fs', () => ({
 /movies/:title
   x-movie-name: You are watching ":title"
 `,
-  ),
 }));
 
 describe('Header parsing and application', () => {
