@@ -53,31 +53,29 @@ export const PartnerBanner = ({
           {t('become_a_partner_cta_label')}
         </Button>
       </div>
-      {partners.length >= 8 && (
-        <ImageParade direction="right">
-          {partners.map(
-            (partner) =>
-              partner.logo.responsiveImage && (
-                <ImageParadeItem key={partner.logo.id}>
-                  <a
-                    href={getPartnerUrl(partner)}
-                    target={getPartnerTarget(partner)}
-                    className="partner-banner__logo"
-                  >
-                    <SRCImage
-                      data={partner.logo.responsiveImage}
-                      // disable placeholder for logo
-                      // since its background can be transparent,
-                      // causing placeholder to be visible after loading
-                      usePlaceholder={false}
-                      priority={true}
-                    />
-                  </a>
-                </ImageParadeItem>
-              ),
-          )}
-        </ImageParade>
-      )}
+      <ImageParade direction="right">
+        {partners.map(
+          (partner) =>
+            partner.logo.responsiveImage && (
+              <ImageParadeItem key={partner.logo.id}>
+                <a
+                  href={getPartnerUrl(partner)}
+                  target={getPartnerTarget(partner)}
+                  className="partner-banner__logo"
+                >
+                  <SRCImage
+                    data={partner.logo.responsiveImage}
+                    // disable placeholder for logo
+                    // since its background can be transparent,
+                    // causing placeholder to be visible after loading
+                    usePlaceholder={false}
+                    priority={true}
+                  />
+                </a>
+              </ImageParadeItem>
+            ),
+        )}
+      </ImageParade>
     </section>
   );
 };
