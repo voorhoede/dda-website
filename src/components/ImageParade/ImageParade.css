@@ -3,6 +3,9 @@
   position: relative;
   --visible-item-count: 3;
   --animation-duration: 30s;
+  --item-count: 8; /* Default fallback, will be overridden by inline styles */
+  --total-items: 16; /* Default fallback, will be overridden by inline styles */
+  --animation-cycle-length: 8; /* Default fallback, will be overridden by inline styles */
 }
 
 .image-parade__list {
@@ -37,13 +40,19 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(8 / var(--visible-item-count) * -100%));
+    /* Move by exactly one animation cycle to ensure equal display time for all items */
+    transform: translateX(
+      calc(var(--animation-cycle-length) / var(--visible-item-count) * -100%)
+    );
   }
 }
 
 @keyframes slideRight {
   0% {
-    transform: translateX(calc(8 / var(--visible-item-count) * -100%));
+    /* Start moved by exactly one animation cycle */
+    transform: translateX(
+      calc(var(--animation-cycle-length) / var(--visible-item-count) * -100%)
+    );
   }
   100% {
     transform: translateX(0);
