@@ -12,7 +12,7 @@ export const setCacheControl = (
   const headers = response.headers as Headers;
 
   if (headers) {
-    headers.set('Cache-Control', `public, max-age=${maxAge}`);
-    headers.set('CDN-Cache-Control', `public, max-age=${cdnMaxAge}`);
+    headers.set('Cache-Control', `public, max-age=${maxAge}, must-revalidate`);
+    headers.set('CDN-Cache-Control', `public, max-age=${cdnMaxAge}, must-revalidate`);
   }
 };
