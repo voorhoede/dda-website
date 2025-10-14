@@ -147,16 +147,15 @@ export const Menu = () => {
             </ul>
           </nav>
           <div className="menu__footer">
+            <Button as="a" icon="arrow-right" level="secondary" href="/login/">
+              {t('login')}
+            </Button>
             <Button
               as="a"
               icon="arrow-right"
-              level="secondary"
-              href="/inloggen/"
+              href="https://aanmelden-dutchdigitalagencies.com/lid-worden"
               target="_blank"
             >
-              {t('login')}
-            </Button>
-            <Button as="a" icon="arrow-right" href="https://aanmelden-dutchdigitalagencies.com/lid-worden" target="_blank">
               {t('become_a_member')}
             </Button>
           </div>

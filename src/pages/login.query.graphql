@@ -1,0 +1,21 @@
+#import '@blocks/TextBlock/TextBlock.fragment.graphql'
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+query LoginPage($locale: SiteLocale!) {
+  loginPage(locale: $locale) {
+    title
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    header {
+      ...PageHeader
+    }
+    datocmsDescription {
+      ...TextBlock
+    }
+    ledenplatformDescription {
+      ...TextBlock
+    }
+  }
+}
