@@ -67,7 +67,6 @@ export default defineConfig({
   output: 'server',
   server: { port: localhostPort },
   site: siteUrl,
-  trailingSlash: 'always',
   vite: {
     plugins: [graphql()],
     ssr: {
