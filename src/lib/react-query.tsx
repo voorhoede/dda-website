@@ -6,7 +6,7 @@ import {
   QueryClientProvider,
   type DehydratedState,
 } from '@tanstack/react-query';
-import { type ComponentType } from 'react';
+import { type ComponentType, useRef } from 'react';
 
 export type QueryClientProviderProps = {
   initialState: DehydratedState;
@@ -22,23 +22,24 @@ export type QueryClientProviderComponentProps = Omit<
 export function withQueryClientProvider<T extends object>(
   WrappedComponent: ComponentType<T>,
 ) {
-  // Create a new QueryClient instance
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnMount: true,
-        placeholderData: keepPreviousData,
-      },
-    },
-  });
-
-  // Return a new component that includes the QueryClientProvider
   return function WithQueryClientProviderComponent(
     props: T & QueryClientProviderProps,
   ) {
+    const queryClientRef = useRef<QueryClient | null>(null);
+    if (!queryClientRef.current) {
+      queryClientRef.current = new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnMount: true,
+            placeholderData: keepPreviousData,
+          },
+        },
+      });
+    }
+
     return (
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClientRef.current}>
         <HydrationBoundary state={props.initialState}>
           <WrappedComponent {...props} />
         </HydrationBoundary>
