@@ -1,0 +1,100 @@
+/**
+ * Base (Primitive) Design Tokens
+ *
+ * These are the raw design values — colors by name, spacing scale,
+ * font families, z-index layers, and transition durations.
+ *
+ * ⚠️  Do NOT use these tokens directly in component CSS.
+ *     Always use semantic tokens from tokens-semantic.css instead.
+ */
+
+:root {
+  /* ========================
+     Colors — Palette
+     ======================== */
+  --base-color-black: #222226;
+  --base-color-grey: #666666;
+  --base-color-grey-light: #aaaaaa;
+  --base-color-white: #ffffff;
+  --base-color-blue: #364bf7;
+  --base-color-yellow: #f7e19f;
+
+  /* ========================
+     Spacing — Scale
+     ======================== */
+  --base-spacing-8: 8px;
+  --base-spacing-12: 12px;
+  --base-spacing-16: 16px;
+  --base-spacing-24: 24px;
+  --base-spacing-32: 32px;
+  --base-spacing-40: 40px;
+  --base-spacing-48: 48px;
+  --base-spacing-64: 64px;
+  --base-spacing-72: 72px;
+  --base-spacing-96: 96px;
+  --base-spacing-104: 104px;
+  --base-spacing-128: 128px;
+
+  /* ========================
+     Typography — Families
+     ======================== */
+  --base-font-family-sans: Archivo, sans-serif;
+  --base-font-family-mono: MartianMono, monospace;
+
+  /* ========================
+     Typography — Sizes
+     ======================== */
+  --base-font-size-xs: 0.75rem;   /* 12px */
+  --base-font-size-sm: 0.875rem;  /* 14px */
+  --base-font-size-md: 1rem;      /* 16px */
+  --base-font-size-lg: 1.125rem;  /* 18px */
+  --base-font-size-xl: 1.25rem;   /* 20px */
+  --base-font-size-2xl: 1.5rem;   /* 24px */
+  --base-font-size-3xl: 2rem;     /* 32px */
+  --base-font-size-4xl: 2.5rem;   /* 40px */
+  --base-font-size-5xl: 3rem;     /* 48px */
+  --base-font-size-6xl: 4rem;     /* 64px */
+  --base-font-size-7xl: 6rem;     /* 96px */
+
+  /* ========================
+     Typography — Line Heights
+     ======================== */
+  --base-line-height-tight: 1;
+  --base-line-height-snug: 1.25;
+  --base-line-height-normal: 1.5rem;
+  --base-line-height-relaxed: 2rem;
+  --base-line-height-loose: 2.5rem;
+
+  /* ========================
+     Typography — Weights
+     ======================== */
+  --base-font-weight-light: 300;
+  --base-font-weight-regular: 400;
+  --base-font-weight-semibold: 600;
+  --base-font-weight-bold: 700;
+
+  /* ========================
+     Typography — Letter Spacing
+     ======================== */
+  --base-letter-spacing-tight: -0.06em;
+  --base-letter-spacing-snug: -0.04em;
+  --base-letter-spacing-normal: 0;
+
+  /* ========================
+     Border
+     ======================== */
+  --base-border-width: 1px;
+
+  /* ========================
+     Z-Index — Layers
+     ======================== */
+  --base-z-index-1: 1;
+  --base-z-index-2: 2;
+
+  /* ========================
+     Transitions — Durations
+     ======================== */
+  --base-duration-fast: 0.1s;
+  --base-duration-normal: 0.25s;
+  --base-duration-slow: 0.3s;
+}

@@ -1,0 +1,159 @@
+/**
+ * Semantic Design Tokens
+ *
+ * These tokens give meaning/purpose to the base (primitive) tokens.
+ * All component and page CSS should reference ONLY these tokens.
+ *
+ * The default values represent the light theme.
+ * Override these in themed selectors (e.g. [data-theme="dark"])
+ * to create alternate themes.
+ */
+
+:root {
+  /* ========================
+     Color — Text
+     ======================== */
+  --color-text: var(--base-color-black);
+  --color-text-secondary: var(--base-color-grey);
+  --color-text-inverse: var(--base-color-white);
+  --color-text-interactive: var(--base-color-blue);
+
+  /* ========================
+     Color — Background
+     ======================== */
+  --color-background: var(--base-color-white);
+  --color-background-inverse: var(--base-color-black);
+  --color-background-interactive: var(--base-color-blue);
+  --color-background-focus: var(--base-color-yellow);
+  --color-background-overlay: rgba(0, 0, 0, 0.25);
+
+  /* ========================
+     Color — Border
+     ======================== */
+  --color-border: var(--base-color-black);
+  --color-border-interactive: var(--base-color-blue);
+
+  /* ========================
+     Color — Focus
+     ======================== */
+  --color-focus-outline: var(--base-color-black);
+
+  /* ========================
+     Spacing
+     ======================== */
+  --spacing-8: var(--base-spacing-8);
+  --spacing-12: var(--base-spacing-12);
+  --spacing-16: var(--base-spacing-16);
+  --spacing-24: var(--base-spacing-24);
+  --spacing-32: var(--base-spacing-32);
+  --spacing-40: var(--base-spacing-40);
+  --spacing-48: var(--base-spacing-48);
+  --spacing-64: var(--base-spacing-64);
+  --spacing-72: var(--base-spacing-72);
+  --spacing-96: var(--base-spacing-96);
+  --spacing-104: var(--base-spacing-104);
+  --spacing-128: var(--base-spacing-128);
+
+  /* ========================
+     Typography — Fonts
+     ======================== */
+  --font-family-body: var(--base-font-family-sans);
+  --font-family-ui: var(--base-font-family-mono);
+
+  /* ========================
+     Typography — Sizes
+     ======================== */
+  --font-size-ui-sm: var(--base-font-size-xs);      /* 0.75rem — buttons, tags */
+  --font-size-ui-md: var(--base-font-size-sm);       /* 0.875rem — large buttons, subtext */
+  --font-size-label: 12px;                            /* form labels */
+  --font-size-body: var(--base-font-size-md);         /* 1rem — default body */
+  --font-size-body-lg: var(--base-font-size-lg);      /* 1.125rem — desktop body */
+
+  /* ========================
+     Typography — Line Heights
+     ======================== */
+  --line-height-ui: var(--base-line-height-normal);   /* 1.5rem — buttons */
+  --line-height-body: var(--base-line-height-normal);  /* 1.5rem — mobile body */
+  --line-height-body-lg: var(--base-line-height-relaxed); /* 2rem — desktop body */
+
+  /* ========================
+     Typography — Weights
+     ======================== */
+  --font-weight-light: var(--base-font-weight-light);
+  --font-weight-normal: var(--base-font-weight-regular);
+  --font-weight-semibold: var(--base-font-weight-semibold);
+  --font-weight-bold: var(--base-font-weight-bold);
+
+  /* ========================
+     Typography — Letter Spacing
+     ======================== */
+  --letter-spacing-tight: var(--base-letter-spacing-tight);
+  --letter-spacing-heading: var(--base-letter-spacing-snug);
+
+  /* ========================
+     Border
+     ======================== */
+  --border-width: var(--base-border-width);
+
+  /* ========================
+     Z-Index
+     ======================== */
+  --z-index-header: var(--base-z-index-1);
+  --z-index-skip-link: var(--base-z-index-2);
+
+  /* ========================
+     Transitions
+     ======================== */
+  --transition-duration-fast: var(--base-duration-fast);
+  --transition-duration-normal: var(--base-duration-normal);
+  --transition-duration-slow: var(--base-duration-slow);
+}
+
+/* ==============================
+   Dark Theme
+   ==============================
+   Apply via <html data-theme="dark"> or on any container element.
+   Only color tokens need overriding — spacing, typography, and layout
+   tokens remain unchanged.
+   ============================== */
+
+[data-theme="dark"] {
+  --color-text: var(--base-color-white);
+  --color-text-secondary: var(--base-color-grey-light);
+  --color-text-inverse: var(--base-color-black);
+  --color-text-interactive: #6b7cfa;
+
+  --color-background: var(--base-color-black);
+  --color-background-inverse: var(--base-color-white);
+  --color-background-interactive: #6b7cfa;
+  --color-background-focus: var(--base-color-yellow);
+  --color-background-overlay: rgba(0, 0, 0, 0.5);
+
+  --color-border: var(--base-color-grey-light);
+  --color-border-interactive: #6b7cfa;
+
+  --color-focus-outline: var(--base-color-white);
+}
+
+/* Users can also use prefers-color-scheme for automatic dark mode: */
+/*
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: var(--base-color-white);
+    --color-text-secondary: var(--base-color-grey-light);
+    --color-text-inverse: var(--base-color-black);
+    --color-text-interactive: #6b7cfa;
+
+    --color-background: var(--base-color-black);
+    --color-background-inverse: var(--base-color-white);
+    --color-background-interactive: #6b7cfa;
+    --color-background-focus: var(--base-color-yellow);
+    --color-background-overlay: rgba(0, 0, 0, 0.5);
+
+    --color-border: var(--base-color-grey-light);
+    --color-border-interactive: #6b7cfa;
+
+    --color-focus-outline: var(--base-color-white);
+  }
+}
+*/
