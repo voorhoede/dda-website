@@ -25,6 +25,7 @@
   --color-background-inverse: var(--base-color-black);
   --color-background-interactive: var(--base-color-blue);
   --color-background-focus: var(--base-color-yellow);
+  --color-background-muted: var(--base-color-grey-lighter);
   --color-background-overlay: rgba(0, 0, 0, 0.25);
 
   /* ========================
@@ -127,6 +128,7 @@
   --color-background-inverse: var(--base-color-white);
   --color-background-interactive: #6b7cfa;
   --color-background-focus: var(--base-color-yellow);
+  --color-background-muted: #333338;
   --color-background-overlay: rgba(0, 0, 0, 0.5);
 
   --color-border: var(--base-color-grey-light);
@@ -148,6 +150,7 @@
     --color-background-inverse: var(--base-color-white);
     --color-background-interactive: #6b7cfa;
     --color-background-focus: var(--base-color-yellow);
+    --color-background-muted: #333338;
     --color-background-overlay: rgba(0, 0, 0, 0.5);
 
     --color-border: var(--base-color-grey-light);
