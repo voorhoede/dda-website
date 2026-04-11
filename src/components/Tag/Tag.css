@@ -1,17 +1,17 @@
 .tag {
-  border: 1px solid var(--color-black);
-  color: var(--color-black);
-  font-family: MartianMono, monospace;
-  font-size: 0.75rem;
-  font-weight: 300;
-  letter-spacing: -0.06em;
+  border: var(--border-width) solid var(--color-border);
+  color: var(--color-text);
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-ui-sm);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--letter-spacing-tight);
   line-height: 1rem;
   padding: 0 4px;
   text-transform: uppercase;
 }
 
 .tag--blue {
-  background-color: var(--color-blue);
-  border-color: var(--color-blue);
-  color: var(--color-white);
+  background-color: var(--color-background-interactive);
+  border-color: var(--color-border-interactive);
+  color: var(--color-text-inverse);
 }

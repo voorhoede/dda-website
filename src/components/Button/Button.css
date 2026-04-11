@@ -2,12 +2,12 @@
   align-items: center;
   appearance: none;
   background-color: transparent;
-  border: 1px solid var(--color-black);
-  color: var(--color-black);
+  border: var(--border-width) solid var(--color-border);
+  color: var(--color-text);
   cursor: pointer;
   display: inline-flex;
-  font-family: MartianMono, monospace;
-  font-size: 0.75rem;
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-ui-sm);
   line-height: 1rem;
   padding: 0;
   text-decoration: none;
@@ -16,13 +16,13 @@
 
 .button:hover,
 .button:active {
-  border-color: var(--color-blue);
-  color: var(--color-blue);
+  border-color: var(--color-border-interactive);
+  color: var(--color-text-interactive);
 }
 
 .button--large {
-  font-size: 0.875rem;
-  font-weight: 700;
+  font-size: var(--font-size-ui-md);
+  font-weight: var(--font-weight-bold);
   line-height: 1.5rem;
 }
 
@@ -34,12 +34,12 @@
 }
 
 .button--secondary {
-  color: var(--color-blue);
+  color: var(--color-text-interactive);
 }
 
 .button--secondary:hover,
 .button--secondary:active {
-  color: var(--color-black);
+  color: var(--color-text);
 }
 
 .button__content {
@@ -107,9 +107,9 @@
 }
 
 .button:focus-visible {
-  background-color: var(--color-yellow);
+  background-color: var(--color-background-focus);
   border-color: transparent;
-  outline-color: var(--color-black);
+  outline-color: var(--color-focus-outline);
   outline-offset: -1px;
   outline-style: dashed;
 }

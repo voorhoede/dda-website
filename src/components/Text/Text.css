@@ -3,9 +3,9 @@
 }
 
 .text--subtext {
-  font-family: MartianMono, monospace;
-  font-size: 0.875rem;
-  letter-spacing: -0.04em;
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-ui-md);
+  letter-spacing: var(--letter-spacing-heading);
   line-height: 1.5rem;
 }
 
