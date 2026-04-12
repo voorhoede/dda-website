@@ -98,6 +98,17 @@ export const sanatizeHtml = (html: string): string => {
    * https://html-validate.org/rules/no-deprecated-attr.html
    */
   return html.replace(/<iframe[^>]*>/gi, (iframeTag) => {
-    return iframeTag.replace(/(allow|allowtransparency|frameborder|scrolling)="[^"]+"/gi, '');
+    return iframeTag
+      .replace(/(allow|allowtransparency|frameborder|scrolling)="[^"]+"/gi, '')
+      .replace(/style="([^"]*)"/gi, (_, styleValue: string) => {
+        const sanitizedStyle = styleValue
+          .split(';')
+          .map((style) => style.trim())
+          .filter((style) => style)
+          .filter((style) => !/^overflow(?:-x|-y)?\s*:\s*hidden$/i.test(style))
+          .join('; ');
+
+        return sanitizedStyle ? `style="${sanitizedStyle};"` : '';
+      });
   });
 };
