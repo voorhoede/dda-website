@@ -43,10 +43,6 @@ body {
   background-color: var(--color-background);
 }
 
-.main-container main > * {
-  background-color: var(--color-background);
-}
-
 @media screen and (min-width: 481px) {
   body {
     height: calc(100% - var(--spacing-32));
