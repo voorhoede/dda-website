@@ -1,0 +1,3 @@
+fragment AiInternship on AiInternshipRecord {
+  id
+}

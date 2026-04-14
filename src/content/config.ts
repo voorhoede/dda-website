@@ -10,6 +10,10 @@ import memberLogoFragment from '@blocks/MemberLogo/MemberLogo.fragment.graphql?r
 import vacancyListItemFragment from '@blocks/VacancyList/VacancyListItem.fragment.graphql?raw';
 import memberCardFragment from '@blocks/MemberCard/MemberCard.fragment.graphql?raw';
 import partnerFragment from '@blocks/PartnerBanner/PartnerLogo.fragment.graphql?raw';
+import tracks from './tracks';
+import aiInternships from './ai-internships';
+import aiInternshipAssignmentTypes from './ai-internship-assignment-types';
+import provinces from './provinces';
 
 const memberLogos = defineCollection({
   loader: async () => {
@@ -134,4 +138,8 @@ export const collections = {
   vacancyEmploymentTypes,
   vacancyHours,
   vacancyLanguages,
+  tracks,
+  aiInternships,
+  aiInternshipAssignmentTypes,
+  provinces
 };

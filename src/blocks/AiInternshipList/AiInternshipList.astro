@@ -1,0 +1,35 @@
+---
+import { getDehydratedState } from '@lib/react-query';
+import { getCollection } from 'astro:content';
+import {
+  AiInternshipList as AiInternshipListComponent,
+  loader,
+} from './AiInternshipList.tsx';
+
+const { href, searchParams } = Astro.url;
+
+const initialParams = {
+  search: searchParams.get('search') ?? '',
+  track: searchParams.get('track') ?? '',
+  assignmentType: searchParams.get('assignmentType') ?? '',
+  province: searchParams.get('province') ?? '',
+};
+const initialData = await loader(initialParams);
+
+const filterValues = {
+  trackOptions: await getCollection('tracks'),
+  assignmentTypeOptions: await getCollection('aiInternshipAssignmentTypes'),
+  provinceOptions: await getCollection('provinces'),
+};
+---
+
+<AiInternshipListComponent
+  client:load
+  initialState={getDehydratedState(
+    ['ai-internships', initialParams],
+    initialData,
+  )}
+  initialParams={initialParams}
+  initialUrl={href}
+  filterValues={filterValues}
+/>

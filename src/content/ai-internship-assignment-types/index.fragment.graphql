@@ -1,0 +1,4 @@
+fragment AiInternshipAssignmentType on AiInternshipAssignmentTypeRecord {
+  id
+  name
+}

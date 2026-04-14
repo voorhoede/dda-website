@@ -1,0 +1,14 @@
+#import '@blocks/PageHeader/PageHeader.fragment.graphql'
+
+query AiInternshipsPage {
+  page: aiInternshipsPage {
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    header {
+      ...PageHeader
+    }
+  }
+}
