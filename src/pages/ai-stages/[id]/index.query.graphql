@@ -8,6 +8,8 @@ query AiInternship($locale: SiteLocale = nl, $id: ItemId!) {
       location
       employees
       website
+      emailAddress
+      emailAddressForJobApplications
       banner {
         alt
         title
@@ -32,6 +34,7 @@ query AiInternship($locale: SiteLocale = nl, $id: ItemId!) {
       content
       tag
     }
+    id
     title
     description {
       value
