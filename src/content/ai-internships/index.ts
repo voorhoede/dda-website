@@ -4,13 +4,13 @@ import { datocmsCollection } from '@lib/datocms';
 import { defineCollection, z } from 'astro:content';
 import fragment from './index.fragment.graphql?raw';
 
-type Schama = AiInternshipFragment;
+type Schema = AiInternshipFragment;
 
 function loader(): Loader {
   return {
     name: 'ai-internships',
     load: async ({ store, parseData }) => {
-      const items = await datocmsCollection<Schama>({
+      const items = await datocmsCollection<Schema>({
         collection: 'AiInternships',
         fragment: fragment,
         fragmentName: 'AiInternship',
@@ -24,13 +24,13 @@ function loader(): Loader {
         store.set({ id, data });
       }
     },
-    schema: z.custom<Schama>(),
+    schema: z.custom<Schema>(),
   };
 }
 
 const aiInternships = defineCollection({
   loader: loader(),
-  schema: z.custom<Schama>(),
+  schema: z.custom<Schema>(),
 });
 
 export default aiInternships;

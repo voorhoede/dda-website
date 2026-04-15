@@ -1,5 +1,5 @@
 ---
-import type { VacanciesPageQuery } from '@lib/types/datocms';
+import type { AiInternshipsPageQuery } from '@lib/types/datocms';
 import Layout from '@layouts/Default.astro';
 import { defaultLocale, t } from '@lib/i18n';
 import { setCacheControl } from '@lib/cache-control';
@@ -14,7 +14,7 @@ setCacheControl(Astro.response, 0, 10);
 
 const { locale = defaultLocale } = Astro.params;
 
-const { page } = await datocmsRequest<VacanciesPageQuery>({
+const { page } = await datocmsRequest<AiInternshipsPageQuery>({
   query,
   variables: { locale },
 });
