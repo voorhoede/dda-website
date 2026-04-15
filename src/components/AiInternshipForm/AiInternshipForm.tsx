@@ -17,13 +17,13 @@ export const AiInternshipForm = ({ internshipId, toEmail }: Props) => {
       <input type="hidden" name="id" value={internshipId} />
       <input type="hidden" name="to-email" value={toEmail} />
       
-      <TextField name='name' label={t('name')} required autoComplete='name'/>
-      <TextField name='email' label={t('email_address')} type='email' required autoComplete='email'/>
-      <TextField name='phone' label={t('phone_number')} type='tel' required autoComplete='tel'/>
-      <TextField name='track' label={t('track')} type='text' required autoComplete='off'/>
-      <TextField name='institution' label={t('institution')} type='text' required autoComplete='off'/>
-      <TextField name='linkedin' label={t('linkedin_profile')} type='text' autoComplete='off'/>
-      <TextField name='portfolio' label={t('portfolio_link')} type='text' autoComplete='off'/>
+      <TextField name='name' label={`${t('name')}*`} required autoComplete='name'/>
+      <TextField name='email' label={`${t('email_address')}*`} type='email' required autoComplete='email'/>
+      <TextField name='phone' label={`${t('phone_number')}*`} type='tel' required autoComplete='tel'/>
+      <TextField name='track' label={`${t('track')}*`} type='text' required autoComplete='off'/>
+      <TextField name='institution' label={`${t('institution')}*`} type='text' required autoComplete='off'/>
+      <TextField name='linkedin' label={`${t('linkedin_profile')} (URL)`} type='url' autoComplete='off'/>
+      <TextField name='portfolio' label={`${t('portfolio_link')} (URL)`} type='url' autoComplete='off'/>
     </Form>
   );
 };
