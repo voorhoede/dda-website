@@ -1,0 +1,59 @@
+#import '@blocks/MemberLogo/MemberLogo.fragment.graphql'
+
+query AiInternship($locale: SiteLocale = nl, $id: ItemId!) {
+  page: aiInternship(locale: $locale, filter: { id: { eq: $id } }) {
+    _allReferencingMembers {
+      ...MemberLogo
+      name
+      location
+      employees
+      website
+      emailAddress
+      emailAddressForJobApplications
+      banner {
+        alt
+        title
+        width
+        height
+        url
+        responsiveImage(imgixParams: { fit: crop, h: 776, auto: format }) {
+          alt
+          base64
+          bgColor
+          height
+          sizes
+          src
+          srcSet
+          title
+          width
+        }
+      }
+    }
+    _seoMetaTags {
+      attributes
+      content
+      tag
+    }
+    id
+    title
+    description {
+      value
+    }
+    assignmentType {
+      id
+      name
+    }
+    language {
+      id
+      name
+    }
+    province {
+      id
+      name
+    }
+    track {
+      id
+      name
+    }
+  }
+}

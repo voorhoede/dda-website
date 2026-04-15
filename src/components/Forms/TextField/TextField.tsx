@@ -14,7 +14,7 @@ type Props = {
   className?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
-  type?: 'text' | 'search' | 'email' | 'password' | 'tel';
+  type?: 'text' | 'search' | 'email' | 'password' | 'tel' | 'url';
   autoComplete?: string;
 } & (
   | {
