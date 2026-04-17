@@ -54,6 +54,12 @@ const aiInternships = {
       const filledHtml = fillTemplate(html, {
         name: input.name,
         internship_title: input['record-title'],
+        email: input.email,
+        phone: input.phone,
+        track: input.track,
+        institution: input.institution,
+        linkedin: input.linkedin || 'N/A',
+        portfolio: input.portfolio || 'N/A',
       });
       const filledText = convert(filledHtml, { wordwrap: 80 });
       
