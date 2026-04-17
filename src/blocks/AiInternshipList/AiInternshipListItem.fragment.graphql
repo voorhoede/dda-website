@@ -51,4 +51,19 @@ fragment AiInternshipItem on AiInternshipRecord {
   }
   id
   title
+  banner {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      base64
+      height
+      width
+      aspectRatio
+      sizes
+      src
+      srcSet
+      webpSrcSet
+      bgColor
+      alt
+      title
+    }
+  }
 }

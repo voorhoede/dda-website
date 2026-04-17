@@ -60,16 +60,28 @@ const member = page._allReferencingMembers[0];
   </PageTitle>
 
   {
-    member.banner?.responsiveImage && (
+    page.banner?.responsiveImage ? (
       <div class="banner">
         <SRCImage
           pictureClassName="banner__picture"
           imgClassName="banner__image"
           imgStyle={{ maxWidth: '100%', maxHeight: '776px' }}
-          data={member.banner.responsiveImage}
+          data={page.banner.responsiveImage}
           priority={true}
         />
       </div>
+    ) : (
+      member.banner?.responsiveImage && (
+        <div class="banner">
+          <SRCImage
+            pictureClassName="banner__picture"
+            imgClassName="banner__image"
+            imgStyle={{ maxWidth: '100%', maxHeight: '776px' }}
+            data={member.banner.responsiveImage}
+            priority={true}
+          />
+        </div>
+      )
     )
   }
 
@@ -115,23 +127,26 @@ const member = page._allReferencingMembers[0];
 
       <section class="form-section">
         <header class="form-section__header">
-          <Heading 
-            level={2} 
-            displayLevel={3}
-          >{t('ai_internship_apply_title')}</Heading>
+          <Heading level={2} displayLevel={3}
+          >{t('ai_internship_apply_title')}</Heading
+          >
           <Text variant="subtext">{t('ai_internship_apply_description')}</Text>
         </header>
 
-        {(member.emailAddressForJobApplications || member.emailAddress) && (
-          <AiInternshipForm
-            client:load
-            recordId={page.id}
-            recordTitle={page.title}
-            toName={member.name}
-            toEmail={(member.emailAddressForJobApplications ||
-              member.emailAddress) as string}
-          />
-        )}
+        {
+          (member.emailAddressForJobApplications || member.emailAddress) && (
+            <AiInternshipForm
+              client:load
+              recordId={page.id}
+              recordTitle={page.title}
+              toName={member.name}
+              toEmail={
+                (member.emailAddressForJobApplications ||
+                  member.emailAddress) as string
+              }
+            />
+          )
+        }
       </section>
     </Column>
   </Grid>

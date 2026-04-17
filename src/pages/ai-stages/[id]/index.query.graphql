@@ -36,6 +36,24 @@ query AiInternship($locale: SiteLocale = nl, $id: ItemId!) {
     }
     id
     title
+    banner {
+      alt
+      title
+      width
+      height
+      url
+      responsiveImage(imgixParams: { fit: crop, h: 776, auto: format }) {
+        alt
+        base64
+        bgColor
+        height
+        sizes
+        src
+        srcSet
+        title
+        width
+      }
+    }
     description {
       value
     }

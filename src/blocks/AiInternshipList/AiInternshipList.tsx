@@ -174,6 +174,7 @@ export const AiInternshipList = withQueryClientProvider(
                   <CardImage>
                     <SRCImage
                       data={
+                        item.banner?.responsiveImage ||
                         item.company[0].banner?.responsiveImage ||
                         item.company[0].logo.responsiveImage
                       }
