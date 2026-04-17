@@ -1,3 +1,4 @@
 name = "head-start"
 pages_build_output_dir = "./dist"
-compatibility_flags = ["nodejs_compat"]
+compatibility_date: "2024-10-28"
+compatibility_flags = ["nodejs_compat", "nodejs_compat_populate_process_env"]
