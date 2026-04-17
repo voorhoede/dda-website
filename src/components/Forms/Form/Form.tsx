@@ -15,12 +15,11 @@ export const Form = ({
   children,
   ...rest
 }: Props) => {
-  const isClient = typeof window !== 'undefined';
   return (
     <form className="form" {...rest}>
       <div className="form__fields">{children}</div>
 
-      {isClient && turnstile && <TurnstileWidget/>}
+      {turnstile && <TurnstileWidget />}
 
       <div className="form__submit">{submitButton}</div>
     </form>
