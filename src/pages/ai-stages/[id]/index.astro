@@ -29,7 +29,7 @@ const { page } = await datocmsRequest<AiInternshipQuery>({
   variables: { locale, id },
 });
 
-if (!page) {
+if (!page || !page._allReferencingMembers[0]) {
   return new Response(null, { status: 404 });
 }
 
@@ -122,12 +122,16 @@ const member = page._allReferencingMembers[0];
           <Text variant="subtext">{t('ai_internship_apply_description')}</Text>
         </header>
 
-        <AiInternshipForm
-          internshipId={page.id}
-          toEmail={member.emailAddressForJobApplications ||
-            member.emailAddress ||
-            ''}
-        />
+        {(member.emailAddressForJobApplications || member.emailAddress) && (
+          <AiInternshipForm
+            client:load
+            recordId={page.id}
+            recordTitle={page.title}
+            toName={member.name}
+            toEmail={(member.emailAddressForJobApplications ||
+              member.emailAddress) as string}
+          />
+        )}
       </section>
     </Column>
   </Grid>

@@ -52,6 +52,22 @@ export default defineConfig({
         access: 'public',
         default: process.env.MAILCHIMP_HONEYPOT_ID,
       }),
+      SCW_SECRET_KEY: envField.string({
+        context: 'server',
+        access: 'secret'
+      }),
+      SCW_PROJECT_ID: envField.string({
+        context: 'server',
+        access: 'secret'
+      }),
+      TURNSTILE_SITE_KEY: envField.string({
+        context: 'client',
+        access: 'public'
+      }),
+      TURNSTILE_SECRET_KEY: envField.string({
+        context: 'server',
+        access: 'secret'
+      }),
     },
   },
   image: {

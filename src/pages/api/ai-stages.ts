@@ -1,24 +1,18 @@
 import type { APIRoute } from 'astro';
+import { ActionError, actions } from 'astro:actions';
 
-export const POST = (async ({ request }) => {
-  const formData = await request.formData();
-  const data = {
-    id: formData.get('id'),
-    toEmail: formData.get('to-email'),
-    name: formData.get('name'),
-    email: formData.get('email'),
-    phone: formData.get('phone'),
-    track: formData.get('track'),
-    institution: formData.get('institution'),
-    linkedin: formData.get('linkedin'),
-    portfolio: formData.get('portfolio')
-  };
-  
-  console.log(JSON.stringify(data, null, 2));
-  
-  return new Response(
-    JSON.stringify({
-      message: 'This was a POST!',
-    }),
+export const POST = (async ({ callAction, request }) => {
+  const { error } = await callAction(
+    actions.aiInternships.submitApplication,
+    await request.formData(),
   );
+
+  if (error) {
+    return Response.json(
+      { error: error.message },
+      { status: ActionError.codeToStatus(error.code) },
+    );
+  }
+
+  return new Response(null, { status: 204 });
 }) satisfies APIRoute;

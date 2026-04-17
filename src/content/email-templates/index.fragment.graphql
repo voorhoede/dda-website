@@ -1,0 +1,10 @@
+fragment EmailTemplate on EmailTemplateRecord {
+  id
+  subject
+  fromName
+  fromEmailAddress
+  title
+  body {
+    value
+  }
+}

@@ -1,5 +1,6 @@
 import type { IconName } from '@assets/icon-sprite';
 import { Icon } from '@components/Icon';
+import { Loader } from '@components/Loader';
 import type { PolymorphicComponentPropsWithRef } from '@lib/polymorphic-component';
 import clsx from 'clsx';
 import { forwardRef, type ElementType, type ForwardedRef } from 'react';
@@ -16,6 +17,7 @@ type ButtonBaseProps = {
   iconOnly?: boolean;
   iconPosition?: 'left' | 'right';
   targetArea?: 'self' | 'parent';
+  loading?: boolean;
 } & (
   | {
       // Button with icon only
@@ -50,6 +52,7 @@ export const Button = forwardRef(
       level = 'primary',
       variant = 'default',
       targetArea = 'self',
+      loading = false,
       ...rest
     }: ButtonProps<C>,
     ref: ForwardedRef<C>,
@@ -69,10 +72,17 @@ export const Button = forwardRef(
         ref={ref}
         className={commonClasses}
         type={Component === 'button' ? rest.type || 'button' : undefined}
+        aria-busy={loading || undefined}
+        aria-disabled={loading || undefined}
         {...rest}
       >
-        {!iconOnly && <span className="button__content">{children}</span>}
-        {icon && <Icon className="button__icon" name={icon} />}
+        {!iconOnly && <span className="button__content">
+          {children}
+        </span>}
+        {loading
+          ? <Loader className="button__icon" />
+          : icon && <Icon className="button__icon" name={icon} />
+        }
       </Component>
     );
   },

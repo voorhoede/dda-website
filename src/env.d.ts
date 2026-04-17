@@ -15,3 +15,10 @@ declare module '*.query.graphql' {
   const value: DocumentNode;
   export = value;
 }
+
+interface Window {
+  turnstile: {
+    render: (element: HTMLElement, options: { sitekey: string; theme?: string }) => string;
+    remove: (widgetId: string) => void;
+  };
+}

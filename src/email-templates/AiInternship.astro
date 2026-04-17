@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import EmailLayout from '@layouts/Email.astro';
+import { StructuredText } from '@datocms/astro';
+
+type Props = CollectionEntry<'emailTemplates'>['data'];
+
+const { title, body } = Astro.props;
+---
+
+<EmailLayout title={title} >
+  <StructuredText data={body} />
+</EmailLayout>
