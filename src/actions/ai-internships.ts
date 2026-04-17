@@ -2,8 +2,6 @@ import { ActionError, defineAction } from 'astro:actions';
 import { TURNSTILE_SECRET_KEY } from 'astro:env/server';
 import { z } from 'astro/zod';
 import { sendEmail } from '@lib/transactional-emails';
-import { experimental_AstroContainer } from 'astro/container';
-import { AiInternship } from '../email-templates';
 import { getEntry } from 'astro:content';
 import { convert } from 'html-to-text';
 
@@ -49,8 +47,7 @@ const aiInternships = {
         throw new ActionError({ code: 'NOT_FOUND' });
       }
       
-      const container = await experimental_AstroContainer.create();
-      const html = await container.renderToString(AiInternship, { props: entry.data });
+      const html = '';
       const filledHtml = fillTemplate(html, {
         name: input.name,
         internship_title: input['record-title'],
