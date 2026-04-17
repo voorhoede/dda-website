@@ -13,6 +13,7 @@ const initialParams = {
   track: searchParams.get('track') ?? '',
   assignmentType: searchParams.get('assignmentType') ?? '',
   province: searchParams.get('province') ?? '',
+  language: searchParams.get('language') ?? '',
 };
 const initialData = await loader(initialParams);
 
@@ -20,6 +21,7 @@ const filterValues = {
   trackOptions: await getCollection('tracks'),
   assignmentTypeOptions: await getCollection('aiInternshipAssignmentTypes'),
   provinceOptions: await getCollection('provinces'),
+  languageOptions: await getCollection('languages'),
 };
 ---
 

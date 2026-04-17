@@ -15,6 +15,7 @@ import aiInternships from './ai-internships';
 import aiInternshipAssignmentTypes from './ai-internship-assignment-types';
 import provinces from './provinces';
 import emailTemplates from './email-templates';
+import languages from './languages';
 
 const memberLogos = defineCollection({
   loader: async () => {
@@ -143,5 +144,6 @@ export const collections = {
   aiInternships,
   aiInternshipAssignmentTypes,
   provinces,
-  emailTemplates
+  emailTemplates,
+  languages
 };

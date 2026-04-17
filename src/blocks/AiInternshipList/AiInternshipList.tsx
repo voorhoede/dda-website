@@ -27,6 +27,7 @@ type FilterValuesType = {
   trackOptions: Awaited<ReturnType<typeof getCollection<'tracks'>>>;
   assignmentTypeOptions: Awaited<ReturnType<typeof getCollection<'aiInternshipAssignmentTypes'>>>;
   provinceOptions: Awaited<ReturnType<typeof getCollection<'provinces'>>>;
+  languageOptions: Awaited<ReturnType<typeof getCollection<'languages'>>>;
 };
 
 type AiInternshipListProps = {
@@ -52,6 +53,10 @@ export const loader = async (searchParams: Record<string, string>) => {
   
   if (searchParams.province) {
     Object.assign(filter, { province: { eq: searchParams.province } });
+  }
+  
+  if (searchParams.language) {
+    Object.assign(filter, { language: { eq: searchParams.language } });
   }
 
   const { items } = await datocmsRequest<AiInternshipListQuery>({
@@ -152,6 +157,20 @@ export const AiInternshipList = withQueryClientProvider(
               ]}
               value={values.province}
               onChange={(value) => onChange('province', value)}
+            />
+            <SelectField
+              name="language"
+              label={t('language')}
+              labelStyle="contain"
+              options={[
+                { label: t('all'), value: '' },
+                ...filterValues.languageOptions.map((language) => ({
+                  label: language.data.name,
+                  value: language.id,
+                })),
+              ]}
+              value={values.language}
+              onChange={(value) => onChange('language', value)}
             />
           </>}
         />
