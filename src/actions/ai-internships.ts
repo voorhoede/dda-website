@@ -1,9 +1,12 @@
 import { ActionError, defineAction } from 'astro:actions';
 import { TURNSTILE_SECRET_KEY } from 'astro:env/server';
 import { z } from 'astro/zod';
+import { createElement } from 'react';
+import { renderToString } from 'react-dom/server';
 import { sendEmail } from '@lib/transactional-emails';
 import { getEntry } from 'astro:content';
 import { convert } from 'html-to-text';
+import { AiInternshipEmail } from '@root/src/email-templates';
 
 const fillTemplate = (template: string, data: Record<string, string | null>): string => {
   return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => data[key] ?? `{{ ${key} }}`);
@@ -47,7 +50,7 @@ const aiInternships = {
         throw new ActionError({ code: 'NOT_FOUND' });
       }
       
-      const html = '';
+      const html = renderToString(createElement(AiInternshipEmail, { ...entry.data }));
       const filledHtml = fillTemplate(html, {
         name: input.name,
         internship_title: input['record-title'],

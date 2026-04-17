@@ -1,1 +1,1 @@
-export { default as AiInternship } from './AiInternship.astro';
+export { AiInternshipEmail } from './AiInternshipEmail.tsx';
