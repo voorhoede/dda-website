@@ -54,11 +54,11 @@ export default defineConfig({
       }),
       SCW_SECRET_KEY: envField.string({
         context: 'server',
-        access: 'secret'
+        access: 'public'
       }),
       SCW_PROJECT_ID: envField.string({
         context: 'server',
-        access: 'secret'
+        access: 'public'
       }),
       TURNSTILE_SITE_KEY: envField.string({
         context: 'client',
@@ -66,7 +66,7 @@ export default defineConfig({
       }),
       TURNSTILE_SECRET_KEY: envField.string({
         context: 'server',
-        access: 'secret'
+        access: 'public'
       }),
     },
   },
