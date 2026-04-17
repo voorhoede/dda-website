@@ -1,7 +1,7 @@
 #import '@blocks/PageHeader/PageHeader.fragment.graphql'
 
-query AiInternshipsPage {
-  page: aiInternshipsPage {
+query AiInternshipsPage($locale: SiteLocale = nl) {
+  page: aiInternshipsPage(locale: $locale) {
     _seoMetaTags {
       attributes
       content

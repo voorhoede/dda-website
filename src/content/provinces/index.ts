@@ -28,9 +28,9 @@ function loader(): Loader {
   };
 }
 
-const tracks = defineCollection({
+const provinces = defineCollection({
   loader: loader(),
   schema: z.custom<Schema>(),
 });
 
-export default tracks;
+export default provinces;
