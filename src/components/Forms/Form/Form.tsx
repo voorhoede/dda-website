@@ -1,10 +1,5 @@
-import {
-  type FormHTMLAttributes,
-  type ReactNode,
-  useEffect,
-  useRef,
-} from 'react';
-import { TURNSTILE_SITE_KEY } from 'astro:env/client';
+import { type FormHTMLAttributes, type ReactNode } from 'react';
+import { TurnstileWidget } from '@components/TurnstileWidget';
 
 import './Form.css';
 
@@ -20,46 +15,12 @@ export const Form = ({
   children,
   ...rest
 }: Props) => {
-  const turnstileRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!turnstile || !turnstileRef.current) return;
-
-    const SCRIPT_URL = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    const element = turnstileRef.current;
-    let widgetId: string | undefined;
-
-    const renderWidget = () => {
-      widgetId = window.turnstile.render(element, {
-        sitekey: TURNSTILE_SITE_KEY,
-        theme: 'light',
-      });
-    };
-
-    if (window.turnstile) {
-      renderWidget();
-    } else {
-      const script = document.createElement('script');
-      script.src = SCRIPT_URL;
-      script.async = true;
-      script.addEventListener('load', renderWidget);
-      document.head.appendChild(script);
-    }
-
-    return () => {
-      if (widgetId !== undefined) {
-        window.turnstile.remove(widgetId);
-      }
-    };
-  }, [turnstile]);
-
+  const isClient = typeof window !== 'undefined';
   return (
     <form className="form" {...rest}>
-      <div className="form__fields">
-        {children}
-      </div>
+      <div className="form__fields">{children}</div>
 
-      {turnstile && <div ref={turnstileRef} />}
+      {isClient && turnstile && <TurnstileWidget/>}
 
       <div className="form__submit">{submitButton}</div>
     </form>
