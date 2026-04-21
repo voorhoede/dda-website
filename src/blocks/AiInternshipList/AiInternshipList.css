@@ -2,6 +2,7 @@
   list-style-type: "";
   padding: 0px;
   margin: 0px;
+  margin-block-end: 1px;
 }
 
 .empty-message {

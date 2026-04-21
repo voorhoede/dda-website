@@ -1,6 +1,6 @@
 ---
 import type { AiInternshipsPageQuery } from '@lib/types/datocms';
-import Layout from '@layouts/Default.astro';
+import FunnelLayout from '@layouts/Funnel.astro';
 import { defaultLocale, t } from '@lib/i18n';
 import { setCacheControl } from '@lib/cache-control';
 import { datocmsRequest } from '@lib/datocms';
@@ -24,7 +24,7 @@ if (!page) {
 }
 ---
 
-<Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
+<FunnelLayout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
   <PreviewModeSubscription query={query} variables={{ locale }} />
 
   <PageHeader title={page.header.title} subtitle={page.header.subtitle}>
@@ -43,4 +43,4 @@ if (!page) {
   </PageHeader>
   
   <AiInternshipList />
-</Layout>
+</FunnelLayout>
