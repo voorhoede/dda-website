@@ -19,6 +19,7 @@ import {
 } from '@components/PageTitle';
 import { SRCImage, StructuredText } from 'react-datocms';
 import { MemberLogo } from '@blocks/MemberLogo';
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { AiInternshipForm } from '@components/AiInternshipForm';
 
 setCacheControl(Astro.response);
@@ -34,6 +35,14 @@ if (!page || !page._allReferencingMembers[0]) {
 }
 
 const member = page._allReferencingMembers[0];
+
+const hasDescriptionContent = (doc: typeof page.description) => {
+  const hasText = (node: any): boolean => {
+    if (node.type === 'span') return (node.value ?? '').trim().length > 0;
+    return (node.children ?? []).some(hasText);
+  };
+  return doc?.value?.document?.children?.some(hasText) ?? false;
+};
 ---
 
 <Layout pageUrls={[]} seoMetaTags={page._seoMetaTags}>
@@ -122,7 +131,16 @@ const member = page._allReferencingMembers[0];
     <Column className="text-section" span={{ mobile: 12, tablet: 7 }}>
       <section>
         <h2 class="a11y-sr-only">{t('ai_internship_description')}</h2>
-        <StructuredText data={page.description} />
+        {
+          hasDescriptionContent(page.description) ? (
+            <StructuredText data={page.description} />
+          ) : (
+            <>
+              {member.introText && <p>{member.introText}</p>}
+              {member.text && <TextBlock block={member.text} />}
+            </>
+          )
+        }
       </section>
 
       <section class="form-section">
