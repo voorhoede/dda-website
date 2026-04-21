@@ -37,6 +37,11 @@ export default defineConfig({
         access: 'public',
         default: process.env.NODE_ENV === 'production',
       }),
+      AI_STAGES_DEV: envField.boolean({
+        context: 'server',
+        access: 'public',
+        default: process.env.AI_STAGES_DEV === 'true',
+      }),
       HEAD_START_PREVIEW: envField.boolean({
         context: 'client',
         access: 'public',
