@@ -207,8 +207,8 @@ export const AiInternshipList = withQueryClientProvider(
                     <TagListItem>{item.track.name}</TagListItem>
                     <TagListItem>{item.assignmentType.name}</TagListItem>
                   </TagList>
-                  <Text variant="subtext">{item.company[0].name} / {item.province.name} / {item.language.name}</Text>
-                  <Heading level={3}>{item.title}</Heading>
+                  <Text variant="subtext">{item.province.name} / {item.language.name}</Text>
+                  <Heading level={3}>{item.company[0].name}</Heading>
                 </CardContent>
                 <CardFooter>
                   <Button
