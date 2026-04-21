@@ -125,7 +125,9 @@ const aiInternships = {
         });
 
         if (!applicantResponse.ok) {
-          console.error('Failed to send applicant confirmation email');
+          console.error(
+            `Failed to send applicant confirmation email (status ${applicantResponse.status} ${applicantResponse.statusText})`,
+          );
         }
       } else {
         console.warn(
