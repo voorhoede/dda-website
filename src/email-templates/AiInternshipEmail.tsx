@@ -6,7 +6,6 @@ type EmailTemplateData = CollectionEntry<'emailTemplates'>['data'];
 export const AiInternshipEmail = ({ title, body }: EmailTemplateData) => {
   return (
     <>
-      {'<!doctype html>'}
       <html lang="nl">
         <head>
           <meta charSet="utf-8" />
