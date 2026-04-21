@@ -1,4 +1,5 @@
 import { type FormEvent, useRef, useState } from 'react';
+import { actions } from 'astro:actions';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
 import { Form, TextField } from '@components/Forms';
@@ -32,24 +33,16 @@ export const AiInternshipForm = ({
     setStatus('submitting');
     const { currentTarget } = event;
 
-    try {
-      const response = await fetch(currentTarget.action, {
-        method: currentTarget.method,
-        body: new FormData(currentTarget),
-      });
+    const { error } = await actions.aiInternships.submitApplication(new FormData(currentTarget));
 
-      if (!response.ok) {
-        setStatus('error');
-        requestAnimationFrame(() => errorRef.current?.focus());
-        return;
-      }
-
-      setStatus('success');
-      requestAnimationFrame(() => successRef.current?.focus());
-    } catch {
+    if (error) {
       setStatus('error');
       requestAnimationFrame(() => errorRef.current?.focus());
+      return;
     }
+
+    setStatus('success');
+    requestAnimationFrame(() => successRef.current?.focus());
   };
 
   const isSubmitting = status === 'submitting';
@@ -91,8 +84,6 @@ export const AiInternshipForm = ({
       )}
 
       <Form
-        action="/api/ai-stages"
-        method="POST"
         onSubmit={handleSubmit}
         submitButton={
           <Button
