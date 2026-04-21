@@ -7,7 +7,13 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 
-export const Header = () => {
+export type HeaderVariant = 'default' | 'aiInternships';
+
+type HeaderProps = {
+  variant?: HeaderVariant;
+};
+
+export const Header = ({ variant = 'default' }: HeaderProps = {}) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
@@ -28,12 +34,15 @@ export const Header = () => {
     };
   }, []);
 
+  const isAiInternships = variant === 'aiInternships';
+  const logoHref = isAiInternships ? '/ai-stages/' : '/';
+
   return (
     <header
       ref={headerRef}
       className={clsx('header', isSticky && 'header--sticky')}
     >
-      <Link rel="home" href="/" aria-label={t('go_to_home_page', { siteName })}>
+      <Link rel="home" href={logoHref} aria-label={t('go_to_home_page', { siteName })}>
         <img
           alt=""
           className="header__logo"
@@ -42,7 +51,7 @@ export const Header = () => {
           width={logo.width}
         />
       </Link>
-      <Menu />
+      {!isAiInternships && <Menu />}
     </header>
   );
 };

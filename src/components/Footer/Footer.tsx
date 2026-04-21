@@ -11,15 +11,24 @@ type FooterProps = {
     title: string;
     url: string;
   }[];
+  variant?: 'default' | 'aiInternships';
 };
 
-export const Footer = ({ links }: FooterProps) => {
+export const Footer = ({ links, variant = 'default' }: FooterProps) => {
+  const isAiInternships = variant === 'aiInternships';
+  const privacyLinks = isAiInternships
+    ? links.filter(
+      (link) =>
+        /privacy/i.test(link.url) || /privacy/i.test(link.title),
+    )
+    : [];
+
   return (
     <Grid as="footer" className="footer" border={true}>
       <Column span={{ mobile: 12, desktop: 5 }}>
         <Link
           rel="home"
-          href="/"
+          href={isAiInternships ? '/ai-stages/' : '/'}
           aria-label={t('go_to_home_page', { siteName })}
           className="footer__logo-link"
         >
@@ -32,17 +41,23 @@ export const Footer = ({ links }: FooterProps) => {
           />
         </Link>
       </Column>
-      <Column as="nav" span={{ mobile: 12, tablet: 6, desktop: 3 }}>
-        <ul className="footer__links">
-          {links.map((link) => (
-            <li key={link.url}>
-              <Link href={link.url}>{link.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </Column>
+      {!isAiInternships && (
+        <Column as="nav" span={{ mobile: 12, tablet: 6, desktop: 3 }}>
+          <ul className="footer__links">
+            {links.map((link) => (
+              <li key={link.url}>
+                <Link href={link.url}>{link.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </Column>
+      )}
       <Column
-        span={{ mobile: 12, tablet: 6, desktop: 4 }}
+        span={
+          isAiInternships
+            ? { mobile: 12, tablet: 12, desktop: 7 }
+            : { mobile: 12, tablet: 6, desktop: 4 }
+        }
         className="footer__contact"
       >
         <address className="footer__address">
@@ -87,6 +102,12 @@ export const Footer = ({ links }: FooterProps) => {
               Linkedin
             </Link>
           </li>
+          {isAiInternships &&
+            privacyLinks.map((link) => (
+              <li key={link.url}>
+                <Link href={link.url}>{link.title}</Link>
+              </li>
+            ))}
         </ul>
         <Text className="footer__copyright">{t('copyright_disclaimer')}</Text>
       </Column>

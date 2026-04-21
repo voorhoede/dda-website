@@ -8,8 +8,44 @@ import { getEntry } from 'astro:content';
 import { convert } from 'html-to-text';
 import { AiInternshipEmail } from '@root/src/email-templates';
 
+// IDs of the email templates managed in DatoCMS (EmailTemplate records).
+const COMPANY_EMAIL_TEMPLATE_ID = 'dJqC6Ve3RTivHdA8es2t6A';
+const APPLICANT_EMAIL_TEMPLATE_ID = 'applicant-confirmation';
+
 const fillTemplate = (template: string, data: Record<string, string | null>): string => {
   return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (_, key) => data[key] ?? `{{ ${key} }}`);
+};
+
+type RenderedTemplate = {
+  fromName: string;
+  fromEmailAddress: string;
+  subject: string;
+  html: string;
+  text: string;
+};
+
+const renderTemplate = async (
+  templateId: string,
+  data: Record<string, string | null>,
+): Promise<RenderedTemplate | null> => {
+  const entry = await getEntry('emailTemplates', templateId);
+
+  if (!entry) {
+    return null;
+  }
+
+  const html = renderToString(createElement(AiInternshipEmail, { ...entry.data }));
+  const filledHtml = fillTemplate(html, data);
+  const filledText = convert(filledHtml, { wordwrap: 80 });
+  const { fromName, fromEmailAddress, subject } = entry.data;
+
+  return {
+    fromName,
+    fromEmailAddress,
+    subject: fillTemplate(subject, data),
+    html: filledHtml,
+    text: filledText,
+  };
 };
 
 const aiInternships = {
@@ -44,37 +80,57 @@ const aiInternships = {
         throw new ActionError({ code: 'FORBIDDEN', message: 'Turnstile validation failed' });
       }
 
-      const entry = await getEntry('emailTemplates', 'dJqC6Ve3RTivHdA8es2t6A');
-      
-      if (!entry) {
-        throw new ActionError({ code: 'NOT_FOUND' });
-      }
-      
-      const html = renderToString(createElement(AiInternshipEmail, { ...entry.data }));
-      const filledHtml = fillTemplate(html, {
+      const templateData: Record<string, string | null> = {
         name: input.name,
         internship_title: input['record-title'],
+        company_name: input['to-name'],
         email: input.email,
         phone: input.phone,
         track: input.track,
         institution: input.institution,
         linkedin: input.linkedin || 'N/A',
         portfolio: input.portfolio || 'N/A',
-      });
-      const filledText = convert(filledHtml, { wordwrap: 80 });
-      
-      const { fromName, fromEmailAddress, subject } = entry.data;
-      
-      const response = await sendEmail({
-        from: { name: fromName, email: fromEmailAddress },
+      };
+
+      const companyTemplate = await renderTemplate(COMPANY_EMAIL_TEMPLATE_ID, templateData);
+
+      if (!companyTemplate) {
+        throw new ActionError({ code: 'NOT_FOUND' });
+      }
+
+      const companyResponse = await sendEmail({
+        from: { name: companyTemplate.fromName, email: companyTemplate.fromEmailAddress },
         to: [{ name: input['to-name'], email: input['to-email'] }],
-        subject: subject,
-        text: filledText,
-        html: filledHtml,
+        subject: companyTemplate.subject,
+        text: companyTemplate.text,
+        html: companyTemplate.html,
       });
 
-      if (!response.ok) {
+      if (!companyResponse.ok) {
         throw new ActionError({ code: 'INTERNAL_SERVER_ERROR', message: 'Failed to send email' });
+      }
+
+      // Send confirmation email to the applicant. If the applicant template
+      // record is not (yet) configured in DatoCMS, fail silently so the
+      // primary application flow still succeeds.
+      const applicantTemplate = await renderTemplate(APPLICANT_EMAIL_TEMPLATE_ID, templateData);
+
+      if (applicantTemplate) {
+        const applicantResponse = await sendEmail({
+          from: { name: applicantTemplate.fromName, email: applicantTemplate.fromEmailAddress },
+          to: [{ name: input.name, email: input.email }],
+          subject: applicantTemplate.subject,
+          text: applicantTemplate.text,
+          html: applicantTemplate.html,
+        });
+
+        if (!applicantResponse.ok) {
+          console.error('Failed to send applicant confirmation email');
+        }
+      } else {
+        console.warn(
+          `Applicant confirmation email template (id: ${APPLICANT_EMAIL_TEMPLATE_ID}) not found in DatoCMS; skipping.`,
+        );
       }
     },
   }),

@@ -27,6 +27,7 @@ interface Props {
   breadcrumbs?: Breadcrumb[];
   pageUrls: PageUrl[];
   seoMetaTags: MetaTag[];
+  variant?: 'default' | 'aiInternships';
 }
 
 const { locale = defaultLocale as SiteLocale } = Astro.params as {
@@ -38,7 +39,7 @@ const data = (await datocmsRequest<DefaultLayoutQuery>({
   variables: { locale },
 })) as { site: Site; footer: FooterRecord };
 
-const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
+const { breadcrumbs = [], pageUrls, seoMetaTags, variant = 'default' } = Astro.props;
 const mainContentId = 'content';
 ---
 
@@ -88,7 +89,7 @@ const mainContentId = 'content';
     <PreviewModeProvider>
       <div class="main-container">
         <SkipLink targetId={mainContentId} />
-        <Header client:load />
+        <Header client:load variant={variant} />
 
         {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
         {
@@ -98,7 +99,7 @@ const mainContentId = 'content';
         <main id={mainContentId} tabindex="-1">
           <slot />
         </main>
-        <Footer links={data.footer.links} />
+        <Footer links={data.footer.links} variant={variant} />
       </div>
       <IconSprite />
     </PreviewModeProvider>

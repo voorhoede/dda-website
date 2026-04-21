@@ -18,8 +18,10 @@ import {
   PageTitleHeader,
 } from '@components/PageTitle';
 import { SRCImage, StructuredText } from 'react-datocms';
+import { isEmptyDocument } from 'datocms-structured-text-utils';
 import { MemberLogo } from '@blocks/MemberLogo';
 import { AiInternshipForm } from '@components/AiInternshipForm';
+import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 
 setCacheControl(Astro.response);
 
@@ -42,7 +44,7 @@ const member = page._allReferencingMembers[0];
     <PageTitleHeader>
       <Button
         as="a"
-        href="../"
+        href="/ai-stages/vacatures/"
         className="back-button"
         level="tertiary"
         icon="arrow-left"
@@ -122,7 +124,13 @@ const member = page._allReferencingMembers[0];
     <Column className="text-section" span={{ mobile: 12, tablet: 7 }}>
       <section>
         <h2 class="a11y-sr-only">{t('ai_internship_description')}</h2>
-        <StructuredText data={page.description} />
+        {
+          isEmptyDocument(page.description) ? (
+            member.text && <TextBlock block={member.text} />
+          ) : (
+            <StructuredText data={page.description} />
+          )
+        }
       </section>
 
       <section class="form-section">
