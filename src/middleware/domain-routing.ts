@@ -44,7 +44,7 @@ export const domainRouting = defineMiddleware(({ url }, next) => {
     pathname.startsWith('/_') ||
     pathname.startsWith('/api/') ||
     pathname.startsWith(AI_STAGES_PATH_PREFIX) ||
-    /\.\w+$/.test(pathname)
+    /\.\w+\/?$/.test(pathname)
   ) {
     return next();
   }
