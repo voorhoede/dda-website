@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
-const AI_STAGES_DOMAIN = 'ai-stages.nl';
+const AI_STAGES_DOMAIN = 'ai-stages.com';
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
 
 /**
