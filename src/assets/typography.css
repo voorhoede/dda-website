@@ -32,16 +32,11 @@
     url('/fonts/MartianMono-Light.woff') format('woff');
 }
 
-:root {
-  --font-family-regular: Archivo, sans-serif;
-  --font-family-mono: MartianMono, monospace;
-}
-
 body {
-  color: var(--color-black);
-  font-family: var(--font-family-regular);
-  font-size: 1rem;
-  line-height: 1.5rem;
+  color: var(--color-text);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
   font-synthesis-weight: none;
 }
 
@@ -50,82 +45,82 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3rem;
-  font-weight: 600;
-  line-height: 3rem;
-  letter-spacing: -0.04em;
+  font-size: var(--base-font-size-5xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--base-font-size-5xl);
+  letter-spacing: var(--letter-spacing-heading);
 }
 
 h2 {
-  font-size: 2.5rem;
-  line-height: 2.5rem;
-  font-weight: 600;
-  letter-spacing: -0.04em;
+  font-size: var(--base-font-size-4xl);
+  line-height: var(--base-font-size-4xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-heading);
 }
 
 h3 {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 2rem;
-  letter-spacing: -0.04em;
+  font-size: var(--base-font-size-3xl);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--base-font-size-3xl);
+  letter-spacing: var(--letter-spacing-heading);
   text-transform: uppercase;
 }
 
 h4 {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 600;
+  font-size: var(--base-font-size-2xl);
+  line-height: var(--base-line-height-relaxed);
+  font-weight: var(--font-weight-semibold);
 }
 
 h5 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  line-height: 2rem;
+  font-size: var(--base-font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--base-line-height-relaxed);
 }
 
 h6 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  line-height: 2rem;
+  font-size: var(--base-font-size-2xl);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--base-line-height-relaxed);
 }
 
 .text-semibold {
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 
 @media screen and (min-width: 890px) {
   body {
-    font-size: 1.125rem;
-    line-height: 2rem;
+    font-size: var(--font-size-body-lg);
+    line-height: var(--line-height-body-lg);
   }
 
   h1 {
-    font-size: 6rem;
-    line-height: 6rem;
+    font-size: var(--base-font-size-7xl);
+    line-height: var(--base-font-size-7xl);
   }
 
   h2 {
-    font-size: 4rem;
-    line-height: 4rem;
+    font-size: var(--base-font-size-6xl);
+    line-height: var(--base-font-size-6xl);
   }
 
   h3 {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: var(--base-font-size-5xl);
+    line-height: var(--base-font-size-5xl);
   }
 
   h4 {
-    font-size: 2rem;
-    line-height: 2.5rem;
+    font-size: var(--base-font-size-3xl);
+    line-height: var(--base-line-height-loose);
   }
 
   h5 {
-    font-size: 1.25rem;
-    line-height: 2.5rem;
+    font-size: var(--base-font-size-xl);
+    line-height: var(--base-line-height-loose);
   }
 
   h6 {
-    font-size: 1.25rem;
-    line-height: 2.5rem;
+    font-size: var(--base-font-size-xl);
+    line-height: var(--base-line-height-loose);
   }
 }

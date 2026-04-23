@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 24px;
+  padding: var(--spacing-24);
   position: relative;
 }
 
 @media (min-width: 768px) {
   .card {
-    padding: 48px;
+    padding: var(--spacing-48);
   }
 }

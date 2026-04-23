@@ -39,7 +39,7 @@
 }
 
 .footer__address :first-of-type {
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 .footer__contact-info {

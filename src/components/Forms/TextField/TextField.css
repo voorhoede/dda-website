@@ -8,20 +8,20 @@
 .text-field__label {
   width: fit-content;
   border: 1px solid transparent;
-  color: var(--color-grey);
+  color: var(--color-text-secondary);
   font-size: 12px;
   line-height: 1;
 }
 
 .text-field__label--float {
   position: absolute;
-  transition: 0.1s;
+  transition: var(--transition-duration-fast);
   pointer-events: none;
   line-height: 1;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--color-grey);
-  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-lg);
 }
 
 .text-field:has(.text-field__input:not(:placeholder-shown))
@@ -30,7 +30,7 @@
   font-size: 12px;
   top: 0;
   transform: translateY(-100%);
-  color: var(--color-black);
+  color: var(--color-text);
   pointer-events: initial;
 }
 
@@ -38,9 +38,9 @@
   border: 1px solid transparent;
   padding-block: var(--spacing-12);
   padding-inline: 0px;
-  border-block-end-color: var(--color-black);
+  border-block-end-color: var(--color-border);
   width: 100%;
-  font-size: 1.125rem;
+  font-size: var(--font-size-body-lg);
   line-height: 1.5rem;
 }
 
