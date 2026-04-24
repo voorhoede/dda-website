@@ -1,0 +1,86 @@
+---
+import type {
+  DefaultLayoutQuery,
+  Site,
+  SiteLocale,
+  FooterRecord,
+  Tag as MetaTag,
+} from '@lib/types/datocms';
+import { datocmsRequest } from '@lib/datocms';
+import { defaultLocale } from '@lib/i18n';
+import IconSprite from '@components/Icon/IconSprite.astro';
+import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
+import SeoHead from '@components/SeoHead.astro';
+import type { PageUrl } from '@lib/seo';
+import '@assets/a11y.css';
+import '@assets/core.css';
+import '@assets/layout.css';
+import '@assets/typography.css';
+import query from './default.query.graphql';
+
+interface Props {
+  pageUrls: PageUrl[];
+  seoMetaTags: MetaTag[];
+}
+
+const { locale = defaultLocale as SiteLocale } = Astro.params as {
+  locale?: SiteLocale;
+};
+
+const data = (await datocmsRequest<DefaultLayoutQuery>({
+  query,
+  variables: { locale },
+})) as { site: Site; footer: FooterRecord };
+
+const { pageUrls, seoMetaTags } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    
+    <link rel="preconnect" href="https://www.datocms-assets.com" />
+    <link rel="preconnect" href="https://plausible.io" />
+
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Archivo-SemiBold.woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Archivo-Regular.woff2"
+      crossorigin="anonymous"
+    />
+    
+    <SeoHead
+      pageUrls={pageUrls}
+      tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
+    />
+    
+    <script
+      is:inline
+      defer
+      data-domain={Astro.site?.host}
+      src="https://plausible.io/js/script.js"></script>
+    <script is:inline>
+      window.plausible =
+        window.plausible ||
+        function () {
+          (window.plausible.q = window.plausible.q || []).push(arguments);
+        };
+    </script>
+  </head>
+  <body>
+    <PreviewModeProvider>
+      <slot />
+      <IconSprite />
+    </PreviewModeProvider>
+  </body>
+</html>

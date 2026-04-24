@@ -1,0 +1,69 @@
+fragment AiInternshipItem on AiInternshipRecord {
+  company: _allReferencingMembers(first: 1) {
+    logo {
+      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+        base64
+        height
+        width
+        aspectRatio
+        sizes
+        src
+        srcSet
+        webpSrcSet
+        bgColor
+        alt
+        title
+      }
+    }
+    banner {
+      responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+        base64
+        height
+        width
+        aspectRatio
+        sizes
+        src
+        srcSet
+        webpSrcSet
+        bgColor
+        alt
+        title
+      }
+    }
+    name
+    location
+  }
+  assignmentType {
+    id
+    name
+  }
+  language {
+    id
+    name
+  }
+  province {
+    id
+    name
+  }
+  track {
+    id
+    name
+  }
+  id
+  title
+  banner {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      base64
+      height
+      width
+      aspectRatio
+      sizes
+      src
+      srcSet
+      webpSrcSet
+      bgColor
+      alt
+      title
+    }
+  }
+}

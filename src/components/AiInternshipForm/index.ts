@@ -1,0 +1,1 @@
+export { AiInternshipForm } from './AiInternshipForm';
