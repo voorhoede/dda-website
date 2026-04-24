@@ -38,8 +38,8 @@ const aiInternships = {
       }
 
       const [agencyEntry, confirmationEntry] = await Promise.all([
-        getEntry('emailTemplates', 'dJqC6Ve3RTivHdA8es2t6A'),
-        getEntry('emailTemplates', 'V0W6uAy_TNaT84eG3WE3Tw'),
+        getEntry('emailTemplates', 'Ouf7UaxtSv2OZbI7Phzg8w'),
+        getEntry('emailTemplates', 'Gg-2ARjcSxm448j1drIPmA'),
       ]);
 
       if (!agencyEntry || !confirmationEntry) {
