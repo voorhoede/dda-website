@@ -25,7 +25,9 @@ import type { getCollection } from 'astro:content';
 
 type FilterValuesType = {
   trackOptions: Awaited<ReturnType<typeof getCollection<'tracks'>>>;
-  assignmentTypeOptions: Awaited<ReturnType<typeof getCollection<'aiInternshipAssignmentTypes'>>>;
+  assignmentTypeOptions: Awaited<
+    ReturnType<typeof getCollection<'aiInternshipAssignmentTypes'>>
+  >;
   provinceOptions: Awaited<ReturnType<typeof getCollection<'provinces'>>>;
   languageOptions: Awaited<ReturnType<typeof getCollection<'languages'>>>;
 };
@@ -42,19 +44,21 @@ export const loader = async (searchParams: Record<string, string>) => {
       title: { matches: { pattern: searchParams.search } },
     });
   }
-  
+
   if (searchParams.track) {
     Object.assign(filter, { track: { eq: searchParams.track } });
   }
-  
+
   if (searchParams.assignmentType) {
-    Object.assign(filter, { assignmentType: { eq: searchParams.assignmentType } });
+    Object.assign(filter, {
+      assignmentType: { eq: searchParams.assignmentType },
+    });
   }
-  
+
   if (searchParams.province) {
     Object.assign(filter, { province: { eq: searchParams.province } });
   }
-  
+
   if (searchParams.language) {
     Object.assign(filter, { language: { eq: searchParams.language } });
   }
@@ -72,7 +76,10 @@ export const loader = async (searchParams: Record<string, string>) => {
 };
 
 export const AiInternshipList = withQueryClientProvider(
-  ({ initialParams, filterValues }: QueryClientProviderComponentProps & AiInternshipListProps) => {
+  ({
+    initialParams,
+    filterValues,
+  }: QueryClientProviderComponentProps & AiInternshipListProps) => {
     const listRef = useRef<HTMLUListElement>(null);
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
@@ -115,64 +122,68 @@ export const AiInternshipList = withQueryClientProvider(
               onChange={(value) => onChange('search', value)}
             />
           )}
-          filters={({ onChange, values }) => <>
-            <SelectField
-              name="track"
-              label={t('track')}
-              labelStyle="contain"
-              options={[
-                { label: t('all'), value: '' },
-                ...filterValues.trackOptions.map((track) => ({
-                  label: track.data.name,
-                  value: track.id,
-                })),
-              ]}
-              value={values.track}
-              onChange={(value) => onChange('track', value)}
-            />
-            <SelectField
-              name="assignmentType"
-              label={t('type')}
-              labelStyle="contain"
-              options={[
-                { label: t('all'), value: '' },
-                ...filterValues.assignmentTypeOptions.map((assignmentType) => ({
-                  label: assignmentType.data.name,
-                  value: assignmentType.id,
-                })),
-              ]}
-              value={values.assignmentType}
-              onChange={(value) => onChange('assignmentType', value)}
-            />
-            <SelectField
-              name="province"
-              label={t('province')}
-              labelStyle="contain"
-              options={[
-                { label: t('all'), value: '' },
-                ...filterValues.provinceOptions.map((province) => ({
-                  label: province.data.name,
-                  value: province.id,
-                })),
-              ]}
-              value={values.province}
-              onChange={(value) => onChange('province', value)}
-            />
-            <SelectField
-              name="language"
-              label={t('language')}
-              labelStyle="contain"
-              options={[
-                { label: t('all'), value: '' },
-                ...filterValues.languageOptions.map((language) => ({
-                  label: language.data.name,
-                  value: language.id,
-                })),
-              ]}
-              value={values.language}
-              onChange={(value) => onChange('language', value)}
-            />
-          </>}
+          filters={({ onChange, values }) => (
+            <>
+              <SelectField
+                name="track"
+                label={t('track')}
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...filterValues.trackOptions.map((track) => ({
+                    label: track.data.name,
+                    value: track.id,
+                  })),
+                ]}
+                value={values.track}
+                onChange={(value) => onChange('track', value)}
+              />
+              <SelectField
+                name="assignmentType"
+                label={t('type')}
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...filterValues.assignmentTypeOptions.map(
+                    (assignmentType) => ({
+                      label: assignmentType.data.name,
+                      value: assignmentType.id,
+                    }),
+                  ),
+                ]}
+                value={values.assignmentType}
+                onChange={(value) => onChange('assignmentType', value)}
+              />
+              <SelectField
+                name="province"
+                label={t('province')}
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...filterValues.provinceOptions.map((province) => ({
+                    label: province.data.name,
+                    value: province.id,
+                  })),
+                ]}
+                value={values.province}
+                onChange={(value) => onChange('province', value)}
+              />
+              <SelectField
+                name="language"
+                label={t('language')}
+                labelStyle="contain"
+                options={[
+                  { label: t('all'), value: '' },
+                  ...filterValues.languageOptions.map((language) => ({
+                    label: language.data.name,
+                    value: language.id,
+                  })),
+                ]}
+                value={values.language}
+                onChange={(value) => onChange('language', value)}
+              />
+            </>
+          )}
         />
 
         <Grid
@@ -207,7 +218,9 @@ export const AiInternshipList = withQueryClientProvider(
                     <TagListItem>{item.track.name}</TagListItem>
                     <TagListItem>{item.assignmentType.name}</TagListItem>
                   </TagList>
-                  <Text variant="subtext">{item.province.name} / {item.language.name}</Text>
+                  <Text variant="subtext">
+                    {item.province.name} / {item.language.name}
+                  </Text>
                   <Heading level={3}>{item.company[0].name}</Heading>
                 </CardContent>
                 <CardFooter>
@@ -217,7 +230,7 @@ export const AiInternshipList = withQueryClientProvider(
                     icon="arrow-right"
                     level="secondary"
                     variant="large"
-                    href={`./${item.id}`}
+                    href={`/vacatures/${item.id}`}
                     targetArea="parent"
                   >
                     {t('details')}
