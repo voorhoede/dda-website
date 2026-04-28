@@ -13,10 +13,10 @@ export const MemberLogo = (
     }
 
     if (props.logo.responsiveImage?.bgColor === '#ffffff') {
-      return 'var(--color-black)';
+      return 'var(--color-text)';
     }
 
-    return 'var(--color-white)';
+    return 'var(--color-text-inverse)';
   }, [props.brandColor?.hex]);
 
   return (

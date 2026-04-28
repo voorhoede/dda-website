@@ -8,7 +8,7 @@
   margin: 0px;
   font-size: 1em;
   line-height: 1.5;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   text-transform: none;
   letter-spacing: initial;
 }

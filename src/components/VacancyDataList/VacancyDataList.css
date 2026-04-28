@@ -1,7 +1,7 @@
 .vacancy-data-list {
   box-shadow:
-    0 1px 0 0 var(--color-black),
-    0 -1px 0 0 var(--color-black);
+    0 var(--border-width) 0 0 var(--color-border),
+    0 calc(-1 * var(--border-width)) 0 0 var(--color-border);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-40);
@@ -30,7 +30,7 @@
 }
 
 .vacancy-data-list__item {
-  border-bottom: 1px solid var(--color-black);
+  border-bottom: var(--border-width) solid var(--color-border);
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-16);
@@ -65,7 +65,7 @@
       element's box, making it impossible to apply traditional borders
       or positioning.
     */
-    border-bottom: 1px solid var(--color-black);
+    border-bottom: var(--border-width) solid var(--color-border);
     content: '';
     display: block;
     left: var(--spacing-48);

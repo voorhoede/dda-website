@@ -3,10 +3,10 @@
   align-items: center;
   cursor: pointer;
   padding: 0;
-  background-color: var(--color-white);
-  border: 1px solid var(--color-black);
-  font-family: MartianMono, monospace;
-  font-size: 0.75rem;
+  background-color: var(--color-background);
+  border: var(--border-width) solid var(--color-border);
+  font-family: var(--font-family-ui);
+  font-size: var(--font-size-ui-sm);
   line-height: 1rem;
   text-decoration: none;
   text-transform: uppercase;
@@ -14,33 +14,33 @@
 
 .select-button:hover,
 .select-button:active {
-  border-color: var(--color-blue);
-  color: var(--color-blue);
+  border-color: var(--color-border-interactive);
+  color: var(--color-text-interactive);
 }
 
 .select-button:focus-visible {
   border-style: dashed;
   outline: none;
-  background-color: var(--color-yellow);
-  border-color: var(--color-black);
-  color: var(--color-black);
+  background-color: var(--color-background-focus);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
 .select-button--has-value {
-  background-color: var(--color-black);
-  color: var(--color-white);
-  border-color: var(--color-white);
+  background-color: var(--color-background-inverse);
+  color: var(--color-text-inverse);
+  border-color: var(--color-text-inverse);
 }
 
 .select-button--has-value:hover {
-  border-color: var(--color-white);
-  color: var(--color-white);
+  border-color: var(--color-text-inverse);
+  color: var(--color-text-inverse);
 }
 
 .select-button--has-value:active {
-  background-color: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-black);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 .select-button__label {
@@ -52,20 +52,20 @@
 
 .select-button__icon {
   padding: var(--spacing-12);
-  border-inline-start: 1px solid var(--color-black);
+  border-inline-start: var(--border-width) solid var(--color-border);
   line-height: 0;
 }
 
 .select-button--has-value .select-button__icon {
-  border-inline-start: 1px solid var(--color-white);
+  border-inline-start: var(--border-width) solid var(--color-text-inverse);
 }
 
 .select-button--has-value:focus-visible .select-button__icon {
-  border-inline-start: 1px solid var(--color-black);
+  border-inline-start: var(--border-width) solid var(--color-border);
 }
 
 .select-button:hover .select-button__icon {
-  border-color: 1px solid var(--color-blue);
+  border-color: var(--color-border-interactive);
 }
 
 .select-button .select-button__icon--close,
@@ -83,27 +83,27 @@
 }
 
 .select-options {
-  border: 1px solid var(--color-black);
+  border: var(--border-width) solid var(--color-border);
   border-top: none;
-  box-shadow: 0 -1px 0 0 var(--color-black);
-  background-color: var(--color-white);
+  box-shadow: 0 calc(-1 * var(--border-width)) 0 0 var(--color-border);
+  background-color: var(--color-background);
   z-index: 1;
 }
 
 .select-options__option {
   padding: var(--spacing-12);
   cursor: pointer;
-  font-size: 0.75rem;
-  font-family: var(--font-family-mono);
+  font-size: var(--font-size-ui-sm);
+  font-family: var(--font-family-ui);
   line-height: 1rem;
   text-transform: uppercase;
 }
 
 .select-options__option[data-focus] {
-  color: var(--color-blue);
+  color: var(--color-text-interactive);
 }
 
 .select-options__option[data-selected] {
-  color: var(--color-blue);
+  color: var(--color-text-interactive);
   font-weight: bold;
 }

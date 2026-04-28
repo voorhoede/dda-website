@@ -21,16 +21,26 @@ body {
   margin: 0;
 }
 
+html {
+  background-color: var(--color-background);
+}
+
+body {
+  background-color: var(--color-background);
+}
+
 .main-container {
   min-height: 100%;
   /* this is a hack to prevent margin collapse from child elements */
   padding-top: 0.05px;
+  background-color: var(--color-background);
 }
 
 .main-container main {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: var(--border-width);
+  background-color: var(--color-background);
 }
 
 @media screen and (min-width: 481px) {
@@ -40,7 +50,7 @@ body {
   }
 
   .main-container {
-    box-shadow: 0 0 0 1px var(--color-black);
+    box-shadow: 0 0 0 var(--border-width) var(--color-border);
     margin: 0 auto var(--spacing-16);
     max-width: 1440px;
     position: relative;
@@ -54,8 +64,8 @@ body {
     display: block;
     width: calc(100% + 2px);
     height: var(--spacing-16);
-    background-color: var(--color-white);
-    border-bottom: 1px solid var(--color-black);
+    background-color: var(--color-background);
+    border-bottom: var(--border-width) solid var(--color-border);
     margin-bottom: -16px;
     z-index: var(--z-index-header);
   }

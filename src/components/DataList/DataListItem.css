@@ -1,6 +1,6 @@
 .data-list-item {
   position: relative;
-  border-bottom: 1px solid var(--color-black);
+  border-bottom: var(--border-width) solid var(--color-border);
   padding-bottom: var(--spacing-32);
 }
 

@@ -27,11 +27,11 @@ const { noscriptHtml } = extractScripts(data.html);
     display: block;
     position: relative;
     aspect-ratio: unset;
-    background-color: white;
+    background-color: var(--color-background);
     overflow: auto;
   }
   .twitter-embed[data-enhanced="false"] {
-    border: 1px solid black;
+    border: var(--border-width) solid var(--color-border);
     border-radius: 5px;
   }
 

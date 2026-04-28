@@ -7,6 +7,6 @@
 .empty-message {
   padding: var(--spacing-104) var(--spacing-48);
   text-align: center;
-  border-block-start: 1px solid var(--color-black);
+  border-block-start: var(--border-width) solid var(--color-border);
   margin: 0;
 }

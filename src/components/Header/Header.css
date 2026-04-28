@@ -1,7 +1,7 @@
 .header {
   align-items: center;
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-black);
+  background-color: var(--color-background);
+  border-bottom: var(--border-width) solid var(--color-border);
   display: flex;
   justify-content: space-between;
   padding: var(--spacing-12) var(--spacing-16);
@@ -31,12 +31,12 @@
     margin-bottom: var(--spacing-32);
     margin-top: var(--spacing-32);
     padding: var(--spacing-16) var(--spacing-48) var(--spacing-16);
-    transition: border 0.1s ease-in-out;
+    transition: border var(--transition-duration-fast) ease-in-out;
   }
 
   .header--sticky {
-    border-bottom-color: var(--color-black);
-    transition: border 0.3s ease-in-out;
+    border-bottom-color: var(--color-border);
+    transition: border var(--transition-duration-slow) ease-in-out;
   }
 
   .header__logo {
