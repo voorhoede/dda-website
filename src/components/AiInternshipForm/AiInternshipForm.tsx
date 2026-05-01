@@ -12,6 +12,7 @@ type Status = 'idle' | 'submitting' | 'success' | 'error';
 type Props = {
   recordId: string;
   recordTitle: string;
+  memberName: string;
   toName: string;
   toEmail: string;
 };
@@ -19,6 +20,7 @@ type Props = {
 export const AiInternshipForm = ({
   recordId,
   recordTitle,
+  memberName,
   toName,
   toEmail,
 }: Props) => {
@@ -98,6 +100,7 @@ export const AiInternshipForm = ({
       >
         <input type="hidden" name="record-id" value={recordId} />
         <input type="hidden" name="record-title" value={recordTitle} />
+        <input type="hidden" name="member-name" value={memberName} />
         <input type="hidden" name="to-name" value={toName} />
         <input type="hidden" name="to-email" value={toEmail} />
         <TextField

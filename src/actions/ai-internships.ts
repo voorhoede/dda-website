@@ -11,6 +11,7 @@ const aiInternships = {
     input: z.object({
       'record-id': z.string(),
       'record-title': z.string(),
+      'member-name': z.string(),
       'to-name': z.string(),
       'to-email': z.string().email(),
       name: z.string().min(1),
@@ -49,6 +50,7 @@ const aiInternships = {
       const templateData = {
         name: input.name,
         internship_title: input['record-title'],
+        member_name: input['member-name'],
         email: input.email,
         phone: input.phone,
         track: input.track,

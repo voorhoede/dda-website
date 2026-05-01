@@ -163,6 +163,7 @@ const hasDescriptionContent = (doc: typeof page.description) => {
                 (member.emailAddressForJobApplications ||
                   member.emailAddress) as string
               }
+              memberName={member.name}
             />
           )
         }
