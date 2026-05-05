@@ -16,18 +16,13 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  * /ai-stages/* routes are directly accessible.
  * npm run start:ai-stages: localhost behaves like ai-stages.com (with rewrite).
  */
-export const domainRouting = defineMiddleware(({ url, routePattern, request }, next) => {
+export const domainRouting = defineMiddleware(({ url, request }, next) => {
   const { pathname } = url;
   const isAiInternshipsPath = pathname.startsWith(AI_STAGES_PATH_PREFIX);
   const isAiInternshipsDomain = request.headers.get('x-is-ai-internship-domain') === 'true';
 
   if (isAiInternshipsPath && !isAiInternshipsDomain && !import.meta.env.DEV) {
-    return new Response(JSON.stringify({
-      url,
-      header: request.headers.get('x-is-ai-internship-domain'),
-      origin: request.headers.get('origin'),
-      routePattern,
-    }), { status: 404 });
+    return new Response(null, { status: 404 });
   }
 
   // Pass through internal Astro paths, API routes, static files, and already-prefixed paths.
