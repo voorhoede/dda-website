@@ -7,7 +7,7 @@ export default {
   async fetch(request, env) {
     const origin = env.ORIGIN_URL.replace(/\/$/, '');
     const prefix = env.ORIGIN_PREFIX;
-    const accessPrefix = env.ORIGIN_ACCESS_PREFIX || `${prefix}/__origin`;
+    const accessPrefix = env.ORIGIN_ACCESS_PREFIX || `${prefix}/_origin`;
 
     const url = new URL(request.url);
     const targetUrl = new URL(origin);

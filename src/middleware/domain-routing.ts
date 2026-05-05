@@ -2,7 +2,7 @@ import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
-const AI_STAGES_ORIGIN_PATH_PREFIX = '/ai-stages/__origin';
+const AI_STAGES_ORIGIN_PATH_PREFIX = '/ai-stages/_origin';
 
 /**
  * Domain routing middleware: maps ai-stages.com to the /ai-stages/* route subtree.
