@@ -3,5 +3,5 @@ main = "ai-stages.js"
 compatibility_date = "2024-01-01"
 
 [vars]
-ORIGIN_URL = "https://07ac4186.dda-website.pages.dev"
+ORIGIN_URL = "https://dutchdigitalagencies.com"
 ORIGIN_PREFIX = "/ai-stages"
