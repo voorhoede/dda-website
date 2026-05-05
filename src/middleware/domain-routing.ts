@@ -36,11 +36,6 @@ export const domainRouting = defineMiddleware(({ url, request }, next) => {
     hostname === '127.0.0.1' ||
     hostname.endsWith('.pages.dev');
 
-  return new Response(
-    JSON.stringify({ hostname, pathname, forwardedHost, isAiStagesDomain, isDevHost }, null, 2),
-    { status: 200, headers: { 'content-type': 'application/json' } },
-  );
-
   if (!isAiStagesDomain && !isDevHost) {
     // Block /ai-stages/* from being accessed via any other domain.
     if (pathname.startsWith(AI_STAGES_PATH_PREFIX + '/') || pathname === AI_STAGES_PATH_PREFIX) {
