@@ -37,7 +37,7 @@ export const domainRouting = defineMiddleware(({ url, request }, next) => {
   if (!isAiStagesDomain && !isDevHost) {
     // Block /ai-stages/* from being accessed via any other domain.
     if (pathname.startsWith(AI_STAGES_PATH_PREFIX + '/') || pathname === AI_STAGES_PATH_PREFIX) {
-      return new Response(null, { status: 404 });
+      return new Response(JSON.stringify({ error: 'Not Found' + `debug info: ${{ hostname, pathname, forwardedHost, isAiStagesDomain, isDevHost }}` }), { status: 404 });
     }
     return next();
   }
