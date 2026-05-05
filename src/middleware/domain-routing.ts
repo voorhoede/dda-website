@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
-const AI_STAGES_DOMAIN = 'ai-stages.com';
+const AI_STAGES_DOMAINS = ['ai-stages.com', 'dda-website.voorhoede.workers.dev'];
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
 
 /**
@@ -20,7 +20,7 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  */
 export const domainRouting = defineMiddleware(({ url }, next) => {
   const { hostname, pathname } = url;
-  const isAiStagesDomain = hostname === AI_STAGES_DOMAIN || AI_STAGES_DEV;
+  const isAiStagesDomain = AI_STAGES_DOMAINS.includes(hostname) || AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
