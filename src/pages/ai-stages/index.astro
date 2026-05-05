@@ -15,10 +15,9 @@ import { getPageSlugFromPath } from '@blocks/InternalLink';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
-import { defaultLocale, t } from '@lib/i18n';
+import { defaultLocale } from '@lib/i18n';
 import { Column, Grid } from '@components/Grid';
 import { Text } from '@components/Text';
-import { Button } from '@components/Button';
 
 type Params = {
   locale: SiteLocale;
@@ -39,18 +38,7 @@ const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
     title={page.header?.title}
     subtitle={page.header?.subtitle}
     visual={page.header?.visual as PageHeaderFragment['visual']}
-  >
-    <Fragment slot="header">
-      <Button
-        as="a"
-        href="/"
-        className="back-button"
-        level="tertiary"
-        icon="arrow-left"
-        iconPosition="left">{t('back_to_home')}</Button
-      >
-    </Fragment>
-  </PageHeader>
+  />
 
   <Grid
     gap={{ mobile: 16, tablet: 32 }}
