@@ -2,7 +2,6 @@ import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
-const AI_STAGES_ORIGIN_PATH_PREFIX = '/ai-stages/_origin';
 
 /**
  * Domain routing middleware: maps ai-stages.com to the /ai-stages/* route subtree.
@@ -14,52 +13,11 @@ const AI_STAGES_ORIGIN_PATH_PREFIX = '/ai-stages/_origin';
  * are passed through unchanged. All other routes that do not exist under
  * /ai-stages/ will naturally return 404.
  *
- * dutchdigitalagencies.com: /ai-stages/* routes return 404.
- * localhost and *.pages.dev: /ai-stages/* is directly accessible (no rewrite).
+ * /ai-stages/* routes are directly accessible.
  * npm run start:ai-stages: localhost behaves like ai-stages.com (with rewrite).
  */
-export const domainRouting = defineMiddleware(({ url, originPathname }, next) => {
-  const { hostname, pathname, search } = url;
-  const isAiStagesDomain = AI_STAGES_DEV;
-  const isAiStagesOriginRequest =
-    pathname === AI_STAGES_ORIGIN_PATH_PREFIX ||
-    pathname.startsWith(AI_STAGES_ORIGIN_PATH_PREFIX + '/');
-  const isDevHost =
-    hostname === 'localhost' ||
-    hostname === '127.0.0.1' ||
-    hostname.endsWith('.pages.dev');
-
-  if (isAiStagesOriginRequest) {
-    return next(AI_STAGES_PATH_PREFIX + (pathname.slice(AI_STAGES_ORIGIN_PATH_PREFIX.length) || '/'));
-  }
-
-  if (!isAiStagesDomain && !isDevHost) {
-    // Block /ai-stages/* from being accessed via any other domain.
-    if (pathname.startsWith(AI_STAGES_PATH_PREFIX + '/') || pathname === AI_STAGES_PATH_PREFIX) {
-      return new Response(
-        JSON.stringify({
-          error: 'Not Found',
-          debug: {
-            originPathname,
-            url,
-            search,
-            hostname,
-            pathname,
-            isAiStagesDomain,
-            isAiStagesOriginRequest,
-            isDevHost,
-          },
-        }),
-        { status: 404, headers: { 'content-type': 'application/json' } },
-      );
-    }
-    return next();
-  }
-
-  if (isDevHost && !AI_STAGES_DEV && !isAiStagesDomain) {
-    // On dev hosts without the flag, /ai-stages/* is directly accessible as-is.
-    return next();
-  }
+export const domainRouting = defineMiddleware(({ url }, next) => {
+  const { pathname } = url;
 
   // Pass through internal Astro paths, API routes, static files, and already-prefixed paths.
   if (
@@ -68,6 +26,10 @@ export const domainRouting = defineMiddleware(({ url, originPathname }, next) =>
     pathname.startsWith(AI_STAGES_PATH_PREFIX) ||
     /\.\w+\/?$/.test(pathname)
   ) {
+    return next();
+  }
+
+  if (!AI_STAGES_DEV) {
     return next();
   }
 
