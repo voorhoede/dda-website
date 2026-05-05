@@ -17,11 +17,11 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  * localhost and *.pages.dev: /ai-stages/* is directly accessible (no rewrite).
  * npm run start:ai-stages: localhost behaves like ai-stages.com (with rewrite).
  */
-export const domainRouting = defineMiddleware(({ url, request }, next) => {
+export const domainRouting = defineMiddleware(({ url }, next) => {
   const { hostname, pathname } = url;
   const aiStagesHost = url.searchParams.get('__ai_stages_host');
-  const hasAiStagesAccess = request.headers.get('x-ai-stages-access') === 'true';
-  const isAiStagesDomain = hasAiStagesAccess || aiStagesHost !== null || AI_STAGES_DEV;
+  const hasAiStagesAccess = aiStagesHost !== null;
+  const isAiStagesDomain = hasAiStagesAccess || AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
@@ -30,7 +30,13 @@ export const domainRouting = defineMiddleware(({ url, request }, next) => {
   if (!isAiStagesDomain && !isDevHost) {
     // Block /ai-stages/* from being accessed via any other domain.
     if (pathname.startsWith(AI_STAGES_PATH_PREFIX + '/') || pathname === AI_STAGES_PATH_PREFIX) {
-      return new Response(JSON.stringify({ error: 'Not Found', debug: JSON.stringify({ hostname, pathname, aiStagesHost, hasAiStagesAccess, isAiStagesDomain, isDevHost }) }), { status: 404 });
+      return new Response(
+        JSON.stringify({
+          error: 'Not Found',
+          debug: { hostname, pathname, aiStagesHost, hasAiStagesAccess, isAiStagesDomain, isDevHost },
+        }),
+        { status: 404, headers: { 'content-type': 'application/json' } },
+      );
     }
     return next();
   }
