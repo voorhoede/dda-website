@@ -21,6 +21,7 @@ export default {
     headers.delete('host');
     headers.set('origin', origin);
     headers.set('referer', `${origin}${url.pathname}`);
+    headers.set('x-ai-stages-host', url.hostname);
 
     return fetch(target, {
       method: request.method,

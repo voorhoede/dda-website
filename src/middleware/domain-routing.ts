@@ -18,9 +18,13 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  * localhost and *.pages.dev: /ai-stages/* is directly accessible (no rewrite).
  * npm run start:ai-stages: localhost behaves like ai-stages.com (with rewrite).
  */
-export const domainRouting = defineMiddleware(({ url }, next) => {
+export const domainRouting = defineMiddleware(({ url, request }, next) => {
   const { hostname, pathname } = url;
-  const isAiStagesDomain = AI_STAGES_DOMAINS.includes(hostname) || AI_STAGES_DEV;
+  const forwardedHost = request.headers.get('x-ai-stages-host');
+  const isAiStagesDomain =
+    AI_STAGES_DOMAINS.includes(hostname) ||
+    (forwardedHost !== null && AI_STAGES_DOMAINS.includes(forwardedHost)) ||
+    AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
