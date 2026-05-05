@@ -200,13 +200,13 @@ export const AiInternshipList = withQueryClientProvider(
               span={{ mobile: 12, tablet: 6, desktop: 4 }}
             >
               <Card>
-                {item.company[0].logo.responsiveImage && (
+                {item.company[0]?.logo?.responsiveImage && (
                   <CardImage>
                     <SRCImage
                       data={
                         item.banner?.responsiveImage ||
-                        item.company[0].banner?.responsiveImage ||
-                        item.company[0].logo.responsiveImage
+                        item.company[0]?.banner?.responsiveImage ||
+                        item.company[0]?.logo?.responsiveImage
                       }
                       usePlaceholder={false}
                       priority={false}
@@ -221,7 +221,7 @@ export const AiInternshipList = withQueryClientProvider(
                   <Text variant="subtext">
                     {item.province.name} / {item.language.name}
                   </Text>
-                  <Heading level={3}>{item.company[0].name}</Heading>
+                  <Heading level={3}>{item.company[0]?.name}</Heading>
                 </CardContent>
                 <CardFooter>
                   <Button
