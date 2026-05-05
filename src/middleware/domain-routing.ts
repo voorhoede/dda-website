@@ -22,13 +22,17 @@ export const domainRouting = defineMiddleware(({ url, request }, next) => {
   const { hostname, pathname } = url;
   const forwardedHost = request.headers.get('x-ai-stages-host');
   const isAiStagesDomain =
-    AI_STAGES_DOMAINS.includes(hostname) ||
     (forwardedHost !== null && AI_STAGES_DOMAINS.includes(forwardedHost)) ||
     AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
     hostname.endsWith('.pages.dev');
+
+  return new Response(
+    JSON.stringify({ hostname, pathname, forwardedHost, isAiStagesDomain, isDevHost }, null, 2),
+    { status: 200, headers: { 'content-type': 'application/json' } },
+  );
 
   if (!isAiStagesDomain && !isDevHost) {
     // Block /ai-stages/* from being accessed via any other domain.
