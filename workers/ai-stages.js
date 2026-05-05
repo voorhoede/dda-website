@@ -14,7 +14,6 @@ export default {
       ? url.pathname
       : `${prefix}${url.pathname}`;
     targetUrl.search = url.search;
-    targetUrl.searchParams.set('__ai_stages_host', url.hostname);
 
     const headers = new Headers(request.headers);
     headers.delete('host');

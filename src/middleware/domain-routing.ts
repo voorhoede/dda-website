@@ -19,9 +19,7 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  */
 export const domainRouting = defineMiddleware(({ url, originPathname }, next) => {
   const { hostname, pathname, search } = url;
-  const aiStagesHost = url.searchParams.get('__ai_stages_host');
-  const hasAiStagesAccess = aiStagesHost !== null;
-  const isAiStagesDomain = hasAiStagesAccess || AI_STAGES_DEV;
+  const isAiStagesDomain = AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
@@ -33,7 +31,7 @@ export const domainRouting = defineMiddleware(({ url, originPathname }, next) =>
       return new Response(
         JSON.stringify({
           error: 'Not Found',
-          debug: { originPathname, url, search, hostname, pathname, aiStagesHost, hasAiStagesAccess, isAiStagesDomain, isDevHost },
+          debug: { originPathname, url, search, hostname, pathname, isAiStagesDomain, isDevHost },
         }),
         { status: 404, headers: { 'content-type': 'application/json' } },
       );
