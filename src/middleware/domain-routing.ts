@@ -20,9 +20,15 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  */
 export const domainRouting = defineMiddleware(({ url, request }, next) => {
   const { hostname, pathname } = url;
-  const forwardedHost = request.headers.get('x-ai-stages-host');
+  const queryForwardedHost = hostname.includes('.pages.dev')
+    ? url.searchParams.get('__ai_stages_host')
+    : null;
+  const forwardedHost =
+    request.headers.get('x-ai-stages-host') ||
+    request.headers.get('x-forwarded-host') ||
+    request.headers.get('x-original-host') ||
+    queryForwardedHost;
   const isAiStagesDomain =
-    AI_STAGES_DOMAINS.includes(hostname) ||
     (forwardedHost !== null && AI_STAGES_DOMAINS.includes(forwardedHost)) ||
     AI_STAGES_DEV;
   const isDevHost =
