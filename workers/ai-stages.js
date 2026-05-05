@@ -5,24 +5,22 @@
  */
 export default {
   async fetch(request, env) {
-    const origin = env.ORIGIN_URL;
+    const origin = env.ORIGIN_URL.replace(/\/$/, '');
     const prefix = env.ORIGIN_PREFIX;
 
     const url = new URL(request.url);
-    const isAsset = /^\/(api|_astro|fonts|images|favicon)/.test(url.pathname);
-
-    const basePath = isAsset
-      ? `${origin}${url.pathname}`
-      : `${origin}${prefix}${url.pathname}`;
-
-    const target = url.search ? `${basePath}${url.search}` : basePath;
+    const targetUrl = new URL(origin);
+    targetUrl.pathname = /^\/(api|_astro|fonts|images|favicon)/.test(url.pathname)
+      ? url.pathname
+      : `${prefix}${url.pathname}`;
+    targetUrl.search = url.search;
 
     const headers = new Headers(request.headers);
     headers.delete('host');
     headers.set('origin', origin);
     headers.set('referer', `${origin}${url.pathname}`);
 
-    return fetch(target, {
+    return fetch(targetUrl.toString(), {
       method: request.method,
       headers,
       body: request.body,
