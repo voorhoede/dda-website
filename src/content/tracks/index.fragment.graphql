@@ -1,0 +1,4 @@
+fragment Track on TrackRecord {
+  id
+  name
+}

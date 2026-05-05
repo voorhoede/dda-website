@@ -1,0 +1,40 @@
+.ai-internship-form__alert {
+  border: 1px solid var(--color-black);
+  padding: var(--spacing-16);
+  outline: none;
+}
+
+.ai-internship-form__alert .text {
+  margin: 0;
+}
+
+.ai-internship-form__success {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+  outline: none;
+}
+
+.ai-internship-form__button--submitting {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.ai-internship-form__button--submitting .button__icon {
+  animation: ai-internship-form-spin 1s linear infinite;
+}
+
+@keyframes ai-internship-form-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-internship-form__button--submitting .button__icon {
+    animation: none;
+  }
+}

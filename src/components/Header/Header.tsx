@@ -7,7 +7,11 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import './Header.css';
 
-export const Header = () => {
+type Props = {
+  showMenu?: boolean;
+};
+
+export const Header = ({ showMenu = true }: Props) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
@@ -42,7 +46,7 @@ export const Header = () => {
           width={logo.width}
         />
       </Link>
-      <Menu />
+      {showMenu && <Menu />}
     </header>
   );
 };

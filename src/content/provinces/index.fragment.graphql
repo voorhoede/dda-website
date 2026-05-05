@@ -1,0 +1,4 @@
+fragment Province on ProvinceRecord {
+  id
+  name
+}

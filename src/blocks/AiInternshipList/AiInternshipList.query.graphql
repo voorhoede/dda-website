@@ -1,0 +1,9 @@
+#import '@blocks/AiInternshipList/AiInternshipListItem.fragment.graphql'
+
+query AiInternshipList(
+  $filter: AiInternshipModelFilter
+) {
+  items: allAiInternships(filter: $filter) {
+    ...AiInternshipItem
+  }
+}

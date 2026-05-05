@@ -10,9 +10,7 @@ import { datocmsRequest } from '@lib/datocms';
 import { defaultLocale } from '@lib/i18n';
 import { Footer } from '@components/Footer';
 import { Header } from '@components/Header';
-import Breadcrumbs from '@components/Breadcrumbs/Breadcrumbs.astro';
 import SkipLink from '@components/SkipLink/SkipLink.astro';
-import type { Breadcrumb } from '@components/Breadcrumbs';
 import type { PageUrl } from '@lib/seo';
 import '@assets/a11y.css';
 import '@assets/core.css';
@@ -22,7 +20,6 @@ import query from './default.query.graphql';
 import Base from './Base.astro';
 
 interface Props {
-  breadcrumbs?: Breadcrumb[];
   pageUrls: PageUrl[];
   seoMetaTags: MetaTag[];
 }
@@ -36,16 +33,16 @@ const data = (await datocmsRequest<DefaultLayoutQuery>({
   variables: { locale },
 })) as { site: Site; footer: FooterRecord };
 
-const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
+const { pageUrls, seoMetaTags } = Astro.props;
 const mainContentId = 'content';
 ---
 
 <Base pageUrls={pageUrls} seoMetaTags={seoMetaTags}>
   <div class="main-container">
     <SkipLink targetId={mainContentId} />
-    <Header client:load />
 
-    {breadcrumbs.length > 0 && <Breadcrumbs items={breadcrumbs} />}
+    <Header showMenu={false} client:load />
+
     {
       /* main element requires tabindex to be focusable, see SkipLink/README.md */
     }
@@ -53,6 +50,11 @@ const mainContentId = 'content';
     <main id={mainContentId} tabindex="-1">
       <slot />
     </main>
-    <Footer links={data.footer.links} />
+
+    <Footer
+      links={data.footer.links.filter(
+        (link) => link.title === 'Privacy beleid',
+      )}
+    />
   </div>
 </Base>
