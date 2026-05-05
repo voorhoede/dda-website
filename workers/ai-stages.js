@@ -7,13 +7,13 @@ export default {
   async fetch(request, env) {
     const origin = env.ORIGIN_URL.replace(/\/$/, '');
     const prefix = env.ORIGIN_PREFIX;
-    const accessPrefix = env.ORIGIN_ACCESS_PREFIX || '/__ai-stages-origin';
+    const accessPrefix = env.ORIGIN_ACCESS_PREFIX || `${prefix}/__origin`;
 
     const url = new URL(request.url);
     const targetUrl = new URL(origin);
     targetUrl.pathname = /^\/(api|_astro|fonts|images|favicon)/.test(url.pathname)
       ? url.pathname
-      : `${accessPrefix}${prefix}${url.pathname}`;
+      : `${accessPrefix}${url.pathname}`;
     targetUrl.search = url.search;
 
     const headers = new Headers(request.headers);

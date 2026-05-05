@@ -2,7 +2,7 @@ import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
-const AI_STAGES_ORIGIN_PATH_PREFIX = '/__ai-stages-origin';
+const AI_STAGES_ORIGIN_PATH_PREFIX = '/ai-stages/__origin';
 
 /**
  * Domain routing middleware: maps ai-stages.com to the /ai-stages/* route subtree.
@@ -30,7 +30,7 @@ export const domainRouting = defineMiddleware(({ url, originPathname }, next) =>
     hostname.endsWith('.pages.dev');
 
   if (isAiStagesOriginRequest) {
-    return next(pathname.slice(AI_STAGES_ORIGIN_PATH_PREFIX.length) || '/');
+    return next(AI_STAGES_PATH_PREFIX + (pathname.slice(AI_STAGES_ORIGIN_PATH_PREFIX.length) || '/'));
   }
 
   if (!isAiStagesDomain && !isDevHost) {

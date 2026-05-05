@@ -5,4 +5,4 @@ compatibility_date = "2024-01-01"
 [vars]
 ORIGIN_URL = "https://dda-website.pages.dev"
 ORIGIN_PREFIX = "/ai-stages"
-ORIGIN_ACCESS_PREFIX = "/__ai-stages-origin"
+ORIGIN_ACCESS_PREFIX = "/ai-stages/__origin"
