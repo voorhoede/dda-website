@@ -1,7 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
 import { AI_STAGES_DEV } from 'astro:env/server';
 
-const AI_STAGES_DOMAINS = ['ai-stages.com', 'dda-website.voorhoede.workers.dev'];
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
 
 /**
@@ -20,15 +19,9 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  */
 export const domainRouting = defineMiddleware(({ url, request }, next) => {
   const { hostname, pathname } = url;
-  const queryForwardedHost = url.searchParams.get('__ai_stages_host');
-  const forwardedHost =
-    request.headers.get('x-ai-stages-host') ||
-    request.headers.get('x-forwarded-host') ||
-    request.headers.get('x-original-host') ||
-    queryForwardedHost;
-  const isAiStagesDomain =
-    (forwardedHost !== null && AI_STAGES_DOMAINS.includes(forwardedHost)) ||
-    AI_STAGES_DEV;
+  const aiStagesHost = url.searchParams.get('__ai_stages_host');
+  const hasAiStagesAccess = request.headers.get('x-ai-stages-access') === 'true';
+  const isAiStagesDomain = hasAiStagesAccess || aiStagesHost !== null || AI_STAGES_DEV;
   const isDevHost =
     hostname === 'localhost' ||
     hostname === '127.0.0.1' ||
@@ -37,12 +30,12 @@ export const domainRouting = defineMiddleware(({ url, request }, next) => {
   if (!isAiStagesDomain && !isDevHost) {
     // Block /ai-stages/* from being accessed via any other domain.
     if (pathname.startsWith(AI_STAGES_PATH_PREFIX + '/') || pathname === AI_STAGES_PATH_PREFIX) {
-      return new Response(JSON.stringify({ error: 'Not Found' + `debug info: ${{ hostname, pathname, forwardedHost, isAiStagesDomain, isDevHost }}` }), { status: 404 });
+      return new Response(JSON.stringify({ error: 'Not Found', debug: JSON.stringify({ hostname, pathname, aiStagesHost, hasAiStagesAccess, isAiStagesDomain, isDevHost }) }), { status: 404 });
     }
     return next();
   }
 
-  if (isDevHost && !AI_STAGES_DEV) {
+  if (isDevHost && !AI_STAGES_DEV && !isAiStagesDomain) {
     // On dev hosts without the flag, /ai-stages/* is directly accessible as-is.
     return next();
   }

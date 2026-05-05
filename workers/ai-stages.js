@@ -20,9 +20,7 @@ export default {
     headers.delete('host');
     headers.set('origin', origin);
     headers.set('referer', `${origin}${url.pathname}`);
-    headers.set('x-ai-stages-host', url.hostname);
-    headers.set('x-forwarded-host', url.hostname);
-    headers.set('x-original-host', url.hostname);
+    headers.set('x-ai-stages-access', 'true');
 
     return fetch(targetUrl.toString(), {
       method: request.method,
