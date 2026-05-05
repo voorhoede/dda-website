@@ -21,7 +21,7 @@ export const domainRouting = defineMiddleware(({ url, routePattern, request }, n
   const isAiInternshipsPath = pathname.startsWith(AI_STAGES_PATH_PREFIX);
   const isAiInternshipsDomain = request.headers.get('x-is-ai-internship-domain') === 'true';
 
-  if (isAiInternshipsPath && !isAiInternshipsDomain) {
+  if (isAiInternshipsPath && !isAiInternshipsDomain && !import.meta.env.DEV) {
     return new Response(JSON.stringify({
       url,
       header: request.headers.get('x-is-ai-internship-domain'),

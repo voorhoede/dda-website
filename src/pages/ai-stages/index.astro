@@ -1,18 +1,17 @@
 ---
-import { datocmsCollection, datocmsRequest } from '@lib/datocms';
+import { datocmsRequest } from '@lib/datocms';
 import type {
   ImageBlockFragment,
   PageHeaderFragment,
   PageQuery,
   PageRecord,
-  ParentPageFragment,
   SiteLocale,
   VideoEmbedBlockFragment,
 } from '@lib/types/datocms';
 import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
 import type { AnyBlock } from '@blocks/Blocks';
-import { getPagePath, getPageSlugFromPath } from '@blocks/InternalLink';
+import { getPageSlugFromPath } from '@blocks/InternalLink';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
@@ -21,59 +20,13 @@ import { Column, Grid } from '@components/Grid';
 import { Text } from '@components/Text';
 import { Button } from '@components/Button';
 
-export const prerender = true;
-
-export async function getStaticPaths() {
-  interface PagesCollectionItem {
-    _allSlugLocales: Array<{ locale: SiteLocale; value: string }>;
-    parentPage: ParentPageFragment;
-  }
-
-  const pages = await datocmsCollection<PagesCollectionItem>({
-    collection: 'Pages',
-    fragmentName: 'Page',
-    fragment: `
-      fragment Page on PageRecord {
-        _allSlugLocales { locale, value }
-        parentPage {
-          _allSlugLocales { locale, value }
-          parentPage {
-            _allSlugLocales { locale, value }
-            parentPage {
-              _allSlugLocales { locale, value }
-            }
-          }
-        }
-      }
-    `,
-  });
-
-  return pages
-    .filter((page) =>
-      page._allSlugLocales.every(
-        (slugLocale) => slugLocale.value !== 'ai-stages',
-      ),
-    )
-    .flatMap((page) => {
-      return {
-        params: {
-          locale: defaultLocale,
-          path: getPagePath({
-            page: page as PageRecord,
-            locale: defaultLocale as SiteLocale,
-          }),
-        },
-      };
-    });
-}
-
 type Params = {
   locale: SiteLocale;
   path: string;
 };
 
-const { locale = defaultLocale, path } = Astro.params as Params;
-const variables = { locale, slug: getPageSlugFromPath(path) };
+const { locale = defaultLocale } = Astro.params as Params;
+const variables = { locale, slug: getPageSlugFromPath('/ai-stages') };
 const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
   page: PageRecord;
 };
