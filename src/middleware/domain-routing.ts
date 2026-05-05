@@ -5,10 +5,10 @@ const AI_STAGES_DOMAINS = ['ai-stages.com', 'dda-website.voorhoede.workers.dev']
 const AI_STAGES_PATH_PREFIX = '/ai-stages';
 
 /**
- * Domain routing middleware: maps ai-stages.nl to the /ai-stages/* route subtree.
+ * Domain routing middleware: maps ai-stages.com to the /ai-stages/* route subtree.
  *
- * ai-stages.nl/        → /ai-stages/
- * ai-stages.nl/[slug]  → /ai-stages/[slug]
+ * ai-stages.com/        → /ai-stages/
+ * ai-stages.com/[slug]  → /ai-stages/[slug]
  *
  * Paths starting with /_ (Astro internals, Astro Actions at /_actions/, etc.)
  * are passed through unchanged. All other routes that do not exist under
@@ -16,7 +16,7 @@ const AI_STAGES_PATH_PREFIX = '/ai-stages';
  *
  * dutchdigitalagencies.com: /ai-stages/* routes return 404.
  * localhost and *.pages.dev: /ai-stages/* is directly accessible (no rewrite).
- * npm run start:ai-stages: localhost behaves like ai-stages.nl (with rewrite).
+ * npm run start:ai-stages: localhost behaves like ai-stages.com (with rewrite).
  */
 export const domainRouting = defineMiddleware(({ url }, next) => {
   const { hostname, pathname } = url;
