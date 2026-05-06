@@ -58,7 +58,7 @@ const hasDescriptionContent = (doc: typeof page.description) => {
         icon="arrow-left"
         iconPosition="left">{t('back_to_ai_internships')}</Button
       >
-      <Heading level={1}>{page.title}</Heading>
+      <Heading level={1}>{page.title || member.name}</Heading>
     </PageTitleHeader>
     <PageTitleContent>
       <Text variant="subtext"

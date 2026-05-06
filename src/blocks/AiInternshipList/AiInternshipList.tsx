@@ -221,7 +221,7 @@ export const AiInternshipList = withQueryClientProvider(
                   <Text variant="subtext">
                     {item.province.name} / {item.language.name}
                   </Text>
-                  <Heading level={3}>{item.company[0]?.name}</Heading>
+                  <Heading level={3}>{item.title || item.company[0]?.name}</Heading>
                 </CardContent>
                 <CardFooter>
                   <Button
