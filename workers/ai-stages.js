@@ -10,7 +10,7 @@ export default {
 
     const url = new URL(request.url);
     const targetUrl = new URL(origin);
-    targetUrl.pathname = /^\/(api|_astro|fonts|images|favicon)/.test(url.pathname)
+    targetUrl.pathname = /^\/(api|_astro|_actions|fonts|images|favicon)/.test(url.pathname)
       ? url.pathname
       : `${prefix}${url.pathname}`;
     targetUrl.search = url.search;
