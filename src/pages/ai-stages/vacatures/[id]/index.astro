@@ -25,7 +25,6 @@ import { AiInternshipForm } from '@components/AiInternshipForm';
 setCacheControl(Astro.response);
 
 const { locale, id } = Astro.params as { locale: SiteLocale; id: string };
-const backUrl = Astro.url.pathname.replace(/\/[^/]+\/?$/, '/');
 const { page } = await datocmsRequest<AiInternshipQuery>({
   query: query,
   variables: { locale, id },
@@ -52,7 +51,7 @@ const hasDescriptionContent = (doc: typeof page.description) => {
     <PageTitleHeader>
       <Button
         as="a"
-        href={backUrl}
+        href="../"
         className="back-button"
         level="tertiary"
         icon="arrow-left"
