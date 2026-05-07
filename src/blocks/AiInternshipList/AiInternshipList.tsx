@@ -1,11 +1,15 @@
 import clsx from 'clsx';
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import type { AiInternshipListQuery } from '@lib/types/datocms';
-import { datocmsRequest } from '@lib/datocms';
+import type {
+  AiInternshipItemFragment,
+  AiInternshipModelFilter,
+} from '@lib/types/datocms';
+import { datocmsCollection } from '@lib/datocms';
 import { useSearchParams } from '@lib/hooks/use-search-params';
 import { useUrl } from '@lib/hooks/use-url';
 import { t } from '@lib/i18n';
+import { shuffle } from '@lib/seed-random';
 import {
   withQueryClientProvider,
   type QueryClientProviderComponentProps,
@@ -15,7 +19,7 @@ import { Column, Grid } from '@components/Grid';
 import { ListForm } from '@components/ListForm';
 import { Pagination } from '@components/Pagination';
 
-import query from './AiInternshipList.query.graphql';
+import fragment from './AiInternshipListItem.fragment.graphql?raw';
 
 import './AiInternshipList.css';
 import { Heading } from '@components/Heading';
@@ -37,15 +41,16 @@ type FilterValuesType = {
 
 type AiInternshipListProps = {
   filterValues: FilterValuesType;
+  seed: number;
 };
 
 const DEFAULT_PAGE_SIZE = 12;
 
-export const loader = async (searchParams: Record<string, string>) => {
-  const page = searchParams.page ? Number(searchParams.page) : 1;
-  const skip = (page - 1) * DEFAULT_PAGE_SIZE;
-
-  const filter: Record<string, string> = {};
+export const loader = async (
+  searchParams: Record<string, string>,
+  seed: number,
+) => {
+  const filter: AiInternshipModelFilter = {};
 
   if (searchParams.search) {
     Object.assign(filter, {
@@ -71,18 +76,16 @@ export const loader = async (searchParams: Record<string, string>) => {
     Object.assign(filter, { language: { eq: searchParams.language } });
   }
 
-  const { items, itemsMeta } = await datocmsRequest<AiInternshipListQuery>({
-    query,
-    variables: {
-      first: DEFAULT_PAGE_SIZE,
-      skip,
-      filter,
-    },
+  const items = await datocmsCollection<AiInternshipItemFragment>({
+    collection: 'AiInternships',
+    fragment,
+    fragmentName: 'AiInternshipItem',
+    filter,
+    orderBy: '_createdAt_DESC',
   });
 
   return {
-    items,
-    itemsMeta,
+    items: shuffle<AiInternshipItemFragment>(items, seed),
   };
 };
 
@@ -91,15 +94,19 @@ export const AiInternshipList = withQueryClientProvider(
     initialParams,
     initialUrl,
     filterValues,
+    seed,
   }: QueryClientProviderComponentProps & AiInternshipListProps) => {
     const listRef = useRef<HTMLUListElement>(null);
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
     const url = useUrl(initialUrl);
 
+    const { page, ...filterParams } = searchParams;
+    const currentPage = Number(page) || 1;
+
     const { data } = useQuery({
-      queryKey: ['ai-internships', searchParams],
-      queryFn: () => loader(searchParams),
+      queryKey: ['ai-internships', filterParams, seed],
+      queryFn: () => loader(filterParams, seed),
     });
 
     const updateFilter = (filter: Record<string, string>) => {
@@ -133,6 +140,12 @@ export const AiInternshipList = withQueryClientProvider(
     if (!data) {
       return null;
     }
+
+    const totalPages = Math.ceil(data.items.length / DEFAULT_PAGE_SIZE);
+    const pageItems = data.items.slice(
+      (currentPage - 1) * DEFAULT_PAGE_SIZE,
+      currentPage * DEFAULT_PAGE_SIZE,
+    );
 
     return (
       <>
@@ -217,10 +230,10 @@ export const AiInternshipList = withQueryClientProvider(
           as="ul"
           ref={listRef}
           aria-live="polite"
-          border={data.items.length > 0}
+          border={pageItems.length > 0}
           className="ai-internship-list"
         >
-          {data.items.map((item) => (
+          {pageItems.map((item) => (
             <Column
               key={item.id}
               as="li"
@@ -279,14 +292,13 @@ export const AiInternshipList = withQueryClientProvider(
 
         <div
           className={clsx({
-            'container-padding-x container-padding-y':
-              data.itemsMeta.count > 0,
+            'container-padding-x container-padding-y': data.items.length > 0,
           })}
         >
           <Pagination
             url={url}
-            currentPage={Number(searchParams.page) || 1}
-            totalPages={Math.ceil(data.itemsMeta.count / DEFAULT_PAGE_SIZE)}
+            currentPage={currentPage}
+            totalPages={totalPages}
             onPageChange={updatePage}
           />
         </div>

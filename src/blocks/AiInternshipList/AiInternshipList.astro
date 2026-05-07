@@ -8,15 +8,23 @@ import {
 
 const { href, searchParams } = Astro.url;
 
-const initialParams = {
+// seed shuffles items consistently across SSR and CSR
+const seed = Math.random();
+
+const initialFilterParams = {
   search: searchParams.get('search') ?? '',
   track: searchParams.get('track') ?? '',
   assignmentType: searchParams.get('assignmentType') ?? '',
   province: searchParams.get('province') ?? '',
   language: searchParams.get('language') ?? '',
+};
+
+const initialParams = {
+  ...initialFilterParams,
   page: searchParams.get('page') ?? '',
 };
-const initialData = await loader(initialParams);
+
+const initialData = await loader(initialFilterParams, seed);
 
 const filterValues = {
   trackOptions: await getCollection('tracks'),
@@ -29,10 +37,11 @@ const filterValues = {
 <AiInternshipListComponent
   client:load
   initialState={getDehydratedState(
-    ['ai-internships', initialParams],
+    ['ai-internships', initialFilterParams, seed],
     initialData,
   )}
   initialParams={initialParams}
   initialUrl={href}
   filterValues={filterValues}
+  seed={seed}
 />
