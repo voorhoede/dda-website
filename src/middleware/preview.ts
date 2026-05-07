@@ -11,11 +11,12 @@ export const hashSecret = async (secret: string) => {
   return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
 };
 
-export const preview = defineMiddleware(async ({ cookies, locals }, next) => {
+export const preview = defineMiddleware(async ({ cookies, locals, isPrerendered }, next) => {
   const previewSecret = HEAD_START_PREVIEW_SECRET!;
   Object.assign(locals, {
     isPreview: HEAD_START_PREVIEW,
     isPreviewAuthOk:
+      !isPrerendered &&
       Boolean(previewSecret) &&
       cookies.get(previewCookieName)?.value ===
         (await hashSecret(previewSecret)),
