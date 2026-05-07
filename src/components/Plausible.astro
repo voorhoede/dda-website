@@ -1,8 +1,9 @@
 ---
 const { headers } = Astro.request;
+const { host } = Astro.url;
 
 const isAiStages = headers.get('x-is-ai-internship-domain') === 'true';
-const domain = isAiStages ? 'ai-stages.com' : 'dutchdigitalagencies.com';
+const domain = isAiStages ? 'ai-stages.com' : host;
 ---
 <script
   is:inline
