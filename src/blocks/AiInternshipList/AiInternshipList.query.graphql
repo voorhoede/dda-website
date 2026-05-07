@@ -1,9 +1,14 @@
 #import '@blocks/AiInternshipList/AiInternshipListItem.fragment.graphql'
 
 query AiInternshipList(
+  $first: IntType!
+  $skip: IntType!
   $filter: AiInternshipModelFilter
 ) {
-  items: allAiInternships(filter: $filter) {
+  itemsMeta: _allAiInternshipsMeta(filter: $filter) {
+    count
+  }
+  items: allAiInternships(first: $first, skip: $skip, filter: $filter) {
     ...AiInternshipItem
   }
 }

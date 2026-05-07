@@ -1,8 +1,10 @@
+import clsx from 'clsx';
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type { AiInternshipListQuery } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
 import { useSearchParams } from '@lib/hooks/use-search-params';
+import { useUrl } from '@lib/hooks/use-url';
 import { t } from '@lib/i18n';
 import {
   withQueryClientProvider,
@@ -11,6 +13,7 @@ import {
 import { SelectField, TextField } from '@components/Forms';
 import { Column, Grid } from '@components/Grid';
 import { ListForm } from '@components/ListForm';
+import { Pagination } from '@components/Pagination';
 
 import query from './AiInternshipList.query.graphql';
 
@@ -36,7 +39,12 @@ type AiInternshipListProps = {
   filterValues: FilterValuesType;
 };
 
+const DEFAULT_PAGE_SIZE = 12;
+
 export const loader = async (searchParams: Record<string, string>) => {
+  const page = searchParams.page ? Number(searchParams.page) : 1;
+  const skip = (page - 1) * DEFAULT_PAGE_SIZE;
+
   const filter: Record<string, string> = {};
 
   if (searchParams.search) {
@@ -63,26 +71,31 @@ export const loader = async (searchParams: Record<string, string>) => {
     Object.assign(filter, { language: { eq: searchParams.language } });
   }
 
-  const { items } = await datocmsRequest<AiInternshipListQuery>({
+  const { items, itemsMeta } = await datocmsRequest<AiInternshipListQuery>({
     query,
     variables: {
+      first: DEFAULT_PAGE_SIZE,
+      skip,
       filter,
     },
   });
 
   return {
     items,
+    itemsMeta,
   };
 };
 
 export const AiInternshipList = withQueryClientProvider(
   ({
     initialParams,
+    initialUrl,
     filterValues,
   }: QueryClientProviderComponentProps & AiInternshipListProps) => {
     const listRef = useRef<HTMLUListElement>(null);
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
+    const url = useUrl(initialUrl);
 
     const { data } = useQuery({
       queryKey: ['ai-internships', searchParams],
@@ -90,7 +103,21 @@ export const AiInternshipList = withQueryClientProvider(
     });
 
     const updateFilter = (filter: Record<string, string>) => {
-      updateSearchParams({ ...filter });
+      updateSearchParams({ ...filter, page: undefined });
+
+      if (filterRef.current) {
+        filterRef.current.scrollIntoView({
+          behavior: 'instant',
+        });
+      }
+
+      if (listRef.current) {
+        listRef.current.focus();
+      }
+    };
+
+    const updatePage = (page: number) => {
+      updateSearchParams({ page: page > 1 ? page.toString() : undefined });
 
       if (filterRef.current) {
         filterRef.current.scrollIntoView({
@@ -249,6 +276,20 @@ export const AiInternshipList = withQueryClientProvider(
             {t('no_results')}
           </p>
         )}
+
+        <div
+          className={clsx({
+            'container-padding-x container-padding-y':
+              data.itemsMeta.count > 0,
+          })}
+        >
+          <Pagination
+            url={url}
+            currentPage={Number(searchParams.page) || 1}
+            totalPages={Math.ceil(data.itemsMeta.count / DEFAULT_PAGE_SIZE)}
+            onPageChange={updatePage}
+          />
+        </div>
       </>
     );
   },

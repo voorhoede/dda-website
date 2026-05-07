@@ -14,6 +14,7 @@ const initialParams = {
   assignmentType: searchParams.get('assignmentType') ?? '',
   province: searchParams.get('province') ?? '',
   language: searchParams.get('language') ?? '',
+  page: searchParams.get('page') ?? '',
 };
 const initialData = await loader(initialParams);
 
