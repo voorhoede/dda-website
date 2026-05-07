@@ -157,6 +157,8 @@ const hasDescriptionContent = (doc: typeof page.description) => {
               client:load
               recordId={page.id}
               recordTitle={page.title}
+              recordTrack={page.track.name}
+              recordAssignmentType={page.assignmentType.name}
               toName={member.name}
               toEmail={
                 (member.emailAddressForJobApplications ||
