@@ -1,4 +1,4 @@
-import { defineConfig, envField, passthroughImageService } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
 import { isPreview } from './config/preview';
@@ -16,6 +16,7 @@ export const siteUrl = process.env.CF_PAGES
 // https://astro.build/config
 export default defineConfig({
   adapter: cloudflare({
+    imageService: 'passthrough',
     platformProxy: {
       enabled: true,
     },
@@ -74,11 +75,6 @@ export default defineConfig({
         access: 'secret'
       }),
     },
-  },
-  image: {
-    // cloudflare is not supported by the Astro image service
-    // @see https://docs.astro.build/en/guides/images/#configure-no-op-passthrough-service
-    service: passthroughImageService(),
   },
   integrations: [
     preact({
