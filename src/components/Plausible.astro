@@ -1,0 +1,17 @@
+---
+const { headers } = Astro.request;
+
+const isAiStages = headers.get('x-is-ai-internship-domain') === 'true';
+const domain = isAiStages ? 'ai-stages.com' : 'dutchdigitalagencies.com';
+---
+<script
+  is:inline
+  defer
+  data-domain={domain}
+  src="https://plausible.io/js/script.js"
+></script>
+<script is:inline>
+  window.plausible = window.plausible || function () {
+    (window.plausible.q = window.plausible.q || []).push(arguments);
+  };
+</script>

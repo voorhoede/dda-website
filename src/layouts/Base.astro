@@ -11,6 +11,7 @@ import { defaultLocale } from '@lib/i18n';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
 import SeoHead from '@components/SeoHead.astro';
+import Plausible from '@components/Plausible.astro';
 import type { PageUrl } from '@lib/seo';
 import '@assets/a11y.css';
 import '@assets/core.css';
@@ -63,19 +64,8 @@ const { pageUrls, seoMetaTags } = Astro.props;
       pageUrls={pageUrls}
       tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
     />
-    
-    <script
-      is:inline
-      defer
-      data-domain={Astro.site?.host}
-      src="https://plausible.io/js/script.js"></script>
-    <script is:inline>
-      window.plausible =
-        window.plausible ||
-        function () {
-          (window.plausible.q = window.plausible.q || []).push(arguments);
-        };
-    </script>
+      
+    <Plausible />
   </head>
   <body>
     <PreviewModeProvider>
