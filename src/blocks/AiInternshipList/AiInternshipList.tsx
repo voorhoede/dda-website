@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import type {
@@ -7,7 +6,6 @@ import type {
 } from '@lib/types/datocms';
 import { datocmsCollection } from '@lib/datocms';
 import { useSearchParams } from '@lib/hooks/use-search-params';
-import { useUrl } from '@lib/hooks/use-url';
 import { t } from '@lib/i18n';
 import { shuffle } from '@lib/seed-random';
 import {
@@ -17,7 +15,6 @@ import {
 import { SelectField, TextField } from '@components/Forms';
 import { Column, Grid } from '@components/Grid';
 import { ListForm } from '@components/ListForm';
-import { Pagination } from '@components/Pagination';
 
 import fragment from './AiInternshipListItem.fragment.graphql?raw';
 
@@ -43,8 +40,6 @@ type AiInternshipListProps = {
   filterValues: FilterValuesType;
   seed: number;
 };
-
-const DEFAULT_PAGE_SIZE = 12;
 
 export const loader = async (
   searchParams: Record<string, string>,
@@ -92,17 +87,15 @@ export const loader = async (
 export const AiInternshipList = withQueryClientProvider(
   ({
     initialParams,
-    initialUrl,
     filterValues,
     seed,
   }: QueryClientProviderComponentProps & AiInternshipListProps) => {
     const listRef = useRef<HTMLUListElement>(null);
     const filterRef = useRef<HTMLFormElement>(null);
     const [searchParams, updateSearchParams] = useSearchParams(initialParams);
-    const url = useUrl(initialUrl);
-
-    const { page, ...filterParams } = searchParams;
-    const currentPage = Number(page) || 1;
+    const filterParams = Object.fromEntries(
+      Object.entries(searchParams).filter(([key]) => key !== 'page'),
+    );
 
     const { data } = useQuery({
       queryKey: ['ai-internships', filterParams, seed],
@@ -123,29 +116,9 @@ export const AiInternshipList = withQueryClientProvider(
       }
     };
 
-    const updatePage = (page: number) => {
-      updateSearchParams({ page: page > 1 ? page.toString() : undefined });
-
-      if (filterRef.current) {
-        filterRef.current.scrollIntoView({
-          behavior: 'instant',
-        });
-      }
-
-      if (listRef.current) {
-        listRef.current.focus();
-      }
-    };
-
     if (!data) {
       return null;
     }
-
-    const totalPages = Math.ceil(data.items.length / DEFAULT_PAGE_SIZE);
-    const pageItems = data.items.slice(
-      (currentPage - 1) * DEFAULT_PAGE_SIZE,
-      currentPage * DEFAULT_PAGE_SIZE,
-    );
 
     return (
       <>
@@ -230,10 +203,10 @@ export const AiInternshipList = withQueryClientProvider(
           as="ul"
           ref={listRef}
           aria-live="polite"
-          border={pageItems.length > 0}
+          border={data.items.length > 0}
           className="ai-internship-list"
         >
-          {pageItems.map((item) => (
+          {data.items.map((item) => (
             <Column
               key={item.id}
               as="li"
@@ -289,19 +262,6 @@ export const AiInternshipList = withQueryClientProvider(
             {t('no_results')}
           </p>
         )}
-
-        <div
-          className={clsx({
-            'container-padding-x container-padding-y': data.items.length > 0,
-          })}
-        >
-          <Pagination
-            url={url}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={updatePage}
-          />
-        </div>
       </>
     );
   },
