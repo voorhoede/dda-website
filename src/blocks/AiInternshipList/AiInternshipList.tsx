@@ -243,7 +243,7 @@ export const AiInternshipList = withQueryClientProvider(
                     icon="arrow-right"
                     level="secondary"
                     variant="large"
-                    href={`/vacatures/${item.id}`}
+                    href={`/vacatures/${item.id}/`}
                     targetArea="parent"
                   >
                     {t('details')}
