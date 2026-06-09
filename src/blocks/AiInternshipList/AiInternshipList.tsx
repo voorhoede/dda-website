@@ -72,10 +72,6 @@ export const loader = async (
     Object.assign(filter, { language: { eq: searchParams.language } });
   }
 
-  if (searchParams.hideFilled) {
-    Object.assign(filter, { positionFilled: { eq: false } });
-  }
-
   const items = await datocmsCollection<AiInternshipItemFragment>({
     collection: 'AiInternships',
     fragment,
@@ -206,17 +202,6 @@ export const AiInternshipList = withQueryClientProvider(
                 value={values.language}
                 onChange={(value) => onChange('language', value)}
               />
-              <label className="ai-internship-list__hide-filled">
-                <input
-                  type="checkbox"
-                  name="hideFilled"
-                  checked={Boolean(values.hideFilled)}
-                  onChange={(event) =>
-                    onChange('hideFilled', event.target.checked ? '1' : '')
-                  }
-                />
-                {t('hide_filled_internships')}
-              </label>
             </>
           )}
         />

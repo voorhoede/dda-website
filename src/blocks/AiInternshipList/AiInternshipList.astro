@@ -17,7 +17,6 @@ const initialParams = {
   assignmentType: searchParams.get('assignmentType') ?? '',
   province: searchParams.get('province') ?? '',
   language: searchParams.get('language') ?? '',
-  hideFilled: searchParams.get('hideFilled') ?? '',
 };
 
 const initialData = await loader(initialParams, seed);
