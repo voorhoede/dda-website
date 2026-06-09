@@ -14,4 +14,8 @@
   .form__fields {
     grid-template-columns: minmax(0px, 1fr) minmax(0px, 1fr);
   }
+
+  .form__field--full-width {
+    grid-column: 1 / -1;
+  }
 }

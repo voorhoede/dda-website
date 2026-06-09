@@ -165,6 +165,7 @@ export const AiInternshipForm = ({
           label={t('open_question')}
           rows={4}
           autoComplete="off"
+          className="form__field--full-width"
         />
       </Form>
 
