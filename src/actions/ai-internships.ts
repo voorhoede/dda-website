@@ -21,8 +21,9 @@ const aiInternships = {
       phone: z.string(),
       track: z.string(),
       institution: z.string(),
-      linkedin: z.string().url().or(z.literal('')).nullable(),
+      linkedin: z.string().url(),
       portfolio: z.string().url().or(z.literal('')).nullable(),
+      message: z.string().optional(),
       'cf-turnstile-response': z.string().min(1),
     }),
     handler: async (input) => {
@@ -61,6 +62,7 @@ const aiInternships = {
         institution: input.institution,
         linkedin: input.linkedin || 'N/A',
         portfolio: input.portfolio || 'N/A',
+        message: input.message || 'N/A',
       };
 
       const agencyEmail = renderEmailTemplate(AiInternshipEmail, agencyEntry.data, templateData);
@@ -70,7 +72,7 @@ const aiInternships = {
         sendEmail({
           from: { name: agencyEntry.data.fromName, email: agencyEntry.data.fromEmailAddress },
           to: [{ name: input['to-name'], email: input['to-email'] }],
-          subject: agencyEntry.data.subject,
+          subject: fillTemplate(agencyEntry.data.subject, templateData),
           ...agencyEmail,
         }),
         sendEmail({
