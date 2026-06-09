@@ -39,6 +39,11 @@ query AiInternship($locale: SiteLocale = nl, $id: ItemId!) {
     }
     id
     title
+    positionFilled
+    cohort {
+      id
+      name
+    }
     banner {
       alt
       title

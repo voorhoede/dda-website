@@ -5,6 +5,23 @@
   margin-block-end: 1px;
 }
 
+.ai-internship-list__item--filled .card {
+  opacity: 0.55;
+  filter: grayscale(1);
+}
+
+.ai-internship-list__item--filled .card:hover,
+.ai-internship-list__item--filled .card:focus-within {
+  opacity: 0.75;
+}
+
+.ai-internship-list__hide-filled {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  cursor: pointer;
+}
+
 .empty-message {
   padding: var(--spacing-104) var(--spacing-48);
   text-align: center;

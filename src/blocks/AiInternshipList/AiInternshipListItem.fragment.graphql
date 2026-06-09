@@ -51,6 +51,11 @@ fragment AiInternshipItem on AiInternshipRecord {
   }
   id
   title
+  positionFilled
+  cohort {
+    id
+    name
+  }
   banner {
     responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
       base64
