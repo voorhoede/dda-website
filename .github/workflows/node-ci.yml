@@ -86,8 +86,8 @@ jobs:
       SCW_ACCESS_KEY: '' # required but unused in this workflow
       SCW_SECRET_KEY: '' # required but unused in this workflow
       SCW_ORGANIZATION_ID: '' # required but unused in this workflow
-      SCW_PROJECT_ID: '' # required but unused in this workflow
-      TURNSTILE_SITE_KEY: '' # required but unused in this workflow
+      SCW_PROJECT_ID: '123' # required, but a fake value is sufficient for functionality
+      TURNSTILE_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
       TURNSTILE_SECRET_KEY: '' # required but unused in this workflow
 
     steps:
