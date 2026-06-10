@@ -143,32 +143,43 @@ const hasDescriptionContent = (doc: typeof page.description) => {
         }
       </section>
 
-      <section class="form-section">
-        <header class="form-section__header">
-          <Heading level={2} displayLevel={3}
-          >{t('ai_internship_apply_title')}</Heading
-          >
-          <Text variant="subtext">{t('ai_internship_apply_description')}</Text>
-        </header>
+      {
+        page.positionFilled ? (
+          <section class="form-section">
+            <p class="form-section__filled" role="status">
+              {t('internship_filled_message')}
+            </p>
+          </section>
+        ) : (
+          <section class="form-section">
+            <header class="form-section__header">
+              <Heading level={2} displayLevel={3}>
+                {t('ai_internship_apply_title')}
+              </Heading>
+              <Text variant="subtext">
+                {t('ai_internship_apply_description')}
+              </Text>
+            </header>
 
-        {
-          (member.emailAddressForJobApplications || member.emailAddress) && (
-            <AiInternshipForm
-              client:load
-              recordId={page.id}
-              recordTitle={page.title}
-              recordTrack={page.track.name}
-              recordAssignmentType={page.assignmentType.name}
-              toName={member.name}
-              toEmail={
-                (member.emailAddressForJobApplications ||
-                  member.emailAddress) as string
-              }
-              memberName={member.name}
-            />
-          )
-        }
-      </section>
+            {(member.emailAddressForJobApplications ||
+              member.emailAddress) && (
+              <AiInternshipForm
+                client:load
+                recordId={page.id}
+                recordTitle={page.title}
+                recordTrack={page.track.name}
+                recordAssignmentType={page.assignmentType.name}
+                toName={member.name}
+                toEmail={
+                  (member.emailAddressForJobApplications ||
+                    member.emailAddress) as string
+                }
+                memberName={member.name}
+              />
+            )}
+          </section>
+        )
+      }
     </Column>
   </Grid>
 </FunnelLayout>
@@ -223,6 +234,13 @@ const hasDescriptionContent = (doc: typeof page.description) => {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-24);
+  }
+
+  .form-section__filled {
+    margin: 0;
+    padding: var(--spacing-24);
+    border: 1px solid var(--color-black);
+    font-weight: 600;
   }
 
   @media screen and (min-width: 481px) {

@@ -2,7 +2,7 @@ import { type FormEvent, useRef, useState } from 'react';
 import { actions } from 'astro:actions';
 import { Button } from '@components/Button';
 import { Text } from '@components/Text';
-import { Form, TextField } from '@components/Forms';
+import { Form, TextField, Textarea } from '@components/Forms';
 import { t } from '@lib/i18n';
 
 import './AiInternshipForm.css';
@@ -149,8 +149,9 @@ export const AiInternshipForm = ({
         />
         <TextField
           name="linkedin"
-          label={`${t('linkedin_profile')} (URL)`}
+          label={`${t('linkedin_profile')} (URL)*`}
           type="url"
+          required
           autoComplete="off"
         />
         <TextField
@@ -158,6 +159,13 @@ export const AiInternshipForm = ({
           label={`${t('portfolio_link')} (URL)`}
           type="url"
           autoComplete="off"
+        />
+        <Textarea
+          name="message"
+          label={t('open_question')}
+          rows={4}
+          autoComplete="off"
+          className="form__field--full-width"
         />
       </Form>
 

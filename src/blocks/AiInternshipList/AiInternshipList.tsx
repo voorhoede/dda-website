@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import clsx from 'clsx';
 import { useQuery } from '@tanstack/react-query';
 import type {
   AiInternshipItemFragment,
@@ -79,8 +80,14 @@ export const loader = async (
     orderBy: '_createdAt_DESC',
   });
 
+  // shuffle for fairness, then push filled internships to the end while
+  // keeping the shuffled order within each group (Array.sort is stable)
+  const shuffled = shuffle<AiInternshipItemFragment>(items, seed);
+
   return {
-    items: shuffle<AiInternshipItemFragment>(items, seed),
+    items: shuffled.sort(
+      (a, b) => Number(a.positionFilled) - Number(b.positionFilled),
+    ),
   };
 };
 
@@ -211,6 +218,10 @@ export const AiInternshipList = withQueryClientProvider(
               key={item.id}
               as="li"
               span={{ mobile: 12, tablet: 6, desktop: 4 }}
+              className={clsx(
+                'ai-internship-list__item',
+                item.positionFilled && 'ai-internship-list__item--filled',
+              )}
             >
               <Card>
                 {item.company[0]?.logo?.responsiveImage && (
@@ -228,6 +239,9 @@ export const AiInternshipList = withQueryClientProvider(
                 )}
                 <CardContent>
                   <TagList>
+                    {item.positionFilled && (
+                      <TagListItem>{t('internship_filled')}</TagListItem>
+                    )}
                     <TagListItem>{item.track.name}</TagListItem>
                     <TagListItem>{item.assignmentType.name}</TagListItem>
                   </TagList>

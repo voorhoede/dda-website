@@ -1,0 +1,29 @@
+.textarea {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.textarea__label {
+  width: fit-content;
+  border: 1px solid transparent;
+  color: var(--color-grey);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.textarea__input {
+  border: 1px solid transparent;
+  padding-block: var(--spacing-12);
+  padding-inline: 0px;
+  border-block-end-color: var(--color-black);
+  width: 100%;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  resize: vertical;
+}
+
+.textarea__input {
+  outline: none;
+}
