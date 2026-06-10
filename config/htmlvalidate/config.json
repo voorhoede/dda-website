@@ -7,6 +7,7 @@
 
   "rules": {
     "require-sri": ["off"],
-    "element-permitted-content": ["off"]
+    "element-permitted-content": ["off"],
+    "unique-landmark": ["off"]
   }
 }
