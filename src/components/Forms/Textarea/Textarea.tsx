@@ -1,10 +1,10 @@
-import { type ChangeEvent, type ComponentProps } from 'react';
+import { type ChangeEvent, type ComponentPropsWithoutRef } from 'react';
 import clsx from 'clsx';
 import { Field, Label, Textarea as HeadlessTextarea } from '@headlessui/react';
 
 import './Textarea.css';
 
-type Props = Omit<ComponentProps<typeof HeadlessTextarea>, 'onChange'> & {
+type Props = Omit<ComponentPropsWithoutRef<'textarea'>, 'onChange'> & {
   label: string;
   onChange?: (value: string) => void;
 };
