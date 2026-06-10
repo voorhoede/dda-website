@@ -102,7 +102,7 @@
     "eslint": "^8.49.0",
     "eslint-plugin-astro": "^0.29.0",
     "eventsource": "^2.0.2",
-    "html-validate": "^11.5.3",
+    "html-validate": "^10.17.0",
     "husky": "^8.0.3",
     "jsdom": "^25.0.0",
     "nano-staged": "^0.8.0",
