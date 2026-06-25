@@ -1,7 +1,7 @@
 import { ActionError, defineAction } from 'astro:actions';
-import { TURNSTILE_SECRET_KEY } from 'astro:env/server';
 import { z } from 'astro/zod';
 import { sendEmail, renderEmailTemplate, fillTemplate } from '@lib/transactional-emails';
+import { verifyTurnstile } from '@lib/turnstile';
 import { getEntry } from 'astro:content';
 import { AiInternshipEmail } from '@root/src/email-templates';
 
@@ -27,17 +27,9 @@ const aiInternships = {
       'cf-turnstile-response': z.string().min(1),
     }),
     handler: async (input) => {
-      const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          secret: TURNSTILE_SECRET_KEY,
-          response: input['cf-turnstile-response'],
-        }),
-      });
-      const turnstileResult = await turnstileResponse.json() as { success: boolean };
+      const isValid = await verifyTurnstile(input['cf-turnstile-response']);
 
-      if (!turnstileResult.success) {
+      if (!isValid) {
         throw new ActionError({ code: 'FORBIDDEN', message: 'Turnstile validation failed' });
       }
 
