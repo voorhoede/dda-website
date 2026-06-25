@@ -45,6 +45,8 @@ jobs:
       SCW_PROJECT_ID: '123' # required, but a fake value is sufficient for functionality
       TURNSTILE_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
       TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
+      TURNSTILE_NEWSLETTER_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
+      TURNSTILE_NEWSLETTER_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
 
     steps:
       - uses: actions/checkout@v4
@@ -89,6 +91,8 @@ jobs:
       SCW_PROJECT_ID: '123' # required, but a fake value is sufficient for functionality
       TURNSTILE_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
       TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
+      TURNSTILE_NEWSLETTER_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
+      TURNSTILE_NEWSLETTER_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
 
     steps:
       - uses: actions/checkout@v4
@@ -128,6 +132,8 @@ jobs:
       SCW_PROJECT_ID: '123' # required, but a fake value is sufficient for functionality
       TURNSTILE_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
       TURNSTILE_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
+      TURNSTILE_NEWSLETTER_SITE_KEY: '1x00000000000000000000AA' # Cloudflare Turnstile dummy site key (always passes)
+      TURNSTILE_NEWSLETTER_SECRET_KEY: '1x0000000000000000000000000000000AA' # Cloudflare Turnstile dummy secret key (always passes)
 
     steps:
       - uses: actions/checkout@v4
