@@ -7,10 +7,6 @@ import { MAILCHIMP_FORM_URL, MAILCHIMP_HONEYPOT_ID } from 'astro:env/client';
 import { z } from 'astro/zod';
 import { verifyTurnstile } from '@lib/turnstile';
 
-// Mailchimp list-manage subscribe endpoints are always served from a
-// `*.list-manage.com` host. Restricting the client-supplied form URL to this
-// host prevents the server from being coerced into fetching arbitrary
-// (e.g. internal) URLs — a server-side request forgery (SSRF) vector.
 const isMailchimpUrl = (value: string) => {
   try {
     const { protocol, hostname } = new URL(value);
