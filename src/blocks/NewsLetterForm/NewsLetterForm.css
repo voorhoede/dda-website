@@ -33,3 +33,7 @@
     flex-direction: row;
   }
 }
+
+.newsletter-form__status:focus {
+  outline: none;
+}
