@@ -80,9 +80,13 @@ export const loader = async (
     orderBy: '_createdAt_DESC',
   });
 
+  // internships without a linked member have no detail page (404s), so
+  // hide them from the list
+  const linkedItems = items.filter((item) => item.company.length > 0);
+
   // shuffle for fairness, then push filled internships to the end while
   // keeping the shuffled order within each group (Array.sort is stable)
-  const shuffled = shuffle<AiInternshipItemFragment>(items, seed);
+  const shuffled = shuffle<AiInternshipItemFragment>(linkedItems, seed);
 
   return {
     items: shuffled.sort(
