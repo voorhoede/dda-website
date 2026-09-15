@@ -81,7 +81,7 @@ export const NewsLetterForm = ({
           required
         />
 
-        <TurnstileWidget appearance="interaction-only" />
+        <TurnstileWidget action="newsletter" appearance="interaction-only" />
 
         <Button
           icon="arrow-right"

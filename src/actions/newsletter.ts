@@ -26,7 +26,7 @@ const newsletter = {
       'cf-turnstile-response': z.string().min(1),
     }),
     handler: async (input) => {
-      const isValid = await verifyTurnstile(input['cf-turnstile-response']);
+      const isValid = await verifyTurnstile(input['cf-turnstile-response'], 'newsletter');
 
       if (!isValid) {
         throw new ActionError({ code: 'FORBIDDEN', message: 'Turnstile validation failed' });

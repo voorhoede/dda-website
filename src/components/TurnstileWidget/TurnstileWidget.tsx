@@ -1,7 +1,10 @@
 import { Turnstile, type TurnstileProps } from 'react-turnstile';
 import { TURNSTILE_SITE_KEY } from 'astro:env/client';
+import type { TurnstileAction } from '@lib/turnstile';
 
-type Props = Omit<TurnstileProps, 'sitekey'>;
+type Props = Omit<TurnstileProps, 'sitekey' | 'action'> & {
+  action: TurnstileAction;
+};
 
 export const TurnstileWidget = ({
   theme = 'light',

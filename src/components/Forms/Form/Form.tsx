@@ -1,16 +1,17 @@
 import { type FormHTMLAttributes, type ReactNode } from 'react';
 import { TurnstileWidget } from '@components/TurnstileWidget';
+import type { TurnstileAction } from '@lib/turnstile';
 
 import './Form.css';
 
 type Props = {
-  turnstile?: boolean;
+  turnstile?: TurnstileAction;
   submitButton: ReactNode;
   children: ReactNode;
 } & FormHTMLAttributes<HTMLFormElement>;
 
 export const Form = ({
-  turnstile = false,
+  turnstile,
   submitButton,
   children,
   ...rest
@@ -19,7 +20,7 @@ export const Form = ({
     <form className="form" {...rest}>
       <div className="form__fields">{children}</div>
 
-      {turnstile && <TurnstileWidget />}
+      {turnstile && <TurnstileWidget action={turnstile} />}
 
       <div className="form__submit">{submitButton}</div>
     </form>
