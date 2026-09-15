@@ -100,7 +100,7 @@ export const AiInternshipForm = ({
             {isSubmitting ? t('sending') : t('send')}
           </Button>
         }
-        turnstile={true}
+        turnstile="ai-internship"
       >
         <input type="hidden" name="record-id" value={recordId} />
         <input type="hidden" name="record-title" value={recordTitle} />

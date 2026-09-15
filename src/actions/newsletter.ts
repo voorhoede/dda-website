@@ -1,8 +1,4 @@
 import { ActionError, defineAction } from 'astro:actions';
-import {
-  TURNSTILE_SECRET_KEY,
-  TURNSTILE_NEWSLETTER_SECRET_KEY,
-} from 'astro:env/server';
 import { MAILCHIMP_FORM_URL, MAILCHIMP_HONEYPOT_ID } from 'astro:env/client';
 import { z } from 'astro/zod';
 import { verifyTurnstile } from '@lib/turnstile';
@@ -30,8 +26,7 @@ const newsletter = {
       'cf-turnstile-response': z.string().min(1),
     }),
     handler: async (input) => {
-      const secret = TURNSTILE_NEWSLETTER_SECRET_KEY || TURNSTILE_SECRET_KEY;
-      const isValid = await verifyTurnstile(input['cf-turnstile-response'], secret);
+      const isValid = await verifyTurnstile(input['cf-turnstile-response'], 'newsletter');
 
       if (!isValid) {
         throw new ActionError({ code: 'FORBIDDEN', message: 'Turnstile validation failed' });
