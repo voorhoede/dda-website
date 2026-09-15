@@ -7,7 +7,6 @@ import { t } from '@lib/i18n';
 import {
   MAILCHIMP_FORM_URL,
   MAILCHIMP_HONEYPOT_ID,
-  TURNSTILE_NEWSLETTER_SITE_KEY,
 } from 'astro:env/client';
 import { TurnstileWidget } from '@components/TurnstileWidget';
 import './NewsLetterForm.css';
@@ -82,10 +81,7 @@ export const NewsLetterForm = ({
           required
         />
 
-        <TurnstileWidget
-          siteKey={TURNSTILE_NEWSLETTER_SITE_KEY}
-          appearance="interaction-only"
-        />
+        <TurnstileWidget appearance="interaction-only" />
 
         <Button
           icon="arrow-right"
