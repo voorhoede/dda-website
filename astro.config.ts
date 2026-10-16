@@ -48,15 +48,13 @@ export default defineConfig({
         access: 'public',
         default: isPreview,
       }),
-      MAILCHIMP_FORM_URL: envField.string({
-        context: 'client',
-        access: 'public',
-        default: process.env.MAILCHIMP_FORM_URL,
+      MAILCHIMP_API_KEY: envField.string({
+        context: 'server',
+        access: 'secret'
       }),
-      MAILCHIMP_HONEYPOT_ID: envField.string({
-        context: 'client',
-        access: 'public',
-        default: process.env.MAILCHIMP_HONEYPOT_ID,
+      MAILCHIMP_AUDIENCE_ID: envField.string({
+        context: 'server',
+        access: 'secret'
       }),
       SCW_SECRET_KEY: envField.string({
         context: 'server',

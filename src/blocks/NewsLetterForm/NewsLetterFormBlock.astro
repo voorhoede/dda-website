@@ -1,16 +1,9 @@
 ---
-import type { NewsLetterFormBlockFragment } from '@lib/types/datocms';
 import { NewsLetterForm } from './NewsLetterForm';
-
-type Props = {
-  block: NewsLetterFormBlockFragment;
-}
-
-const { block } = Astro.props;
 ---
 
 <div class="news-letter-form-block">
-  <NewsLetterForm client:load {...block} />
+  <NewsLetterForm client:load />
 </div>
 
 <style>
