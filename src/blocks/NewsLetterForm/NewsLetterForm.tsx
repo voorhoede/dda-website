@@ -58,6 +58,7 @@ export const NewsLetterForm = () => {
           name="email"
           labelStyle="float"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={setEmail}
           required
