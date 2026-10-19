@@ -4,28 +4,15 @@ import { Button } from '@components/Button';
 import { Heading } from '@components/Heading';
 import { Text } from '@components/Text';
 import { t } from '@lib/i18n';
-import {
-  MAILCHIMP_FORM_URL,
-  MAILCHIMP_HONEYPOT_ID,
-} from 'astro:env/client';
 import { TurnstileWidget } from '@components/TurnstileWidget';
 import './NewsLetterForm.css';
 import { TextField } from '@components/Forms';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
-export type Props = {
-  mailchimpFormUrl?: string;
-  mailchimpHoneypotId?: string;
-};
-
-export const NewsLetterForm = ({
-  mailchimpFormUrl = MAILCHIMP_FORM_URL,
-  mailchimpHoneypotId = MAILCHIMP_HONEYPOT_ID,
-}: Props) => {
+export const NewsLetterForm = () => {
   const [status, setStatus] = useState<Status>('idle');
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
   const statusRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -37,9 +24,7 @@ export const NewsLetterForm = ({
       new FormData(event.currentTarget),
     );
 
-    const succeeded = !error && !!data?.success;
-    setMessage(succeeded ? '' : data?.message ?? '');
-    setStatus(succeeded ? 'success' : 'error');
+    setStatus(!error && data.success ? 'success' : 'error');
     requestAnimationFrame(() => statusRef.current?.focus());
   };
   if (status === 'success') {
@@ -68,14 +53,12 @@ export const NewsLetterForm = ({
         method="post"
         onSubmit={handleSubmit}
       >
-        <input type="hidden" name="mailchimp-form-url" value={mailchimpFormUrl} />
-        <input type="hidden" name="mailchimp-honeypot-id" value={mailchimpHoneypotId} />
-
         <TextField
           label={t('email_address')}
           name="email"
           labelStyle="float"
           type="email"
+          autoComplete="email"
           value={email}
           onChange={setEmail}
           required
@@ -99,7 +82,7 @@ export const NewsLetterForm = ({
           role="alert"
           tabIndex={-1}
         >
-          <Text>{message || t('form_error')}</Text>
+          <Text>{t('form_error')}</Text>
         </div>
       )}
     </section>

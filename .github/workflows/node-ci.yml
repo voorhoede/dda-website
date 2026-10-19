@@ -37,8 +37,8 @@ jobs:
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       DATOCMS_ENVIRONMENT: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
-      MAILCHIMP_FORM_URL: '' # required but unused in this workflow
-      MAILCHIMP_HONEYPOT_ID: '' # required but unused in this workflow
+      MAILCHIMP_API_KEY: '' # required but unused in this workflow
+      MAILCHIMP_AUDIENCE_ID: '' # required but unused in this workflow
       SCW_ACCESS_KEY: '' # required but unused in this workflow
       SCW_SECRET_KEY: '123' # required, but a fake value is sufficient for functionality
       SCW_ORGANIZATION_ID: '' # required but unused in this workflow
@@ -81,8 +81,8 @@ jobs:
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       DATOCMS_ENVIRONMENT: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
-      MAILCHIMP_FORM_URL: 'https://example.com' # required, but a fake value is sufficient for functionality
-      MAILCHIMP_HONEYPOT_ID: '123' # required, but a fake value is sufficient for functionality
+      MAILCHIMP_API_KEY: '123-us1' # required, but a fake value is sufficient for functionality
+      MAILCHIMP_AUDIENCE_ID: '123' # required, but a fake value is sufficient for functionality
       SCW_ACCESS_KEY: '' # required but unused in this workflow
       SCW_SECRET_KEY: '123' # required, but a fake value is sufficient for functionality
       SCW_ORGANIZATION_ID: '' # required but unused in this workflow
@@ -120,8 +120,8 @@ jobs:
       DATOCMS_API_TOKEN: '' # required but unused in this workflow
       DATOCMS_ENVIRONMENT: '' # required but unused in this workflow
       HEAD_START_PREVIEW_SECRET: '' # required but unused in this workflow
-      MAILCHIMP_FORM_URL: '' # required but unused in this workflow
-      MAILCHIMP_HONEYPOT_ID: '' # required but unused in this workflow
+      MAILCHIMP_API_KEY: '' # required but unused in this workflow
+      MAILCHIMP_AUDIENCE_ID: '' # required but unused in this workflow
       SCW_ACCESS_KEY: '' # required but unused in this workflow
       SCW_SECRET_KEY: '123' # required, but a fake value is sufficient for functionality
       SCW_ORGANIZATION_ID: '' # required but unused in this workflow
