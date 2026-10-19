@@ -1,7 +1,6 @@
 #import '@blocks/ImageBlock/ImageBlock.fragment.graphql'
 #import '@blocks/VideoEmbedBlock/VideoEmbedBlock.fragment.graphql'
 #import '@blocks/CtaBlock/CtaBlock.fragment.graphql'
-#import '@blocks/NewsLetterForm/NewsLetterForm.fragment.graphql'
 #import '@blocks/EmbedBlock/EmbedBlock.fragment.graphql'
 
 fragment TextBlock on TextBlockRecord {
@@ -16,9 +15,6 @@ fragment TextBlock on TextBlockRecord {
       }
       ... on CtaBlockRecord {
         ...CtaBlock
-      }
-      ... on NewsLetterFormBlockRecord {
-        ...NewsLetterFormBlock
       }
       ... on EmbedBlockRecord {
         ...EmbedBlock

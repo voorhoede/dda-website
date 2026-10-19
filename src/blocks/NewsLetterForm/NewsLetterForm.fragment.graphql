@@ -1,3 +1,0 @@
-fragment NewsLetterFormBlock on NewsLetterFormBlockRecord {
-  id
-}
