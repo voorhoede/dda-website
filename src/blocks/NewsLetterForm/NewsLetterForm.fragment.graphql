@@ -1,5 +1,3 @@
 fragment NewsLetterFormBlock on NewsLetterFormBlockRecord {
   id
-  mailchimpFormUrl
-  mailchimpHoneypotId
 }
