@@ -2,31 +2,22 @@
 import type { SiteLocale } from '@lib/i18n.types';
 import type { NotFoundPageQuery, NotFoundPageRecord } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
+import { setCacheControl } from '@lib/cache-control';
 import { noIndexTag, titleTag } from '@lib/seo';
 import Layout from '@layouts/Default.astro';
 import Blocks from '@blocks/Blocks.astro';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import type { AnyBlock } from '@blocks/Blocks';
-import { getCachedNotFound, getNotFoundCacheKey, notFoundCacheHeader } from '@lib/not-found-cache';
 import query from './_404.query.graphql';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 export const prerender = false;
 
 Astro.response.status = 404;
 
+// Let the Cloudflare proxy cache the 404 for 1 hour (bots/scanners hit it often), so it costs no DatoCMS calls.
+if (!Astro.locals.isPreview) setCacheControl(Astro.response, 0, 3600);
+
 const { locale } = Astro.params as { locale: SiteLocale };
-
-// Serve the rendered page from the cache when possible, so a 404 does not cost any DatoCMS API calls.
-// The not-found-cache middleware fills the cache. Preview always renders fresh content.
-const { isPreview, isPreviewAuthOk } = Astro.locals as { isPreview?: boolean; isPreviewAuthOk?: boolean };
-const cache = globalThis.caches?.default;
-const useCache = Boolean(cache) && !isPreview && !isPreviewAuthOk;
-if (cache && useCache) {
-  const cached = await getCachedNotFound(cache, getNotFoundCacheKey(Astro.url, locale));
-  if (cached) return cached;
-  Astro.response.headers.set(notFoundCacheHeader, 'miss');
-}
-
 const { page } = (await datocmsRequest<NotFoundPageQuery>({
   query,
   variables: { locale },
