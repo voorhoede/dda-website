@@ -1,0 +1,63 @@
+# Combined fields of MemberLogo and MemberCard, so all members are fetched in one go
+# (see src/content/config.ts). Keep in sync with both fragments. The logo is aliased
+# per variant because both request different image transformations.
+fragment MemberAll on MemberRecord {
+  id
+  name
+  brandColor {
+    hex
+  }
+  logoForLogo: logo {
+    id
+    responsiveImage(imgixParams: { fit: fill, w: 200, h: 200, auto: format }) {
+      src
+      srcSet
+      width
+      height
+      alt
+      title
+      base64
+      bgColor
+      sizes
+    }
+  }
+  logoForCard: logo {
+    responsiveImage(imgixParams: { fit: crop, h: 416, auto: format }) {
+      base64
+      height
+      width
+      aspectRatio
+      sizes
+      src
+      srcSet
+      webpSrcSet
+      bgColor
+      alt
+      title
+    }
+  }
+  banner {
+    alt
+    title
+    width
+    height
+    url
+    responsiveImage(imgixParams: { h: 500, auto: format }) {
+      alt
+      base64
+      bgColor
+      height
+      sizes
+      src
+      srcSet
+      title
+      width
+    }
+  }
+  location
+  employees
+  slug
+  vacancies {
+    id
+  }
+}

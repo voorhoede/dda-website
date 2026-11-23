@@ -78,12 +78,22 @@ interface CollectionData<CollectionType> {
 type CollectionMeta = {
   count: number;
 };
+type DatocmsCollectionOptions = {
+  collection: string;
+  fragment: string;
+  fragmentName: string;
+  filter?: Record<string, unknown>;
+  orderBy?: string;
+};
+
 /**
  * Returns all records from a DatoCMS collection (like 'Pages')
  * with data for each record based on the provided fragment.
  *
  * DatoCMS GraphQL API has a limit of 100 records per request.
  * This function uses pagination to get all records.
+ * The record count is requested together with the first page,
+ * so no separate count request is needed.
  * @see https://www.datocms.com/docs/content-delivery-api/pagination
  */
 export const datocmsCollection = async <CollectionType>({
@@ -92,44 +102,31 @@ export const datocmsCollection = async <CollectionType>({
   fragmentName,
   filter,
   orderBy,
-}: {
-  collection: string;
-  fragment: string;
-  fragmentName: string;
-  filter?: Record<string, unknown>;
-  orderBy?: string;
-}) => {
-  const { meta } = (await datocmsRequest({
-    query: parse(/* graphql */ `
-      query ${collection}Meta {
-        meta: _all${collection}Meta { count }
-      }
-   `),
-  })) as { meta: CollectionMeta };
-
+}: DatocmsCollectionOptions) => {
   const recordsPerPage = 100; // DatoCMS GraphQL API has a limit of 100 records per request
-  const totalPages = Math.ceil(meta.count / recordsPerPage);
   const records: CollectionType[] = [];
   const singularCollectionName = pluralize.singular(collection);
 
+  const parameters =
+    filter || orderBy
+      ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
+      : '';
+
+  const variables =
+    filter || orderBy
+      ? {
+        filter,
+        orderBy,
+      }
+      : {};
+
+  let totalPages = 1; // the first page is always requested and reveals the real total
   for (let page = 0; page < totalPages; page++) {
-    const parameters =
-      filter || orderBy
-        ? `($filter: ${singularCollectionName}ModelFilter, $orderBy: [${singularCollectionName}ModelOrderBy])`
-        : '';
-
-    const variables =
-      filter || orderBy
-        ? {
-          filter,
-          orderBy,
-        }
-        : {};
-
     const data = (await datocmsRequest({
       query: parse(/* graphql */ `
         ${fragment}
         query All${collection} ${parameters} {
+          ${page === 0 ? `meta: _all${collection}Meta ${filter ? '(filter: $filter)' : ''} { count }` : ''}
           ${collection}: all${collection} (
              first: ${recordsPerPage},
              skip: ${page * recordsPerPage},
@@ -141,10 +138,41 @@ export const datocmsCollection = async <CollectionType>({
         }
       `),
       variables,
-    })) as CollectionData<CollectionType>;
+    })) as CollectionData<CollectionType> & { meta?: CollectionMeta };
 
+    if (page === 0) {
+      totalPages = Math.ceil(data.meta!.count / recordsPerPage);
+    }
     records.push(...data[collection]);
   }
 
   return records;
+};
+
+const collectionsOnce = new Map<string, Promise<unknown[]>>();
+/**
+ * Same as `datocmsCollection`, but memoized for the lifetime of the process.
+ * Use it for build-time content loaders, which would otherwise fetch the same
+ * collection (with the same fragment) again for each content collection.
+ * Do not use it at runtime where fresh data is expected for each request.
+ */
+export const datocmsCollectionOnce = <CollectionType>(
+  options: DatocmsCollectionOptions,
+) => {
+  const key = JSON.stringify([
+    options.collection,
+    options.fragmentName,
+    options.fragment,
+    options.filter,
+    options.orderBy,
+  ]);
+  let promise = collectionsOnce.get(key) as Promise<CollectionType[]> | undefined;
+  if (!promise) {
+    promise = datocmsCollection<CollectionType>(options);
+    collectionsOnce.set(key, promise);
+    // do not cache failures, so a later call can retry
+    promise.catch(() => collectionsOnce.delete(key));
+  }
+  // hand out a copy, so callers cannot affect each other by mutating the array
+  return promise.then((records) => [...records]);
 };
