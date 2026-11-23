@@ -1,7 +1,6 @@
 ---
-import { setCacheControl } from '@lib/cache-control';
-import { datocmsRequest } from '@lib/datocms';
-import { t } from '@lib/i18n';
+import { datocmsCollection, datocmsRequest } from '@lib/datocms';
+import { defaultLocale, t } from '@lib/i18n';
 import type { AiInternshipQuery, SiteLocale } from '@lib/types/datocms';
 
 import query from './index.query.graphql';
@@ -22,7 +21,30 @@ import { MemberLogo } from '@blocks/MemberLogo';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { AiInternshipForm } from '@components/AiInternshipForm';
 
-setCacheControl(Astro.response);
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const internships = await datocmsCollection<{
+    id: string;
+    _allReferencingMembers: Array<{ id: string }>;
+  }>({
+    collection: 'AiInternships',
+    fragmentName: 'AiInternshipId',
+    fragment: `
+      fragment AiInternshipId on AiInternshipRecord {
+        id
+        _allReferencingMembers { id }
+      }
+    `,
+  });
+
+  // Internships without a linked member 404 (see below), so don't build them.
+  return internships
+    .filter((internship) => internship._allReferencingMembers.length > 0)
+    .map((internship) => ({
+      params: { locale: defaultLocale, id: internship.id },
+    }));
+}
 
 const { locale, id } = Astro.params as { locale: SiteLocale; id: string };
 const { page } = await datocmsRequest<AiInternshipQuery>({

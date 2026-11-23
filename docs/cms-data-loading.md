@@ -158,3 +158,11 @@ export async function getStaticPaths() {
 ## DatoCMS search
 
 See [`datocmsSearch()` in the Search documentation](./search.md#search-lib-function).
+
+## Prerendered pages and rebuilds
+
+Pages whose output does not depend on the request are prerendered (`export const prerender = true`) so they cost no DatoCMS calls at run-time: the CMS-managed pages (`[...path]`), `login`, `over-ons`, and the detail pages of members (`leden/[slug]`), events (`events/[slug]`), publications (`publicaties/[slug]`) and AI internships (`ai-stages/vacatures/[id]`). Detail pages enumerate their slugs in `getStaticPaths()` using `datocmsCollection`.
+
+Pages that read query parameters, cookies or headers, or that show date-dependent content (the home page and all overview pages with list blocks) stay server-rendered.
+
+**Trade-off:** content of prerendered pages only changes after a new deploy. Configure a DatoCMS build trigger / webhook (on publish) that calls the Cloudflare Pages deploy hook so published changes go live. This is configuration outside this repository. Preview deployments keep working through the live `PreviewModeSubscription`, but the initial HTML is as of the last build.

@@ -1,7 +1,6 @@
 ---
-import { t } from '@lib/i18n';
-import { datocmsRequest } from '@lib/datocms';
-import { setCacheControl } from '@lib/cache-control';
+import { defaultLocale, t } from '@lib/i18n';
+import { datocmsCollection, datocmsRequest } from '@lib/datocms';
 import type {
   EventPageQuery,
   EventPageQueryVariables,
@@ -22,7 +21,31 @@ import { Column, Grid } from '@components/Grid';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import { SRCImage } from 'react-datocms';
 
-setCacheControl(Astro.response);
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const events = await datocmsCollection<{
+    details: Array<{ __typename: string; slug?: string }>;
+  }>({
+    collection: 'Events',
+    fragmentName: 'EventSlugs',
+    fragment: `
+      fragment EventSlugs on EventRecord {
+        details {
+          __typename
+          ... on InternalEventRecord { slug }
+        }
+      }
+    `,
+  });
+
+  return events
+    .flatMap((event) => event.details ?? [])
+    .filter((detail) => detail.__typename === 'InternalEventRecord' && detail.slug)
+    .map((detail) => ({
+      params: { locale: defaultLocale, slug: detail.slug as string },
+    }));
+}
 
 const { locale, slug } = Astro.params as { locale: SiteLocale; slug: string };
 const { page } = await datocmsRequest<EventPageQuery, EventPageQueryVariables>({

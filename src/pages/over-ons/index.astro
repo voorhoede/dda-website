@@ -5,8 +5,7 @@ import {
   type AboutUsPageQueryVariables,
 } from '@lib/types/datocms';
 import { datocmsRequest } from '@lib/datocms';
-import { t } from '@lib/i18n';
-import { setCacheControl } from '@lib/cache-control';
+import { defaultLocale, t } from '@lib/i18n';
 import query from './_index.query.graphql';
 
 import Layout from '@layouts/Default.astro';
@@ -23,9 +22,9 @@ import MemberParade from '@blocks/MemberParade/MemberParade.astro';
 import TextBlock from '@blocks/TextBlock/TextBlock.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 
-setCacheControl(Astro.response);
+export const prerender = true;
 
-const { locale } = Astro.params;
+const { locale = defaultLocale } = Astro.params;
 const { page, teamMembers } = await datocmsRequest<
   AboutUsPageQuery,
   AboutUsPageQueryVariables

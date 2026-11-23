@@ -10,6 +10,9 @@ import type { LoginPageQuery } from '@lib/types/datocms';
 import type { TextBlockFragment } from '@lib/types/datocms';
 import { t } from '@lib/i18n';
 import query from './login.query.graphql';
+
+export const prerender = true;
+
 const { locale = defaultLocale } = Astro.params;
 
 const { loginPage: page } = await datocmsRequest<LoginPageQuery>({
