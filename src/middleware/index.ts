@@ -6,10 +6,12 @@ import { i18n } from './i18n';
 import { preview } from './preview';
 import { forceTrailingSlash } from './force-trailing-slash';
 import { redirects } from './redirects';
+import { edgeCache } from './edge-cache';
 
 export { hashSecret, previewCookieName } from './preview';
 
 export const onRequest = sequence(
+  edgeCache,
   domainRouting,
   headers,
   datocms,

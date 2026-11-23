@@ -15,6 +15,7 @@ import { getPageSlugFromPath } from '@blocks/InternalLink';
 import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 import query from './_index.query.graphql';
+import { setCacheControl } from '@lib/cache-control';
 import { defaultLocale } from '@lib/i18n';
 import { Column, Grid } from '@components/Grid';
 import { Text } from '@components/Text';
@@ -25,6 +26,8 @@ type Params = {
 };
 
 const { locale = defaultLocale } = Astro.params as Params;
+
+setCacheControl(Astro.response);
 const variables = { locale, slug: getPageSlugFromPath('/ai-stages') };
 const { page } = (await datocmsRequest<PageQuery>({ query, variables })) as {
   page: PageRecord;

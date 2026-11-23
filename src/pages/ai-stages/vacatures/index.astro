@@ -10,7 +10,7 @@ import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscrip
 import query from './_index.query.graphql';
 import { AiInternshipList } from '@blocks/AiInternshipList';
 
-setCacheControl(Astro.response, 0, 10);
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 

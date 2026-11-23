@@ -1,8 +1,10 @@
-// 1 minute
+import { EDGE_CACHE_MARKER_HEADER, EDGE_CACHE_TTL } from './edge-cache';
+
+// Browsers always revalidate with the edge
 const defaultMaxAge = 0;
 
-// 1 hour
-const defaultCdnMaxAge = 60;
+// Edge cache TTL in seconds (see edge-cache middleware)
+const defaultCdnMaxAge = EDGE_CACHE_TTL;
 
 export const setCacheControl = (
   response: ResponseInit,
@@ -14,5 +16,7 @@ export const setCacheControl = (
   if (headers) {
     headers.set('Cache-Control', `public, max-age=${maxAge}, must-revalidate`);
     headers.set('CDN-Cache-Control', `public, max-age=${cdnMaxAge}, must-revalidate`);
+    // Opts this response in to the edge cache (see src/middleware/edge-cache.ts)
+    headers.set(EDGE_CACHE_MARKER_HEADER, '1');
   }
 };
