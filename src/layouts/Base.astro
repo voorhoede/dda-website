@@ -1,12 +1,5 @@
 ---
-import type {
-  DefaultLayoutQuery,
-  Site,
-  SiteLocale,
-  FooterRecord,
-  Tag as MetaTag,
-} from '@lib/types/datocms';
-import { datocmsRequest } from '@lib/datocms';
+import type { Site, SiteLocale, Tag as MetaTag } from '@lib/types/datocms';
 import { defaultLocale } from '@lib/i18n';
 import IconSprite from '@components/Icon/IconSprite.astro';
 import PreviewModeProvider from '@components/PreviewMode/PreviewModeProvider.astro';
@@ -17,9 +10,9 @@ import '@assets/a11y.css';
 import '@assets/core.css';
 import '@assets/layout.css';
 import '@assets/typography.css';
-import query from './default.query.graphql';
 
 interface Props {
+  site: Pick<Site, 'faviconMetaTags'>;
   pageUrls: PageUrl[];
   seoMetaTags: MetaTag[];
 }
@@ -28,12 +21,7 @@ const { locale = defaultLocale as SiteLocale } = Astro.params as {
   locale?: SiteLocale;
 };
 
-const data = (await datocmsRequest<DefaultLayoutQuery>({
-  query,
-  variables: { locale },
-})) as { site: Site; footer: FooterRecord };
-
-const { pageUrls, seoMetaTags } = Astro.props;
+const { site, pageUrls, seoMetaTags } = Astro.props;
 ---
 
 <!doctype html>
@@ -62,7 +50,7 @@ const { pageUrls, seoMetaTags } = Astro.props;
     
     <SeoHead
       pageUrls={pageUrls}
-      tags={[...data.site.faviconMetaTags, ...seoMetaTags]}
+      tags={[...site.faviconMetaTags, ...seoMetaTags]}
     />
       
     <Plausible />
