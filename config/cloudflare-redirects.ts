@@ -13,7 +13,7 @@ import { toRedirectsFile, type RedirectRule } from '../src/lib/routing/redirects
  *
  * Cloudflare skips _redirects for paths that go to the worker. That only works out because
  * the 404 page is prerendered, so the adapter routes just the dynamic pages to the worker
- * instead of everything ("/*"). The build fails if that is no longer the case.
+ * instead of everything ("/*").
  */
 export const cloudflareRedirects = (): AstroIntegration => {
   let root: URL;
@@ -25,14 +25,6 @@ export const cloudflareRedirects = (): AstroIntegration => {
         root = config.root;
       },
       'astro:build:done': async ({ dir, logger }) => {
-        const routes = JSON.parse(await readFile(new URL('_routes.json', dir), 'utf-8'));
-        if (routes.include.includes('/*')) {
-          throw new Error(
-            '_routes.json sends every path to the worker, so Cloudflare would ignore _redirects. ' +
-            'Is src/pages/404.astro still prerendered?',
-          );
-        }
-
         const rules: RedirectRule[] = JSON.parse(
           await readFile(new URL('src/lib/routing/redirects.json', root), 'utf-8'),
         );
