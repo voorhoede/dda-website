@@ -9,9 +9,7 @@ import PageHeader from '@blocks/PageHeader/PageHeader.astro';
 import type { AnyBlock } from '@blocks/Blocks';
 import query from './_404.query.graphql';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
-export const prerender = false;
-
-Astro.response.status = 404;
+export const prerender = true;
 
 const { locale } = Astro.params as { locale: SiteLocale };
 const { page } = (await datocmsRequest<NotFoundPageQuery>({

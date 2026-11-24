@@ -1,20 +1,14 @@
-import type { ValidRedirectStatus } from 'astro';
-import { parse, inject } from 'regexparam';
-import redirectConfiguration from './redirects.json';
-
 export const defaultRedirectStatus = 302;
 
-interface getPathParamsInput {
-  pathname: string;
-  pattern: RegExp;
-  keys: string[];
+type RedirectStatus = 301 | 302 | 303 | 307 | 308;
+
+export interface RedirectRule {
+  from: string;
+  to: string;
+  statusCode: string;
 }
 
-interface ParamsOutput {
-  [key: string]: string | null;
-}
-
-export const redirectStatusCode = (statusCode: number): ValidRedirectStatus => {
+export const redirectStatusCode = (statusCode: number): RedirectStatus => {
   switch (statusCode) {
   case 301:
   case 302:
@@ -28,61 +22,28 @@ export const redirectStatusCode = (statusCode: number): ValidRedirectStatus => {
 };
 
 /**
- * Extracts parameters from a pathname using a pattern and keys.
- * Example:
- *   getPathParams({ pathname: '/blog/123', pattern: /^\/blog\/(\d+)$/, keys: ['id'] })
- *   // Returns: { id: '123' }
+ * Serializes redirect rules from DatoCMS into a Cloudflare Pages `_redirects` file.
+ * Cloudflare handles these before the request reaches the worker, so a redirect costs
+ * no worker invocation and no DatoCMS calls. The rule syntax (`:placeholder`, `*` and
+ * `:splat`) is the same in DatoCMS and Cloudflare, so rules are written as is.
+ *
+ * - Cloudflare only accepts relative sources, so rules whose `from` is a full URL are skipped.
+ * - The previous runtime matching treated the trailing slash as optional, so a rule ending
+ *   in a slash is also written without it.
+ * - Cloudflare uses the first matching rule, so the DatoCMS order is kept.
+ *
+ * Constraint: Cloudflare skips _redirects for paths that go to the worker, which are the
+ * dynamic routes listed in _routes.json (such as /leden/* and /publicaties/*). A rule
+ * whose source falls under one of those paths has no effect.
  */
-const getPathParams = ({
-  pathname,
-  pattern,
-  keys,
-}: getPathParamsInput): ParamsOutput => {
-  const matches = pattern.exec(pathname);
-  const params = keys.reduce<ParamsOutput>((out, key, index) => {
-    out[key] = matches?.[index + 1] || null;
-    return out;
-  }, {});
-
-  // we used to support Netlify- and Cloudflare-style patterns which use a :splat for wildcard placeholders
-  params.splat = params['*'];
-
-  return params;
-};
-
-const redirectRules = redirectConfiguration.map(
-  (rule: { from: string; to: string; statusCode: string }) => {
-    const { keys, pattern } = parse(rule.from);
-    const statusCode = redirectStatusCode(Number(rule.statusCode));
-    return {
-      from: rule.from,
-      to: rule.to,
-      statusCode,
-      keys,
-      pattern,
-    };
-  },
-);
-
-/**
- * Returns matching redirect rule for a given pathname.
- * The pathname must start with a slash (/...).
- */
-export const getRedirectTarget = (pathname: string) => {
-  const matchingRule = redirectRules.find((rule) =>
-    rule.pattern.test(pathname),
-  );
-  if (!matchingRule) return;
-
-  const params = getPathParams({
-    pathname,
-    pattern: matchingRule.pattern,
-    keys: matchingRule.keys,
-  });
-
-  const output = {
-    url: inject(matchingRule.to, params),
-    statusCode: matchingRule.statusCode,
-  };
-  return output;
-};
+export const toRedirectsFile = (rules: RedirectRule[]) =>
+  rules
+    .filter((rule) => rule.from.startsWith('/'))
+    .flatMap((rule) => {
+      const status = redirectStatusCode(Number(rule.statusCode));
+      const sources = rule.from.length > 1 && rule.from.endsWith('/')
+        ? [rule.from, rule.from.slice(0, -1)]
+        : [rule.from];
+      return sources.map((from) => `${from} ${rule.to} ${status}`);
+    })
+    .join('\n') + '\n';
