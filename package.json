@@ -37,7 +37,8 @@
     "pretest": "npm run prep",
     "test": "run-s test:*",
     "test:unit": "vitest run",
-    "post": "echo 'add post:x scripts and change this like to \"run-s post:* --print-label\"'",
+    "post": "run-s post:* --print-label",
+    "post:redirects": "jiti scripts/write-redirects.ts",
     "postinstall": "npx husky install"
   },
   "dependencies": {
@@ -75,7 +76,6 @@
     "react-dom": "^18.3.1",
     "react-focus-on": "^3.9.4",
     "react-turnstile": "^1.1.5",
-    "regexparam": "^3.0.0",
     "rosetta": "^1.1.0",
     "typescript": "^5.2.2"
   },
