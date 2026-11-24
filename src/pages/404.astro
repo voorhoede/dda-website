@@ -11,8 +11,6 @@ import query from './_404.query.graphql';
 import PreviewModeSubscription from '@components/PreviewMode/PreviewModeSubscription.astro';
 export const prerender = true;
 
-Astro.response.status = 404;
-
 const { locale } = Astro.params as { locale: SiteLocale };
 const { page } = (await datocmsRequest<NotFoundPageQuery>({
   query,
