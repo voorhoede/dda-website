@@ -1,73 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 type SearchParams = Record<string, string | undefined>;
 
+const isEmpty = (value: string | null | undefined) =>
+  value === null || value === undefined || value === '';
+
+/**
+ * Applies changed params to the current state. Empty values remove the param.
+ */
+export const mergeSearchParams = <T extends SearchParams>(
+  current: T,
+  changes: Partial<T>,
+): T => {
+  const next: SearchParams = { ...current };
+
+  Object.entries(changes).forEach(([key, value]) => {
+    if (isEmpty(value)) {
+      delete next[key];
+    } else {
+      next[key] = value;
+    }
+  });
+
+  return next as T;
+};
+
+/**
+ * Filter state of a list block, mirrored to the URL.
+ *
+ * The state is the single source of truth. It starts from `initialParams`, which the
+ * server derives from the request URL, so the first browser render and its query key
+ * match the server render and its dehydrated data. Changes are written to the URL with
+ * `replaceState`, keeping unrelated params like `utm_source`. Because history never gets
+ * entries with other filter values, there is no need to read state back from the URL.
+ */
 export const useSearchParams = <T extends SearchParams = SearchParams>(
   initialParams: T,
 ) => {
-  const [searchParams, setSearchParamsState] = useState<T>(() => {
-    if (typeof window === 'undefined') {
-      return initialParams;
-    }
+  const [searchParams, setSearchParamsState] = useState<T>(initialParams);
 
-    const params = new URLSearchParams(window.location.search);
+  const updateSearchParams = (changes: Partial<T>) => {
+    const urlParams = new URLSearchParams(window.location.search);
 
-    // Merge initialParams with URL params
-    Object.entries(initialParams).forEach(([key, value]) => {
-      if (!params.has(key) && value !== undefined) {
-        params.set(key, value);
-      }
-    });
-
-    const entries: [keyof T, string][] = Array.from(params.entries()) as [
-      keyof T,
-      string,
-    ][];
-
-    return Object.fromEntries(entries) as T;
-  });
-
-  const updateSearchParams = (newParams: Partial<T>) => {
-    const params = new URLSearchParams(window.location.search);
-
-    // Update or add new params
-    Object.entries(newParams).forEach(([key, value]) => {
-      if (value === null || value === undefined || value === '') {
-        params.delete(key); // Remove the param if the value is null/undefined
+    Object.entries(changes).forEach(([key, value]) => {
+      if (isEmpty(value)) {
+        urlParams.delete(key);
       } else {
-        params.set(key, value); // Set the param
+        urlParams.set(key, value!);
       }
     });
 
-    // Update the browser's URL without reloading the page
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.replaceState(null, '', newUrl);
-
-    // Update the local state
-    const updatedEntries: [keyof T, string][] = Array.from(
-      params.entries(),
-    ) as [keyof T, string][];
-    setSearchParamsState(Object.fromEntries(updatedEntries) as T);
+    window.history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}?${urlParams.toString()}`,
+    );
+    setSearchParamsState((current) => mergeSearchParams(current, changes));
   };
-
-  // Sync state with URL changes (e.g., browser navigation)
-  useEffect(() => {
-    const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const entries: [keyof T, string][] = Array.from(params.entries()) as [
-        keyof T,
-        string,
-      ][];
-
-      setSearchParamsState(Object.fromEntries(entries) as T);
-    };
-
-    window.addEventListener('popstate', handlePopState);
-
-    return () => {
-      window.removeEventListener('popstate', handlePopState);
-    };
-  }, []);
 
   return [searchParams, updateSearchParams] as const;
 };

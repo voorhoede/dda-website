@@ -31,7 +31,9 @@ export function withQueryClientProvider<T extends object>(
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-            refetchOnMount: true,
+            // use the dehydrated SSR data instead of refetching on hydration
+            staleTime: 5 * 60 * 1000,
+            refetchOnMount: false,
             placeholderData: keepPreviousData,
           },
         },
