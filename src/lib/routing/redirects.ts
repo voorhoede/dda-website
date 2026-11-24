@@ -33,7 +33,7 @@ export const redirectStatusCode = (statusCode: number): RedirectStatus => {
  * - Cloudflare uses the first matching rule, so the DatoCMS order is kept.
  *
  * Constraint: Cloudflare skips _redirects for paths that go to the worker, which are the
- * dynamic routes listed in dist/_routes.json (such as /leden/* and /publicaties/*). A rule
+ * dynamic routes listed in _routes.json (such as /leden/* and /publicaties/*). A rule
  * whose source falls under one of those paths has no effect.
  */
 export const toRedirectsFile = (rules: RedirectRule[]) =>

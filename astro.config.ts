@@ -2,6 +2,7 @@ import { defineConfig, envField } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import graphql from '@rollup/plugin-graphql';
 import { isPreview } from './config/preview';
+import { cloudflareRedirects } from './config/cloudflare-redirects';
 
 import preact from '@astrojs/preact';
 
@@ -78,6 +79,7 @@ export default defineConfig({
     preact({
       compat: true,
     }),
+    cloudflareRedirects(),
   ],
   output: 'server',
   server: { port: localhostPort },
