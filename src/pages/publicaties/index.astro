@@ -12,7 +12,7 @@ import { defaultLocale, t } from '@lib/i18n';
 import type { PublicationsPageQuery } from '@lib/types/datocms';
 import query from './_index.query.graphql';
 
-setCacheControl(Astro.response, 0, 10);
+setCacheControl(Astro.response);
 
 const { locale = defaultLocale } = Astro.params;
 
