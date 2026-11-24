@@ -25,6 +25,7 @@ const searchParams = Astro.url.searchParams;
 const initialParams = {
   page: searchParams.get('page') ?? '1',
   zoek: searchParams.get('zoek') ?? '',
+  thema: searchParams.get('thema') ?? '',
 };
 const initialData = await loader({
   searchParams: initialParams,

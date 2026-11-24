@@ -1,8 +1,8 @@
-// 1 minute
+// 0 seconds: browsers always revalidate
 const defaultMaxAge = 0;
 
-// 1 hour
-const defaultCdnMaxAge = 60;
+// 10 minutes: Cloudflare edge cache
+const defaultCdnMaxAge = 600;
 
 export const setCacheControl = (
   response: ResponseInit,

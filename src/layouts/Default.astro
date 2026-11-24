@@ -40,7 +40,7 @@ const { breadcrumbs = [], pageUrls, seoMetaTags } = Astro.props;
 const mainContentId = 'content';
 ---
 
-<Base pageUrls={pageUrls} seoMetaTags={seoMetaTags}>
+<Base site={data.site} pageUrls={pageUrls} seoMetaTags={seoMetaTags}>
   <div class="main-container">
     <SkipLink targetId={mainContentId} />
     <Header client:load />
